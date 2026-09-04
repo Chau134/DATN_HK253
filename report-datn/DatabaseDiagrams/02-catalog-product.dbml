@@ -1,0 +1,135 @@
+// Sơ đồ nhóm dữ liệu danh mục và sản phẩm
+
+// Các bảng có ghi chú [note: 'Bảng tham chiếu rút gọn'] chỉ dùng để làm rõ quan hệ liên nhóm.
+
+Project ecommerce_catalog_product {
+
+  database_type: 'MySQL'
+
+  Note: 'Sơ đồ nhóm dữ liệu danh mục và sản phẩm'
+
+}
+
+Table products {
+  id bigint [pk, not null]
+  age_group varchar(100)
+  age_group_vi varchar(100)
+  article_number varchar(100)
+  base_colour varchar(100)
+  base_colour_vi varchar(100)
+  brand_name varchar(150)
+  catalog_add_date datetime(6)
+  colour1 varchar(100)
+  colour1_vi varchar(100)
+  colour2 varchar(100)
+  colour2_vi varchar(100)
+  created_at datetime(6)
+  description text
+  description_vi text
+  external_id bigint
+  fit varchar(150)
+  fit_vi varchar(150)
+  gender varchar(50)
+  gender_vi varchar(50)
+  main_image text
+  material varchar(150)
+  material_vi varchar(150)
+  product_display_name varchar(255) [not null]
+  product_display_name_vi varchar(255)
+  product_usage varchar(100)
+  product_usage_vi varchar(100)
+  season varchar(50)
+  season_vi varchar(50)
+  updated_at datetime(6)
+  variant_name varchar(255)
+  variant_name_vi varchar(255)
+  year int
+}
+
+Table categories {
+  id bigint [pk, not null, increment]
+  source_category_id bigint
+  category_level varchar(50) [not null]
+  category_name varchar(150) [not null]
+  is_active boolean
+  category_name_vi varchar(150)
+  parent_id bigint
+  canonical_code varchar(100) [unique]
+
+  indexes {
+    (category_level, category_name) [unique]
+  }
+}
+
+Table product_categories {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  category_id bigint [not null]
+
+  indexes {
+    (product_id, category_id) [unique]
+  }
+}
+
+Table product_variants {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  sku_id bigint [unique]
+  option_name varchar(100)
+  option_value varchar(100)
+  unified_size varchar(100)
+  inventory_count int
+  available boolean
+  active boolean
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table product_attributes {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  attr_key varchar(255) [not null]
+  attr_value text
+  created_at timestamp
+  updated_at timestamp
+  attr_value_vi text
+
+  indexes {
+    (product_id, attr_key) [unique]
+  }
+}
+
+Table product_images {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  image_type varchar(50) [not null]
+  image_url text [not null]
+  sort_order int
+  created_at timestamp
+}
+
+Table product_prices {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  selling_price decimal(12,2) [not null]
+  import_price decimal(12,2)
+  vat decimal(8,2)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref: categories.parent_id > categories.id [delete: set null]
+
+Ref: product_attributes.product_id > products.id [delete: cascade]
+
+Ref: product_categories.category_id > categories.id [delete: cascade]
+
+Ref: product_categories.product_id > products.id [delete: cascade]
+
+Ref: product_images.product_id > products.id [delete: cascade]
+
+Ref: product_prices.product_id > products.id [delete: cascade]
+
+Ref: product_variants.product_id > products.id [delete: cascade]
+
+

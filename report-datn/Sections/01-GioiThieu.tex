@@ -1,0 +1,64 @@
+%=========================
+% Sections/01-GioiThieu.tex
+% Chương 1 – Giới thiệu
+%=========================
+
+\section{Giới thiệu}
+
+\subsection{Động lực}
+\indent Trong thương mại điện tử, người dùng không chỉ tìm sản phẩm bằng từ khóa mà còn mô tả nhu cầu bằng ngôn ngữ tự nhiên hoặc cung cấp hình ảnh tham chiếu. Tìm kiếm truyền thống khó xử lý đồng thời ngữ nghĩa, đặc trưng thị giác và các ràng buộc nghiệp vụ, vì vậy kết quả có thể chưa phù hợp với ý định mua sắm.
+
+\indent Từ nhu cầu đó, đề tài \textit{\enquote{Xây dựng Trợ lý Mua sắm Đa phương tiện sử dụng RAG và Computer Vision}} xây dựng một hệ thống hỗ trợ tìm kiếm và tư vấn sản phẩm bằng văn bản, hình ảnh và hội thoại có ngữ cảnh.
+
+\indent Trong báo cáo, \textit{đa phương thức} chỉ việc xử lý hai phương thức văn bản và hình ảnh. Các tên cấu hình \textit{Text Search}, \textit{Image Search}, \textit{Hybrid Search} và trạng thái \textit{rerank} bật/tắt được giữ bằng tiếng Anh trong bảng thực nghiệm; phần diễn giải lần lượt dùng các thuật ngữ tìm kiếm bằng văn bản, tìm kiếm bằng hình ảnh, tìm kiếm kết hợp và tái xếp hạng.
+
+\subsection{Mục tiêu}
+\indent Mục tiêu tổng quát là xây dựng và đánh giá một trợ lý mua sắm đa phương thức tích hợp với hệ thống thương mại điện tử. Các mục tiêu cụ thể gồm:
+\begin{itemize}
+    \item Hỗ trợ tìm kiếm sản phẩm bằng văn bản, hình ảnh và truy vấn kết hợp; duy trì các ràng buộc như danh mục, màu sắc và mức giá.
+    \item Ứng dụng RAG và bộ nhớ hội thoại để tạo câu trả lời dựa trên dữ liệu sản phẩm được truy xuất.
+    \item Tích hợp Frontend, Backend, AI Service, MySQL và Qdrant; bảo đảm các nghiệp vụ cốt lõi vẫn hoạt động khi dịch vụ AI gặp lỗi.
+    \item Đánh giá chất lượng truy hồi bằng các đường cơ sở, cấu hình loại bỏ thành phần, chỉ số chất lượng và độ trễ; đồng thời kiểm thử chức năng, hiệu năng và bảo mật của hệ thống.
+\end{itemize}
+
+\subsection{Câu hỏi nghiên cứu}
+\begin{enumerate}
+    \item Các chức năng tìm kiếm bằng văn bản, hình ảnh và kết hợp có đưa sản phẩm phù hợp lên các vị trí đầu hay không?
+    \item RAG và bộ nhớ hội thoại có giúp câu trả lời có căn cứ và duy trì đúng ngữ cảnh nhiều lượt hay không?
+    \item Các chức năng thương mại điện tử, giao tiếp Spring Boot--AI Service và đồng bộ MySQL--Qdrant có bảo toàn tính đúng đắn của dữ liệu hay không?
+    \item Hệ thống có đáp ứng các yêu cầu phi chức năng về độ trễ, bảo mật, khả dụng, quan sát và tương thích hay không?
+\end{enumerate}
+
+\subsection{Phạm vi}
+\indent Đề tài tập trung vào một nguyên mẫu thương mại điện tử cho thời trang, gồm danh mục sản phẩm, giỏ hàng, đặt hàng và trợ lý AI. Dữ liệu sản phẩm được chuẩn hóa trước khi lập chỉ mục; hệ thống được triển khai và đánh giá trong môi trường cục bộ và Google Cloud.
+
+\begin{itemize}
+    \item \textbf{Trong phạm vi:} tìm kiếm bằng văn bản, hình ảnh và kết hợp; tư vấn có RAG và bộ nhớ hội thoại; đồng bộ dữ liệu MySQL--Qdrant; giao diện web; kiểm thử các luồng nghiệp vụ và các thuộc tính phi chức năng chính.
+    \item \textbf{Ngoài phạm vi:} thanh toán trực tuyến thực tế, vận chuyển và chuỗi cung ứng, quản lý kho quy mô lớn, cùng triển khai thương mại trên hạ tầng phân tán.
+    \item \textbf{Giả định:} dữ liệu sản phẩm đã được tiền xử lý; người dùng có kết nối Internet ổn định; các mô hình và dịch vụ bên ngoài sẵn sàng trong môi trường thử nghiệm.
+\end{itemize}
+
+\subsection{Đóng góp của đề tài}
+\begin{itemize}
+    \item Kiến trúc tích hợp nghiệp vụ thương mại điện tử và AI, trong đó MySQL là nguồn dữ liệu chuẩn và Qdrant phục vụ truy hồi vector.
+    \item Quy trình tìm kiếm đa phương thức và trợ lý RAG có bộ nhớ hội thoại, kèm cơ chế đồng bộ và dự phòng khi AI Service không khả dụng.
+    \item Bộ đánh giá thực nghiệm gồm đường cơ sở, cấu hình loại bỏ thành phần và kiểm thử hệ thống để chỉ ra hiệu quả cũng như giới hạn của giải pháp.
+\end{itemize}
+
+\subsection{Ý nghĩa của đề tài}
+\indent Về thực tiễn, đề tài cung cấp một nguyên mẫu giúp người dùng diễn đạt nhu cầu linh hoạt hơn và nhận gợi ý dựa trên dữ liệu sản phẩm. Về học thuật, kết quả thực nghiệm minh họa cách kết hợp truy hồi đa phương thức, RAG và bộ nhớ hội thoại trong một hệ thống hoàn chỉnh, đồng thời ghi nhận các giới hạn cần tiếp tục cải thiện.
+
+\subsection{Cấu trúc báo cáo}
+\indent Báo cáo gồm mười chương:
+\begin{itemize}
+    \item Chương 1 giới thiệu động lực, mục tiêu, câu hỏi nghiên cứu, phạm vi và đóng góp.
+    \item Chương 2 trình bày kiến thức nền tảng.
+    \item Chương 3 giới thiệu công nghệ và các quyết định lựa chọn.
+    \item Chương 4 khai thác yêu cầu hệ thống.
+    \item Chương 5 phân tích quy trình nghiệp vụ, ca sử dụng và luồng xử lý.
+    \item Chương 6 trình bày thiết kế kiến trúc, dữ liệu và các thành phần.
+    \item Chương 7 mô tả quá trình cài đặt, cấu hình và triển khai.
+    \item Chương 8 trình bày kết quả hiện thực hệ thống.
+    \item Chương 9 trình bày phương pháp cùng kết quả kiểm thử và đánh giá.
+    \item Chương 10 tổng kết kết quả, hạn chế và hướng phát triển.
+\end{itemize}

@@ -1,0 +1,175 @@
+{
+  "baseline": "keyword_bm25",
+  "candidate": "vector_no_rerank",
+  "shared_positive_query_count": 90,
+  "metrics": {
+    "hit@5": {
+      "keyword_bm25": 0.7555555555555555,
+      "vector_no_rerank": 1.0,
+      "delta_vector_minus_keyword": 0.24444444444444444,
+      "delta_ci95": [
+        0.15555555555555556,
+        0.3333333333333333
+      ],
+      "vector_wins": 22,
+      "ties": 68,
+      "vector_losses": 0
+    },
+    "precision@5": {
+      "keyword_bm25": 0.43333333333333335,
+      "vector_no_rerank": 0.6288888888888889,
+      "delta_vector_minus_keyword": 0.19555555555555557,
+      "delta_ci95": [
+        0.12444444444444444,
+        0.2733333333333334
+      ],
+      "vector_wins": 31,
+      "ties": 54,
+      "vector_losses": 5
+    },
+    "recall@5": {
+      "keyword_bm25": 0.4411404648693723,
+      "vector_no_rerank": 0.5802217134789818,
+      "delta_vector_minus_keyword": 0.13908124860960944,
+      "delta_ci95": [
+        0.07740712739826511,
+        0.20712471839735414
+      ],
+      "vector_wins": 31,
+      "ties": 54,
+      "vector_losses": 5
+    },
+    "ndcg@5": {
+      "keyword_bm25": 0.6885334279634062,
+      "vector_no_rerank": 0.9405592502684872,
+      "delta_vector_minus_keyword": 0.2520258223050809,
+      "delta_ci95": [
+        0.16807453878943995,
+        0.3394691031099592
+      ],
+      "vector_wins": 33,
+      "ties": 52,
+      "vector_losses": 5
+    },
+    "mrr": {
+      "keyword_bm25": 0.702037037037037,
+      "vector_no_rerank": 0.962962962962963,
+      "delta_vector_minus_keyword": 0.26092592592592595,
+      "delta_ci95": [
+        0.17425,
+        0.3498148148148148
+      ],
+      "vector_wins": 28,
+      "ties": 60,
+      "vector_losses": 2
+    }
+  },
+  "breakdown": {
+    "intent_type": {
+      "exact_title": {
+        "hit@5": {
+          "keyword_bm25": 0.8846153846153846,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.8846153846153846,
+          "vector_no_rerank": 1.0
+        },
+        "mrr": {
+          "keyword_bm25": 0.8846153846153846,
+          "vector_no_rerank": 1.0
+        }
+      },
+      "facet_all": {
+        "hit@5": {
+          "keyword_bm25": 0.6176470588235294,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.5122375909106589,
+          "vector_no_rerank": 0.8958322930848213
+        },
+        "mrr": {
+          "keyword_bm25": 0.5230392156862745,
+          "vector_no_rerank": 0.9313725490196079
+        }
+      },
+      "facet_single": {
+        "hit@5": {
+          "keyword_bm25": 0.8,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.7183976808581386,
+          "vector_no_rerank": 0.9397344853093307
+        },
+        "mrr": {
+          "keyword_bm25": 0.7466666666666666,
+          "vector_no_rerank": 0.9666666666666667
+        }
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "hit@5": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 1.0
+        },
+        "mrr": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 1.0
+        }
+      },
+      "hard": {
+        "hit@5": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.8642436506725032,
+          "vector_no_rerank": 0.927019068362146
+        },
+        "mrr": {
+          "keyword_bm25": 0.875,
+          "vector_no_rerank": 0.9416666666666667
+        }
+      },
+      "medium": {
+        "hit@5": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.9975180032722928,
+          "vector_no_rerank": 0.9557602396101098
+        },
+        "mrr": {
+          "keyword_bm25": 1.0,
+          "vector_no_rerank": 0.975
+        }
+      },
+      "semantic": {
+        "hit@5": {
+          "keyword_bm25": 0.26666666666666666,
+          "vector_no_rerank": 1.0
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.1577591812603547,
+          "vector_no_rerank": 0.8998248788239577
+        },
+        "mrr": {
+          "keyword_bm25": 0.18944444444444444,
+          "vector_no_rerank": 0.9444444444444444
+        }
+      }
+    }
+  },
+  "negative": {
+    "keyword_empty_result_accuracy": 0.8,
+    "vector_empty_result_accuracy": 1.0
+  }
+}

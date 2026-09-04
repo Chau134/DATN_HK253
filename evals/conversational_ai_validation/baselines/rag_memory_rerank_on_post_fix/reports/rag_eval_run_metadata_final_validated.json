@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-08-27T03:35:01.629068+00:00",
+  "commit_sha": "4c3330db5ec86eaaa2f4aabb170c4df583ba7f87",
+  "catalog_snapshot": "evals\\conversational_ai_validation\\data\\master_80\\product_snapshot.csv",
+  "qdrant_collection": "unknown",
+  "model_config": "runtime-environment",
+  "embedding_config": "runtime-environment",
+  "reranker_config": "runtime-environment",
+  "endpoint": "http://localhost:8000/assistant/chat",
+  "seed": 252,
+  "execution_id": "master80-D-final-validated-20260827",
+  "evaluator_version": "rag-evaluator-v3",
+  "session_mode": "preserve_sessions",
+  "context_modes": [
+    "full_context"
+  ]
+}

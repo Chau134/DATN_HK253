@@ -1,0 +1,110 @@
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-01", "session_id": "7eaa9803b7f58bb5", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-01", "session_id": "2304be4d866988f8", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-01", "session_id": "00491c75e6e5c9b2", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-02", "session_id": "bcba228ab1b8b03a", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-02", "session_id": "bdf544e79d4b7008", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-02", "session_id": "0cfba96d3289dabe", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-03", "session_id": "b7c748b402ad20f2", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-03", "session_id": "26b32f4f5e7def23", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-03", "session_id": "3551329d741cf045", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-04", "session_id": "9da445a8db65bf8c", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-04", "session_id": "33f3ba7dec57d6b4", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-04", "session_id": "fb3453423f8ceab1", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-05", "session_id": "80611d5712136281", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-05", "session_id": "2f6fabde4b1c89e3", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-05", "session_id": "b7be87105eb088c7", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-06", "session_id": "c33c2c2746a88ca9", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-06", "session_id": "ea02ac5c578dbd27", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-06", "session_id": "c69ba55d7b9c316e", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-07", "session_id": "dc79d0e4cf7bb4b9", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-07", "session_id": "aac718cc6c113b94", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-07", "session_id": "1dcfec8c6b7469b1", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-08", "session_id": "99bf2e071daa0c2a", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-08", "session_id": "95353e21e0d5b575", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-08", "session_id": "edc1fd2e730215fc", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-09", "session_id": "bea3c5b49e3c8fd1", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-09", "session_id": "bdef440e10d6fc2c", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-09", "session_id": "90cc16cbb1d05d28", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 9, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 11, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 14, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 15, "name": "reference_resolution", "passed": true, "checks": {"expected_product_reference": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 20, "name": "early_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 20, "name": "middle_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 20, "name": "recent_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 20, "name": "correction_supersedes_old_value", "passed": true, "checks": {"correction_supersedes": true}}
+{"case_id": "long-memory-10", "session_id": "334c552d63598c08", "turn_index": 1, "name": "cross_session_preference_recall", "passed": true, "checks": {"must_include_all": true}}
+{"case_id": "long-memory-10", "session_id": "231bf552452672ef", "turn_index": 1, "name": "session_isolation", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}
+{"case_id": "long-memory-10", "session_id": "bc9adabd54274e83", "turn_index": 1, "name": "false_memory", "passed": true, "checks": {"must_include_any": true, "must_not_include": true}}

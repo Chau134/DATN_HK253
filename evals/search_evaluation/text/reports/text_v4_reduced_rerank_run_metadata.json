@@ -1,0 +1,45 @@
+{
+  "run_id": "text-v4-vector-rerank-20260827",
+  "schema_version": "v4-reduced-100-rerank",
+  "service_instance_id": "04b48d8cdebc4c9a9c62c839dab58304",
+  "base_url": "http://localhost:8000",
+  "evaluation_variant": "rag",
+  "query_count": 100,
+  "positive_query_count": 90,
+  "negative_query_count": 10,
+  "result_row_count": 1338,
+  "error_count": 0,
+  "top_k": 20,
+  "runtime_reranker_model_ready": true,
+  "runtime_rerank_enabled": true,
+  "host_env_rerank_enabled": false,
+  "runtime_configuration_note": "The running container used an override: health/ready reported reranker_enabled=true although service-ai/.env on the host contained RERANK_ENABLED=false.",
+  "non_empty_rerank_score_count": 1332,
+  "rerank_applied_positive_requests": 84,
+  "single_candidate_rerank_skips": 6,
+  "negative_empty_result_count": 10,
+  "latency_log_scope": "The final 90 contiguous text_search_latency entries after the concurrent Conversational AI evaluation completed.",
+  "latency_window_utc": {
+    "start": "2026-08-26T17:24:23.369126+00:00",
+    "end": "2026-08-26T17:26:40.450801+00:00"
+  },
+  "total_latency_ms": {
+    "mean": 1455.8,
+    "p50": 990.8,
+    "p95": 4225.3,
+    "p99": 6142.4
+  },
+  "rerank_stage_latency_ms": {
+    "mean_across_all_positive_queries": 297.4,
+    "p95_across_all_positive_queries": 408.7,
+    "max": 572.9
+  },
+  "query_set_csv": "../data/text_queries_v4_reduced.csv",
+  "ground_truth_csv": "../data/ground_truth_text_v4_reduced.csv",
+  "results_csv": "../data/search_results_text_v4_reduced_rerank.csv",
+  "notes": [
+    "An earlier attempt was discarded at 30/100 because a concurrent Conversational AI evaluation caused a transient text-search readiness 503.",
+    "The official run restarted from query 1 after that workload completed and finished 100/100 without errors.",
+    "The no-rerank run did not preserve per-request latency, so a paired latency delta is not reported."
+  ]
+}

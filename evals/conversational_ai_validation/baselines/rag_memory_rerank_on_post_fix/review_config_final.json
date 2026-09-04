@@ -1,0 +1,30 @@
+{
+  "suite": "conversational_ai_master_80_D_FINAL",
+  "version": "2.1-post-fix",
+  "sample_size": 80,
+  "sampling_seed": 252,
+  "acceptable_rating": 4,
+  "current_token_f1_threshold": 0.7,
+  "source": {
+    "questions_csv": "../../data/master_80/question_set.csv",
+    "references_csv": "../../data/master_80/reference_answers.csv",
+    "evidence_csv": "../../data/master_80/required_evidence.csv",
+    "responses_csv": "reports/responses_final_validated.csv",
+    "metrics_csv": "reports/rag_metrics_by_question_final_validated.csv",
+    "metrics_summary_json": "reports/rag_metrics_summary_final_validated.json",
+    "critical_cases_csv": "../../data/critical_cases.csv",
+    "critical_responses_csv": "reports/responses_final_validated.csv"
+  },
+  "review": {
+    "reviewer_a_csv": "review/reviewer_a_final.csv",
+    "reviewer_b_csv": "review/reviewer_b_final.csv"
+  },
+  "reports": {
+    "sample_manifest_csv": "reports/review_manifest_final.csv",
+    "automatic_breakdown_csv": "reports/automatic_breakdown_final.csv",
+    "human_validation_summary_json": "reports/human_validation_summary_final.json",
+    "human_validation_by_case_csv": "reports/human_validation_by_case_final.csv",
+    "adjudication_csv": "review/adjudication_final.csv",
+    "calibration_csv": "reports/token_f1_calibration_final.csv"
+  }
+}

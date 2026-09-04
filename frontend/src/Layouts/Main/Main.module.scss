@@ -1,0 +1,274 @@
+.item-products-container {
+    margin-top: 60px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: #cca770; // beautiful gold accent line
+        margin: 8px auto 0 auto;
+        border-radius: 2px;
+    }
+}
+
+.explore-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+.explore-btn {
+    display: inline-block;
+    padding: 12px 36px;
+    background-color: #222;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #cca770; // elegant transition on hover
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(204, 167, 112, 0.3);
+        color: #fff;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.large-banner-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 60px 0 0 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.large-banner {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.tshirt-section-container {
+    position: relative;
+    z-index: 10;
+    margin-top: -120px; // Pull the block up to overlap the banner
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tshirt-glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 30px 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.testimonial-section {
+    margin-top: 80px;
+}
+
+.categories-area {
+    margin-top: 60px;
+}
+
+.slide {
+    margin-top: 0px;
+}
+
+.promotion-marquee {
+    width: 100%;
+    background: linear-gradient(90deg, #111111 0%, #201a12 50%, #111111 100%);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+    box-sizing: border-box;
+    border-bottom: 2px solid #cca770;
+    margin-top: 136px;
+    position: sticky;
+    top: 136px;
+    z-index: 998;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee-scroll 30s linear infinite;
+    padding-left: 20px;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+.promo-item {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8fafc;
+    letter-spacing: 0.5px;
+    margin-right: 60px;
+    display: inline-flex;
+    align-items: center;
+
+    strong {
+        color: #cca770; // Gold highlighted promo title
+        margin: 0 4px;
+        text-shadow: 0 0 8px rgba(204, 167, 112, 0.2);
+    }
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.master-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.category-card {
+    position: relative;
+    height: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 35px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+        .card-bg {
+            transform: scale(1.06);
+        }
+        .card-overlay {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 100%);
+        }
+        .card-content span {
+            transform: translateX(6px);
+            color: #fff;
+        }
+    }
+}
+
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+    transition: background 0.4s ease;
+    z-index: 2;
+}
+
+.card-content {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+    
+    h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    span {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #cca770; // Gold CTA text
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: inline-flex;
+        align-items: center;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .master-categories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .category-card {
+        height: 280px;
+        padding: 25px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .promotion-marquee {
+        margin-top: 176px;
+        top: 176px;
+    }
+}

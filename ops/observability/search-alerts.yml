@@ -1,0 +1,93 @@
+groups:
+  - name: ecommerce-text-search
+    rules:
+      - alert: ServiceAiMetricsDown
+        expr: up{job="service-ai"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: service-ai metrics endpoint is unavailable
+
+      - alert: TextSearchHighErrorRate
+        expr: |
+          sum(rate(ecommerce_search_requests_total{mode="text",outcome="error"}[5m]))
+          /
+          clamp_min(sum(rate(ecommerce_search_requests_total{mode="text"}[5m])), 0.001)
+          > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Text-search error rate is above 5%
+
+      - alert: TextSearchHighZeroResultRate
+        expr: |
+          sum(rate(ecommerce_search_result_count_bucket{mode="text",le="0"}[10m]))
+          /
+          clamp_min(sum(rate(ecommerce_search_result_count_count{mode="text"}[10m])), 0.001)
+          > 0.10
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Text-search zero-result rate is above 10%
+
+      - alert: TextSearchP95LatencyAboveSlo
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (
+              rate(ecommerce_search_stage_duration_seconds_bucket{
+                mode="text",
+                stage="total"
+              }[5m])
+            )
+          ) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Text-search p95 latency is above the 3-second SLO
+
+      - alert: SpringKeywordFallbackObserved
+        expr: increase(ecommerce_ai_search_fallback_total{decision="keyword"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Spring keyword fallback was used because the AI path failed
+
+  - name: ecommerce-assistant-memory
+    rules:
+      - alert: AssistantSummaryRepeatedlyAtHardLimit
+        expr: ecommerce_assistant_memory_alert{type="summary_hard_limit"} > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Assistant conversation summaries repeatedly reach the hard limit
+
+      - alert: AssistantMemoryRecallProbeFailed
+        expr: ecommerce_assistant_memory_alert{type="recall_probe"} > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: An assistant memory recall probe failed
+
+      - alert: AssistantCheckpointFailure
+        expr: ecommerce_assistant_memory_alert{type="checkpoint_failure"} > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Assistant checkpoint persistence failed
+
+      - alert: AssistantLatencyGrowsWithSessionLength
+        expr: ecommerce_assistant_memory_alert{type="session_latency_growth"} > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Assistant latency grows abnormally for later session turns

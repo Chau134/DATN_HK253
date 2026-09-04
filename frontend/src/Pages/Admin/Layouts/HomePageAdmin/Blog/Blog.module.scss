@@ -1,0 +1,48 @@
+/* Toàn bộ khu vực blog admin */
+.wrapper {
+    color: #fff;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    label {
+        color: #fff;
+    }
+
+    table {
+        color: #fff;
+
+        th,
+        td {
+            color: #fff !important;
+        }
+
+        thead th {
+            background-color: #1f1f1f;
+        }
+
+        tbody td {
+            background-color: #2a2a2a;
+        }
+    }
+
+    button {
+        color: #fff;
+    }
+}
+
+
+
+.btn-addBlog {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 10px;
+}

@@ -1,0 +1,79 @@
+{
+  "run_context": {
+    "run_id": "image-search-20260721T163146Z-b211d87d",
+    "started_at": "2026-07-21T16:31:46.521790+00:00",
+    "endpoint": "http://localhost:8000/search/image",
+    "health_url": "http://localhost:8000/health/ready/image_search",
+    "readiness": {
+      "status_code": 200,
+      "body": {
+        "ready": true,
+        "models": {
+          "text_embedding": true,
+          "image_embedding": true,
+          "llm": true,
+          "yolo": false
+        },
+        "capabilities": {
+          "text_search": true,
+          "image_search": true,
+          "assistant_llm": true
+        },
+        "capability": "image_search"
+      }
+    },
+    "collection_name": "product_image_vectors_cohere_embed_v4_1536",
+    "search_config": {
+      "top_k": 5,
+      "timeout_seconds": 60,
+      "download_timeout_seconds": 30,
+      "concurrency": 2,
+      "query_image_selection": "MAIN, then FLAT_1/MODEL_1 fallback"
+    },
+    "completed_at": "2026-07-21T16:34:29.551255+00:00"
+  },
+  "test_scope": "one preferred catalog image for each product in database/100.sql (MAIN, then FLAT_1/MODEL_1 fallback)",
+  "query_count": 100,
+  "http_success_count": 100,
+  "http_error_count": 0,
+  "status_counts": {
+    "200": 100
+  },
+  "image_capability_ready": true,
+  "hit_rate_at_1": 0.99,
+  "hit_rate_at_3": 1.0,
+  "hit_rate_at_5": 1.0,
+  "mean_reciprocal_rank": 0.995,
+  "miss_count": 0,
+  "empty_result_query_count": 0,
+  "duplicate_result_query_count": 0,
+  "download_or_transport_error_count": 0,
+  "cache_hit_count": 0,
+  "mean_search_latency_ms": 2788.4828899999998,
+  "p50_search_latency_ms": 2731.006,
+  "p95_search_latency_ms": 2981.98,
+  "max_search_latency_ms": 5155.79,
+  "p95_total_latency_ms": 3392.572,
+  "mean_image_bytes": 573639.72,
+  "mean_top1_score_margin": 0.2365589807,
+  "top1_score_tie_query_count": 1,
+  "non_top1_tied_with_top1_count": 1,
+  "query_with_detection_count": 100,
+  "query_with_fallback_detection_count": 100,
+  "query_image_type_counts": {
+    "MAIN": 96,
+    "FLAT_1": 4
+  },
+  "non_main_query_count": 4,
+  "acceptance_gates": {
+    "complete_100_cases": true,
+    "image_capability_ready": true,
+    "http_success_100_percent": true,
+    "hit_at_1_at_least_95_percent": true,
+    "hit_at_5_at_least_99_percent": true,
+    "no_empty_results": true,
+    "no_duplicate_product_ids": true,
+    "p95_search_latency_at_most_5_seconds": true
+  },
+  "acceptance_passed": true
+}

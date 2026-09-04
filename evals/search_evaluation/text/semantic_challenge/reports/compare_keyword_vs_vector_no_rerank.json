@@ -1,0 +1,133 @@
+{
+  "baseline": "keyword_bm25",
+  "candidate": "vector_no_rerank",
+  "shared_positive_query_count": 30,
+  "metrics": {
+    "hit@5": {
+      "keyword_bm25": 0.26666666666666666,
+      "vector_no_rerank": 0.7666666666666667,
+      "delta_vector_minus_keyword": 0.5,
+      "delta_ci95": [
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "vector_wins": 15,
+      "ties": 15,
+      "vector_losses": 0
+    },
+    "precision@5": {
+      "keyword_bm25": 0.08,
+      "vector_no_rerank": 0.4,
+      "delta_vector_minus_keyword": 0.32,
+      "delta_ci95": [
+        0.21333333333333335,
+        0.43333333333333335
+      ],
+      "vector_wins": 19,
+      "ties": 11,
+      "vector_losses": 0
+    },
+    "recall@5": {
+      "keyword_bm25": 0.10484828012401541,
+      "vector_no_rerank": 0.314724477735904,
+      "delta_vector_minus_keyword": 0.20987619761188858,
+      "delta_ci95": [
+        0.09941438288208838,
+        0.3381878436746755
+      ],
+      "vector_wins": 19,
+      "ties": 11,
+      "vector_losses": 0
+    },
+    "ndcg@5": {
+      "keyword_bm25": 0.1577591812603547,
+      "vector_no_rerank": 0.5849297611575625,
+      "delta_vector_minus_keyword": 0.42717057989720775,
+      "delta_ci95": [
+        0.2883161001530515,
+        0.5723031349429786
+      ],
+      "vector_wins": 19,
+      "ties": 11,
+      "vector_losses": 0
+    },
+    "mrr": {
+      "keyword_bm25": 0.18944444444444444,
+      "vector_no_rerank": 0.6755699855699856,
+      "delta_vector_minus_keyword": 0.4861255411255411,
+      "delta_ci95": [
+        0.32428084415584413,
+        0.645
+      ],
+      "vector_wins": 20,
+      "ties": 10,
+      "vector_losses": 0
+    }
+  },
+  "breakdown": {
+    "intent_type": {
+      "exact_title": {
+        "hit@5": {
+          "keyword_bm25": 0.5,
+          "vector_no_rerank": 0.8333333333333334
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.5,
+          "vector_no_rerank": 0.8333333333333334
+        },
+        "mrr": {
+          "keyword_bm25": 0.5,
+          "vector_no_rerank": 0.8333333333333334
+        }
+      },
+      "facet_all": {
+        "hit@5": {
+          "keyword_bm25": 0.07142857142857142,
+          "vector_no_rerank": 0.7857142857142857
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.009371791250881556,
+          "vector_no_rerank": 0.4820240353574424
+        },
+        "mrr": {
+          "keyword_bm25": 0.02023809523809524,
+          "vector_no_rerank": 0.6197278911564625
+        }
+      },
+      "facet_single": {
+        "hit@5": {
+          "keyword_bm25": 0.4,
+          "vector_no_rerank": 0.7
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.16015703602982997,
+          "vector_no_rerank": 0.579955633972268
+        },
+        "mrr": {
+          "keyword_bm25": 0.24,
+          "vector_no_rerank": 0.6590909090909091
+        }
+      }
+    },
+    "difficulty": {
+      "semantic": {
+        "hit@5": {
+          "keyword_bm25": 0.26666666666666666,
+          "vector_no_rerank": 0.7666666666666667
+        },
+        "ndcg@5": {
+          "keyword_bm25": 0.1577591812603547,
+          "vector_no_rerank": 0.5849297611575625
+        },
+        "mrr": {
+          "keyword_bm25": 0.18944444444444444,
+          "vector_no_rerank": 0.6755699855699856
+        }
+      }
+    }
+  },
+  "negative": {
+    "keyword_empty_result_accuracy": null,
+    "vector_empty_result_accuracy": null
+  }
+}

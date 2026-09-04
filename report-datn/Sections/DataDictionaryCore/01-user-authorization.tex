@@ -1,0 +1,98 @@
+Bảng~\ref{tab:data-summary-user-authorization} tóm tắt chức năng của các bảng trong nhóm. Chỉ các bảng cốt lõi, đại diện trực tiếp cho luồng nghiệp vụ chính, được mô tả chi tiết trường dữ liệu.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.34\textwidth}|>{\RaggedRight\arraybackslash}p{0.56\textwidth}|}
+    \caption{Các bảng thuộc nhóm người dùng và phân quyền}
+    \label{tab:data-summary-user-authorization} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endfirsthead
+    \multicolumn{2}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endhead
+    \texttt{user\_accounts} & Tài khoản người dùng. \\
+    \hline
+    \texttt{user\_roles} & Vai trò người dùng. \\
+    \hline
+    \texttt{user\_account\_roles} & Gán vai trò cho tài khoản. \\
+    \hline
+    \texttt{customer\_profiles} & Hồ sơ khách hàng. \\
+    \hline
+    \texttt{customer\_addresses} & Địa chỉ khách hàng. \\
+    \hline
+    \texttt{refresh\_tokens} & Refresh token. \\
+    \hline
+    \texttt{password\_reset\_otps} & Mã OTP đặt lại mật khẩu. \\
+    \hline
+\end{longtable}
+
+\paragraph{Các bảng cốt lõi.}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{user\_accounts} (Tài khoản người dùng)}
+    \label{tab:data-dictionary-user-accounts} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{email}} & \texttt{varchar(320)} & Địa chỉ thư điện tử; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{phone\_number}} & \texttt{varchar(30)} & Số điện thoại; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{password\_hash}} & \texttt{varchar(255)} & Giá trị băm của mật khẩu; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{password\_login\_enabled}} & \texttt{boolean} & Cho biết tài khoản có cho phép đăng nhập bằng mật khẩu. \\
+        \hline
+        \texttt{\seqsplit{full\_name}} & \texttt{varchar(150)} & Họ và tên đầy đủ. \\
+        \hline
+        \texttt{\seqsplit{display\_name}} & \texttt{varchar(150)} & Tên hiển thị. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{email\_verified}} & \texttt{boolean} & Cho biết email đã được xác minh. \\
+        \hline
+        \texttt{\seqsplit{phone\_verified}} & \texttt{boolean} & Cho biết số điện thoại đã được xác minh. \\
+        \hline
+        \texttt{\seqsplit{last\_login\_at}} & \texttt{datetime(6)} & Thời điểm đăng nhập gần nhất. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{user\_roles} (Vai trò người dùng)}
+    \label{tab:data-dictionary-user-roles} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{name}} & \texttt{varchar(100)} & Tên; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{description}} & \texttt{varchar(255)} & Nội dung mô tả. \\
+        \hline
+        \texttt{\seqsplit{active}} & \texttt{boolean} & Cho biết bản ghi đang hoạt động. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+

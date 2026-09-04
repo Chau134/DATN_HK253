@@ -1,0 +1,133 @@
+// Sơ đồ nhóm dữ liệu đơn hàng và vận chuyển
+
+// Các bảng có ghi chú [note: 'Bảng tham chiếu rút gọn'] chỉ dùng để làm rõ quan hệ liên nhóm.
+
+Project ecommerce_order_shipping {
+
+  database_type: 'MySQL'
+
+  Note: 'Sơ đồ nhóm dữ liệu đơn hàng và vận chuyển'
+
+}
+
+Table orders {
+  id bigint [pk, not null, increment]
+  order_number varchar(50) [not null, unique]
+  user_account_id bigint [not null]
+  cart_id bigint [unique]
+  status varchar(50) [not null]
+  currency varchar(3) [not null]
+  item_count int [not null]
+  subtotal_amount decimal(12,2) [not null]
+  discount_amount decimal(12,2) [not null]
+  shipping_fee decimal(12,2) [not null]
+  tax_amount decimal(12,2) [not null]
+  total_amount decimal(12,2) [not null]
+  placed_at datetime(6)
+  confirmed_at datetime(6)
+  paid_at datetime(6)
+  cancelled_at datetime(6)
+  customer_note text
+  admin_note text
+  created_at datetime(6)
+  updated_at datetime(6)
+}
+
+Table order_items {
+  id bigint [pk, not null, increment]
+  order_id bigint [not null]
+  product_id bigint
+  product_variant_id bigint
+  source_product_id bigint [not null]
+  source_product_variant_id bigint [not null]
+  sku_id bigint
+  product_title varchar(255) [not null]
+  product_title_vi varchar(255)
+  brand_name varchar(150)
+  variant_name varchar(255)
+  option_name varchar(100)
+  option_value varchar(100)
+  unified_size varchar(100)
+  image_url text
+  quantity int [not null]
+  unit_price decimal(12,2) [not null]
+  discounted_unit_price decimal(12,2)
+  effective_unit_price decimal(12,2) [not null]
+  line_discount decimal(12,2) [not null]
+  line_subtotal decimal(12,2) [not null]
+  line_total decimal(12,2) [not null]
+  currency varchar(3) [not null]
+  created_at datetime(6)
+}
+
+Table order_addresses {
+  id bigint [pk, not null, increment]
+  order_id bigint [not null]
+  source_customer_address_id bigint
+  address_type varchar(50) [not null]
+  recipient_name varchar(150) [not null]
+  phone_number varchar(30) [not null]
+  address_line1 varchar(255) [not null]
+  address_line2 varchar(255)
+  ward varchar(150)
+  district varchar(150)
+  city varchar(150)
+  province varchar(150)
+  country_code varchar(2) [not null]
+  postal_code varchar(20)
+  created_at datetime(6)
+
+  indexes {
+    (order_id, address_type) [unique]
+  }
+}
+
+Table order_status_history {
+  id bigint [pk, not null, increment]
+  order_id bigint [not null]
+  from_status varchar(50)
+  to_status varchar(50) [not null]
+  changed_by_user_account_id bigint
+  reason varchar(150)
+  note text
+  created_at datetime(6)
+}
+
+Table carts [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table customer_addresses [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table user_accounts [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table products [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null]
+}
+
+Table product_variants [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Ref: order_addresses.order_id > orders.id [delete: cascade]
+
+Ref: order_addresses.source_customer_address_id > customer_addresses.id [delete: set null]
+
+Ref: order_items.order_id > orders.id [delete: cascade]
+
+Ref: order_items.product_id > products.id [delete: set null]
+
+Ref: order_items.product_variant_id > product_variants.id [delete: set null]
+
+Ref: order_status_history.changed_by_user_account_id > user_accounts.id [delete: set null]
+
+Ref: order_status_history.order_id > orders.id [delete: cascade]
+
+Ref: orders.cart_id > carts.id [delete: set null]
+
+Ref: orders.user_account_id > user_accounts.id [delete: cascade]
+

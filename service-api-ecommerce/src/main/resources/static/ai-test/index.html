@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Search Test</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --line: #d7dce5;
+      --accent: #0b6f6a;
+      --accent-2: #c2410c;
+      --soft: #eef6f5;
+      --danger: #b42318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+      gap: 18px;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 20px 28px;
+    }
+
+    section {
+      min-width: 0;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    input,
+    button {
+      font: inherit;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="url"] {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 9px;
+      border: 1px dashed var(--line);
+      border-radius: 6px;
+      background: #fafbfc;
+    }
+
+    button {
+      height: 38px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0 12px;
+      color: #fff;
+      background: var(--accent);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    button.secondary {
+      color: var(--accent);
+      background: #fff;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .hint,
+    .status,
+    .warning {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .warning {
+      color: var(--danger);
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(45deg, #f2f4f7 25%, transparent 25%),
+        linear-gradient(-45deg, #f2f4f7 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f2f4f7 75%),
+        linear-gradient(-45deg, transparent 75%, #f2f4f7 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    .box-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .detections {
+      display: grid;
+      gap: 6px;
+      max-height: 160px;
+      overflow: auto;
+    }
+
+    .detection {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .detection.active {
+      border-color: var(--accent);
+      background: var(--soft);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .product {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--panel);
+    }
+
+    .product img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #f2f4f7;
+    }
+
+    .product-title {
+      min-height: 38px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .price {
+      color: var(--accent-2);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    pre {
+      max-height: 260px;
+      overflow: auto;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #101828;
+      color: #e4e7ec;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <h1>AI Ecommerce Search Test</h1>
+      <label>
+        API base
+        <input id="apiBase" type="url" value="" placeholder="same origin">
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <section class="stack">
+      <div class="panel stack">
+        <label>
+          Text query
+          <input id="queryInput" type="text" value="ao hoodie den" autocomplete="off">
+        </label>
+        <div class="row">
+          <label style="max-width: 96px">
+            Top K
+            <input id="topK" type="number" min="1" max="50" value="5">
+          </label>
+          <button id="textSearchBtn">Text search</button>
+        </div>
+      </div>
+
+      <div class="panel stack">
+        <label>
+          Query image
+          <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp">
+        </label>
+        <div class="canvas-wrap">
+          <canvas id="imageCanvas" width="640" height="420"></canvas>
+        </div>
+        <div class="row">
+          <button id="detectBtn" disabled>Detect boxes</button>
+          <button id="imageSearchBtn" disabled>Image search</button>
+          <button id="clearBoxBtn" class="secondary" disabled>Clear box</button>
+        </div>
+        <div class="box-grid">
+          <label>Left<input id="boxLeft" type="number" min="0"></label>
+          <label>Top<input id="boxTop" type="number" min="0"></label>
+          <label>Right<input id="boxRight" type="number" min="1"></label>
+          <label>Bottom<input id="boxBottom" type="number" min="1"></label>
+        </div>
+        <div id="detections" class="detections"></div>
+        <div class="hint">Drag tren anh de ve lai box. Neu khong co box, image search se de backend tu YOLO crop.</div>
+      </div>
+
+      <div class="panel stack">
+        <div id="status" class="status">Ready.</div>
+        <div id="warnings" class="warning"></div>
+      </div>
+    </section>
+
+    <section class="stack">
+      <div class="panel stack">
+        <div class="row" style="justify-content: space-between">
+          <strong>Products</strong>
+          <span id="resultCount" class="meta">0 results</span>
+        </div>
+        <div id="products" class="result-grid"></div>
+      </div>
+
+      <div class="panel stack">
+        <strong>Raw response</strong>
+        <pre id="rawOutput">{}</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const els = {
+      apiBase: document.getElementById("apiBase"),
+      queryInput: document.getElementById("queryInput"),
+      topK: document.getElementById("topK"),
+      textSearchBtn: document.getElementById("textSearchBtn"),
+      imageInput: document.getElementById("imageInput"),
+      imageCanvas: document.getElementById("imageCanvas"),
+      detectBtn: document.getElementById("detectBtn"),
+      imageSearchBtn: document.getElementById("imageSearchBtn"),
+      clearBoxBtn: document.getElementById("clearBoxBtn"),
+      boxLeft: document.getElementById("boxLeft"),
+      boxTop: document.getElementById("boxTop"),
+      boxRight: document.getElementById("boxRight"),
+      boxBottom: document.getElementById("boxBottom"),
+      detections: document.getElementById("detections"),
+      status: document.getElementById("status"),
+      warnings: document.getElementById("warnings"),
+      products: document.getElementById("products"),
+      resultCount: document.getElementById("resultCount"),
+      rawOutput: document.getElementById("rawOutput"),
+    };
+
+    const state = {
+      imagePayload: null,
+      imageBitmap: null,
+      imageNaturalWidth: 0,
+      imageNaturalHeight: 0,
+      detections: [],
+      selectedBox: null,
+      dragStart: null,
+    };
+
+    const ctx = els.imageCanvas.getContext("2d");
+
+    els.textSearchBtn.addEventListener("click", () => textSearch());
+    els.detectBtn.addEventListener("click", () => detectBoxes());
+    els.imageSearchBtn.addEventListener("click", () => imageSearch());
+    els.clearBoxBtn.addEventListener("click", () => setSelectedBox(null));
+    els.imageInput.addEventListener("change", onImageSelected);
+    [els.boxLeft, els.boxTop, els.boxRight, els.boxBottom].forEach((input) => {
+      input.addEventListener("input", syncBoxFromInputs);
+    });
+
+    els.imageCanvas.addEventListener("pointerdown", (event) => {
+      if (!state.imageBitmap) return;
+      const point = canvasPointToImagePoint(event);
+      state.dragStart = point;
+      setSelectedBox({ left: point.x, top: point.y, right: point.x + 1, bottom: point.y + 1 });
+    });
+
+    els.imageCanvas.addEventListener("pointermove", (event) => {
+      if (!state.dragStart || !state.imageBitmap) return;
+      const point = canvasPointToImagePoint(event);
+      setSelectedBox(normalizeBox({
+        left: state.dragStart.x,
+        top: state.dragStart.y,
+        right: point.x,
+        bottom: point.y,
+      }));
+    });
+
+    window.addEventListener("pointerup", () => {
+      state.dragStart = null;
+    });
+
+    drawEmptyCanvas();
+
+    async function textSearch() {
+      const query = els.queryInput.value.trim();
+      if (!query) {
+        setStatus("Nhap query truoc da.", true);
+        return;
+      }
+      await runRequest("Text search", "/api/search/ai/text", {
+        query,
+        top_k: readTopK(),
+      });
+    }
+
+    async function detectBoxes() {
+      if (!state.imagePayload) return;
+      const response = await runRequest("Detect boxes", "/api/search/ai/image/detections", {
+        image: state.imagePayload,
+      }, { renderProducts: false });
+      state.detections = response?.detections || [];
+      renderDetections();
+      if (state.detections[0]?.bbox) {
+        setSelectedBox(state.detections[0].bbox);
+      }
+    }
+
+    async function imageSearch() {
+      if (!state.imagePayload) return;
+      await runRequest("Image search", "/api/search/ai/image", {
+        image: state.imagePayload,
+        crop_box: state.selectedBox,
+        top_k: readTopK(),
+      });
+    }
+
+    async function runRequest(label, path, body, options = {}) {
+      const renderProductsAfter = options.renderProducts !== false;
+      setStatus(`${label}...`);
+      els.warnings.textContent = "";
+      try {
+        const response = await fetch(apiUrl(path), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const payload = await response.json().catch(() => ({}));
+        els.rawOutput.textContent = JSON.stringify(payload, null, 2);
+        if (!response.ok) {
+          throw new Error(payload.message || `${response.status} ${response.statusText}`);
+        }
+        renderWarnings(payload.warnings);
+        if (renderProductsAfter) {
+          renderProducts(payload.products || []);
+          if (payload.detections?.length) {
+            state.detections = payload.detections;
+            renderDetections();
+          }
+        }
+        setStatus(`${label} done.`);
+        return payload;
+      } catch (error) {
+        setStatus(`${label} failed: ${error.message}`, true);
+        return null;
+      }
+    }
+
+    async function onImageSelected(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const dataBase64 = await fileToBase64(file);
+      state.imagePayload = {
+        content_type: file.type || "image/png",
+        data_base64: dataBase64,
+        filename: file.name,
+      };
+      state.imageBitmap = await createImageBitmap(file);
+      state.imageNaturalWidth = state.imageBitmap.width;
+      state.imageNaturalHeight = state.imageBitmap.height;
+      state.detections = [];
+      setSelectedBox(null);
+      renderDetections();
+      resizeCanvas();
+      drawCanvas();
+      els.detectBtn.disabled = false;
+      els.imageSearchBtn.disabled = false;
+      els.clearBoxBtn.disabled = false;
+      setStatus(`Loaded ${file.name} (${state.imageNaturalWidth}x${state.imageNaturalHeight}).`);
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function apiUrl(path) {
+      const base = els.apiBase.value.trim().replace(/\/$/, "");
+      return `${base}${path}`;
+    }
+
+    function readTopK() {
+      return Math.max(1, Number.parseInt(els.topK.value || "5", 10));
+    }
+
+    function resizeCanvas() {
+      if (!state.imageBitmap) return;
+      const maxWidth = els.imageCanvas.parentElement.clientWidth || 640;
+      const scale = Math.min(1, maxWidth / state.imageNaturalWidth);
+      els.imageCanvas.width = Math.max(1, Math.round(state.imageNaturalWidth * scale));
+      els.imageCanvas.height = Math.max(1, Math.round(state.imageNaturalHeight * scale));
+    }
+
+    function drawEmptyCanvas() {
+      ctx.clearRect(0, 0, els.imageCanvas.width, els.imageCanvas.height);
+      ctx.fillStyle = "#667085";
+      ctx.font = "14px system-ui";
+      ctx.textAlign = "center";
+      ctx.fillText("Upload an image to detect boxes", els.imageCanvas.width / 2, els.imageCanvas.height / 2);
+    }
+
+    function drawCanvas() {
+      ctx.clearRect(0, 0, els.imageCanvas.width, els.imageCanvas.height);
+      if (!state.imageBitmap) {
+        drawEmptyCanvas();
+        return;
+      }
+      ctx.drawImage(state.imageBitmap, 0, 0, els.imageCanvas.width, els.imageCanvas.height);
+      state.detections.forEach((detection, index) => {
+        drawBox(detection.bbox, index === 0 ? "#0b6f6a" : "#475467", 2);
+      });
+      if (state.selectedBox) {
+        drawBox(state.selectedBox, "#c2410c", 3);
+      }
+    }
+
+    function drawBox(box, color, width) {
+      const scaleX = els.imageCanvas.width / state.imageNaturalWidth;
+      const scaleY = els.imageCanvas.height / state.imageNaturalHeight;
+      const left = box.left * scaleX;
+      const top = box.top * scaleY;
+      const right = box.right * scaleX;
+      const bottom = box.bottom * scaleY;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.strokeRect(left, top, right - left, bottom - top);
+      ctx.fillStyle = `${color}22`;
+      ctx.fillRect(left, top, right - left, bottom - top);
+    }
+
+    function canvasPointToImagePoint(event) {
+      const rect = els.imageCanvas.getBoundingClientRect();
+      const x = (event.clientX - rect.left) * (state.imageNaturalWidth / rect.width);
+      const y = (event.clientY - rect.top) * (state.imageNaturalHeight / rect.height);
+      return {
+        x: clamp(Math.round(x), 0, state.imageNaturalWidth - 1),
+        y: clamp(Math.round(y), 0, state.imageNaturalHeight - 1),
+      };
+    }
+
+    function normalizeBox(box) {
+      const left = clamp(Math.min(box.left, box.right), 0, state.imageNaturalWidth - 1);
+      const top = clamp(Math.min(box.top, box.bottom), 0, state.imageNaturalHeight - 1);
+      const right = clamp(Math.max(box.left, box.right), left + 1, state.imageNaturalWidth);
+      const bottom = clamp(Math.max(box.top, box.bottom), top + 1, state.imageNaturalHeight);
+      return { left, top, right, bottom };
+    }
+
+    function setSelectedBox(box) {
+      state.selectedBox = box ? normalizeBox(box) : null;
+      syncInputsFromBox();
+      drawCanvas();
+    }
+
+    function syncInputsFromBox() {
+      const box = state.selectedBox;
+      els.boxLeft.value = box?.left ?? "";
+      els.boxTop.value = box?.top ?? "";
+      els.boxRight.value = box?.right ?? "";
+      els.boxBottom.value = box?.bottom ?? "";
+    }
+
+    function syncBoxFromInputs() {
+      if (!state.imageBitmap) return;
+      const box = {
+        left: Number.parseInt(els.boxLeft.value || "0", 10),
+        top: Number.parseInt(els.boxTop.value || "0", 10),
+        right: Number.parseInt(els.boxRight.value || "1", 10),
+        bottom: Number.parseInt(els.boxBottom.value || "1", 10),
+      };
+      state.selectedBox = normalizeBox(box);
+      drawCanvas();
+    }
+
+    function renderDetections() {
+      els.detections.innerHTML = "";
+      if (!state.detections.length) {
+        els.detections.innerHTML = '<div class="hint">No detections yet.</div>';
+        drawCanvas();
+        return;
+      }
+      state.detections.forEach((detection, index) => {
+        const button = document.createElement("button");
+        button.className = "secondary";
+        button.textContent = "Use";
+        button.addEventListener("click", () => setSelectedBox(detection.bbox));
+
+        const item = document.createElement("div");
+        item.className = `detection${index === 0 ? " active" : ""}`;
+        const confidence = detection.confidence == null ? "-" : Number(detection.confidence).toFixed(2);
+        item.innerHTML = `<span>#${index + 1} conf ${confidence} ${detection.is_fallback ? "fallback" : ""}<br><span class="meta">${formatBox(detection.bbox)}</span></span>`;
+        item.appendChild(button);
+        els.detections.appendChild(item);
+      });
+      drawCanvas();
+    }
+
+    function renderProducts(products) {
+      els.products.innerHTML = "";
+      els.resultCount.textContent = `${products.length} results`;
+      if (!products.length) {
+        els.products.innerHTML = '<div class="hint">No products.</div>';
+        return;
+      }
+      products.forEach((product) => {
+        const image = product.image_url || product.image_urls?.[0] || "";
+        const title = product.title_vi || product.title || `Product ${product.product_id}`;
+        const price = product.effective_price ?? product.discounted_price ?? product.price;
+        const node = document.createElement("article");
+        node.className = "product";
+        node.innerHTML = `
+          ${image ? `<img src="${escapeAttr(image)}" alt="">` : '<div class="meta">No image</div>'}
+          <div class="product-title">${escapeHtml(title)}</div>
+          <div class="meta">${escapeHtml(product.brand || "-")} - ${escapeHtml(product.product_id || "-")}</div>
+          <div class="price">${formatPrice(price, product.currency)}</div>
+          <div class="meta">stock ${product.total_stock ?? "-"} - ${product.available ? "available" : "unavailable"} - score ${formatScore(product.ai_score)}</div>
+        `;
+        els.products.appendChild(node);
+      });
+    }
+
+    function renderWarnings(warnings) {
+      els.warnings.textContent = Array.isArray(warnings) && warnings.length ? `Warnings: ${warnings.join(", ")}` : "";
+    }
+
+    function setStatus(message, isError = false) {
+      els.status.textContent = message;
+      els.status.className = isError ? "warning" : "status";
+    }
+
+    function formatBox(box) {
+      return `${box.left},${box.top} -> ${box.right},${box.bottom}`;
+    }
+
+    function formatPrice(value, currency) {
+      if (value == null) return "-";
+      return `${Number(value).toLocaleString("vi-VN")} ${currency || "VND"}`;
+    }
+
+    function formatScore(value) {
+      return value == null ? "-" : Number(value).toFixed(3);
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char]));
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+{
+  "evaluation": "paired_exact_product_retrieval",
+  "query_count": 100,
+  "simple": {
+    "exact_hit@1": 0.98,
+    "exact_hit@5": 1.0,
+    "exact_hit@10": 1.0,
+    "exact_hit@20": 1.0,
+    "exact_mrr": 0.99
+  },
+  "challenging": {
+    "exact_hit@1": 0.93,
+    "exact_hit@5": 0.97,
+    "exact_hit@10": 1.0,
+    "exact_hit@20": 1.0,
+    "exact_mrr": 0.9498015873015874
+  },
+  "paired_delta": {
+    "exact_hit@1": {
+      "challenging_minus_simple": -0.05,
+      "ci95": [
+        -0.1,
+        -0.01
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42
+    },
+    "exact_hit@5": {
+      "challenging_minus_simple": -0.03,
+      "ci95": [
+        -0.07,
+        0.0
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42
+    },
+    "exact_mrr": {
+      "challenging_minus_simple": -0.0401984126984127,
+      "ci95": [
+        -0.07424603174603175,
+        -0.0125
+      ],
+      "bootstrap_samples": 10000,
+      "seed": 42
+    }
+  },
+  "breakdown": {
+    "new_outdoor_34": {
+      "query_count": 34,
+      "simple": {
+        "exact_hit@1": 0.9705882352941176,
+        "exact_hit@5": 1.0,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 0.9852941176470589
+      },
+      "challenging": {
+        "exact_hit@1": 0.8235294117647058,
+        "exact_hit@5": 0.9411764705882353,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 0.8785014005602241
+      }
+    },
+    "legacy_model_1_33": {
+      "query_count": 33,
+      "simple": {
+        "exact_hit@1": 1.0,
+        "exact_hit@5": 1.0,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 1.0
+      },
+      "challenging": {
+        "exact_hit@1": 1.0,
+        "exact_hit@5": 1.0,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 1.0
+      }
+    },
+    "legacy_model_2_5_33": {
+      "query_count": 33,
+      "simple": {
+        "exact_hit@1": 0.9696969696969697,
+        "exact_hit@5": 1.0,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 0.9848484848484849
+      },
+      "challenging": {
+        "exact_hit@1": 0.9696969696969697,
+        "exact_hit@5": 0.9696969696969697,
+        "exact_hit@10": 1.0,
+        "exact_hit@20": 1.0,
+        "exact_mrr": 0.9730639730639732
+      }
+    }
+  },
+  "validation": {
+    "simple_queries_with_20_unique_products": 100,
+    "challenging_queries_with_20_unique_products": 100
+  },
+  "challenging_exact_misses_at_5": [
+    {
+      "query_id": "image-q0029",
+      "source_product_id": "1431",
+      "subgroup": "legacy_model_2_5_33",
+      "simple_exact_rank": 2,
+      "challenging_exact_rank": 9,
+      "simple_hit_at_5": 1,
+      "challenging_hit_at_5": 0,
+      "simple_unique_products": 20,
+      "challenging_unique_products": 20
+    },
+    {
+      "query_id": "image-q0064",
+      "source_product_id": "2016",
+      "subgroup": "new_outdoor_34",
+      "simple_exact_rank": 1,
+      "challenging_exact_rank": 7,
+      "simple_hit_at_5": 1,
+      "challenging_hit_at_5": 0,
+      "simple_unique_products": 20,
+      "challenging_unique_products": 20
+    },
+    {
+      "query_id": "image-q0096",
+      "source_product_id": "1693",
+      "subgroup": "new_outdoor_34",
+      "simple_exact_rank": 1,
+      "challenging_exact_rank": 7,
+      "simple_hit_at_5": 1,
+      "challenging_hit_at_5": 0,
+      "simple_unique_products": 20,
+      "challenging_unique_products": 20
+    }
+  ],
+  "limitations": [
+    "Similarity Recall, NDCG, and mAP require a newly pooled and reviewed ground truth.",
+    "The runner output does not contain per-request latency."
+  ]
+}

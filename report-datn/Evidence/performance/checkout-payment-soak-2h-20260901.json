@@ -1,0 +1,2752 @@
+{
+  "run_id": "CHECKOUT-PAYMENT-SOAK-20260901-031425",
+  "started_at_utc": "2026-09-01T03:14:25.912451+00:00",
+  "base_url": "http://127.0.0.1:8080",
+  "mode": "soak",
+  "workload": "idempotent_checkout_cod_payment_reads",
+  "external_payment_gateway_called": false,
+  "workers": 8,
+  "configured_duration_seconds": 7200.0,
+  "cycle_period_seconds": 5.0,
+  "elapsed_seconds": 7200.447,
+  "throughput_requests_per_second": 8.0,
+  "fixture_count": 8,
+  "overall": {
+    "requests": 57600,
+    "successful": 57600,
+    "failed": 0,
+    "error_rate": 0.0,
+    "correlation_id_rate": 1.0,
+    "p50_ms": 26.396,
+    "p95_ms": 48.863,
+    "p99_ms": 68.006,
+    "max_ms": 272.766
+  },
+  "operations": {
+    "checkout_idempotent": {
+      "requests": 11520,
+      "successful": 11520,
+      "failed": 0,
+      "error_rate": 0.0,
+      "correlation_id_rate": 1.0,
+      "p50_ms": 28.659,
+      "p95_ms": 48.291,
+      "p99_ms": 68.236,
+      "max_ms": 272.766
+    },
+    "checkout_preview": {
+      "requests": 11520,
+      "successful": 11520,
+      "failed": 0,
+      "error_rate": 0.0,
+      "correlation_id_rate": 1.0,
+      "p50_ms": 39.826,
+      "p95_ms": 60.439,
+      "p99_ms": 82.256,
+      "max_ms": 142.035
+    },
+    "order_read": {
+      "requests": 11520,
+      "successful": 11520,
+      "failed": 0,
+      "error_rate": 0.0,
+      "correlation_id_rate": 1.0,
+      "p50_ms": 26.196,
+      "p95_ms": 44.425,
+      "p99_ms": 62.238,
+      "max_ms": 214.977
+    },
+    "payment_cod_idempotent": {
+      "requests": 11520,
+      "successful": 11520,
+      "failed": 0,
+      "error_rate": 0.0,
+      "correlation_id_rate": 1.0,
+      "p50_ms": 19.842,
+      "p95_ms": 32.721,
+      "p99_ms": 47.368,
+      "max_ms": 219.975
+    },
+    "payment_read": {
+      "requests": 11520,
+      "successful": 11520,
+      "failed": 0,
+      "error_rate": 0.0,
+      "correlation_id_rate": 1.0,
+      "p50_ms": 19.309,
+      "p95_ms": 33.439,
+      "p99_ms": 48.257,
+      "max_ms": 197.156
+    }
+  },
+  "resources": {
+    "sample_count": 120,
+    "health_failures": 0,
+    "heap_start_mib": 144.537,
+    "heap_end_mib": 170.966,
+    "heap_peak_mib": 192.735,
+    "heap_growth_mib": 26.429,
+    "heap_steady_growth_mib": 8.21,
+    "nonheap_peak_mib": 154.754,
+    "process_cpu_p95_percent": 2.927,
+    "process_cpu_max_percent": 17.582,
+    "hikari_active_max": 8.0,
+    "hikari_pending_max": 0.0,
+    "first": {
+      "captured_at_utc": "2026-09-01T03:14:25.924386+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 4.0,
+      "hikari_idle": 6.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.17581518233018972,
+      "process_uptime_seconds": 64.635,
+      "system_cpu_usage": 0.0,
+      "jvm_heap_used_bytes": 151557528.0,
+      "jvm_nonheap_used_bytes": 159773264.0
+    },
+    "last": {
+      "captured_at_utc": "2026-09-01T05:13:37.025289+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026624123028772245,
+      "process_uptime_seconds": 7215.427,
+      "system_cpu_usage": 0.08619597797524726,
+      "jvm_heap_used_bytes": 179270552.0,
+      "jvm_nonheap_used_bytes": 154139360.0
+    }
+  },
+  "health_before": {
+    "groups": [
+      "liveness",
+      "readiness"
+    ],
+    "status": "UP"
+  },
+  "health_after": {
+    "groups": [
+      "liveness",
+      "readiness"
+    ],
+    "status": "UP"
+  },
+  "cleanup": [
+    {
+      "worker_id": 0,
+      "status": 200,
+      "latency_ms": 213.235,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 1,
+      "status": 200,
+      "latency_ms": 30.78,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 2,
+      "status": 200,
+      "latency_ms": 29.715,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 3,
+      "status": 200,
+      "latency_ms": 32.777,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 4,
+      "status": 200,
+      "latency_ms": 31.327,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 5,
+      "status": 200,
+      "latency_ms": 28.453,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 6,
+      "status": 200,
+      "latency_ms": 26.845,
+      "error": "",
+      "payment_status": "CANCELLED"
+    },
+    {
+      "worker_id": 7,
+      "status": 200,
+      "latency_ms": 26.983,
+      "error": "",
+      "payment_status": "CANCELLED"
+    }
+  ],
+  "thresholds": {
+    "max_error_rate": 0.01,
+    "p95_threshold_ms": 1000.0,
+    "max_heap_growth_mib": 128.0
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "duration_completed": true,
+      "overall_error_rate": true,
+      "correlation_id_coverage": true,
+      "each_operation_has_samples": true,
+      "operation_p95": true,
+      "health_stayed_up": true,
+      "hikari_no_pending": true,
+      "cleanup_succeeded": true,
+      "heap_growth": true
+    }
+  },
+  "errors": [],
+  "resource_samples": [
+    {
+      "captured_at_utc": "2026-09-01T03:14:25.924386+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 4.0,
+      "hikari_idle": 6.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.17581518233018972,
+      "process_uptime_seconds": 64.635,
+      "system_cpu_usage": 0.0,
+      "jvm_heap_used_bytes": 151557528.0,
+      "jvm_nonheap_used_bytes": 159773264.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:15:27.193760+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.04118517419905368,
+      "process_uptime_seconds": 125.582,
+      "system_cpu_usage": 0.22243780214730502,
+      "jvm_heap_used_bytes": 186947160.0,
+      "jvm_nonheap_used_bytes": 160596168.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:16:27.306475+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.031130714070721807,
+      "process_uptime_seconds": 185.7,
+      "system_cpu_usage": 0.26411235228571817,
+      "jvm_heap_used_bytes": 112068776.0,
+      "jvm_nonheap_used_bytes": 162270888.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:17:27.390201+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.030137335302499058,
+      "process_uptime_seconds": 245.776,
+      "system_cpu_usage": 0.15974917182631165,
+      "jvm_heap_used_bytes": 127353960.0,
+      "jvm_nonheap_used_bytes": 156513000.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:18:27.456510+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02883651102490088,
+      "process_uptime_seconds": 305.853,
+      "system_cpu_usage": 0.11796643555381102,
+      "jvm_heap_used_bytes": 123727392.0,
+      "jvm_nonheap_used_bytes": 156654736.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:19:27.536533+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02802727003567867,
+      "process_uptime_seconds": 365.918,
+      "system_cpu_usage": 0.2372539662251658,
+      "jvm_heap_used_bytes": 118172928.0,
+      "jvm_nonheap_used_bytes": 156748816.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:20:27.617909+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.028311260666743773,
+      "process_uptime_seconds": 426.012,
+      "system_cpu_usage": 0.19139826775957514,
+      "jvm_heap_used_bytes": 115966368.0,
+      "jvm_nonheap_used_bytes": 152819344.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:21:27.707383+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027695228210353088,
+      "process_uptime_seconds": 486.105,
+      "system_cpu_usage": 0.12074919107032646,
+      "jvm_heap_used_bytes": 111438816.0,
+      "jvm_nonheap_used_bytes": 152497224.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:22:27.787842+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02695420180833202,
+      "process_uptime_seconds": 546.166,
+      "system_cpu_usage": 0.1530586174803773,
+      "jvm_heap_used_bytes": 102669120.0,
+      "jvm_nonheap_used_bytes": 152523208.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:23:27.847081+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.028131100643823785,
+      "process_uptime_seconds": 606.225,
+      "system_cpu_usage": 0.19460999284078118,
+      "jvm_heap_used_bytes": 92994432.0,
+      "jvm_nonheap_used_bytes": 151176352.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:24:27.905387+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02707762883389807,
+      "process_uptime_seconds": 666.307,
+      "system_cpu_usage": 0.43196327791584027,
+      "jvm_heap_used_bytes": 82322544.0,
+      "jvm_nonheap_used_bytes": 151187104.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:25:27.983690+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025693160902877363,
+      "process_uptime_seconds": 726.36,
+      "system_cpu_usage": 0.21813328929726805,
+      "jvm_heap_used_bytes": 194648344.0,
+      "jvm_nonheap_used_bytes": 151194016.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:26:28.046384+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027312038492826686,
+      "process_uptime_seconds": 786.448,
+      "system_cpu_usage": 0.13227256670490695,
+      "jvm_heap_used_bytes": 187370128.0,
+      "jvm_nonheap_used_bytes": 151100240.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:27:28.122658+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025879679639516782,
+      "process_uptime_seconds": 846.503,
+      "system_cpu_usage": 0.2041726557075353,
+      "jvm_heap_used_bytes": 177905368.0,
+      "jvm_nonheap_used_bytes": 151131344.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:28:28.190828+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.03035671783857745,
+      "process_uptime_seconds": 906.592,
+      "system_cpu_usage": 0.22981777115055968,
+      "jvm_heap_used_bytes": 179372960.0,
+      "jvm_nonheap_used_bytes": 152567344.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:29:28.281218+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025786763029135625,
+      "process_uptime_seconds": 966.662,
+      "system_cpu_usage": 0.13447640019338536,
+      "jvm_heap_used_bytes": 171323584.0,
+      "jvm_nonheap_used_bytes": 152564656.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:30:28.345779+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02383065427185548,
+      "process_uptime_seconds": 1026.737,
+      "system_cpu_usage": 0.1664949274269707,
+      "jvm_heap_used_bytes": 165022392.0,
+      "jvm_nonheap_used_bytes": 152589104.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:31:28.416210+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024894411876888154,
+      "process_uptime_seconds": 1086.833,
+      "system_cpu_usage": 0.08752892582445193,
+      "jvm_heap_used_bytes": 158676688.0,
+      "jvm_nonheap_used_bytes": 152613384.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:32:28.508563+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.0237926209372588,
+      "process_uptime_seconds": 1146.924,
+      "system_cpu_usage": 0.07894430265983698,
+      "jvm_heap_used_bytes": 152304408.0,
+      "jvm_nonheap_used_bytes": 152593160.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:33:28.603770+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02262631240955103,
+      "process_uptime_seconds": 1207.004,
+      "system_cpu_usage": 0.08061818136587473,
+      "jvm_heap_used_bytes": 147580960.0,
+      "jvm_nonheap_used_bytes": 152604424.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:34:28.680629+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02785181151391447,
+      "process_uptime_seconds": 1267.084,
+      "system_cpu_usage": 0.3633088849105466,
+      "jvm_heap_used_bytes": 145220792.0,
+      "jvm_nonheap_used_bytes": 151766536.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:35:28.778301+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.030883049812701676,
+      "process_uptime_seconds": 1327.179,
+      "system_cpu_usage": 0.4576336961451819,
+      "jvm_heap_used_bytes": 139283120.0,
+      "jvm_nonheap_used_bytes": 151776136.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:36:28.863283+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025256645946726122,
+      "process_uptime_seconds": 1387.265,
+      "system_cpu_usage": 0.11309031269185699,
+      "jvm_heap_used_bytes": 138534944.0,
+      "jvm_nonheap_used_bytes": 151843736.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:37:28.946622+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02591583778453479,
+      "process_uptime_seconds": 1447.332,
+      "system_cpu_usage": 0.08557873841843078,
+      "jvm_heap_used_bytes": 137813280.0,
+      "jvm_nonheap_used_bytes": 151559744.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:38:29.023035+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.0270675314371567,
+      "process_uptime_seconds": 1507.439,
+      "system_cpu_usage": 0.08415214756843682,
+      "jvm_heap_used_bytes": 138952072.0,
+      "jvm_nonheap_used_bytes": 151575232.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:39:29.124536+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027770877338393514,
+      "process_uptime_seconds": 1567.5,
+      "system_cpu_usage": 0.13579939694414223,
+      "jvm_heap_used_bytes": 140497456.0,
+      "jvm_nonheap_used_bytes": 151586368.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:40:29.179098+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027821007798869774,
+      "process_uptime_seconds": 1627.596,
+      "system_cpu_usage": 0.1658063487362761,
+      "jvm_heap_used_bytes": 144622664.0,
+      "jvm_nonheap_used_bytes": 151623872.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:41:29.280482+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025970669595149345,
+      "process_uptime_seconds": 1687.681,
+      "system_cpu_usage": 0.09338734079040234,
+      "jvm_heap_used_bytes": 147889384.0,
+      "jvm_nonheap_used_bytes": 151635520.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:42:29.369225+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02557354773872437,
+      "process_uptime_seconds": 1747.785,
+      "system_cpu_usage": 0.0877824461595006,
+      "jvm_heap_used_bytes": 158863240.0,
+      "jvm_nonheap_used_bytes": 152282240.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:43:29.479735+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02635148785702894,
+      "process_uptime_seconds": 1807.896,
+      "system_cpu_usage": 0.08626216579703104,
+      "jvm_heap_used_bytes": 163935168.0,
+      "jvm_nonheap_used_bytes": 152317696.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:44:29.580409+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024699332601112137,
+      "process_uptime_seconds": 1867.982,
+      "system_cpu_usage": 0.08148989439694176,
+      "jvm_heap_used_bytes": 170906280.0,
+      "jvm_nonheap_used_bytes": 152325248.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:45:29.680239+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02597493300012648,
+      "process_uptime_seconds": 1928.076,
+      "system_cpu_usage": 0.08525652451717015,
+      "jvm_heap_used_bytes": 182897504.0,
+      "jvm_nonheap_used_bytes": 152652424.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:46:29.757477+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02539110202760798,
+      "process_uptime_seconds": 1988.153,
+      "system_cpu_usage": 0.09251306153251104,
+      "jvm_heap_used_bytes": 192494688.0,
+      "jvm_nonheap_used_bytes": 152679416.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:47:29.839169+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026425767395194432,
+      "process_uptime_seconds": 2048.241,
+      "system_cpu_usage": 0.07892588449940163,
+      "jvm_heap_used_bytes": 91450512.0,
+      "jvm_nonheap_used_bytes": 152699896.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:48:29.923615+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.0272832370549474,
+      "process_uptime_seconds": 2108.303,
+      "system_cpu_usage": 0.10872461013387502,
+      "jvm_heap_used_bytes": 103746888.0,
+      "jvm_nonheap_used_bytes": 152718328.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:49:29.978381+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024181713167204542,
+      "process_uptime_seconds": 2168.394,
+      "system_cpu_usage": 0.0768958508738441,
+      "jvm_heap_used_bytes": 115897376.0,
+      "jvm_nonheap_used_bytes": 152721656.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:50:30.069731+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026431923582136155,
+      "process_uptime_seconds": 2228.47,
+      "system_cpu_usage": 0.09829095677576483,
+      "jvm_heap_used_bytes": 128685744.0,
+      "jvm_nonheap_used_bytes": 152719568.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:51:30.149631+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027307652787497038,
+      "process_uptime_seconds": 2288.549,
+      "system_cpu_usage": 0.08630419054287086,
+      "jvm_heap_used_bytes": 141609112.0,
+      "jvm_nonheap_used_bytes": 152766544.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:52:30.229080+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024487855049562558,
+      "process_uptime_seconds": 2348.609,
+      "system_cpu_usage": 0.07924040831144918,
+      "jvm_heap_used_bytes": 155410864.0,
+      "jvm_nonheap_used_bytes": 152769616.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:53:30.280845+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02632661134699533,
+      "process_uptime_seconds": 2408.696,
+      "system_cpu_usage": 0.08645710250137928,
+      "jvm_heap_used_bytes": 168968080.0,
+      "jvm_nonheap_used_bytes": 152770384.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:54:30.383967+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02799018738270352,
+      "process_uptime_seconds": 2468.778,
+      "system_cpu_usage": 0.08572357120034436,
+      "jvm_heap_used_bytes": 182463928.0,
+      "jvm_nonheap_used_bytes": 152778704.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:55:30.472146+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024414764790221546,
+      "process_uptime_seconds": 2528.864,
+      "system_cpu_usage": 0.07934715987532381,
+      "jvm_heap_used_bytes": 202097584.0,
+      "jvm_nonheap_used_bytes": 153014000.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:56:30.558576+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026540189000836475,
+      "process_uptime_seconds": 2588.978,
+      "system_cpu_usage": 0.07775746594291622,
+      "jvm_heap_used_bytes": 107138024.0,
+      "jvm_nonheap_used_bytes": 153063920.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:57:30.669451+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024709571952075363,
+      "process_uptime_seconds": 2649.054,
+      "system_cpu_usage": 0.08395403370763621,
+      "jvm_heap_used_bytes": 124695856.0,
+      "jvm_nonheap_used_bytes": 153091440.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:58:30.739651+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026646993772285694,
+      "process_uptime_seconds": 2709.155,
+      "system_cpu_usage": 0.13210836653253888,
+      "jvm_heap_used_bytes": 136600912.0,
+      "jvm_nonheap_used_bytes": 153099888.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T03:59:30.832604+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026260709891274582,
+      "process_uptime_seconds": 2769.25,
+      "system_cpu_usage": 0.08409999438688785,
+      "jvm_heap_used_bytes": 152245664.0,
+      "jvm_nonheap_used_bytes": 153116272.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:00:30.925189+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 8.0,
+      "hikari_idle": 2.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027361001432724703,
+      "process_uptime_seconds": 2829.338,
+      "system_cpu_usage": 0.09726163821967294,
+      "jvm_heap_used_bytes": 172354544.0,
+      "jvm_nonheap_used_bytes": 153133320.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:01:31.124521+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02402936008628997,
+      "process_uptime_seconds": 2889.505,
+      "system_cpu_usage": 0.08414944856787743,
+      "jvm_heap_used_bytes": 201661752.0,
+      "jvm_nonheap_used_bytes": 153140872.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:02:31.179333+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024780132660046056,
+      "process_uptime_seconds": 2949.557,
+      "system_cpu_usage": 0.07710346675674729,
+      "jvm_heap_used_bytes": 109181408.0,
+      "jvm_nonheap_used_bytes": 153163784.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:03:31.229386+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.023670177861382986,
+      "process_uptime_seconds": 3009.622,
+      "system_cpu_usage": 0.10823194413898939,
+      "jvm_heap_used_bytes": 125943520.0,
+      "jvm_nonheap_used_bytes": 153168392.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:04:31.311528+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02868831077327512,
+      "process_uptime_seconds": 3069.729,
+      "system_cpu_usage": 0.22110163144284534,
+      "jvm_heap_used_bytes": 144562520.0,
+      "jvm_nonheap_used_bytes": 153165128.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:05:31.420556+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.028003943468145064,
+      "process_uptime_seconds": 3129.801,
+      "system_cpu_usage": 0.19687183143762066,
+      "jvm_heap_used_bytes": 162764096.0,
+      "jvm_nonheap_used_bytes": 153181152.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:06:31.481727+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024116114928508223,
+      "process_uptime_seconds": 3189.882,
+      "system_cpu_usage": 0.07546100970638792,
+      "jvm_heap_used_bytes": 178945536.0,
+      "jvm_nonheap_used_bytes": 153185760.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:07:31.569943+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026198528808532396,
+      "process_uptime_seconds": 3249.97,
+      "system_cpu_usage": 0.07978065017746971,
+      "jvm_heap_used_bytes": 197013096.0,
+      "jvm_nonheap_used_bytes": 153188832.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:08:31.651871+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025705889213868433,
+      "process_uptime_seconds": 3310.069,
+      "system_cpu_usage": 0.11438887930761643,
+      "jvm_heap_used_bytes": 107172416.0,
+      "jvm_nonheap_used_bytes": 153222312.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:09:31.754368+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02922327298510449,
+      "process_uptime_seconds": 3370.156,
+      "system_cpu_usage": 0.1467859286403359,
+      "jvm_heap_used_bytes": 131752976.0,
+      "jvm_nonheap_used_bytes": 153485368.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:10:31.833598+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02516562754517484,
+      "process_uptime_seconds": 3430.214,
+      "system_cpu_usage": 0.11346689810257991,
+      "jvm_heap_used_bytes": 149017536.0,
+      "jvm_nonheap_used_bytes": 153493944.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:11:31.904206+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025287075880389344,
+      "process_uptime_seconds": 3490.32,
+      "system_cpu_usage": 0.08680704502837144,
+      "jvm_heap_used_bytes": 166866576.0,
+      "jvm_nonheap_used_bytes": 153505720.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:12:31.996902+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025096441280727126,
+      "process_uptime_seconds": 3550.397,
+      "system_cpu_usage": 0.08415077637384971,
+      "jvm_heap_used_bytes": 184091928.0,
+      "jvm_nonheap_used_bytes": 154704144.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:13:32.081922+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.023923738809556755,
+      "process_uptime_seconds": 3610.484,
+      "system_cpu_usage": 0.0757336192883431,
+      "jvm_heap_used_bytes": 201268544.0,
+      "jvm_nonheap_used_bytes": 153550352.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:14:32.173664+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026132699731160017,
+      "process_uptime_seconds": 3670.558,
+      "system_cpu_usage": 0.08080286729757491,
+      "jvm_heap_used_bytes": 109286880.0,
+      "jvm_nonheap_used_bytes": 153556600.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:15:32.253322+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02487621327804847,
+      "process_uptime_seconds": 3730.641,
+      "system_cpu_usage": 0.08555188752897092,
+      "jvm_heap_used_bytes": 129084984.0,
+      "jvm_nonheap_used_bytes": 153569064.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:16:32.319994+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026019241852979467,
+      "process_uptime_seconds": 3790.703,
+      "system_cpu_usage": 0.09762252530929395,
+      "jvm_heap_used_bytes": 147772872.0,
+      "jvm_nonheap_used_bytes": 153544800.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:17:32.375009+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024186848312992025,
+      "process_uptime_seconds": 3850.766,
+      "system_cpu_usage": 0.08086629698400982,
+      "jvm_heap_used_bytes": 165965416.0,
+      "jvm_nonheap_used_bytes": 153567712.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:18:32.444629+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024714317063189068,
+      "process_uptime_seconds": 3910.835,
+      "system_cpu_usage": 0.07872616019079903,
+      "jvm_heap_used_bytes": 183622624.0,
+      "jvm_nonheap_used_bytes": 153616352.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:19:32.512329+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027052447508924982,
+      "process_uptime_seconds": 3970.91,
+      "system_cpu_usage": 0.08438680347443327,
+      "jvm_heap_used_bytes": 201091920.0,
+      "jvm_nonheap_used_bytes": 153623776.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:20:32.580351+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.028021278728373008,
+      "process_uptime_seconds": 4030.975,
+      "system_cpu_usage": 0.10826920547780172,
+      "jvm_heap_used_bytes": 110198216.0,
+      "jvm_nonheap_used_bytes": 153634784.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:21:32.663101+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026200802583171968,
+      "process_uptime_seconds": 4091.063,
+      "system_cpu_usage": 0.09149149095777197,
+      "jvm_heap_used_bytes": 127771704.0,
+      "jvm_nonheap_used_bytes": 153643872.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:22:32.741749+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.028813075990637874,
+      "process_uptime_seconds": 4151.124,
+      "system_cpu_usage": 0.08986303564878571,
+      "jvm_heap_used_bytes": 149594784.0,
+      "jvm_nonheap_used_bytes": 153814408.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:23:32.799326+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02900657281301979,
+      "process_uptime_seconds": 4211.178,
+      "system_cpu_usage": 0.2051243355684912,
+      "jvm_heap_used_bytes": 164675328.0,
+      "jvm_nonheap_used_bytes": 153815304.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:24:32.867711+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024178504918860068,
+      "process_uptime_seconds": 4271.283,
+      "system_cpu_usage": 0.12014633333752055,
+      "jvm_heap_used_bytes": 181553472.0,
+      "jvm_nonheap_used_bytes": 153815304.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:25:32.963040+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025747749774420167,
+      "process_uptime_seconds": 4331.365,
+      "system_cpu_usage": 0.08384736969726736,
+      "jvm_heap_used_bytes": 197921928.0,
+      "jvm_nonheap_used_bytes": 153845512.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:26:33.045665+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02532507885522404,
+      "process_uptime_seconds": 4391.44,
+      "system_cpu_usage": 0.09132550831357389,
+      "jvm_heap_used_bytes": 109515016.0,
+      "jvm_nonheap_used_bytes": 153845512.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:27:33.116121+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024836955596965363,
+      "process_uptime_seconds": 4451.518,
+      "system_cpu_usage": 0.08849438394423326,
+      "jvm_heap_used_bytes": 126734120.0,
+      "jvm_nonheap_used_bytes": 153846280.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:28:33.199454+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02490544584927087,
+      "process_uptime_seconds": 4511.589,
+      "system_cpu_usage": 0.07437401650342046,
+      "jvm_heap_used_bytes": 143687232.0,
+      "jvm_nonheap_used_bytes": 153852960.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:29:33.271547+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025434333508585354,
+      "process_uptime_seconds": 4571.65,
+      "system_cpu_usage": 0.07912257663921407,
+      "jvm_heap_used_bytes": 162468632.0,
+      "jvm_nonheap_used_bytes": 153859872.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:30:33.341999+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025419419643990197,
+      "process_uptime_seconds": 4631.727,
+      "system_cpu_usage": 0.09598707459837763,
+      "jvm_heap_used_bytes": 177663680.0,
+      "jvm_nonheap_used_bytes": 153850104.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:31:33.417484+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02423998581194352,
+      "process_uptime_seconds": 4691.833,
+      "system_cpu_usage": 0.0765007944014956,
+      "jvm_heap_used_bytes": 196082336.0,
+      "jvm_nonheap_used_bytes": 153850104.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:32:33.523504+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026104119162605167,
+      "process_uptime_seconds": 4751.917,
+      "system_cpu_usage": 0.08007080521116416,
+      "jvm_heap_used_bytes": 108492752.0,
+      "jvm_nonheap_used_bytes": 153853560.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:33:33.596620+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024991946002533284,
+      "process_uptime_seconds": 4812.012,
+      "system_cpu_usage": 0.07961459399392212,
+      "jvm_heap_used_bytes": 127144048.0,
+      "jvm_nonheap_used_bytes": 153867512.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:34:33.688957+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02572196781918875,
+      "process_uptime_seconds": 4872.089,
+      "system_cpu_usage": 0.08014308087476885,
+      "jvm_heap_used_bytes": 143035096.0,
+      "jvm_nonheap_used_bytes": 153869304.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:35:33.762871+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025380197748861456,
+      "process_uptime_seconds": 4932.178,
+      "system_cpu_usage": 0.08902485610831444,
+      "jvm_heap_used_bytes": 160807088.0,
+      "jvm_nonheap_used_bytes": 153873272.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:36:33.854269+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02671517134640715,
+      "process_uptime_seconds": 4992.272,
+      "system_cpu_usage": 0.10737436703528946,
+      "jvm_heap_used_bytes": 184381616.0,
+      "jvm_nonheap_used_bytes": 154012544.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:37:33.947427+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02577503672880198,
+      "process_uptime_seconds": 5052.362,
+      "system_cpu_usage": 0.07593394073077953,
+      "jvm_heap_used_bytes": 95625016.0,
+      "jvm_nonheap_used_bytes": 153960832.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:38:34.044493+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025746057070938307,
+      "process_uptime_seconds": 5112.446,
+      "system_cpu_usage": 0.07799755766402194,
+      "jvm_heap_used_bytes": 115330336.0,
+      "jvm_nonheap_used_bytes": 153975704.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:39:34.123664+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.023667717172355284,
+      "process_uptime_seconds": 5172.517,
+      "system_cpu_usage": 0.08398755748569631,
+      "jvm_heap_used_bytes": 134698240.0,
+      "jvm_nonheap_used_bytes": 153977240.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:40:34.209241+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026484121998969816,
+      "process_uptime_seconds": 5232.625,
+      "system_cpu_usage": 0.10320777405174131,
+      "jvm_heap_used_bytes": 152497936.0,
+      "jvm_nonheap_used_bytes": 153974808.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:41:34.300384+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025333140462042932,
+      "process_uptime_seconds": 5292.692,
+      "system_cpu_usage": 0.08703724139126212,
+      "jvm_heap_used_bytes": 170808992.0,
+      "jvm_nonheap_used_bytes": 153982896.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:42:34.365911+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024147431830834044,
+      "process_uptime_seconds": 5352.782,
+      "system_cpu_usage": 0.0769832303238317,
+      "jvm_heap_used_bytes": 190287960.0,
+      "jvm_nonheap_used_bytes": 153982896.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:43:34.462153+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02522669853527093,
+      "process_uptime_seconds": 5412.864,
+      "system_cpu_usage": 0.07717770586815198,
+      "jvm_heap_used_bytes": 102445080.0,
+      "jvm_nonheap_used_bytes": 153984176.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:44:34.548407+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026899948688267304,
+      "process_uptime_seconds": 5472.965,
+      "system_cpu_usage": 0.08019996133424323,
+      "jvm_heap_used_bytes": 121720064.0,
+      "jvm_nonheap_used_bytes": 153979248.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:45:34.659008+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02603964885936962,
+      "process_uptime_seconds": 5533.059,
+      "system_cpu_usage": 0.07939699252772092,
+      "jvm_heap_used_bytes": 138358632.0,
+      "jvm_nonheap_used_bytes": 153976920.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:46:34.735790+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02610599782726024,
+      "process_uptime_seconds": 5593.136,
+      "system_cpu_usage": 0.07640143341448835,
+      "jvm_heap_used_bytes": 158299520.0,
+      "jvm_nonheap_used_bytes": 153976920.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:47:34.818061+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02469987737479119,
+      "process_uptime_seconds": 5653.234,
+      "system_cpu_usage": 0.07817813996567613,
+      "jvm_heap_used_bytes": 179999816.0,
+      "jvm_nonheap_used_bytes": 153985112.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:48:34.917103+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024338834136984747,
+      "process_uptime_seconds": 5713.333,
+      "system_cpu_usage": 0.07928929739329027,
+      "jvm_heap_used_bytes": 199651720.0,
+      "jvm_nonheap_used_bytes": 153984064.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:49:35.025778+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02718704408601867,
+      "process_uptime_seconds": 5773.407,
+      "system_cpu_usage": 0.09046318135432374,
+      "jvm_heap_used_bytes": 113845344.0,
+      "jvm_nonheap_used_bytes": 154002704.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:50:35.079921+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026002858916567128,
+      "process_uptime_seconds": 5833.489,
+      "system_cpu_usage": 0.09641505215718071,
+      "jvm_heap_used_bytes": 131101888.0,
+      "jvm_nonheap_used_bytes": 154002704.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:51:35.160183+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.023928277542358392,
+      "process_uptime_seconds": 5893.577,
+      "system_cpu_usage": 0.07693014457246683,
+      "jvm_heap_used_bytes": 150726192.0,
+      "jvm_nonheap_used_bytes": 153996432.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:52:35.253434+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026326532182269335,
+      "process_uptime_seconds": 5953.654,
+      "system_cpu_usage": 0.08190654959948507,
+      "jvm_heap_used_bytes": 169276992.0,
+      "jvm_nonheap_used_bytes": 153996432.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:53:35.344264+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.023950800319384135,
+      "process_uptime_seconds": 6013.759,
+      "system_cpu_usage": 0.07744547071682806,
+      "jvm_heap_used_bytes": 189601616.0,
+      "jvm_nonheap_used_bytes": 153996432.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:54:35.435650+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02443682371963842,
+      "process_uptime_seconds": 6073.852,
+      "system_cpu_usage": 0.07859138252548514,
+      "jvm_heap_used_bytes": 100421696.0,
+      "jvm_nonheap_used_bytes": 154009504.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:55:35.545333+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025784913268155667,
+      "process_uptime_seconds": 6133.926,
+      "system_cpu_usage": 0.08119870577778186,
+      "jvm_heap_used_bytes": 118374208.0,
+      "jvm_nonheap_used_bytes": 154017952.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:56:35.606799+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02724354089627603,
+      "process_uptime_seconds": 6194.004,
+      "system_cpu_usage": 0.07990431470510329,
+      "jvm_heap_used_bytes": 139107896.0,
+      "jvm_nonheap_used_bytes": 153933216.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:57:35.685960+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024612077309851172,
+      "process_uptime_seconds": 6254.083,
+      "system_cpu_usage": 0.07916200582958788,
+      "jvm_heap_used_bytes": 159425216.0,
+      "jvm_nonheap_used_bytes": 153939616.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:58:35.770177+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02646946045004779,
+      "process_uptime_seconds": 6314.146,
+      "system_cpu_usage": 0.07982957712073357,
+      "jvm_heap_used_bytes": 179462968.0,
+      "jvm_nonheap_used_bytes": 153927504.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T04:59:35.818755+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027703908734525554,
+      "process_uptime_seconds": 6374.216,
+      "system_cpu_usage": 0.07904066763675155,
+      "jvm_heap_used_bytes": 199988368.0,
+      "jvm_nonheap_used_bytes": 153928144.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:00:35.891672+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.027696071010671414,
+      "process_uptime_seconds": 6434.283,
+      "system_cpu_usage": 0.09868673571288532,
+      "jvm_heap_used_bytes": 115186008.0,
+      "jvm_nonheap_used_bytes": 155712976.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:01:35.987307+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 5.0,
+      "hikari_idle": 5.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024644691394107493,
+      "process_uptime_seconds": 6494.385,
+      "system_cpu_usage": 0.08100232499475746,
+      "jvm_heap_used_bytes": 145046304.0,
+      "jvm_nonheap_used_bytes": 153982288.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:02:36.118841+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02414792140866062,
+      "process_uptime_seconds": 6554.535,
+      "system_cpu_usage": 0.08098263577724596,
+      "jvm_heap_used_bytes": 175278336.0,
+      "jvm_nonheap_used_bytes": 153982144.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:03:36.218283+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026212833477237445,
+      "process_uptime_seconds": 6614.601,
+      "system_cpu_usage": 0.08049500354748107,
+      "jvm_heap_used_bytes": 198930112.0,
+      "jvm_nonheap_used_bytes": 154132280.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:04:36.281183+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02718497795724402,
+      "process_uptime_seconds": 6674.664,
+      "system_cpu_usage": 0.08315651381986433,
+      "jvm_heap_used_bytes": 111861360.0,
+      "jvm_nonheap_used_bytes": 154132280.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:05:36.336000+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02470599561464854,
+      "process_uptime_seconds": 6734.727,
+      "system_cpu_usage": 0.08180546567450196,
+      "jvm_heap_used_bytes": 130327072.0,
+      "jvm_nonheap_used_bytes": 154132280.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:06:36.425436+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.025721290980881353,
+      "process_uptime_seconds": 6794.801,
+      "system_cpu_usage": 0.08053535283031919,
+      "jvm_heap_used_bytes": 150994944.0,
+      "jvm_nonheap_used_bytes": 154143176.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:07:36.484400+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.0253860698419442,
+      "process_uptime_seconds": 6854.886,
+      "system_cpu_usage": 0.08236499636693828,
+      "jvm_heap_used_bytes": 169262272.0,
+      "jvm_nonheap_used_bytes": 154144712.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:08:36.574534+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02471307984659971,
+      "process_uptime_seconds": 6914.994,
+      "system_cpu_usage": 0.09647348038912762,
+      "jvm_heap_used_bytes": 186943280.0,
+      "jvm_nonheap_used_bytes": 154144712.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:09:36.723457+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026238042799915536,
+      "process_uptime_seconds": 6975.102,
+      "system_cpu_usage": 0.1068483703714891,
+      "jvm_heap_used_bytes": 99736960.0,
+      "jvm_nonheap_used_bytes": 154151128.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:10:36.780140+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.024641306998116955,
+      "process_uptime_seconds": 7035.177,
+      "system_cpu_usage": 0.09608573412483669,
+      "jvm_heap_used_bytes": 120587144.0,
+      "jvm_nonheap_used_bytes": 154133600.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:11:36.864112+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02558219667519117,
+      "process_uptime_seconds": 7095.266,
+      "system_cpu_usage": 0.0849889655144499,
+      "jvm_heap_used_bytes": 141183136.0,
+      "jvm_nonheap_used_bytes": 154136288.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:12:36.943963+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.02513014722362069,
+      "process_uptime_seconds": 7155.346,
+      "system_cpu_usage": 0.0844529193990027,
+      "jvm_heap_used_bytes": 159445408.0,
+      "jvm_nonheap_used_bytes": 154137440.0
+    },
+    {
+      "captured_at_utc": "2026-09-01T05:13:37.025289+00:00",
+      "health_status": 200,
+      "health": {
+        "groups": [
+          "liveness",
+          "readiness"
+        ],
+        "status": "UP"
+      },
+      "health_error": "",
+      "hikari_active": 0.0,
+      "hikari_idle": 10.0,
+      "hikari_max": 10.0,
+      "hikari_pending": 0.0,
+      "process_cpu_usage": 0.026624123028772245,
+      "process_uptime_seconds": 7215.427,
+      "system_cpu_usage": 0.08619597797524726,
+      "jvm_heap_used_bytes": 179270552.0,
+      "jvm_nonheap_used_bytes": 154139360.0
+    }
+  ]
+}

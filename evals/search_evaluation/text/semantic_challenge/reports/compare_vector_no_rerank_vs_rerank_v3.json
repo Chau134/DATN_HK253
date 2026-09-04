@@ -1,0 +1,244 @@
+{
+  "baseline": "vector_no_rerank",
+  "candidate": "vector_rerank",
+  "shared_positive_query_count": 120,
+  "metrics": {
+    "hit@5": {
+      "vector_no_rerank": 1.0,
+      "vector_rerank": 0.975,
+      "delta_rerank_minus_no_rerank": -0.025,
+      "delta_ci95": [
+        -0.058333333333333334,
+        0.0
+      ],
+      "rerank_wins": 0,
+      "ties": 117,
+      "rerank_losses": 3
+    },
+    "precision@5": {
+      "vector_no_rerank": 0.6283333333333334,
+      "vector_rerank": 0.615,
+      "delta_rerank_minus_no_rerank": -0.013333333333333332,
+      "delta_ci95": [
+        -0.04,
+        0.010000000000000002
+      ],
+      "rerank_wins": 7,
+      "ties": 104,
+      "rerank_losses": 9
+    },
+    "recall@5": {
+      "vector_no_rerank": 0.5822022127132059,
+      "vector_rerank": 0.5615207221806762,
+      "delta_rerank_minus_no_rerank": -0.020681490532529736,
+      "delta_ci95": [
+        -0.04649244844391123,
+        0.00011770989543467104
+      ],
+      "rerank_wins": 7,
+      "ties": 104,
+      "rerank_losses": 9
+    },
+    "ndcg@5": {
+      "vector_no_rerank": 0.9465009251959949,
+      "vector_rerank": 0.9170787770145566,
+      "delta_rerank_minus_no_rerank": -0.0294221481814383,
+      "delta_ci95": [
+        -0.0647025675967315,
+        0.0016185832003389675
+      ],
+      "rerank_wins": 14,
+      "ties": 91,
+      "rerank_losses": 15
+    },
+    "mrr": {
+      "vector_no_rerank": 0.9680555555555556,
+      "vector_rerank": 0.9303571428571428,
+      "delta_rerank_minus_no_rerank": -0.037698412698412696,
+      "delta_ci95": [
+        -0.07900214947089945,
+        0.00026537698412697257
+      ],
+      "rerank_wins": 6,
+      "ties": 102,
+      "rerank_losses": 12
+    }
+  },
+  "breakdown": {
+    "evaluation_slice": {
+      "canonical_v2": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9615662055189216,
+          "vector_rerank": 0.9486863816208613
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9759259259259259,
+          "vector_rerank": 0.962037037037037
+        },
+        "query_count": 90
+      },
+      "semantic_challenge_v1": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.9
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.901305084227215,
+          "vector_rerank": 0.822255963195643
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9444444444444444,
+          "vector_rerank": 0.8353174603174603
+        },
+        "query_count": 30
+      }
+    },
+    "semantic_variant_type": {
+      "category_synonym": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9076829767077728,
+          "vector_rerank": 0.9636682438732832
+        },
+        "mrr": {
+          "vector_no_rerank": 0.95,
+          "vector_rerank": 1.0
+        },
+        "query_count": 10
+      },
+      "conversational_constraint": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.75
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9393464306104596,
+          "vector_rerank": 0.686407461511197
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9375,
+          "vector_rerank": 0.7083333333333334
+        },
+        "query_count": 8
+      },
+      "description_paraphrase": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "mrr": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "query_count": 6
+      },
+      "material_synonym": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.8333333333333334
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.7412585524758408,
+          "vector_rerank": 0.5899561275078136
+        },
+        "mrr": {
+          "vector_no_rerank": 0.8888888888888888,
+          "vector_rerank": 0.5654761904761905
+        },
+        "query_count": 6
+      },
+      "none": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9615662055189216,
+          "vector_rerank": 0.9486863816208613
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9759259259259259,
+          "vector_rerank": 0.962037037037037
+        },
+        "query_count": 90
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.9833333333333333
+        },
+        "mrr": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.9777777777777777
+        },
+        "query_count": 30
+      },
+      "hard": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9251455877325816,
+          "vector_rerank": 0.8826577090052019
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9444444444444444,
+          "vector_rerank": 0.9083333333333333
+        },
+        "query_count": 30
+      },
+      "medium": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 1.0
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.9595530288241833,
+          "vector_rerank": 0.9800681025240485
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9833333333333333,
+          "vector_rerank": 1.0
+        },
+        "query_count": 30
+      },
+      "semantic": {
+        "hit@5": {
+          "vector_no_rerank": 1.0,
+          "vector_rerank": 0.9
+        },
+        "ndcg@5": {
+          "vector_no_rerank": 0.901305084227215,
+          "vector_rerank": 0.822255963195643
+        },
+        "mrr": {
+          "vector_no_rerank": 0.9444444444444444,
+          "vector_rerank": 0.8353174603174603
+        },
+        "query_count": 30
+      }
+    }
+  },
+  "negative": {
+    "vector_no_rerank_empty_result_accuracy": 1.0,
+    "vector_rerank_empty_result_accuracy": 1.0
+  }
+}

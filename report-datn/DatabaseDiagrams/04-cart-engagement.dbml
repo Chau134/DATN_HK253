@@ -1,0 +1,172 @@
+// Sơ đồ nhóm dữ liệu giỏ hàng và tương tác khách hàng
+
+// Các bảng có ghi chú [note: 'Bảng tham chiếu rút gọn'] chỉ dùng để làm rõ quan hệ liên nhóm.
+
+Project ecommerce_cart_engagement {
+
+  database_type: 'MySQL'
+
+  Note: 'Sơ đồ nhóm dữ liệu giỏ hàng và tương tác khách hàng'
+
+}
+
+Table carts {
+  id bigint [pk, not null, increment]
+  user_account_id bigint [not null]
+  status varchar(50) [not null]
+  currency varchar(3) [not null]
+  checked_out_at datetime(6)
+  expires_at datetime(6)
+  created_at datetime(6)
+  updated_at datetime(6)
+}
+
+Table cart_items {
+  id bigint [pk, not null, increment]
+  cart_id bigint [not null]
+  product_id bigint [not null]
+  product_variant_id bigint [not null]
+  quantity int [not null]
+  selected boolean
+  added_unit_price decimal(12,2)
+  added_discounted_price decimal(12,2)
+  added_effective_price decimal(12,2)
+  currency varchar(3) [not null]
+  created_at datetime(6)
+  updated_at datetime(6)
+
+  indexes {
+    (cart_id, product_variant_id) [unique]
+  }
+}
+
+Table wishlists {
+  id bigint [pk, not null, increment]
+  user_account_id bigint [not null]
+  name varchar(100) [not null]
+  default_wishlist boolean
+  status varchar(50) [not null]
+  created_at datetime(6)
+  updated_at datetime(6)
+
+  indexes {
+    (user_account_id, name) [unique]
+  }
+}
+
+Table wishlist_items {
+  id bigint [pk, not null, increment]
+  wishlist_id bigint [not null]
+  product_id bigint [not null]
+  product_variant_id bigint
+  note text
+  created_at datetime(6)
+  updated_at datetime(6)
+
+  indexes {
+    (wishlist_id, product_id) [unique]
+  }
+}
+
+Table product_reviews {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  product_variant_id bigint
+  user_account_id bigint [not null]
+  order_id bigint
+  order_item_id bigint [unique]
+  rating int [not null]
+  title varchar(150)
+  content text
+  status varchar(50) [not null]
+  verified_purchase boolean
+  helpful_count int [not null]
+  reported_count int [not null]
+  moderation_reason varchar(150)
+  moderated_by_user_account_id bigint
+  moderated_at datetime(6)
+  created_at datetime(6)
+  updated_at datetime(6)
+}
+
+Table product_review_summaries {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null, unique]
+  review_count int [not null]
+  approved_review_count int [not null]
+  average_rating decimal(3,2) [not null]
+  rating_1_count int [not null]
+  rating_2_count int [not null]
+  rating_3_count int [not null]
+  rating_4_count int [not null]
+  rating_5_count int [not null]
+  updated_at datetime(6)
+}
+
+Table blogs {
+  id bigint [pk, not null, increment]
+  title varchar(255) [not null]
+  slug varchar(255) [unique]
+  summary text
+  content text
+  thumbnail_url varchar(500)
+  category varchar(100)
+  status varchar(20)
+  author_id bigint
+  published_at datetime(6)
+  created_at datetime(6)
+  updated_at datetime(6)
+}
+
+Table user_accounts [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table products [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null]
+}
+
+Table product_variants [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table orders [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table order_items [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Ref: blogs.author_id > user_accounts.id [delete: set null]
+
+Ref: cart_items.cart_id > carts.id [delete: cascade]
+
+Ref: cart_items.product_id > products.id [delete: cascade]
+
+Ref: cart_items.product_variant_id > product_variants.id [delete: cascade]
+
+Ref: carts.user_account_id > user_accounts.id [delete: cascade]
+
+Ref: product_review_summaries.product_id > products.id [delete: cascade]
+
+Ref: product_reviews.moderated_by_user_account_id > user_accounts.id [delete: set null]
+
+Ref: product_reviews.order_id > orders.id [delete: set null]
+
+Ref: product_reviews.order_item_id > order_items.id [delete: set null]
+
+Ref: product_reviews.product_id > products.id [delete: cascade]
+
+Ref: product_reviews.product_variant_id > product_variants.id [delete: set null]
+
+Ref: product_reviews.user_account_id > user_accounts.id [delete: cascade]
+
+Ref: wishlist_items.product_id > products.id [delete: cascade]
+
+Ref: wishlist_items.product_variant_id > product_variants.id [delete: set null]
+
+Ref: wishlist_items.wishlist_id > wishlists.id [delete: cascade]
+
+Ref: wishlists.user_account_id > user_accounts.id [delete: cascade]
+

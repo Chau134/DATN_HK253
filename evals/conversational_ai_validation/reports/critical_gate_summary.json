@@ -1,0 +1,9 @@
+{
+  "status": "complete",
+  "case_count": 12,
+  "automatic_pass_count": 12,
+  "human_reviewed_count": 12,
+  "hard_gate_passed": true,
+  "hard_failure_question_ids": [],
+  "note": "Automatic checks are diagnostic; final hard-gate status requires human review."
+}

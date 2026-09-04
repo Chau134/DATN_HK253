@@ -1,0 +1,5 @@
+﻿variant,label,comparison_role,session_mode,reranker_enabled,optional,status,grounding,token_f1,context_precision,context_recall,human_acceptance_rate
+llm_no_rag,"A. LLM-only (no RAG, no memory)",no_rag,isolated_turns,False,False,complete,0.8239584750000001,0.38912255,0.034482758620689655,0.034482758620689655,
+rag_no_memory,B. RAG without memory (reranker off),no_memory,isolated_turns,False,False,complete,1.0,0.85330185,0.8817204354838709,0.8790322580645161,
+rag_memory_rerank_off,C. Full RAG with memory (reranker off),full_rerank_off,preserve_sessions,False,False,complete,1.0,0.847229475,0.946236564516129,0.9435483870967742,
+rag_memory_rerank_on_post_fix,"D. Full RAG with memory (reranker on, post-fix)",full_rerank_on,preserve_sessions,True,False,complete,1.0,0.842684025,0.9301075322580644,0.9274193548387096,0.9125

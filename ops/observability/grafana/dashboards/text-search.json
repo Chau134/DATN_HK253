@@ -1,0 +1,107 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Text-search latency p50 / p95 / p99",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "p50",
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(ecommerce_search_stage_duration_seconds_bucket{mode=\"text\",stage=\"total\"}[5m])))"
+        },
+        {
+          "refId": "B",
+          "legendFormat": "p95",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(ecommerce_search_stage_duration_seconds_bucket{mode=\"text\",stage=\"total\"}[5m])))"
+        },
+        {
+          "refId": "C",
+          "legendFormat": "p99",
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(ecommerce_search_stage_duration_seconds_bucket{mode=\"text\",stage=\"total\"}[5m])))"
+        }
+      ],
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom"}}
+    },
+    {
+      "type": "timeseries",
+      "title": "Pipeline stage p95",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{stage}}",
+          "expr": "histogram_quantile(0.95, sum by (stage, le) (rate(ecommerce_search_stage_duration_seconds_bucket{mode=\"text\"}[5m])))"
+        }
+      ],
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom"}}
+    },
+    {
+      "type": "timeseries",
+      "title": "Fast path vs LLM",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{path}}",
+          "expr": "sum by (path) (rate(ecommerce_search_text_path_total[5m]))"
+        }
+      ],
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom"}}
+    },
+    {
+      "type": "timeseries",
+      "title": "Recovery and rejection decisions",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{decision}}",
+          "expr": "sum by (decision) (rate(ecommerce_search_recovery_total[5m]))"
+        }
+      ],
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom"}}
+    },
+    {
+      "type": "timeseries",
+      "title": "Errors, zero results, Spring fallback",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "errors",
+          "expr": "sum(rate(ecommerce_search_requests_total{mode=\"text\",outcome=\"error\"}[5m]))"
+        },
+        {
+          "refId": "B",
+          "legendFormat": "zero results",
+          "expr": "sum(rate(ecommerce_search_result_count_bucket{mode=\"text\",le=\"0\"}[5m]))"
+        },
+        {
+          "refId": "C",
+          "legendFormat": "Spring keyword fallback",
+          "expr": "sum(rate(ecommerce_ai_search_fallback_total{decision=\"keyword\"}[5m]))"
+        }
+      ],
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom"}}
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["ecommerce", "text-search"],
+  "templating": {"list": []},
+  "time": {"from": "now-6h", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Text Search",
+  "uid": "ecommerce-text-search",
+  "version": 1
+}

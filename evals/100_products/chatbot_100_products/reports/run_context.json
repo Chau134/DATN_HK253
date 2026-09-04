@@ -1,0 +1,79 @@
+{
+  "run_id": "chat100-advanced-aae5714189",
+  "started_at": "2026-07-25T08:10:17.561667+00:00",
+  "suite": "advanced_chatbot_100_products_v2",
+  "seed": 42,
+  "endpoint": "http://localhost:8080/api/assistant/chat",
+  "top_k": 5,
+  "timeout_seconds": 120.0,
+  "concurrency": 2,
+  "retries": 1,
+  "sql_source": "C:\\A\\DACN_HK252\\database\\100.sql",
+  "snapshot_source": "C:\\A\\DACN_HK252\\evals\\search_evaluation\\image\\data\\product_snapshot.csv",
+  "readiness": {
+    "overall": {
+      "status_code": 200,
+      "body": {
+        "ready": true,
+        "models": {
+          "text_embedding": true,
+          "image_embedding": true,
+          "llm": true,
+          "yolo": false,
+          "reranker": true
+        },
+        "capabilities": {
+          "text_search": true,
+          "image_search": true,
+          "assistant_llm": true
+        },
+        "capability": null,
+        "instance_id": "154acfa9644c41079776e1f9f9584710",
+        "started_at": "2026-07-25T07:33:27.663398+00:00"
+      }
+    },
+    "text_search": {
+      "status_code": 200,
+      "body": {
+        "ready": true,
+        "models": {
+          "text_embedding": true,
+          "image_embedding": true,
+          "llm": true,
+          "yolo": false,
+          "reranker": true
+        },
+        "capabilities": {
+          "text_search": true,
+          "image_search": true,
+          "assistant_llm": true
+        },
+        "capability": "text_search",
+        "instance_id": "154acfa9644c41079776e1f9f9584710",
+        "started_at": "2026-07-25T07:33:27.663398+00:00"
+      }
+    },
+    "assistant_llm": {
+      "status_code": 200,
+      "body": {
+        "ready": true,
+        "models": {
+          "text_embedding": true,
+          "image_embedding": true,
+          "llm": true,
+          "yolo": false,
+          "reranker": true
+        },
+        "capabilities": {
+          "text_search": true,
+          "image_search": true,
+          "assistant_llm": true
+        },
+        "capability": "assistant_llm",
+        "instance_id": "154acfa9644c41079776e1f9f9584710",
+        "started_at": "2026-07-25T07:33:27.663398+00:00"
+      }
+    }
+  },
+  "finished_at": "2026-07-25T08:27:25.750646+00:00"
+}

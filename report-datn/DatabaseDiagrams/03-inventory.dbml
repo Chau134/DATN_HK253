@@ -1,0 +1,98 @@
+// Sơ đồ nhóm dữ liệu quản lý kho
+
+// Các bảng có ghi chú [note: 'Bảng tham chiếu rút gọn'] chỉ dùng để làm rõ quan hệ liên nhóm.
+
+Project ecommerce_inventory {
+
+  database_type: 'MySQL'
+
+  Note: 'Sơ đồ nhóm dữ liệu quản lý kho'
+
+}
+
+Table inventory_reservations {
+  id bigint [pk, not null, increment]
+  product_id bigint [not null]
+  product_variant_id bigint [not null]
+  user_account_id bigint [not null]
+  cart_id bigint
+  order_id bigint
+  reservation_key varchar(100) [unique]
+  quantity int [not null]
+  status varchar(50) [not null]
+  reserved_at datetime(6)
+  expires_at datetime(6)
+  consumed_at datetime(6)
+  released_at datetime(6)
+  release_reason varchar(150)
+  note text
+  created_at datetime(6)
+  updated_at datetime(6)
+}
+
+Table inventory_movements {
+  id bigint [pk, not null, increment]
+  product_id bigint
+  product_variant_id bigint
+  reservation_id bigint
+  order_id bigint
+  order_item_id bigint
+  changed_by_user_account_id bigint
+  movement_type varchar(50) [not null]
+  quantity_delta int [not null]
+  quantity_before int
+  quantity_after int
+  reference_type varchar(50)
+  reference_id varchar(100)
+  idempotency_key varchar(100) [unique]
+  reason varchar(150)
+  note text
+  created_at datetime(6)
+}
+
+Table products [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null]
+}
+
+Table product_variants [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table carts [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table orders [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table order_items [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Table user_accounts [note: 'Bảng tham chiếu rút gọn'] {
+  id bigint [pk, not null, increment]
+}
+
+Ref: inventory_movements.changed_by_user_account_id > user_accounts.id [delete: set null]
+
+Ref: inventory_movements.order_id > orders.id [delete: set null]
+
+Ref: inventory_movements.order_item_id > order_items.id [delete: set null]
+
+Ref: inventory_movements.product_id > products.id [delete: set null]
+
+Ref: inventory_movements.product_variant_id > product_variants.id [delete: set null]
+
+Ref: inventory_movements.reservation_id > inventory_reservations.id [delete: set null]
+
+Ref: inventory_reservations.cart_id > carts.id [delete: set null]
+
+Ref: inventory_reservations.order_id > orders.id [delete: set null]
+
+Ref: inventory_reservations.product_id > products.id [delete: cascade]
+
+Ref: inventory_reservations.product_variant_id > product_variants.id [delete: cascade]
+
+Ref: inventory_reservations.user_account_id > user_accounts.id [delete: cascade]
+

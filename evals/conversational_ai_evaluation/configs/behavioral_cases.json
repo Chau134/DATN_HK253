@@ -1,0 +1,93 @@
+{
+  "thresholds": {
+    "min_turn_pass_rate": 0.8,
+    "min_small_talk_no_retrieval_rate": 1.0,
+    "min_preference_recall_rate": 1.0,
+    "max_exact_small_talk_response_repeat_rate": 0.25
+  },
+  "cases": [
+    {
+      "case_id": "small_talk_naturalness",
+      "user_id": "behavior-small-talk",
+      "turns": [
+        {
+          "session_id": "behavior-small-talk-1",
+          "message": "hello",
+          "category": "small_talk",
+          "expect_no_products": true,
+          "expect_nonempty_response": true,
+          "must_not_include": ["mô tả thêm kiểu dáng, màu, size hoặc ngân sách"]
+        },
+        {
+          "session_id": "behavior-small-talk-2",
+          "message": "xin chào",
+          "category": "small_talk",
+          "expect_no_products": true,
+          "expect_nonempty_response": true
+        },
+        {
+          "session_id": "behavior-small-talk-3",
+          "message": "chào shop",
+          "category": "small_talk",
+          "expect_no_products": true,
+          "expect_nonempty_response": true
+        },
+        {
+          "session_id": "behavior-small-talk-1",
+          "message": "cảm ơn bạn",
+          "category": "small_talk",
+          "expect_no_products": true,
+          "expect_nonempty_response": true
+        },
+        {
+          "session_id": "behavior-small-talk-1",
+          "message": "bạn làm được gì?",
+          "category": "capability",
+          "expect_no_products": true,
+          "expect_nonempty_response": true,
+          "must_include_any": ["tìm", "so sánh", "gợi ý", "size"]
+        }
+      ]
+    },
+    {
+      "case_id": "preference_recall_across_sessions",
+      "user_id": "behavior-preference-memory",
+      "turns": [
+        {
+          "session_id": "behavior-preference-write",
+          "message": "Mình thích đồ màu đen, ưu tiên form rộng và ngân sách dưới 800 nghìn",
+          "category": "preference_write",
+          "expect_nonempty_response": true
+        },
+        {
+          "session_id": "behavior-preference-read",
+          "message": "Mở phiên mới rồi, gợi ý theo gu của mình nhé",
+          "category": "preference_recall",
+          "expect_nonempty_response": true,
+          "must_include_any": ["đen", "form rộng", "800", "ngân sách"]
+        }
+      ]
+    },
+    {
+      "case_id": "preference_user_isolation",
+      "user_id": "behavior-preference-other-user",
+      "turns": [
+        {
+          "session_id": "behavior-preference-isolation",
+          "message": "Gu mua sắm trước đây của mình là gì?",
+          "category": "preference_isolation",
+          "expect_nonempty_response": true,
+          "must_include_any": [
+            "chưa có",
+            "chưa ghi nhớ",
+            "chưa biết",
+            "bạn chưa",
+            "không thể truy cập",
+            "không có lịch sử"
+          ],
+          "must_not_include": ["màu đen", "form rộng", "800 nghìn"]
+        }
+      ]
+    }
+  ]
+}

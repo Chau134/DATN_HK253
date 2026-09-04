@@ -1,0 +1,91 @@
+query_id,query_text,difficulty,category,selected,selection_reason,has_semantic_pair
+text-q0001,áo thun màu nâu chocolate,medium,Áo thun,yes,semantic_source_pair,yes
+text-q0002,váy & đầm chất liệu cotton phù hợp dạo phố cho nữ,hard,Váy & Đầm,yes,semantic_source_pair,yes
+text-q0003,áo sơ mi phù hợp dự tiệc cho nữ giá 500k đến 1 triệu,hard,Áo sơ mi,yes,semantic_source_pair,yes
+text-q0004,áo sơ mi cho nữ giá 500k đến 1 triệu zara,hard,Áo sơ mi,no,excluded,no
+text-q0005,áo hai dây dệt kim màu trắng ngà pha len mịn,easy,Áo dệt kim,yes,difficulty_category_balance,no
+text-q0006,áo thun zara màu be chất liệu cotton,hard,Áo thun,yes,semantic_source_pair,yes
+text-q0007,áo gile màu khaki nhạt hiệu ứng giặt cũ túi đắp,easy,Blazer & áo vest,yes,difficulty_category_balance,no
+text-q0008,quần legging màu đen cạp cao bản rộng co giãn,easy,Quần legging,yes,semantic_source_pair,yes
+text-q0009,áo sơ mi màu hồng và trắng caro đa kiểu có túi và dây buộc,easy,Áo sơ mi,yes,difficulty_category_balance,no
+text-q0010,áo thun cho nữ,medium,Áo thun,yes,semantic_source_pair,yes
+text-q0011,áo dệt kim giá 500k đến 1 triệu,medium,Áo dệt kim,yes,difficulty_category_balance,no
+text-q0012,áo gile màu nâu vạt chéo đính kim loại vàng kèm đai,easy,Blazer & áo vest,yes,difficulty_category_balance,no
+text-q0013,quần dài ống suông màu be nhạt cạp thấp vạt chồng,easy,Quần dài,no,excluded,no
+text-q0014,áo thun màu xám melange vải thô form thường cổ tròn tay dài,easy,Áo thun,yes,difficulty_category_balance,no
+text-q0015,bodysuit màu tím cà cổ v tay dài nhún,easy,Bodysuit,no,excluded,no
+text-q0016,áo kiểu màu trắng kẻ sọc cổ johnny tay dài vạt bất đối xứng,easy,Áo kiểu,yes,difficulty_category_balance,no
+text-q0017,áo thun giá 500k đến 1 triệu zara màu trắng ngà,hard,Áo thun,no,excluded,no
+text-q0018,bodysuit zara màu đen chất liệu elastane,hard,Bodysuit,yes,semantic_source_pair,yes
+text-q0019,chân váy màu trắng ngà vải mềm dáng xòe cạp thun co giãn,easy,Chân váy,yes,difficulty_category_balance,no
+text-q0020,bodysuit chất liệu polyester,medium,Bodysuit,yes,difficulty_category_balance,no
+text-q0021,blazer & áo vest phù hợp dạo phố,medium,Blazer & áo vest,yes,semantic_source_pair,yes
+text-q0022,quần capri màu xám nhạt nhún gấu,easy,Quần dài,yes,semantic_source_pair,yes
+text-q0023,blazer & áo vest giá 500k đến 1 triệu zara màu trắng ngà,hard,Blazer & áo vest,yes,difficulty_category_balance,no
+text-q0024,áo yếm màu trắng ngà và đỏ cổ yổ tim họa tiết,easy,"Áo hai dây, áo sát nách & áo yếm",yes,difficulty_category_balance,no
+text-q0025,bodysuit màu nâu,medium,Bodysuit,no,excluded,no
+text-q0026,bodysuit chất liệu polyamide phù hợp hẹn hò cho nữ,hard,Bodysuit,yes,semantic_source_pair,yes
+text-q0027,áo dệt kim phù hợp đi chơi,medium,Áo dệt kim,no,excluded,no
+text-q0028,áo sơ mi màu đen poplin oversize cổ v,easy,Áo sơ mi,yes,difficulty_category_balance,no
+text-q0029,jumpsuit & áo liền quần giá 1 đến 2 triệu,medium,Jumpsuit & áo liền quần,yes,semantic_source_pair,yes
+text-q0030,jumpsuit ống rộng satin màu hồng fuchsia bất đối xứng dây ánh vàng,easy,Jumpsuit & áo liền quần,yes,semantic_source_pair,yes
+text-q0031,áo kiểu màu hồng phấn nhạt cổ trụ chấm bi tay ngắn,easy,Áo kiểu,yes,difficulty_category_balance,no
+text-q0032,blazer & áo vest chất liệu elastane phù hợp dạo phố cho nữ,hard,Blazer & áo vest,no,excluded,no
+text-q0033,áo sơ mi phù hợp đi làm cho nữ giá 500k đến 1 triệu,hard,Áo sơ mi,yes,semantic_source_pair,yes
+text-q0034,áo hai dây màu vàng ánh kim cổ v đính sequin thêu,easy,"Áo hai dây, áo sát nách & áo yếm",yes,difficulty_category_balance,no
+text-q0035,bodysuit giá 200k đến 500k,medium,Bodysuit,yes,semantic_source_pair,yes
+text-q0036,váy & đầm zara,medium,Váy & Đầm,yes,semantic_source_pair,yes
+text-q0037,áo kiểu màu xám ngọc trai cổ v nơ xám,easy,Áo kiểu,no,excluded,no
+text-q0038,áo gile màu nâu chocolate vải dệt nổi cổ v cài cúc,easy,Blazer & áo vest,no,excluded,no
+text-q0039,đầm mini suông màu nâu đậm cổ bất đối xứng,easy,Váy & Đầm,yes,difficulty_category_balance,no
+text-q0040,blazer & áo vest cho nữ,medium,Blazer & áo vest,yes,difficulty_category_balance,no
+text-q0041,bodysuit giá 500k đến 1 triệu,medium,Bodysuit,no,excluded,no
+text-q0042,quần dài zara màu trắng chất liệu viscose,hard,Quần dài,yes,semantic_source_pair,yes
+text-q0043,váy & đầm màu chàm đậm chất liệu elastane phù hợp dạo phố,hard,Váy & Đầm,yes,difficulty_category_balance,no
+text-q0044,jumpsuit & áo liền quần chất liệu polyester,medium,Jumpsuit & áo liền quần,yes,semantic_source_pair,yes
+text-q0045,áo yếm màu trắng và cam cổ halter họa tiết kẻ caro viền bèo,easy,"Áo hai dây, áo sát nách & áo yếm",no,excluded,no
+text-q0046,áo kiểu cho nữ giá 500k đến 1 triệu zara,hard,Áo kiểu,yes,difficulty_category_balance,no
+text-q0047,áo kiểu giá 500k đến 1 triệu zara màu đa màu,hard,Áo kiểu,yes,difficulty_category_balance,no
+text-q0048,jumpsuit & áo liền quần zara màu xanh dương trung bình chất liệu cotton,hard,Jumpsuit & áo liền quần,yes,semantic_source_pair,yes
+text-q0049,áo thun màu trắng chất liệu cotton phù hợp dạo phố,hard,Áo thun,yes,semantic_source_pair,yes
+text-q0050,jumpsuit & áo liền quần chất liệu elastane,medium,Jumpsuit & áo liền quần,no,excluded,no
+text-q0051,áo dệt kim phù hợp dạo phố,medium,Áo dệt kim,yes,semantic_source_pair,yes
+text-q0052,jumpsuit & áo liền quần cho nữ,medium,Jumpsuit & áo liền quần,no,excluded,no
+text-q0053,áo gile màu đen vải dệt nổi cổ v cài cúc,easy,Blazer & áo vest,no,excluded,no
+text-q0054,bodysuit màu xanh navy polyamide cổ cao dây buộc hở lưng,easy,Bodysuit,yes,semantic_source_pair,yes
+text-q0055,áo yếm màu trắng ngà cổ yếm lưng trần,easy,"Áo hai dây, áo sát nách & áo yếm",no,excluded,no
+text-q0056,quần dài chất liệu polyester phù hợp dạo phố cho nữ,hard,Quần dài,no,excluded,no
+text-q0057,áo sơ mi phù hợp dạo phố,medium,Áo sơ mi,yes,difficulty_category_balance,no
+text-q0058,jumpsuit lyocell màu khaki đậm cổ ve túi đắp,easy,Jumpsuit & áo liền quần,yes,semantic_source_pair,yes
+text-q0059,quần short giá 500k đến 1 triệu zara màu trắng ngà,hard,Quần short,yes,difficulty_category_balance,no
+text-q0060,váy & đầm zara màu đen chất liệu polyamide,hard,Váy & Đầm,no,excluded,no
+text-q0061,áo thun màu trắng ngà tay dài thêu họa tiết,easy,Áo thun,no,excluded,no
+text-q0062,quần dài chất liệu viscose phù hợp dạo phố cho nữ,hard,Quần dài,yes,semantic_source_pair,yes
+text-q0063,quần dài phù hợp hằng ngày cho nữ giá 500k đến 1 triệu,hard,Quần dài,yes,semantic_source_pair,yes
+text-q0064,bodysuit cho nữ giá 1 đến 2 triệu zara,hard,Bodysuit,no,excluded,no
+text-q0065,quần dài giá 500k đến 1 triệu,medium,Quần dài,yes,difficulty_category_balance,no
+text-q0066,váy & đầm zara,medium,Váy & Đầm,yes,difficulty_category_balance,no
+text-q0067,áo thun màu trắng,medium,Áo thun,no,excluded,no
+text-q0068,áo kiểu chất liệu cotton,medium,Áo kiểu,yes,difficulty_category_balance,no
+text-q0069,váy & đầm phù hợp đi làm,medium,Váy & Đầm,no,excluded,no
+text-q0070,váy & đầm cho nữ giá 500k đến 1 triệu zara,hard,Váy & Đầm,no,excluded,no
+text-q0071,quần dài giá 1 đến 2 triệu zara màu nâu chồn,hard,Quần dài,no,excluded,no
+text-q0072,áo dệt kim zara,medium,Áo dệt kim,no,excluded,no
+text-q0073,đầm midi màu xanh olive cài cúc trước túi nắp,easy,Váy & Đầm,yes,difficulty_category_balance,no
+text-q0074,"áo hai dây, áo sát nách & áo yếm chất liệu cotton phù hợp đi chơi cho nữ",hard,"Áo hai dây, áo sát nách & áo yếm",yes,difficulty_category_balance,no
+text-q0075,"áo hai dây, áo sát nách & áo yếm phù hợp hẹn hò cho nữ giá 200k đến 500k",hard,"Áo hai dây, áo sát nách & áo yếm",yes,semantic_source_pair,yes
+text-q0076,áo dệt kim cho nữ giá 200k đến 500k zara,hard,Áo dệt kim,no,excluded,no
+text-q0077,blazer & áo vest giá 500k đến 1 triệu,medium,Blazer & áo vest,yes,semantic_source_pair,yes
+text-q0078,áo khoác zara,medium,Áo khoác,yes,difficulty_category_balance,no
+text-q0079,áo hai dây màu hồng phai bèo nhún bất đối xứng,easy,"Áo hai dây, áo sát nách & áo yếm",no,excluded,no
+text-q0080,áo sơ mi chất liệu polyester,medium,Áo sơ mi,yes,difficulty_category_balance,no
+text-q0081,áo dệt kim phù hợp đi làm cho nữ giá 500k đến 1 triệu,hard,Áo dệt kim,yes,semantic_source_pair,yes
+text-q0082,áo kiểu cho nữ,medium,Áo kiểu,yes,difficulty_category_balance,no
+text-q0083,áo sơ mi giá 500k đến 1 triệu,medium,Áo sơ mi,no,excluded,no
+text-q0084,áo thun zara,medium,Áo thun,yes,semantic_source_pair,yes
+text-q0085,áo dệt kim màu xanh chanh mịn cổ cao,easy,Áo dệt kim,yes,difficulty_category_balance,no
+text-q0086,áo thun màu nâu camel in slogan,easy,Áo thun,no,excluded,no
+text-q0087,quần dài phù hợp đi chơi cho nữ giá 1 đến 2 triệu,hard,Quần dài,yes,semantic_source_pair,yes
+text-q0088,"áo hai dây, áo sát nách & áo yếm cho nữ giá 500k đến 1 triệu zara",hard,"Áo hai dây, áo sát nách & áo yếm",no,excluded,no
+text-q0089,quần jeans màu xanh dương nhạt ống rộng suông hiệu ứng sơn,easy,Quần jeans,yes,semantic_source_pair,yes
+text-q0090,áo kiểu zara,medium,Áo kiểu,no,excluded,no

@@ -1,0 +1,197 @@
+.option {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.form-checkbox {
+    display: flex;
+    gap: 10px;
+}
+
+.product-edit-body {
+    display: grid;
+    gap: 16px;
+    max-height: 68vh;
+    overflow-y: auto;
+}
+
+.product-edit-box-title {
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: transparent;
+    h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #111;
+    }
+}
+
+/* Make the close (X) button smaller only for the admin edit modal */
+:global(.admin-edit-modal .modal-header .btn-close) {
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+}
+
+.product-edit-section {
+    display: grid;
+    gap: 12px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    padding: 14px;
+
+    h5 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    label {
+        display: grid;
+        gap: 6px;
+        color: #333;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    textarea {
+        min-height: 96px;
+    }
+}
+
+.product-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.image-upload-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.5fr);
+    gap: 12px;
+}
+
+.product-edit-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.product-image-list {
+    display: grid;
+    gap: 12px;
+}
+
+.product-image-row {
+    display: grid;
+    gap: 10px;
+    border: 1px dashed #d6d6d6;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.category-multiselect {
+    display: grid;
+    gap: 6px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 6px;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    padding: 6px;
+    background: #fff;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 8px;
+    input {
+        margin-right: 8px;
+        flex: 0 0 auto;
+    }
+    span {
+        flex: 1 1 auto;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+}
+
+.saved-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 36px;
+    align-items: center;
+}
+
+.saved-category-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    border: 1px solid #d9e2ef;
+    border-radius: 6px;
+    background: #f8fafc;
+    padding: 6px 8px;
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+
+    span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border: 0;
+        border-radius: 50%;
+        background: #e5e7eb;
+        color: #374151;
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+
+        &:hover {
+            background: #d1d5db;
+        }
+    }
+}
+
+/* Webkit scrollbar styling for consistency */
+.category-multiselect::-webkit-scrollbar {
+    width: 8px;
+}
+.category-multiselect::-webkit-scrollbar-track {
+    background: transparent;
+}
+.category-multiselect::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 6px;
+}
+
+.empty-image-text {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+@media only screen and (max-width: 768px) {
+    .product-edit-grid,
+    .image-upload-field {
+        grid-template-columns: 1fr;
+    }
+}

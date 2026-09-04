@@ -1,0 +1,31 @@
+{
+  "suite": "conversational_ai_evaluation",
+  "sampling_seed": 42,
+  "version": null,
+  "group_counts": {
+    "product_factual": 20,
+    "product_comparison": 10,
+    "product_recommendation": 20,
+    "followup_ordinal": 5,
+    "filter_refinement": 5,
+    "shop_knowledge": 8,
+    "unanswerable": 2
+  },
+  "paths": {
+    "source_products_csv": "data/product_snapshot.csv",
+    "product_snapshot_csv": "data/product_snapshot.csv",
+    "question_set_csv": "data/question_set.csv",
+    "reference_answers_csv": "data/reference_answers.csv",
+    "required_evidence_csv": "data/required_evidence.csv",
+    "snapshot_summary_json": "reports/snapshot_summary.json",
+    "rag_responses_csv": "reports/rag_eval_responses.csv",
+    "rag_metrics_csv": "reports/rag_metrics_by_question.csv",
+    "rag_metrics_json": "reports/rag_metrics_summary.json"
+  },
+  "rag_thresholds": {
+    "min_faithfulness": 0.85,
+    "min_response_relevancy": 0.7,
+    "min_context_precision": 0.6,
+    "min_context_recall": 0.8
+  }
+}

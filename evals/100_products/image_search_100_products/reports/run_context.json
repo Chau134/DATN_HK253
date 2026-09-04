@@ -1,0 +1,33 @@
+{
+  "run_id": "image-search-20260721T163146Z-b211d87d",
+  "started_at": "2026-07-21T16:31:46.521790+00:00",
+  "endpoint": "http://localhost:8000/search/image",
+  "health_url": "http://localhost:8000/health/ready/image_search",
+  "readiness": {
+    "status_code": 200,
+    "body": {
+      "ready": true,
+      "models": {
+        "text_embedding": true,
+        "image_embedding": true,
+        "llm": true,
+        "yolo": false
+      },
+      "capabilities": {
+        "text_search": true,
+        "image_search": true,
+        "assistant_llm": true
+      },
+      "capability": "image_search"
+    }
+  },
+  "collection_name": "product_image_vectors_cohere_embed_v4_1536",
+  "search_config": {
+    "top_k": 5,
+    "timeout_seconds": 60,
+    "download_timeout_seconds": 30,
+    "concurrency": 2,
+    "query_image_selection": "MAIN, then FLAT_1/MODEL_1 fallback"
+  },
+  "completed_at": "2026-07-21T16:34:29.551255+00:00"
+}

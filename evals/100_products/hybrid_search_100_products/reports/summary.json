@@ -1,0 +1,374 @@
+{
+  "run_context": {
+    "run_id": "hybrid-search-20260721T181743Z-26235c76",
+    "started_at": "2026-07-21T18:17:43.640362+00:00",
+    "endpoint": "http://localhost:8000/search/hybrid",
+    "health_url": "http://localhost:8000/health/ready",
+    "readiness": {
+      "status_code": 200,
+      "body": {
+        "ready": true,
+        "models": {
+          "text_embedding": true,
+          "image_embedding": true,
+          "llm": true,
+          "yolo": false
+        },
+        "capabilities": {
+          "text_search": true,
+          "image_search": true,
+          "assistant_llm": true
+        },
+        "capability": null
+      }
+    },
+    "search_config": {
+      "top_k": 5,
+      "timeout_seconds": 60,
+      "download_timeout_seconds": 30,
+      "concurrency": 1,
+      "case_limit": null,
+      "strategy": "weighted",
+      "query_text": "exact Vietnamese product name",
+      "query_image_selection": "MAIN, then FLAT_1/MODEL_1 fallback"
+    },
+    "service_config": {
+      "QDRANT_TEXT_COLLECTION": "product_text_vectors_cohere_embed_v4_1536_metadata_v4",
+      "QDRANT_IMAGE_COLLECTION": "product_image_vectors_cohere_embed_v4_1536",
+      "BEDROCK_MODEL_ID": "openai.gpt-oss-120b-1:0",
+      "EMBEDDING_PROVIDER": "bedrock",
+      "COHERE_EMBEDDING_MODEL_NAME": "embed-v4.0",
+      "BEDROCK_EMBEDDING_MODEL_ID": "cohere.embed-v4:0",
+      "EMBEDDING_OUTPUT_DIMENSIONALITY": "1536",
+      "RERANK_TOP_K": "20",
+      "HYBRID_IMAGE_WEIGHT": "0.45",
+      "HYBRID_TEXT_WEIGHT": "0.35",
+      "HYBRID_FILTER_WEIGHT": "0.15",
+      "HYBRID_BUSINESS_WEIGHT": "0.05",
+      "RERANK_ENABLED": "false",
+      "RERANKER_MODEL_NAME": "semantic-ranker-default@latest",
+      "RERANKER_LOCATION": "global",
+      "RERANKER_CONFIG_ID": "default_ranking_config"
+    },
+    "metadata_contract": {
+      "metadata_schema_version": 4,
+      "required_parity_fields": [
+        "category_keys",
+        "source_category_keys",
+        "brand_key",
+        "color_keys",
+        "material_keys",
+        "size_keys",
+        "audience_keys",
+        "active",
+        "available",
+        "selling_price",
+        "metadata_schema_version",
+        "canonicalizer_version"
+      ]
+    },
+    "completed_at": "2026-07-21T18:26:54.256360+00:00"
+  },
+  "test_scope": "exact Vietnamese title plus preferred catalog image for each product in database/100.sql",
+  "query_count": 100,
+  "http_success_count": 100,
+  "http_error_count": 0,
+  "status_counts": {
+    "200": 100
+  },
+  "hybrid_capability_ready": true,
+  "hit_rate_at_1": 1.0,
+  "hit_rate_at_3": 1.0,
+  "hit_rate_at_5": 1.0,
+  "mean_reciprocal_rank": 1.0,
+  "miss_count": 0,
+  "empty_result_query_count": 0,
+  "duplicate_result_query_count": 0,
+  "non_hybrid_source_query_count": 0,
+  "source_counts": {
+    "hybrid": 500
+  },
+  "mean_search_latency_ms": 5469.88318,
+  "p50_search_latency_ms": 5433.191,
+  "p95_search_latency_ms": 6157.885,
+  "max_search_latency_ms": 8240.558,
+  "cache_hit_count": 100,
+  "query_image_type_counts": {
+    "MAIN": 96,
+    "FLAT_1": 4
+  },
+  "result_count_distribution": {
+    "5": 100
+  },
+  "expected_rank_distribution": {
+    "1": 100
+  },
+  "breakdowns": {
+    "image_type": {
+      "FLAT_1": {
+        "query_count": 4,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "MAIN": {
+        "query_count": 96,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      }
+    },
+    "category": {
+      "<none>": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "blazer": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "blouse": {
+        "query_count": 10,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "bodysuit": {
+        "query_count": 8,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "cami": {
+        "query_count": 13,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "cardigan": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "dress": {
+        "query_count": 9,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "hoodie": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "jacket": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "jeans": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "jumpsuit": {
+        "query_count": 6,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "leggings": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "pants": {
+        "query_count": 5,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "polo": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "shirt": {
+        "query_count": 19,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "shorts": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "skirt": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "sweater": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "sweatpants": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "tshirt": {
+        "query_count": 12,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "vest": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      }
+    },
+    "material": {
+      "<none>": {
+        "query_count": 68,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "cotton": {
+        "query_count": 3,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "denim": {
+        "query_count": 5,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "fleece": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "lace": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "leather": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "linen": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "lyocell": {
+        "query_count": 3,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "poplin": {
+        "query_count": 4,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "raw": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "satin": {
+        "query_count": 2,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "sheep fur": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "silk": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "wool": {
+        "query_count": 7,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      }
+    },
+    "brand": {
+      "<none>": {
+        "query_count": 94,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "bratz": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "johnny": {
+        "query_count": 1,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      },
+      "zara": {
+        "query_count": 4,
+        "hit_rate_at_1": 1.0,
+        "hit_rate_at_5": 1.0,
+        "empty_result_query_count": 0
+      }
+    }
+  },
+  "acceptance_gates": {
+    "complete_100_cases": true,
+    "hybrid_capability_ready": true,
+    "http_success_100_percent": true,
+    "hit_at_1_at_least_95_percent": true,
+    "hit_at_5_at_least_99_percent": true,
+    "all_results_are_hybrid": true,
+    "no_empty_results": true,
+    "no_duplicate_product_ids": true,
+    "p95_search_latency_at_most_5_seconds": false
+  },
+  "acceptance_passed": false
+}

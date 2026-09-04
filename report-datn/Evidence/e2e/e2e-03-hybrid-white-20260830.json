@@ -1,0 +1,44 @@
+{
+  "run_id": "E2E-03-HYBRID-WHITE-20260830-142232",
+  "executed_at": "2026-08-30T14:22:32+07:00",
+  "endpoint": "http://127.0.0.1:8000/search/hybrid",
+  "service_instance_id": "f90f6b2a900947dd939f7ee90bca839d",
+  "request": {
+    "query": "tìm sản phẩm nữ giống ảnh, màu trắng, giá tối đa một triệu đồng",
+    "image_url": "https://res.cloudinary.com/dhtlzqflg/image/upload/v1787583152/q86_okf4pg.png",
+    "filters": {"gender": "women", "colors": ["white"], "max_price": 1000000},
+    "top_k": 5
+  },
+  "response": {
+    "http_status": 200,
+    "elapsed_ms": 5433,
+    "product_ids": ["831", "1329", "1195", "385", "892"],
+    "relaxed_filters": [],
+    "all_explicit_constraints_satisfied": true
+  },
+  "backend_verification": [
+    {"product_id": "831", "base_colour": "Oyster-white", "gender": "Women", "effective_price": 279000},
+    {"product_id": "1329", "base_colour": "White", "gender": "Women", "effective_price": 279000},
+    {"product_id": "1195", "base_colour": "White", "gender": "Women", "effective_price": 579000},
+    {"product_id": "385", "base_colour": "Oyster-white", "gender": "Women", "effective_price": 879000},
+    {"product_id": "892", "base_colour": "White", "gender": "Women", "effective_price": 579000}
+  ],
+  "assertions": {
+    "returned_count": "5/5",
+    "white_family_count": "5/5",
+    "women_count": "5/5",
+    "price_at_most_1000000_count": "5/5",
+    "ecru_count": "0/5",
+    "result": "PASS"
+  },
+  "qdrant_payload_migration": {
+    "text_points_changed": 118,
+    "image_points_changed": 1057,
+    "remaining_changed_points": 0,
+    "vectors_reembedded": 0,
+    "rollback_backups": [
+      "service-ai/backups/color-keys-20260830",
+      "service-ai/backups/color-keys-20260830-compound"
+    ]
+  }
+}

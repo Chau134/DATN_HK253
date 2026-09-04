@@ -1,0 +1,8 @@
+{
+  "status": "approved",
+  "question_count": 80,
+  "reviewed_pending_count": 39,
+  "questions": "C:\\A\\DACN_HK252\\evals\\conversational_ai_validation\\data\\master_80\\question_set.csv",
+  "references": "C:\\A\\DACN_HK252\\evals\\conversational_ai_validation\\data\\master_80\\reference_answers.csv",
+  "evidence": "C:\\A\\DACN_HK252\\evals\\conversational_ai_validation\\data\\master_80\\required_evidence.csv"
+}

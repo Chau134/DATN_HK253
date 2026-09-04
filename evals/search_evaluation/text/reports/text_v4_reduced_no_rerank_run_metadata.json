@@ -1,0 +1,17 @@
+{
+  "run_id": "text-v4-vector-no-rerank-20260826",
+  "schema_version": "v4-reduced-100",
+  "service_instance_id": "97d4015e82244567b2fdbeb5fb687164",
+  "base_url": "http://localhost:8000",
+  "query_count": 100,
+  "positive_query_count": 90,
+  "negative_query_count": 10,
+  "result_row_count": 1338,
+  "error_count": 0,
+  "top_k": 20,
+  "rerank_enabled": false,
+  "non_empty_rerank_score_count": 0,
+  "query_set_csv": "../data/text_queries_v4_reduced.csv",
+  "ground_truth_csv": "../data/ground_truth_text_v4_reduced.csv",
+  "results_csv": "../data/search_results_text_v4_reduced_no_rerank.csv"
+}

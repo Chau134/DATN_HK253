@@ -1,0 +1,35 @@
+# CPU-only override for local testing without GPU
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.cpu.yml up
+#
+# This override switches the AI service from 8B CUDA models to small CPU-friendly
+# embedding models. Model changes require recreating Qdrant collections and
+# re-indexing products.
+
+services:
+  service-ai:
+    build:
+      context: ./service-ai
+      dockerfile: Dockerfile
+    environment:
+      EMBEDDING_PROVIDER: local
+      QDRANT_TEXT_VECTOR_SIZE: 384
+      QDRANT_IMAGE_VECTOR_SIZE: 512
+      TEXT_EMBEDDING_MODEL_NAME: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+      IMAGE_EMBEDDING_MODEL_NAME: openai/clip-vit-base-patch32
+      IMAGE_EMBEDDING_TRUST_REMOTE_CODE: "false"
+      EMBEDDING_DEVICE: cpu
+      EMBEDDING_DTYPE: float32
+      EMBEDDING_BATCH_SIZE: 4
+      TEXT_EMBEDDING_USE_PROMPT: "false"
+      RERANK_ENABLED: "false"
+      PRELOAD_MODELS: "false"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
+    deploy:
+      resources:
+        reservations:
+          devices: !reset []

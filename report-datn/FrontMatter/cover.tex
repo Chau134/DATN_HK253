@@ -1,0 +1,118 @@
+%=========================
+% FrontMatter/cover.tex
+% Bìa báo cáo, bố cục theo biểu mẫu LVTN/ĐATN của Khoa KH&KT Máy tính.
+%=========================
+
+\pagenumbering{gobble}
+\thispagestyle{empty}
+
+% Khung đôi của biểu mẫu: nét ngoài mảnh, khe hẹp, nét trong dày.
+\begin{tikzpicture}[remember picture,overlay]
+  \draw[line width=0.9pt]
+    ([xshift=15mm,yshift=-15mm]current page.north west)
+    rectangle
+    ([xshift=-15mm,yshift=15mm]current page.south east);
+  \draw[line width=2.7pt]
+    ([xshift=16mm,yshift=-16mm]current page.north west)
+    rectangle
+    ([xshift=-16mm,yshift=16mm]current page.south east);
+\end{tikzpicture}
+
+\begingroup
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+% Làm chữ đậm hơn mức bold mặc định trên riêng trang bìa (pdfLaTeX).
+\newcommand{\coverstrongstart}{%
+  \pdfliteral direct {2 Tr 0.22 w}\bfseries}
+\newcommand{\coverstrongend}{%
+  \pdfliteral direct {0 Tr 0 w}}
+\newcommand{\coverstrong}[1]{{\coverstrongstart #1\coverstrongend}}
+\vspace*{-17mm}
+
+% Tên đơn vị.
+\begin{center}
+  {\fontsize{15}{18}\selectfont
+    \coverstrong{\UniversityName}\par
+    \coverstrong{\SchoolName}\par
+    \coverstrong{\FacultyName}\par}
+\end{center}
+
+\vspace{5mm}
+
+% Logo trường.
+\begin{center}
+  \IfFileExists{Images/\LogoFile}{%
+    \includegraphics[
+      width=31mm,
+      trim=226bp 126bp 219bp 69bp,
+      clip
+    ]{\LogoFile}%
+  }{%
+    \fbox{\parbox[c][25mm][c]{36mm}{\centering LOGO TRƯỜNG}}%
+  }
+\end{center}
+
+\vspace{5mm}
+
+% Loại báo cáo/môn học.
+\begin{center}
+  {\fontsize{15}{18}\selectfont\bfseries
+    \coverstrong{\ReportHeading}\par
+    \coverstrong{\ReportType}\par}
+\end{center}
+
+\vspace{4mm}
+
+% Tên đề tài.
+\begin{center}
+  \begin{minipage}{0.88\textwidth}
+    \centering
+    {\fontsize{20}{24}\selectfont
+      \coverstrong{\MakeUppercase{\ProjectTitleMain}}\par}
+  \end{minipage}
+\end{center}
+
+\vspace{7mm}
+
+% Ngành đào tạo.
+\begin{center}
+  {\fontsize{13.5}{17}\selectfont
+    \textbf{\MajorLabel}~\MajorName\par}
+\end{center}
+
+\vfill
+
+% Thông tin hội đồng, giảng viên và sinh viên được đặt lệch phải như biểu mẫu.
+\noindent\hspace*{31mm}%
+\begin{minipage}{125mm}
+  \fontsize{13.5}{17}\selectfont
+  \begin{tabular}{@{}>{\bfseries}p{36mm}@{}p{87mm}@{}}
+    \CouncilLabel  & \CouncilName \\
+    \AdvisorLabel  & \hspace*{-11mm}\AdvisorName \\
+    \ReviewerLabel & \ReviewerName
+  \end{tabular}
+
+  \vspace{1mm}
+  \begin{center}
+    \textbf{---o0o---}
+  \end{center}
+  \vspace{1mm}
+
+  \begin{tabular}{@{}>{\bfseries}p{25mm}@{}p{98mm}@{}}
+    SVTH 1: & \StudentOne \\
+    SVTH 2: & \StudentTwo \\
+    SVTH 3: & \StudentThree
+  \end{tabular}
+\end{minipage}
+
+\vspace{6mm}
+\vfill
+
+\begin{center}
+  {\fontsize{13.5}{17}\selectfont\textbf{\ReportPlaceDate}}
+\end{center}
+
+\vspace*{2mm}
+\endgroup
+
+\clearpage

@@ -1,0 +1,30 @@
+# Keep the build context small. NOTE: Resource/ (YOLO weights) IS copied by the
+# Dockerfile, so it must NOT be ignored here.
+.env
+.env.*
+!.env.example
+
+# Tests are not needed in the runtime image.
+tests/
+
+# Local runtime artifacts.
+tmp/
+data/
+*.sqlite
+
+# Python caches / build cruft.
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# VCS / editor.
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Compose config does not belong in the runtime image.
+docker-compose.yml

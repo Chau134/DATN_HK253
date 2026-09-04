@@ -1,0 +1,247 @@
+% Tệp được tách theo nhóm để duy trì từ điển dữ liệu của Chương 6.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{user\_accounts} (Tài khoản người dùng)}
+    \label{tab:data-dictionary-user-accounts} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{email}} & \texttt{varchar(320)} & Địa chỉ thư điện tử; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{phone\_number}} & \texttt{varchar(30)} & Số điện thoại; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{password\_hash}} & \texttt{varchar(255)} & Giá trị băm của mật khẩu; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{password\_login\_enabled}} & \texttt{boolean} & Cho biết tài khoản có cho phép đăng nhập bằng mật khẩu. \\
+        \hline
+        \texttt{\seqsplit{full\_name}} & \texttt{varchar(150)} & Họ và tên đầy đủ. \\
+        \hline
+        \texttt{\seqsplit{display\_name}} & \texttt{varchar(150)} & Tên hiển thị. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{email\_verified}} & \texttt{boolean} & Cho biết email đã được xác minh. \\
+        \hline
+        \texttt{\seqsplit{phone\_verified}} & \texttt{boolean} & Cho biết số điện thoại đã được xác minh. \\
+        \hline
+        \texttt{\seqsplit{last\_login\_at}} & \texttt{datetime(6)} & Thời điểm đăng nhập gần nhất. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{user\_roles} (Vai trò người dùng)}
+    \label{tab:data-dictionary-user-roles} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{name}} & \texttt{varchar(100)} & Tên; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{description}} & \texttt{varchar(255)} & Nội dung mô tả. \\
+        \hline
+        \texttt{\seqsplit{active}} & \texttt{boolean} & Cho biết bản ghi đang hoạt động. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{user\_account\_roles} (Gán vai trò cho tài khoản)}
+    \label{tab:data-dictionary-user-account-roles} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{role\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_roles.id}; bắt buộc. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{customer\_profiles} (Hồ sơ khách hàng)}
+    \label{tab:data-dictionary-customer-profiles} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{first\_name}} & \texttt{varchar(100)} & Tên. \\
+        \hline
+        \texttt{\seqsplit{last\_name}} & \texttt{varchar(100)} & Họ. \\
+        \hline
+        \texttt{\seqsplit{gender}} & \texttt{varchar(50)} & Giới tính. \\
+        \hline
+        \texttt{\seqsplit{date\_of\_birth}} & \texttt{date} & Ngày sinh. \\
+        \hline
+        \texttt{\seqsplit{avatar\_url}} & \texttt{text} & Đường dẫn ảnh đại diện. \\
+        \hline
+        \texttt{\seqsplit{loyalty\_points}} & \texttt{int} & Điểm khách hàng thân thiết. \\
+        \hline
+        \texttt{\seqsplit{marketing\_opt\_in}} & \texttt{boolean} & Cho biết khách hàng đồng ý nhận nội dung tiếp thị. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{customer\_addresses} (Địa chỉ khách hàng)}
+    \label{tab:data-dictionary-customer-addresses} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{address\_type}} & \texttt{varchar(50)} & Loại địa chỉ; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{recipient\_name}} & \texttt{varchar(150)} & Tên người nhận; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{phone\_number}} & \texttt{varchar(30)} & Số điện thoại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{address\_line1}} & \texttt{varchar(255)} & Dòng địa chỉ chính; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{address\_line2}} & \texttt{varchar(255)} & Dòng địa chỉ bổ sung. \\
+        \hline
+        \texttt{\seqsplit{ward}} & \texttt{varchar(150)} & Phường hoặc xã. \\
+        \hline
+        \texttt{\seqsplit{district}} & \texttt{varchar(150)} & Quận hoặc huyện. \\
+        \hline
+        \texttt{\seqsplit{city}} & \texttt{varchar(150)} & Thành phố. \\
+        \hline
+        \texttt{\seqsplit{province}} & \texttt{varchar(150)} & Tỉnh hoặc thành phố trực thuộc trung ương. \\
+        \hline
+        \texttt{\seqsplit{country\_code}} & \texttt{varchar(2)} & Mã quốc gia hai ký tự; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{postal\_code}} & \texttt{varchar(20)} & Mã bưu chính. \\
+        \hline
+        \texttt{\seqsplit{is\_default}} & \texttt{boolean} & Cho biết đây là bản ghi mặc định. \\
+        \hline
+        \texttt{\seqsplit{deleted}} & \texttt{boolean} & Đánh dấu xóa mềm. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{refresh\_tokens} (Refresh token)}
+    \label{tab:data-dictionary-refresh-tokens} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{token\_hash}} & \texttt{varchar(255)} & Giá trị băm của token; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{issued\_at}} & \texttt{datetime(6)} & Thời điểm phát hành. \\
+        \hline
+        \texttt{\seqsplit{expires\_at}} & \texttt{datetime(6)} & Thời điểm hết hiệu lực; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{revoked\_at}} & \texttt{datetime(6)} & Thời điểm bị thu hồi. \\
+        \hline
+        \texttt{\seqsplit{replaced\_by\_token\_hash}} & \texttt{varchar(255)} & Giá trị băm của token thay thế. \\
+        \hline
+        \texttt{\seqsplit{ip\_address}} & \texttt{varchar(45)} & Địa chỉ IP tạo token. \\
+        \hline
+        \texttt{\seqsplit{user\_agent}} & \texttt{text} & Thông tin thiết bị và trình duyệt. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{password\_reset\_otps} (Mã OTP đặt lại mật khẩu)}
+    \label{tab:data-dictionary-password-reset-otps} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{email}} & \texttt{varchar(320)} & Địa chỉ thư điện tử; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{otp\_hash}} & \texttt{varchar(255)} & Giá trị băm của mã OTP; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{reset\_token\_hash}} & \texttt{varchar(255)} & Giá trị băm của token đặt lại mật khẩu. \\
+        \hline
+        \texttt{\seqsplit{failed\_attempts}} & \texttt{int} & Số lần xác thực thất bại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{max\_failed\_attempts}} & \texttt{int} & Số lần xác thực thất bại tối đa; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{expires\_at}} & \texttt{datetime(6)} & Thời điểm hết hiệu lực; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{reset\_token\_expires\_at}} & \texttt{datetime(6)} & Thời điểm token đặt lại mật khẩu hết hạn. \\
+        \hline
+        \texttt{\seqsplit{verified\_at}} & \texttt{datetime(6)} & Thời điểm xác minh thành công. \\
+        \hline
+        \texttt{\seqsplit{used\_at}} & \texttt{datetime(6)} & Thời điểm đã sử dụng. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}

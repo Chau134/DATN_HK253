@@ -1,0 +1,17 @@
+question_id,category,rule_based_grounding_score,token_f1_relevancy,human_grounding_pass,human_relevancy_pass,audit_notes
+conv-flt-0002-t0,filter_refinement,1.0,0.738095,true,true,All three products match Dresses and red/white constraints; claims match context.
+conv-ord-0001-t1,followup_ordinal,1.0,0.54918,true,true,Product 1875 is the second item from the previous ordered list; attributes match context.
+conv-cmp-0004-t0,product_comparison,1.0,0.910256,true,true,"Both products are covered and category, color, and material claims match context."
+conv-fact-0020-t0,product_factual,1.0,1.0,true,true,Correct product and T-shirt category; directly answers the question.
+conv-rec-0010-t0,product_recommendation,1.0,0.729167,true,false,"Claims match context, but two of three suggestions are ordinary yellow rather than metallic gold."
+conv-una-0002-t0,unanswerable,1.0,1.0,true,true,Correctly refuses unsupported return-policy duration without inventing a number.
+conv-flt-0001-t0,filter_refinement,1.0,0.76087,true,true,All three products match trousers and brown melange constraints; claims match context.
+conv-ord-0002-t0,followup_ordinal,1.0,0.763158,true,false,"Claims match context, but the third result is ash gray rather than charcoal gray."
+conv-cmp-0005-t0,product_comparison,1.0,0.894737,true,true,Both products are covered and all stated attributes match context.
+conv-fact-0001-t0,product_factual,1.0,1.0,true,true,Correct product and black color; directly answers the question.
+conv-rec-0004-t0,product_recommendation,1.0,0.71978,true,false,"Claims match context, but the first result is leggings rather than the requested trousers category."
+conv-una-0006-t0,unanswerable,1.0,1.0,true,true,Correctly avoids guaranteeing a subjective effect unsupported by catalog data.
+conv-flt-0001-t1,filter_refinement,1.0,0.572289,true,false,"Claims match context, but two of three refinement results are T-shirts instead of inherited trousers."
+conv-ord-0004-t0,followup_ordinal,1.0,0.783951,true,true,All products match the blouse category and a sand/black color constraint; claims match context.
+conv-cmp-0001-t0,product_comparison,1.0,0.878788,true,true,"Both products are covered and category, color, and material claims match context."
+conv-fact-0010-t0,product_factual,1.0,0.984848,true,true,Correct product and 100% Viscose material; directly answers the question.

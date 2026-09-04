@@ -1,0 +1,26 @@
+{
+  "mode": "image",
+  "query_count": 100,
+  "sampling_seed": 42,
+  "difficulty_distribution": {
+    "easy": 34,
+    "medium": 33,
+    "hard": 33
+  },
+  "min_queries_per_category": 5,
+  "max_queries_per_category": 20,
+  "paths": {
+    "products_csv": "data/product_snapshot.csv",
+    "product_images_csv": "data/product_images.csv",
+    "product_categories_csv": "data/product_categories.csv",
+    "categories_csv": "data/categories.csv",
+    "sampled_images_csv": "data/sampled_images.csv",
+    "annotation_csv": "data/image_annotations.csv",
+    "query_set_csv": "data/image_queries.csv",
+    "ground_truth_candidates_csv": "data/ground_truth_image_candidates.csv",
+    "ground_truth_csv": "data/ground_truth_image.csv",
+    "search_results_csv": "data/search_results_image.csv",
+    "metrics_json": "reports/metrics_image.json",
+    "metrics_csv": "reports/metrics_image.csv"
+  }
+}

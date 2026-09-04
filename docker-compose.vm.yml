@@ -1,0 +1,31 @@
+# VM override: MySQL/Qdrant/Spring/frontend run on the GCE VM, while service-ai
+# is hosted separately on Cloud Run.
+
+services:
+  qdrant:
+    ports:
+      # Bind to this VM's private NIC. Firewall only permits the Cloud Run VPC connector.
+      - "${VM_INTERNAL_IP:?set VM_INTERNAL_IP}:6333:6333"
+
+  service-ai:
+    profiles:
+      - cloud-run-only
+    env_file: !reset []
+    depends_on: !reset []
+
+  spring-api:
+    # VM deployment injects runtime values from the host environment; do not require
+    # a repository-local service-api-ecommerce/.env file.
+    env_file: !reset []
+    environment:
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-root}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:?set SPRING_DATASOURCE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      GOOGLE_OAUTH_ENABLED: "false"
+      AI_SERVICE_BASE_URL: ${AI_SERVICE_BASE_URL:?set AI_SERVICE_BASE_URL}
+      AI_SERVICE_INTERNAL_API_KEY: ${AI_SERVICE_INTERNAL_API_KEY:?set AI_SERVICE_INTERNAL_API_KEY}
+      AI_SERVICE_ENABLED: "true"
+      AI_SERVICE_MOCK: "false"
+      AI_SERVICE_TIMEOUT_SECONDS: ${AI_SERVICE_TIMEOUT_SECONDS:-900}
+      AI_SERVICE_SYNC_BATCH_SIZE: "50"
+      APP_CORS_ALLOWED_ORIGINS: ${APP_CORS_ALLOWED_ORIGINS:?set APP_CORS_ALLOWED_ORIGINS}

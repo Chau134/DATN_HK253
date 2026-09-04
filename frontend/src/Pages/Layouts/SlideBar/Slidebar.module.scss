@@ -1,0 +1,281 @@
+/* ── wrapper (ngang, dùng trong thanh filter) ── */
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    position: static;
+}
+
+/* ── price select (giữ nguyên) ── */
+.select-option {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+}
+
+.price-select {
+    min-height: 36px;
+    font-size: 13px;
+    padding: 6px 32px 6px 10px;
+    border: 1px solid #dfe3e8;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    &:focus { border-color: #aab4c0; }
+}
+
+/* ══════════════════════════════════════
+   CATEGORY DROPDOWN TRIGGER
+══════════════════════════════════════ */
+.dropdown-wrap {
+    position: relative;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #dfe3e8;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s, background 0.15s;
+    min-width: 180px;
+
+    &:hover {
+        border-color: #aab4c0;
+        background: #f8f9fb;
+    }
+}
+
+.dropdown-trigger--active {
+    border-color: #171717;
+    color: #171717;
+    background: #f0faf9;
+}
+
+.trigger-icon {
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.trigger-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    max-width: 160px;
+}
+
+.trigger-arrow {
+    font-size: 11px;
+    opacity: 0.6;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.trigger-arrow--open {
+    transform: rotate(180deg);
+}
+
+/* ══════════════════════════════════════
+   DROPDOWN PANEL
+══════════════════════════════════════ */
+.dropdown-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 999;
+    width: 260px;
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    animation: panelIn 0.15s ease;
+}
+
+@keyframes panelIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.clear-btn {
+    border: none;
+    background: none;
+    color: #e74c3c;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    &:hover { background: #fff5f5; }
+}
+
+.tree-scroll {
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 6px 0;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: #dfe3e8; border-radius: 2px; }
+}
+
+.tree-empty {
+    padding: 16px 14px;
+    font-size: 13px;
+    color: #999;
+}
+
+/* ══════════════════════════════════════
+   TREE NODES
+══════════════════════════════════════ */
+.tree-node {
+    display: flex;
+    flex-direction: column;
+}
+
+.tree-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-height: 32px;
+    cursor: default;
+    transition: background 0.12s;
+
+    &:hover {
+        background: #f5f7fa;
+    }
+}
+
+.tree-row--active {
+    background: #e8f8f4 !important;
+    .tree-label {
+        color: #171717 !important;
+        font-weight: 700 !important;
+    }
+}
+
+.tree-row--child-active {
+    .tree-label {
+        color: #0d9e8a;
+        font-weight: 600;
+    }
+}
+
+/* toggle arrow button */
+.tree-toggle {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 4px;
+    color: #888;
+    &:hover { background: #eaecf0; }
+}
+
+.chevron {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+    transform: rotate(0deg);
+    transition: transform 0.2s;
+    font-style: normal;
+}
+
+.chevron--open {
+    transform: rotate(90deg);
+}
+
+/* leaf dot */
+.tree-leaf-dot {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #c0c8d0;
+    }
+}
+
+/* label clickable button */
+.tree-label {
+    flex: 1;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    padding: 0;
+    padding-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.tree-children {
+    /* children indent handled by padding-left on rows */
+}
+
+/* ── responsive ── */
+@media only screen and (max-width: 600px) {
+    .wrapper {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .dropdown-trigger,
+    .select-option {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .dropdown-panel {
+        width: 100%;
+        min-width: 0;
+    }
+}

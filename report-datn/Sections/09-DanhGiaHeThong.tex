@@ -1,0 +1,475 @@
+%=========================
+% Sections/09-DanhGiaHeThong.tex
+% Chương 9 -- Đánh giá hệ thống
+%=========================
+
+\section{Kiểm thử hệ thống}
+
+Chương này đánh giá hệ thống thương mại điện tử tích hợp trợ lý mua sắm đa phương thức theo hai lớp độc lập nhưng có liên hệ với nhau. Lớp thứ nhất đo chất lượng của các chức năng AI gồm tìm kiếm văn bản, tìm kiếm hình ảnh, tìm kiếm kết hợp và hội thoại có truy xuất dữ liệu. Lớp thứ hai kiểm tra hệ thống hoàn chỉnh từ Frontend, Spring Boot Backend, MySQL đến AI Service và Qdrant. Cách tiếp cận này tránh trường hợp mô hình cho kết quả tốt khi chạy riêng lẻ nhưng luồng mua hàng, dữ liệu giá--tồn kho, phân quyền hoặc cơ chế dự phòng của hệ thống vẫn chưa đúng.
+
+%=====================================================
+\subsection{Mục tiêu và câu hỏi đánh giá}
+
+Quá trình đánh giá tập trung trả lời bốn câu hỏi sau:
+
+\begin{enumerate}[label=\textbf{RQ\arabic*:},leftmargin=1.8cm]
+    \item Các chức năng tìm kiếm bằng văn bản, hình ảnh và kết hợp có đưa sản phẩm phù hợp lên các vị trí đầu hay không?
+    \item Trợ lý hội thoại có trả lời dựa trên dữ liệu được truy xuất, duy trì đúng ngữ cảnh nhiều lượt và hạn chế tạo thông tin không có căn cứ hay không?
+    \item Các chức năng thương mại điện tử, hợp đồng giao tiếp Spring Boot--AI Service và quá trình đồng bộ MySQL--Qdrant có bảo toàn tính đúng đắn của dữ liệu hay không?
+    \item Hệ thống có đáp ứng các yêu cầu phi chức năng về độ trễ, bảo mật, khả dụng, quan sát và tương thích đã xác định tại Chương 5 hay không?
+\end{enumerate}
+
+Phạm vi đánh giá được ánh xạ trực tiếp tới các yêu cầu \texttt{FR-AI-01}--\texttt{FR-AI-12}, \texttt{EC-FR-01}--\texttt{EC-FR-05} và \texttt{NFR-01}--\texttt{NFR-09}. Trong đó, đánh giá chất lượng truy hồi trả lời RQ1; đánh giá RAG và bộ nhớ hội thoại trả lời RQ2; kiểm thử Backend, hợp đồng và end-to-end trả lời RQ3; kiểm thử tải, lỗi, bảo mật và khả dụng trả lời RQ4.
+
+%=====================================================
+\subsection{Thiết kế thực nghiệm}
+
+\subsubsection{Dữ liệu và môi trường đánh giá}
+
+Dữ liệu đánh giá được tạo từ snapshot chuẩn hóa của danh mục 1.000 sản phẩm trong MySQL. Việc đánh giá thực hiện ở cấp \texttt{product\_id}; giá, tồn kho và trạng thái hiển thị trong kết quả cuối cùng vẫn do Spring Boot đọc lại từ MySQL. Mỗi lần chạy lưu cấu hình, seed, endpoint, tên collection và kết quả theo từng truy vấn để có thể truy vết.
+
+\begin{longtable}{|p{0.16\linewidth}|p{0.17\linewidth}|p{0.27\linewidth}|p{0.30\linewidth}|}
+\caption{Bộ dữ liệu đánh giá các chức năng AI}\label{tab:eval-datasets}\\
+\hline
+\textbf{Chức năng} & \textbf{Quy mô} & \textbf{Phân bố ca kiểm thử} & \textbf{Cách xác định kết quả đúng} \\ \hline
+\endfirsthead
+\hline
+\textbf{Chức năng} & \textbf{Quy mô} & \textbf{Phân bố ca kiểm thử} & \textbf{Cách xác định kết quả đúng} \\ \hline
+\endhead
+Text Search & 100 truy vấn & 90 truy vấn dương gồm 60 ca chuẩn và 30 ca thử thách ngữ nghĩa; 10 truy vấn âm gồm điều kiện bất khả thi và ngoài miền & Đối chiếu toàn bộ snapshot, gán mức liên quan theo thuộc tính và rà soát ground truth \\ \hline
+Image Search & 100 cặp, 200 ảnh & Mỗi sản phẩm có một ảnh catalog \texttt{DETAIL\_1} và một ảnh bên ngoài; bộ bên ngoài gồm 33 ảnh tương ứng \texttt{MODEL\_1}, 33 ảnh tương ứng \texttt{MODEL\_2--5} và 34 ảnh ngoại cảnh & Exact metric đối chiếu trực tiếp \texttt{source\_product\_id}; metric tương tự dùng pool đã duyệt với ngưỡng liên quan từ mức 2 \\ \hline
+Hybrid Search & 100 cặp ảnh--văn bản & Thay đổi màu, chất liệu, mục đích và giá; có ca kết hợp nhiều ràng buộc & Dùng ảnh phản thực đã kiểm soát, sản phẩm đích đã biết và 654 nhãn đã duyệt với provenance người--luật \\ \hline
+Conversational AI & 80 câu hỏi & Hỏi thuộc tính, so sánh, gợi ý, tinh chỉnh bộ lọc, tham chiếu thứ tự, kiến thức cửa hàng và câu không thể trả lời & Reference answer, bằng chứng bắt buộc, phát biểu bị cấm và context truy xuất; có bước kiểm tra thủ công evaluator \\ \hline
+Phiên dài & 10 phiên, 230 request & Mỗi phiên chính 20 lượt, kèm probe liên phiên và liên người dùng & Kiểm tra nhớ thông tin đầu--giữa--cuối, sửa ràng buộc, phân giải tham chiếu và cô lập phiên \\ \hline
+\end{longtable}
+
+\subsubsection{Quy trình xây dựng và kiểm soát ground truth}
+
+Ground truth là tập nhãn dùng để xác định sản phẩm hoặc nội dung nào được xem là đúng đối với từng truy vấn. Tập này không được xem là đầu ra của mô hình đang đánh giá. Mỗi bản ghi phải lưu mã truy vấn, mã sản phẩm hoặc nguồn bằng chứng, mức liên quan, nguồn sinh nhãn, trạng thái duyệt và ghi chú. Khi so sánh keyword, vector search, cấu hình bật/tắt rerank hoặc một phiên bản mô hình mới, tất cả cấu hình phải dùng cùng một phiên bản ground truth đã được đóng băng trước khi chạy.
+
+Đối với bài toán truy hồi, mức liên quan được biểu diễn theo thang bốn mức: 0 là không liên quan; 1 là tương tự yếu; 2 là liên quan; và 3 là đúng trực tiếp hoặc thỏa đầy đủ ý định. Các metric nhị phân sử dụng mức từ 2 trở lên làm nhãn liên quan, trong khi NDCG giữ nguyên mức 0--3 để phản ánh chất lượng thứ hạng. Quy trình tạo nhãn hiện tại được tổng hợp tại Bảng~\ref{tab:ground-truth-construction}.
+
+\begin{longtable}{|p{0.16\linewidth}|p{0.25\linewidth}|p{0.32\linewidth}|p{0.17\linewidth}|}
+\caption{Cách xây dựng và trạng thái ground truth}\label{tab:ground-truth-construction}\\
+\hline
+\textbf{Bộ đánh giá} & \textbf{Đơn vị nhãn và quy mô} & \textbf{Cách tạo và kiểm soát nhãn} & \textbf{Trạng thái hiện tại} \\ \hline
+\endfirsthead
+\hline
+\textbf{Bộ đánh giá} & \textbf{Đơn vị nhãn và quy mô} & \textbf{Cách tạo và kiểm soát nhãn} & \textbf{Trạng thái hiện tại} \\ \hline
+\endhead
+Text Search & 100 truy vấn, 2.703 cặp truy vấn--sản phẩm & Đối chiếu toàn bộ snapshot 1.000 sản phẩm theo ý định chuẩn hóa. Sản phẩm phải thỏa toàn bộ ràng buộc mới nhận mức 3; truy vấn âm nhận hành vi kỳ vọng không trả kết quả. Sáu mươi ca chuẩn gồm 20 easy, 20 medium và 20 hard; toàn bộ 30 ca chuẩn gốc của semantic challenge được giữ lại để đối chiếu cặp. & 2.703 nhãn đã \texttt{approved}. \\ \hline
+Image Search & 100 cặp truy vấn ghép theo sản phẩm; ground truth hợp nhất gồm 2.935 cặp & Giữ toàn bộ 2.000 nhãn cũ; bổ sung 36 cặp Top-5 được duyệt thị giác và 899 cặp dùng \texttt{metadata\_rule\_v1}. File review có grade đầy đủ nhưng trạng thái xuất là \texttt{pending}; các dòng này được chuẩn hóa thành \texttt{approved} sau khi người duyệt xác nhận hoàn tất. & 2.935 nhãn đã \texttt{approved}; phân bố grade 0/1/2/3 là 1.484/1.186/164/101. \\ \hline
+Hybrid Search & 100 cặp ảnh--văn bản, 654 cặp nhãn & Mỗi ca có một sản phẩm đích mức 3 từ biến đổi phản thực có kiểm soát. Một trăm target được duyệt cùng ảnh tham chiếu; 175 nhãn thị giác được chuyển từ Image Search, gồm 21 nhãn bổ sung cho baseline post-filter; 379 cặp còn lại dùng luật bảo thủ \texttt{metadata\_hybrid\_rule\_v1}. & 654 nhãn đã \texttt{approved}; phân bố grade 0/1/2/3 là 22/491/40/101. \\ \hline
+Conversational AI & 80 câu hỏi, 80 reference answer và 120 evidence & Mỗi câu có nội dung bắt buộc, nội dung bị cấm, mã nguồn và bằng chứng. Packet được duyệt theo ba lớp question--reference--evidence và validator chỉ cho phép nghiệm thu khi các lớp cần thiết đều hoàn tất. & Toàn bộ question, reference và evidence cần thiết của 80 ca đã được duyệt \texttt{approved}. \\ \hline
+\end{longtable}
+
+Ground truth của Text Search được tạo độc lập bằng cách duyệt snapshot nên phù hợp để so sánh nhiều hệ thống. Ground truth Image Search được tạo bằng pooling: hợp ứng viên Top-20 của run cũ, simple và challenging, sau đó tái sử dụng nhãn cũ và bổ sung nhãn cho cặp mới. Vì nhãn ngoài vùng ưu tiên Top-5 dùng luật metadata, kết quả similarity được diễn giải là đánh giá kết hợp người--luật. Ground truth Hybrid cũng đã được đóng băng theo mô hình người--luật: ảnh phản thực và target được duyệt trực quan, nhãn có sẵn được chuyển giao, còn candidate chưa có nhãn dùng luật metadata bảo thủ. Khi thêm mô hình hoặc cấu hình truy hồi mới, vẫn cần mở rộng pool và gán nhãn cho các ứng viên chưa được bao phủ. Ground truth Conversational AI đã hoàn tất duyệt cho lần chạy được báo cáo.
+
+Môi trường thực nghiệm sử dụng AI Service, Qdrant đã lập chỉ mục và các mô hình managed đúng với cấu hình triển khai của đồ án. Các runner kiểm tra readiness trước khi chạy, dừng hoặc đánh dấu không hợp lệ khi service restart, trả fallback hoặc thiếu capability. Thiết kế này giúp phân biệt lỗi truy hồi với lỗi hạ tầng.
+
+\subsubsection{Chỉ số đánh giá}
+
+Với tập sản phẩm liên quan $Rel(q)$ và danh sách $K$ kết quả đầu $R_K(q)$ của truy vấn $q$, các chỉ số chính được xác định như sau:
+
+\begin{align}
+    Precision@K &= \frac{|Rel(q) \cap R_K(q)|}{K}, \\
+    Recall@K &= \frac{|Rel(q) \cap R_K(q)|}{|Rel(q)|}, \\
+    MRR &= \frac{1}{|Q|}\sum_{q \in Q}\frac{1}{rank_q}.
+\end{align}
+
+\textit{Hit@K} cho biết tỷ lệ truy vấn có ít nhất một sản phẩm đúng trong Top-$K$. \textit{NDCG@K} xét cả mức liên quan và vị trí xếp hạng, vì vậy phù hợp khi một truy vấn có nhiều sản phẩm thay thế. Đối với truy vấn âm, hệ thống dùng \textit{Empty Result Accuracy} và \textit{False Positive Rate}. Đối với ảnh, \textit{Exact Hit@K} và \textit{Exact MRR} đo khả năng tìm lại đúng sản phẩm nguồn, còn Precision, Recall, NDCG và mAP đo chất lượng sản phẩm tương tự.
+
+Đối với hội thoại, \textit{rule-based grounding score} kiểm tra phát biểu có được hỗ trợ bởi context hay vi phạm danh sách phát biểu bị cấm; \textit{token-F1} đo mức trùng khớp token với reference; Context Precision và Context Recall đo chất lượng bằng chứng được đưa vào bước sinh câu trả lời. Token-F1 không đồng nghĩa với mức liên quan ngữ nghĩa hoặc mức hữu ích: một câu diễn đạt khác reference có thể đúng nhưng nhận điểm thấp, trong khi một câu lặp lại nhiều từ khóa vẫn có thể sai. Vì vậy, báo cáo chỉ dùng Token-F1 như chỉ số chẩn đoán và bổ sung đánh giá thủ công về tính đúng, đầy đủ, có căn cứ và khả năng hoàn thành nhiệm vụ.
+
+\subsubsection{Thiết kế so sánh, thí nghiệm loại bỏ thành phần và độ bền}
+
+Một giá trị tuyệt đối như NDCG@5 bằng 0,80 hoặc Token-F1 bằng 0,80 không tự chứng minh hệ thống tốt. Tùy chức năng, báo cáo sử dụng một trong ba thiết kế: baseline giữa hai thuật toán, ablation bật--tắt một thành phần, hoặc kiểm tra độ bền ghép cặp khi chỉ thay đổi điều kiện đầu vào. Image Search thuộc thiết kế thứ ba: cùng image embedding được chạy trên hai ảnh của cùng sản phẩm để đo mức suy giảm do nền, người mẫu và góc chụp. Bảng~\ref{tab:ai-baseline-design} xác định vai trò của từng phép so sánh; những cấu hình chưa thực hiện tiếp tục được giữ trống để tránh tạo số liệu giả.
+
+\begin{longtable}{|p{0.17\linewidth}|p{0.27\linewidth}|p{0.29\linewidth}|p{0.17\linewidth}|}
+\caption{Thiết kế baseline, ablation và kiểm tra độ bền cho các chức năng AI}\label{tab:ai-baseline-design}\\
+\hline
+\textbf{Chức năng} & \textbf{Cấu hình đối chứng} & \textbf{Cấu hình hệ thống cần so sánh} & \textbf{Chỉ số chính} \\ \hline
+\endfirsthead
+\hline
+\textbf{Chức năng} & \textbf{Cấu hình đối chứng} & \textbf{Cấu hình hệ thống cần so sánh} & \textbf{Chỉ số chính} \\ \hline
+\endhead
+Text Search & Keyword/BM25 hoặc full-text search trên cùng catalog & Vector Search tắt rerank; Vector Search bật rerank & Hit@5, NDCG@5, MRR, truy vấn âm và P95 \\ \hline
+Image Search & Hai điều kiện ghép cặp trên cùng 100 sản phẩm: ảnh catalog \texttt{DETAIL\_1} và ảnh bên ngoài & Giữ nguyên image embedding, Qdrant index và Top-20; chỉ thay ảnh query & Exact Hit@1/5/10, Exact MRR; Recall, NDCG và mAP sau pooling \\ \hline
+Hybrid Search & Image-only; Text-only; ảnh kết hợp post-filter văn bản & Hybrid fusion tắt rerank; Hybrid fusion bật rerank & Strict Hit@5, NDCG@5, tỷ lệ thỏa toàn bộ ràng buộc và P95 \\ \hline
+Conversational AI & LLM không RAG; RAG không memory & RAG đầy đủ với memory; chạy lại khi rerank ở tầng truy hồi tắt/bật & Đúng dữ kiện, grounding, task success, giữ ngữ cảnh, từ chối đúng và P95 \\ \hline
+\end{longtable}
+
+Reranker của hệ thống hiện chỉ sắp xếp lại ứng viên Text Search và Hybrid Search. Image Search không đi qua text reranker nên không có ablation bật--tắt thành phần trong pipeline hiện tại. Hai bộ ảnh ghép cặp là đủ cho mục tiêu đánh giá độ bền của cấu hình đang triển khai, nhưng không được diễn giải là hai thuật toán hoặc bằng chứng image embedding vượt một baseline đặc trưng cổ điển. Baseline cổ điển chỉ cần bổ sung nếu phạm vi nghiên cứu mở rộng sang so sánh thuật toán. Conversational AI chịu ảnh hưởng gián tiếp khi workflow gọi Text/Hybrid Search; do đó phép so sánh bật/tắt rerank phải giữ nguyên prompt, mô hình sinh, memory, snapshot và câu hỏi, chỉ thay đổi cờ rerank ở tầng truy hồi.
+
+Mọi cặp cấu hình phải giữ cố định snapshot, query set, ground truth, seed, Top-$K$, bộ lọc và môi trường phần cứng. Ngoài giá trị trung bình, báo cáo cần ghi chênh lệch $\Delta=M_{\text{mới}}-M_{\text{đối chứng}}$, kết quả theo nhóm độ khó và khoảng tin cậy 95\% bằng paired bootstrap trên truy vấn. Rerank chỉ được xem là có ích khi cải thiện chất lượng xếp hạng mà mức tăng độ trễ vẫn đáp ứng NFR.
+
+\subsubsection{Cơ sở xác lập tiêu chí nghiệm thu}
+
+Các ngưỡng nghiệm thu được xác lập theo quy mô tập dữ liệu, giao diện Top-5 và yêu cầu phi chức năng của đồ án. Đây là mức sàn nội bộ để so sánh nhất quán giữa các cấu hình, không phải chuẩn chung cho mọi hệ thống tìm kiếm hoặc RAG. Một chức năng chỉ được kết luận đạt khi đồng thời vượt ngưỡng định lượng và không vi phạm điều kiện dữ liệu hoặc hard gate tương ứng.
+
+\begin{table}[H]
+\centering
+\caption{Ngưỡng nghiệm thu nội bộ}
+\label{tab:eval-gates}
+\begin{tabularx}{\linewidth}{|p{0.21\linewidth}|p{0.43\linewidth}|X|}
+\hline
+\textbf{Nhóm} & \textbf{Ngưỡng chính} & \textbf{Điều kiện kết luận} \\ \hline
+Text Search & Hit@5 $\geq 0{,}95$; NDCG@5 $\geq 0{,}80$ & Vượt BM25 trên nhóm truy vấn ngữ nghĩa \\ \hline
+Image Search & Exact Hit@5 $\geq 0{,}95$; NDCG@5 $\geq 0{,}80$; P95 $\leq 5$ giây & Đạt trên cả ảnh catalog và ảnh bên ngoài \\ \hline
+Hybrid Search & Strict Hit@5 $\geq 0{,}90$; P95 $\leq 5$ giây & Kết quả phản ánh đồng thời ảnh và ràng buộc văn bản \\ \hline
+Conversational AI & Grounding $\geq 0{,}85$; Context Precision $\geq 0{,}60$; Context Recall $\geq 0{,}80$ & Toàn bộ ca critical phải qua hard gate \\ \hline
+Hệ thống & Không sai dữ liệu giao dịch hoặc truy cập trái quyền & Nghiệp vụ thương mại điện tử cốt lõi vẫn hoạt động khi AI lỗi \\ \hline
+\end{tabularx}
+\end{table}
+
+Token-F1 chỉ được dùng để chẩn đoán độ tương đồng từ vựng. Kết luận cuối cùng ưu tiên ground truth đã duyệt, baseline, trace truy hồi và các kiểm tra dữ kiện nhạy cảm.
+
+%=====================================================
+\subsection{Kế hoạch kiểm thử các thành phần ngoài AI Service}
+
+Đánh giá AI chưa đủ để xác nhận chất lượng của toàn hệ thống. Các luồng thương mại điện tử, giao tiếp giữa các service và quá trình đồng bộ dữ liệu phải được kiểm thử độc lập nhằm phát hiện lỗi giao dịch, phân quyền hoặc sai lệch giữa MySQL và Qdrant. Kế hoạch kiểm thử được tổ chức theo bốn nhóm tại Bảng~\ref{tab:system-test-plan}.
+
+\begin{table}[H]
+\centering
+\caption{Kế hoạch kiểm thử các thành phần ngoài AI Service}
+\label{tab:system-test-plan}
+\begin{tabularx}{\linewidth}{|p{0.18\linewidth}|p{0.31\linewidth}|X|}
+\hline
+\textbf{Nhóm} & \textbf{Phạm vi} & \textbf{Nội dung kiểm chứng} \\ \hline
+Nghiệp vụ thương mại điện tử & Xác thực, catalog, giỏ hàng, checkout, đơn hàng, coupon, payment và đánh giá & Quyền sở hữu; tính tiền; idempotency; chống bán vượt; chuyển trạng thái và hoàn tồn đúng một lần \\ \hline
+Tích hợp và dữ liệu & Spring Boot--AI Service; MySQL--Qdrant & Hợp đồng request/response; API key nội bộ; full/incremental sync; độ bao phủ chỉ mục; retry và rollback \\ \hline
+End-to-end & Hành trình người mua và quản trị viên & Đăng nhập--tìm kiếm--đặt COD; tìm bằng ảnh; Hybrid Search; cập nhật sản phẩm; fallback khi AI lỗi \\ \hline
+Phi chức năng & Tải, bảo mật, lỗi, quan sát và tương thích & P95 và tỷ lệ lỗi; JWT/RBAC/IDOR; fault injection; health/metric; trình duyệt và responsive \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Kiểm thử nghiệp vụ và tích hợp}
+
+Các ca nghiệp vụ ưu tiên tập trung vào những thao tác có thể làm sai tiền hoặc tồn kho: gửi lặp yêu cầu checkout, hai request đồng thời mua SKU cuối cùng, hủy đơn, coupon dùng lặp và webhook đến sai thứ tự. Kết quả mong đợi là chỉ một giao dịch logic được ghi nhận, snapshot giá không thay đổi và tồn kho được giữ, tiêu thụ hoặc hoàn trả đúng một lần.
+
+Đối với tích hợp AI, MySQL được xem là nguồn dữ liệu nghiệp vụ còn Qdrant là chỉ mục tìm kiếm. Kiểm thử phải so cả số lượng \texttt{product\_id} và các trường payload quan trọng; đồng thời kiểm tra upsert lặp, restart giữa batch, incremental sync và khôi phục từ snapshot. Giá và tồn kho trả cho người dùng phải được resolve lại từ MySQL ngay cả khi vector chưa được tái lập chỉ mục.
+
+\subsubsection{Kiểm thử end-to-end}
+
+Năm hành trình chính gồm: đặt hàng COD từ giao diện; tìm sản phẩm bằng ảnh; Hybrid Search kết hợp tinh chỉnh hội thoại; quản trị viên sửa sản phẩm rồi đồng bộ tăng dần; và kiểm tra Catalog, giỏ hàng, đơn hàng khi AI Service mất kết nối. Mỗi hành trình được kiểm tra ở điểm cuối bằng API hoặc dữ liệu, thay vì chỉ dựa trên trạng thái hiển thị của giao diện.
+
+\subsubsection{Kiểm thử phi chức năng}
+
+Hiệu năng được đo bằng tải đọc Catalog, tải hỗn hợp Catalog--Cart và các endpoint AI; báo cáo P50, P95, P99, throughput và tỷ lệ lỗi. Bảo mật bao phủ JWT, RBAC, CORS, IDOR, injection, giới hạn upload, rate limiting và dependency audit. Khả dụng được kiểm tra bằng fault injection đối với AI Service, MySQL và Qdrant, kết hợp health endpoint, metric và quy trình khôi phục. Tương thích giao diện được kiểm tra trên nhiều viewport và trình duyệt.
+
+\subsubsection{Cách triển khai và thu thập bằng chứng}
+
+Kế hoạch được thực hiện trên môi trường kiểm thử tách biệt theo trình tự: khởi tạo các dịch vụ, nạp fixture, ghi nhận phiên bản, chạy hồi quy Backend, kiểm tra đồng bộ, thực hiện các hành trình end-to-end rồi mới chạy kiểm thử phi chức năng. Backend sử dụng schema MySQL dành riêng cho test và AI Service được mock ở các ca nghiệp vụ; các ca hợp đồng và end-to-end mới dùng service thật. Với bộ kiểm thử có thao tác Qdrant, mỗi lần chạy dùng collection hoặc alias có tiền tố riêng để có thể xóa và tái lập mà không ảnh hưởng chỉ mục đang phục vụ.
+
+Trước mỗi lần chạy, manifest ghi commit, thời điểm, cấu hình, database migration, endpoint và tên collection. Snapshot 1.000 sản phẩm được seed vào MySQL; tài khoản khách hàng, quản trị viên, SKU cuối cùng và coupon được tạo bằng fixture xác định trước. Thứ tự này giúp kết quả có thể lặp lại và cho phép phân biệt lỗi chương trình với sai khác dữ liệu hay môi trường.
+
+\begin{longtable}{|p{0.18\linewidth}|p{0.49\linewidth}|p{0.27\linewidth}|}
+\caption{Cách triển khai và bằng chứng của kế hoạch kiểm thử hệ thống}
+\label{tab:system-test-execution}\\ \hline
+\textbf{Nhóm} & \textbf{Cách triển khai} & \textbf{Bằng chứng lưu lại} \\ \hline
+\endfirsthead
+\hline
+\textbf{Nhóm} & \textbf{Cách triển khai} & \textbf{Bằng chứng lưu lại} \\ \hline
+\endhead
+Backend và nghiệp vụ & Chạy \texttt{mvnw.cmd test} trong \path{service-api-ecommerce}; Maven Surefire thực thi unit, security, controller và integration test. AI Service được thay bằng mock/stub; các ca checkout lặp, tranh chấp tồn kho và rollback dùng fixture riêng. & XML/TXT trong \path{target/surefire-reports}; tổng số test, failure, error và skipped của đúng lần chạy. \\ \hline
+Tích hợp và dữ liệu & Khởi động MySQL, Qdrant, Backend và AI Service bằng cấu hình kiểm thử; gọi full sync rồi incremental sync. Đối chiếu tập \texttt{product\_id} và payload giữa snapshot MySQL với hai collection; ngắt Qdrant hoặc worker giữa batch để kiểm tra retry, snapshot và alias rollback. & Mã và trạng thái sync job, log theo batch, số point, danh sách ID/payload sai lệch và kết quả phục hồi snapshot. \\ \hline
+End-to-end & Thực hiện năm hành trình trên giao diện và API: COD, Image Search, Hybrid Search, cập nhật sản phẩm--đồng bộ và fallback khi AI lỗi. Điểm cuối được xác nhận lại bằng response Backend, bản ghi MySQL và point Qdrant thay vì chỉ quan sát giao diện. & Checklist theo hành trình, response đã ẩn dữ liệu nhạy cảm, ảnh màn hình và bản ghi đối soát dữ liệu. \\ \hline
+Hiệu năng & Từ một máy sinh tải cố định, warm-up trước khi đo; chạy tải đọc Catalog trong 15 phút, tải hỗn hợp Catalog--Cart trong 5 phút và spike ngắn. Mỗi kịch bản cố định concurrency, request rate và dataset; đồng thời thu thập tài nguyên container. & Tổng request, P50/P95/P99, throughput, tỷ lệ lỗi, CPU, bộ nhớ và cấu hình tải của lần chạy. \\ \hline
+Bảo mật & Kết hợp security test của Backend với request thủ công cho JWT, RBAC, IDOR, CORS, injection, XSS, path traversal và upload. Frontend chạy \texttt{npm run build}, \texttt{npm run lint} và \texttt{npm audit}; response và log được kiểm tra để phát hiện stack trace hoặc secret. & Báo cáo Surefire, kết quả request âm, log đã che secret và báo cáo dependency theo mức độ. \\ \hline
+Khả dụng và tương thích & Dừng hoặc chặn kết nối tới AI Service/Qdrant, sau đó kiểm tra timeout, fallback, health và phục hồi. Giao diện được smoke test trên trình duyệt cùng viewport đã cam kết. & Log lỗi và phục hồi, health response, trạng thái dữ liệu sau retry/rollback, checklist trình duyệt--viewport và báo cáo Playwright. \\ \hline
+\end{longtable}
+
+Một ca chỉ được tính \enquote{Đạt} khi kết quả thực tế khớp điều kiện mong đợi, không để lại dữ liệu ngoài fixture và đáp ứng ngưỡng tương ứng. Số liệu tổng hợp như 102/102 ca hồi quy hoặc 21.231/21.231 request phải được lấy từ báo cáo máy của cùng manifest, không đếm thủ công. Ca lỗi được lưu kèm đầu vào đã ẩn thông tin nhạy cảm, bước tái hiện và log; sau khi sửa phải chạy lại ca lỗi và nhóm hồi quy liên quan.
+Tất cả kiểm thử có thao tác ghi sử dụng schema MySQL, collection và alias Qdrant tạm. Dữ liệu hiện hành chỉ được đọc để đối soát. Kết quả thực thi của các nhóm trên được trình bày sau phần đánh giá AI, tránh trộn kế hoạch với kết quả đã đạt.
+
+%=====================================================
+\subsection{Kết quả đánh giá các chức năng AI}
+
+\subsubsection{Tìm kiếm bằng văn bản}
+
+Ba cấu hình BM25, Vector Search tắt rerank và Vector Search bật rerank được chạy trên cùng 90 truy vấn dương, 10 truy vấn âm và 2.703 nhãn ground truth đã duyệt.
+\begin{table}[H]
+\centering
+\caption{Kết quả Text Search trên cùng 90 truy vấn dương}
+\label{tab:text-results}
+\begin{tabularx}{\linewidth}{|X|r|r|r|r|r|}
+\hline
+\textbf{Cấu hình} & \textbf{Hit@5} & \textbf{P@5} & \textbf{R@5} & \textbf{NDCG@5} & \textbf{MRR} \\ \hline
+Keyword BM25 & 0,756 & 0,433 & 0,441 & 0,689 & 0,702 \\ \hline
+Vector, rerank tắt & \textbf{1,000} & \textbf{0,629} & \textbf{0,580} & \textbf{0,941} & \textbf{0,963} \\ \hline
+Vector, rerank bật & 0,967 & 0,609 & 0,552 & 0,903 & 0,915 \\ \hline
+\end{tabularx}
+\end{table}
+
+Vector Search tắt rerank đạt kết quả tốt nhất và vượt BM25 trên toàn bộ chỉ số. Chênh lệch tập trung ở 30 truy vấn thử thách ngữ nghĩa, nơi NDCG@5 tăng từ 0,158 lên 0,900. Cả hai cấu hình Vector đều xử lý đúng 10 truy vấn âm.
+
+Bật rerank làm NDCG@5 giảm từ 0,941 xuống 0,903 và MRR giảm từ 0,963 xuống 0,915. Vì suy giảm chủ yếu xảy ra ở truy vấn ngữ nghĩa và ràng buộc miền thời trang, cấu hình được chọn là Vector Search không rerank.
+
+\subsubsection{Tìm kiếm bằng hình ảnh}
+
+Hai điều kiện sử dụng cùng 100 sản phẩm, mô hình embedding, Qdrant index và Top-20. Bộ \textit{simple} dùng ảnh catalog, còn bộ \textit{challenging} dùng ảnh bên ngoài có nền, người mẫu hoặc góc chụp phức tạp.
+\begin{table}[H]
+\centering
+\caption{Kết quả exact retrieval trên 100 cặp ảnh simple--challenging}
+\label{tab:image-paired-exact-results}
+\small
+\begin{tabularx}{\linewidth}{|X|c|c|c|c|}
+\hline
+\textbf{Chỉ số} & \textbf{Simple} & \textbf{Challenging} & \textbf{$\Delta$} & \makecell{\textbf{CI 95\%}\\\textbf{của $\Delta$}} \\ \hline
+Exact Hit@1 & 0,980 & 0,930 & $-0{,}050$ & $[-0{,}100; -0{,}010]$ \\ \hline
+Exact Hit@5 & 1,000 & 0,970 & $-0{,}030$ & $[-0{,}070; 0{,}000]$ \\ \hline
+Exact Hit@10 & 1,000 & 1,000 & 0,000 & Không đổi \\ \hline
+Exact Hit@20 & 1,000 & 1,000 & 0,000 & Không đổi \\ \hline
+Exact MRR & 0,990 & 0,950 & $-0{,}040$ & $[-0{,}074; -0{,}013]$ \\ \hline
+\end{tabularx}
+\end{table}
+
+Ảnh bên ngoài làm Exact Hit@5 giảm từ 1,000 xuống 0,970 và Exact MRR giảm từ 0,990 xuống 0,950. Tuy vậy, đúng sản phẩm vẫn xuất hiện trong Top-10 ở toàn bộ 100 truy vấn.
+\begin{table}[H]
+\centering
+\caption{Phân rã exact retrieval theo nguồn ảnh bên ngoài}
+\label{tab:image-paired-breakdown}
+\small
+\begin{tabularx}{\linewidth}{|X|r|c|c|c|}
+\hline
+\textbf{Nhóm ảnh} & \textbf{Số cặp} & \textbf{Hit@1 S/C} & \textbf{Hit@5 S/C} & \textbf{MRR S/C} \\ \hline
+Ngoại cảnh bổ sung & 34 & 0,971 / 0,824 & 1,000 / 0,941 & 0,985 / 0,879 \\ \hline
+Tương ứng \texttt{MODEL\_1} & 33 & 1,000 / 1,000 & 1,000 / 1,000 & 1,000 / 1,000 \\ \hline
+Tương ứng \texttt{MODEL\_2--5} & 33 & 0,970 / 0,970 & 1,000 / 0,970 & 0,985 / 0,973 \\ \hline
+\end{tabularx}
+\end{table}
+
+Suy giảm exact retrieval tập trung nhiều nhất ở nhóm ảnh ngoại cảnh. Kết quả này cho thấy nền và bố cục ảnh ảnh hưởng chủ yếu đến thứ hạng đầu, thay vì làm mất hoàn toàn sản phẩm nguồn khỏi danh sách ứng viên.
+\begin{table}[H]
+\centering
+\caption{Kết quả similarity trên hai điều kiện ảnh ghép cặp}
+\label{tab:image-paired-similarity-results}
+\small
+\begin{tabularx}{\linewidth}{|X|c|c|c|c|}
+\hline
+\textbf{Chỉ số} & \textbf{Simple} & \textbf{Challenging} & \textbf{$\Delta$ C--S} & \makecell{\textbf{CI 95\%}\\\textbf{của $\Delta$}} \\ \hline
+Recall@5  & 0,741 & 0,721 & $-0{,}019$ & $[-0{,}056; +0{,}017]$ \\ \hline
+NDCG@5   & 0,853 & 0,810 & $-0{,}043$ & $[-0{,}068; -0{,}019]$ \\ \hline
+Recall@10 & 0,822 & 0,802 & $-0{,}019$ & $[-0{,}071; +0{,}031]$ \\ \hline
+NDCG@10  & 0,838 & 0,793 & $-0{,}045$ & $[-0{,}066; -0{,}025]$ \\ \hline
+Recall@20 & 0,929 & 0,870 & $-0{,}059$ & $[-0{,}117; -0{,}004]$ \\ \hline
+NDCG@20  & 0,869 & 0,816 & $-0{,}053$ & $[-0{,}074; -0{,}032]$ \\ \hline
+mAP       & 0,775 & 0,723 & $-0{,}052$ & $[-0{,}086; -0{,}018]$ \\ \hline
+\end{tabularx}
+\end{table}
+
+Với bài toán tìm sản phẩm tương tự, NDCG@5 giảm từ 0,853 xuống 0,810 và mAP giảm từ 0,775 xuống 0,723. Cả hai điều kiện vẫn vượt ngưỡng NDCG@5 là 0,80; P95 tuần tự lần lượt là 1,002 và 0,989 giây. Do ground truth kết hợp nhãn người--luật, kết quả được giới hạn trong pool đã duyệt.
+
+\subsubsection{Tìm kiếm kết hợp ảnh và văn bản}
+
+Năm cấu hình image-only, text-only, ảnh kết hợp post-filter văn bản, fusion tắt rerank và fusion bật rerank được đánh giá trên cùng 100 truy vấn và 654 nhãn ground truth. Baseline post-filter replay Top-20 Image-only đã đóng băng, lọc chính xác theo các trường category, color, material, price bucket và usage trong fixture rồi giữ nguyên thứ tự similarity ảnh; do đó baseline này không bao gồm sai số trích xuất ràng buộc từ ngôn ngữ tự nhiên.
+\begin{table}[H]
+\centering
+\caption{Baseline và ablation Hybrid Search trên 100 truy vấn phản thực có kiểm soát}
+\label{tab:hybrid-results}
+\begin{tabularx}{\linewidth}{|X|r|r|r|r|r|}
+\hline
+\textbf{Cấu hình} & \makecell{\textbf{Strict}\\\textbf{Hit@5}} & \makecell{\textbf{Graded}\\\textbf{NDCG@5}} & \makecell{\textbf{Thỏa RB}\\\textbf{@5}} & \makecell{\textbf{Query đạt}\\\textbf{@5}} & \makecell{\textbf{P95}\\\textbf{(giây)}} \\ \hline
+Image-only & 0,860 & 0,693 & 0,274 & 0,870 & 1,298 \\ \hline
+Text-only & 0,570 & 0,457 & 0,430 & 0,740 & 5,478 \\ \hline
+Ảnh + post-filter văn bản & \textbf{0,960} & \textbf{0,890} & \textbf{0,960} & \textbf{0,960} & 1,299 \\ \hline
+Fusion, rerank tắt & 0,920 & 0,855 & 0,446 & \textbf{0,960} & \textbf{0,892} \\ \hline
+Fusion, rerank bật & 0,660 & 0,510 & 0,418 & 0,840 & 2,344 \\ \hline
+\end{tabularx}
+\end{table}
+
+Kết quả cho thấy chỉ dùng ảnh hoặc chỉ dùng văn bản đều chưa khai thác đủ hai nguồn thông tin. Post-filter cho chất lượng cao nhất vì các ràng buộc đã được chuẩn hóa sẵn trước khi lọc, nhưng bốn truy vấn không còn ứng viên. Fusion tắt rerank cân bằng hơn: Strict Hit@5 đạt 0,920, NDCG@5 đạt 0,855, 96\% truy vấn có kết quả và P95 thấp nhất, 0,892 giây. So với post-filter, chênh lệch Hit@5 và NDCG@5 chưa rõ ràng về mặt thống kê vì khoảng tin cậy 95\% đều chứa 0; tuy nhiên, khả năng giữ đồng thời mọi ràng buộc còn thấp hơn đáng kể. Vì vậy, post-filter được xem là mốc tham chiếu gần oracle, còn fusion tắt rerank phù hợp hơn với luồng nhập văn bản tự nhiên hiện tại (xem \path{Evidence/performance/hybrid-image-post-filter-20260831.md}).
+
+Khi bật rerank, Strict Hit@5 giảm từ 0,920 xuống 0,660, NDCG@5 giảm từ 0,855 xuống 0,510, trong khi P95 tăng từ 0,892 lên 2,344 giây. Rerank hiện vừa làm giảm chất lượng vừa tăng độ trễ, nên cấu hình được chọn cho hệ thống là fusion tắt rerank. Hướng cải thiện tiếp theo là tăng khả năng giữ các ràng buộc bắt buộc mà không làm mất ưu điểm xử lý ngôn ngữ tự nhiên của fusion.
+
+\subsubsection{Trợ lý hội thoại và RAG}
+\begin{table}[H]
+\centering
+\caption{Kết quả cấu hình D (RAG, memory và rerank bật) trên 80 câu hỏi}
+\label{tab:rag-results}
+\begin{tabularx}{\linewidth}{|X|r|X|r|}
+\hline
+\textbf{Chỉ số} & \textbf{Kết quả} & \textbf{Chỉ số} & \textbf{Kết quả} \\ \hline
+Rule-based grounding & 1,000 & Token-F1 chẩn đoán & 0,843 \\ \hline
+Context Precision & 0,930 & Context Recall & 0,927 \\ \hline
+Phản hồi có full context & 80/80 & Critical tự động & 12/12 \\ \hline
+HTTP thành công & 80/80 & Ground truth đã duyệt & 80/80 \\ \hline
+\end{tabularx}
+\end{table}
+
+Cấu hình D hoàn tất 80/80 câu hỏi, đạt grounding 1,000 và vượt các ngưỡng Context Precision/Recall. Token-F1 0,843 chỉ được dùng để chẩn đoán mức tương đồng với câu trả lời tham chiếu. Kiểm thử phiên dài gồm 230 request đạt 100\% HTTP success, false memory rate bằng 0 và P95 bằng 4,375 giây.
+\begin{table}[H]
+\centering
+\caption{Kết quả kiểm định các dữ kiện critical của Trợ lý hội thoại}
+\label{tab:conversational-critical-gates}
+\begin{tabularx}{\linewidth}{|X|r|r|X|}
+\hline
+\textbf{Nhóm ca kiểm thử} & \textbf{Số ca} & \textbf{Đạt} & \textbf{Điều kiện kiểm tra chính} \\ \hline
+Giá sản phẩm & 4 & 4 & Nêu đúng giá hiện hành; chỉ sử dụng giá hiện hành hoặc giá gốc có trong context \\ \hline
+Tồn kho theo size & 4 & 4 & Đúng sản phẩm, đúng biến thể và trạng thái tồn kho hiện hành \\ \hline
+Sản phẩm không tồn tại & 2 & 2 & Phủ định không tìm thấy trước khi gắn nhãn và đưa ra gợi ý tương tự \\ \hline
+Chính sách không được hỗ trợ & 2 & 2 & Phủ định cam kết sai và trả chính sách chính thức có căn cứ \\ \hline
+\textbf{Tổng} & \textbf{12} & \textbf{12} & \textbf{Automatic scorer đối chiếu response, context và evidence} \\ \hline
+\end{tabularx}
+\end{table}
+
+Toàn bộ 12 ca critical về giá, tồn kho, sản phẩm không tồn tại và chính sách đều đạt. So sánh ablation cho thấy LLM thuần chỉ đạt grounding 0,824 và 4/12 hard gate; bổ sung RAG nâng hai kết quả lên 1,000 và 12/12; memory tiếp tục cải thiện Context Recall. Rerank không đem lại cải thiện, nên cấu hình được chọn là RAG + memory và tắt rerank.
+
+\subsubsection{Kết quả baseline, ablation và kiểm tra độ bền}
+
+Bảng~\ref{tab:baseline-result-template} tổng hợp các cấu hình đã chạy trên cùng dữ liệu của từng chức năng.
+\begin{longtable}{|p{0.16\linewidth}|p{0.28\linewidth}|p{0.28\linewidth}|p{0.18\linewidth}|}
+\caption{Kết quả baseline, ablation và kiểm tra độ bền}\label{tab:baseline-result-template}\\
+\hline
+\textbf{Chức năng} & \textbf{Cấu hình} & \textbf{Kết quả} & \textbf{Trạng thái} \\ \hline
+\endfirsthead
+\hline
+\textbf{Chức năng} & \textbf{Cấu hình} & \textbf{Kết quả} & \textbf{Trạng thái} \\ \hline
+\endhead
+Text Search & Keyword/BM25 baseline & Hit@5 = 0,756; NDCG@5 = 0,689; MRR = 0,702; P95 = không đo & Đã chạy 100 truy vấn \\ \hline
+Text Search & Vector Search, rerank tắt & Hit@5 = 1,000; NDCG@5 = 0,941; MRR = 0,963; P95 bổ sung = 3,838 giây & Đã chạy lại 100/100 truy vấn; được chọn \\ \hline
+Text Search & Vector Search, rerank bật & Hit@5 = 0,967; NDCG@5 = 0,903; MRR = 0,915; P95 = 4,225 giây & Đã chạy 100 truy vấn \\ \hline
+Image Search & Image embedding, ảnh catalog \texttt{DETAIL\_1} & Exact Hit@5 = 1,000; Exact MRR = 0,990; P95 bổ sung = 1,002 giây & Đã chạy 100 truy vấn simple \\ \hline
+Image Search & Image embedding, ảnh bên ngoài ghép cặp & Exact Hit@5 = 0,970; Exact MRR = 0,950; $\Delta$ Hit@5 $=-0{,}030$; P95 bổ sung = 0,989 giây & Đã chạy 100 truy vấn challenging \\ \hline
+Image Search & Pooled similarity Top-20 của hai điều kiện & Simple: Recall@5/NDCG@5/mAP = 0,741/0,853/0,775; challenging = 0,721/0,810/0,723 & Đã hoàn tất 2.935 nhãn \\ \hline
+Hybrid Search & Image-only & Strict Hit@5 = 0,860; NDCG@5 = 0,693; thỏa toàn bộ ràng buộc@5 = 0,274; P95 = 1,298 giây & Đã chạy 100/100 truy vấn \\ \hline
+Hybrid Search & Text-only & Strict Hit@5 = 0,570; NDCG@5 = 0,457; thỏa toàn bộ ràng buộc@5 = 0,430; P95 = 5,478 giây & Đã chạy 100/100 truy vấn \\ \hline
+Hybrid Search & Ảnh + post-filter văn bản & Strict Hit@5 = 0,960; NDCG@5 = 0,890; thỏa toàn bộ ràng buộc@5 = 0,960; P95 = 1,299 giây & Replay đủ 100 truy vấn; 4 truy vấn rỗng; baseline gần oracle \\ \hline
+Hybrid Search & Fusion, rerank tắt & Strict Hit@5 = 0,920; NDCG@5 = 0,855; thỏa toàn bộ ràng buộc@5 = 0,446; P95 = 0,892 giây & Đã chạy 100/100 truy vấn; được chọn trong các cấu hình production \\ \hline
+Hybrid Search & Fusion, rerank bật & Strict Hit@5 = 0,660; NDCG@5 = 0,510; thỏa toàn bộ ràng buộc@5 = 0,418; P95 = 2,344 giây & Đã chạy 100/100 truy vấn \\ \hline
+Conversational AI & A: LLM không RAG, không memory & Grounding = 0,824; Context Precision = 0,034; Context Recall = 0,034; critical tự động = 4/12 & Đã chạy 80/80; không đạt hard gate; Token-F1 chẩn đoán = 0,389 \\ \hline
+Conversational AI & B: RAG không memory, rerank tắt & Grounding = 1,000; Context Precision = 0,882; Context Recall = 0,879; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,853 \\ \hline
+Conversational AI & C: RAG và memory, rerank tắt & Grounding = 1,000; Context Precision = 0,946; Context Recall = 0,944; critical tự động = 12/12 & Đã chạy 80/80; đạt và được chọn; Token-F1 chẩn đoán = 0,847 \\ \hline
+Conversational AI & RAG, memory và rerank bật (D) & Grounding = 1,000; Context Precision = 0,930; Context Recall = 0,927; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,843 \\ \hline
+\end{longtable}
+
+\subsubsection{So sánh trước và sau khi bật rerank}
+
+Quy ước $\Delta$ trong Bảng~\ref{tab:rerank-comparison-template} là kết quả khi bật trừ kết quả khi tắt rerank.
+\begin{table}[H]
+\centering
+\caption{So sánh ảnh hưởng của rerank}
+\label{tab:rerank-comparison-template}
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|p{0.18\linewidth}|p{0.14\linewidth}|p{0.14\linewidth}|X|}
+\hline
+\textbf{Chức năng} & \textbf{Chỉ số} & \textbf{Rerank tắt} & \textbf{Rerank bật} & \textbf{$\Delta$/kết luận} \\ \hline
+Text Search & Hit@5; NDCG@5; MRR; P95 & 1,000; 0,941; 0,963; 3,838 giây & 0,967; 0,903; 0,915; 4,225 giây & $-0{,}033$; $-0{,}038$; $-0{,}048$; rerank không được chọn \\ \hline
+Hybrid Search & Strict Hit@5; NDCG@5; thỏa ràng buộc@5; P95 & 0,920; 0,855; 0,446; 0,892 giây & 0,660; 0,510; 0,418; 2,344 giây & $-0{,}260$; $-0{,}345$; $-0{,}028$; $+1{,}451$ giây; chọn tắt \\ \hline
+Image Search & Chất lượng và P95 & \multicolumn{2}{c|}{Không áp dụng text reranker hiện tại} & Chỉ bổ sung nếu có bộ xếp hạng ảnh \\ \hline
+\makecell[l]{Conversational\\AI} & Grounding; Context Precision; Context Recall & 1,000; 0,946; 0,944 & 1,000; 0,930; 0,927 & 0,000; $-0{,}016$; $-0{,}016$; rerank không cải thiện metric tự động \\ \hline
+\end{tabularx}
+\end{table}
+
+Rerank làm giảm các chỉ số chính của Text Search, Hybrid Search và tầng truy hồi hội thoại. Lượt bổ sung cho Text Search tắt rerank chạy đủ 100/100 truy vấn, không lỗi và có P50/P95/P99 end-to-end phía client lần lượt là 1,001/3,838/4,897 giây. Health preflight xác nhận \texttt{reranker\_enabled=false}; raw artifact lưu đủ latency từng request tại \path{Evidence/performance/text-search-no-rerank-latency-20260830.json}. P95 của lượt bật rerank trước đó là 4,225 giây nhưng được thu ở lượt chạy khác, vì vậy không diễn giải hai số thành chênh lệch paired. Kết quả hiện tại chưa ủng hộ việc bật rerank mặc định.
+
+\subsubsection{Tổng hợp kết quả AI}
+\begin{table}[H]
+\centering
+\caption{Tổng hợp mức đáp ứng của các chức năng AI}
+\label{tab:ai-eval-summary}
+\begin{tabularx}{\linewidth}{|p{0.22\linewidth}|p{0.23\linewidth}|X|p{0.16\linewidth}|}
+\hline
+\textbf{Chức năng} & \textbf{Kết quả nổi bật} & \textbf{Điểm cần cải thiện hoặc giới hạn} & \textbf{Đánh giá} \\ \hline
+Text Search & Vector no-rerank đạt Hit@5 100\%; NDCG@5 0,941 và vượt BM25 & Rerank làm giảm Hit@5, NDCG@5 và MRR; cần hiệu chỉnh rồi xác nhận trên tập held-out & Chọn no-rerank \\ \hline
+Image Search & Exact Hit@5 đạt 100,0\%/97,0\%; NDCG@5 đạt 0,853/0,810 trên simple/challenging & Ảnh ngoài làm NDCG@5 giảm 0,043 và mAP giảm 0,052; P95 bổ sung đạt 1,002/0,989 giây; ground truth kết hợp nhãn người--luật & Đạt sàn exact, NDCG và P95 tuần tự; độ bền còn cần cải thiện \\ \hline
+Hybrid Search & Post-filter đạt Hit@5 96,0\%, NDCG@5 0,890 và thỏa ràng buộc@5 0,960; fusion tắt rerank có P95 tốt nhất 0,892 giây & Cả năm cấu hình đã chạy; post-filter dùng constraint có cấu trúc gần oracle; ground truth có 379/654 nhãn luật bảo thủ & Giữ fusion không rerank cho production; post-filter là baseline tốt nhất \\ \hline
+Conversational AI & A--D đã chạy 80/80; RAG nâng grounding 0,824 lên 1,000; memory nâng ordinal Context Recall 0,556 lên 1,000 & A chỉ đạt 4/12 critical; rerank làm Context Precision/Recall giảm 0,016 & Chọn RAG + memory, rerank tắt \\ \hline
+Memory phiên dài & Recall và isolation đạt 100\%; gateway contract test đạt 10/10 request & Backend forward đúng các trường session/user/request/turn; phiên A giữ 7 lượt, không lẫn phiên B và replay không nhân đôi trạng thái (xem \path{Evidence/e2e/gateway-long-memory-20260831.md}) & Đạt qua endpoint AI và Backend gateway \\ \hline
+\end{tabularx}
+\end{table}
+
+Nhìn chung, các chức năng AI đạt mức sàn nội bộ với cấu hình đã chọn. Hạn chế chính là độ bền của Image Search trên ảnh thực tế, khả năng giữ đồng thời toàn bộ ràng buộc của Hybrid Search và mức phụ thuộc của kết quả similarity vào ground truth người--luật.
+
+%=====================================================
+\subsection{Đánh giá phi chức năng}
+
+Đánh giá phi chức năng tập trung vào hiệu năng, bảo mật, khả dụng, quan sát và tương thích trong phạm vi các kịch bản đã thực hiện.
+
+\subsubsection{Hiệu năng}
+
+Các bài tải Backend hoàn tất 21.231/21.231 request, với P95 Catalog 121,78 ms và Catalog--Cart 182,79 ms, đều đạt ngưỡng 500 ms. Soak checkout/payment tám worker trong hai giờ đạt 57.600/57.600 request, P95 48,863 ms; health luôn \texttt{UP}, HikariCP không có kết nối chờ, heap tăng ổn định 8,210 MiB và cleanup đạt 8/8.
+
+Tải AI control và đại diện lần lượt đạt 212/212 và 216/216 request. Ở workload đại diện, P95 Text Search, Hybrid Search và Assistant là 1,843/0,864/5,318 giây; tỷ lệ lỗi bằng 0\%, correlation ID đạt 100\% và không phát sinh fallback Backend. Các kết quả đều đạt ngưỡng; bằng chứng được lưu tại \path{Evidence/performance/checkout-payment-soak-2h-20260901.md} và \path{Evidence/performance/ai-concurrent-load-valid-backend-20260831.md}.
+
+\subsubsection{Bảo mật}
+
+Các kiểm thử JWT, RBAC, CORS, IDOR, injection, XSS và path traversal đều đạt. Endpoint xác thực giới hạn 10 yêu cầu trong 60 giây và trả HTTP 429 khi vượt ngưỡng; tệp quá dung lượng trả HTTP 413. Frontend không còn cảnh báo từ \texttt{npm audit --omit=dev}, build và lint thành công. Các ca hồi quy cho rate limiting và giới hạn tải tệp cũng đạt.
+
+\subsubsection{Khả dụng và quan sát}
+
+Khi AI Service mất kết nối, Catalog, giỏ hàng và đơn hàng vẫn hoạt động; API AI trả fallback mà không lộ stack trace. Qdrant phục hồi đủ point sau retry, đồng thời snapshot và alias rollback hoạt động đúng. Readiness kiểm tra ứng dụng, MySQL và dung lượng đĩa; liveness chỉ phản ánh tiến trình nên lỗi SMTP không làm hệ thống bị đánh dấu ngừng hoạt động. Correlation ID được truyền xuyên Backend--AI Service, ghi vào log và trả về response. Các ca hồi quy health, correlation ID và 430 ca AI đều đạt; bằng chứng nằm tại \path{Evidence/availability/smtp-health-20260830.md} và \path{Evidence/availability/correlation-id-20260830.md}.
+
+\subsubsection{Tương thích giao diện}
+
+Giao diện đạt smoke test trên Chrome và Edge ở chế độ desktop/mobile; bộ Playwright đạt 8/8 ca trên Firefox và WebKit. Kiểm thử bao phủ bảy tuyến công khai, lỗi runtime, tràn ngang và thao tác hiện mật khẩu. WebKit chỉ đại diện cho engine Safari, vì vậy vẫn cần xác nhận trên thiết bị Apple thật. Bằng chứng được lưu tại \path{Evidence/compatibility/playwright-cross-browser-20260830.md}.
+
+%=====================================================
+\subsection{Tổng hợp kết quả kiểm thử hệ thống}
+
+Bảng~\ref{tab:executed-system-results} tổng hợp trạng thái của từng nhóm dựa trên bằng chứng thực nghiệm. Trạng thái \enquote{Đạt một phần} chỉ áp dụng cho phạm vi đã chạy.
+
+\begin{table}[H]
+\centering
+\caption{Tổng hợp kết quả kiểm thử hệ thống}
+\label{tab:executed-system-results}
+\begin{tabularx}{\linewidth}{|p{0.20\linewidth}|X|p{0.16\linewidth}|}
+\hline
+\textbf{Nhóm} & \textbf{Kết quả chính} & \textbf{Đánh giá} \\ \hline
+Backend và nghiệp vụ & 102/102 ca hồi quy đạt; bao phủ xác thực, phân quyền, giỏ hàng, COD, tồn kho, coupon và payment & Đạt \\ \hline
+Đồng bộ dữ liệu & Đủ 1.000 \texttt{product\_id}; retry, snapshot và rollback đạt; hồi quy \texttt{product\_id=648} đạt 8/8 URL ảnh, không còn lỗi \texttt{master.m3u8} & Đạt \\ \hline
+End-to-end & Luồng COD, Image Search và cập nhật sản phẩm đạt; E2E-03 trả 5/5 sản phẩm thuộc họ White, đúng giới tính và ngân sách, đồng thời lượt tinh chỉnh hội thoại giữ nguyên ba ràng buộc & Đạt \\ \hline
+Hiệu năng & Backend đạt 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 với P95 48,863 ms và heap tăng ổn định 8,210 MiB; tải AI đại diện hợp lệ đạt 216/216, P95 Text/Hybrid/Assistant là 1,843/0,864/5,318 giây, fallback Backend bằng 0 và đều đạt ngưỡng & Đạt \\ \hline
+Bảo mật & Kiểm tra quyền và input đạt; rate limit trả 429, upload quá cỡ trả 413 và dependency audit không còn lỗ hổng & Đạt \\ \hline
+Khả dụng và quan sát & Các chức năng thương mại điện tử hoạt động khi AI lỗi; Qdrant phục hồi được; health không phụ thuộc SMTP; correlation ID được truyền Backend--AI Service và có trong log & Đạt \\ \hline
+Tương thích giao diện & Chrome/Edge desktop/mobile đạt; Firefox/WebKit desktop/mobile đạt 8/8 ca Playwright & Đạt \\ \hline
+\end{tabularx}
+\end{table}
+
+Ca E2E-03 được chạy lại sau khi chuẩn hóa Ecru, Ivory và Trắng ngà về khóa \texttt{cream}, đồng thời ưu tiên màu catalog gốc khi bản dịch mâu thuẫn. Migration chỉ cập nhật payload cho 118 point text và 1.057 point image, không tạo lại vector; dry-run sau restart còn 0 point sai lệch. Top-5 gồm các sản phẩm White/Oyster-white, đều dành cho Women và có giá chỉ mục từ 299.000 đến 899.000 đồng. Trong phiên hội thoại hai lượt, cả lượt đầu và yêu cầu lựa chọn khác đều giữ \texttt{colors=[white]}, \texttt{gender=women} và \texttt{max\_price=1.000.000}; artifact được lưu tại \path{Evidence/e2e/e2e-03-hybrid-white-conversation-20260830.json}.
+
+Kết quả xác nhận các chức năng nghiệp vụ cốt lõi, cơ chế dự phòng và các kiểm soát bảo mật trong phạm vi chạy hoạt động đúng. Hệ thống chưa đủ điều kiện nghiệm thu toàn bộ do phạm vi kiểm thử phi chức năng chưa hoàn tất.
+
+%=====================================================
+\subsection{Ma trận truy vết yêu cầu và kết quả}
+
+Bảng~\ref{tab:requirements-traceability} liên kết các nhóm yêu cầu với phân tích, thiết kế và bằng chứng kiểm thử. Các yêu cầu có cùng luồng xử lý được gộp để tránh lặp lại; kết quả chỉ áp dụng trong phạm vi dữ liệu và môi trường đã thử nghiệm.
+
+\begin{longtable}{|p{0.16\linewidth}|p{0.25\linewidth}|p{0.36\linewidth}|p{0.13\linewidth}|}
+\caption{Ma trận truy vết yêu cầu, thiết kế và kiểm thử}
+\label{tab:requirements-traceability}\\ \hline
+\textbf{Yêu cầu} & \textbf{Phân tích/thiết kế} & \textbf{Bằng chứng kiểm thử} & \textbf{Kết quả} \\ \hline
+\endfirsthead
+\hline
+\textbf{Yêu cầu} & \textbf{Phân tích/thiết kế} & \textbf{Bằng chứng kiểm thử} & \textbf{Kết quả} \\ \hline
+\endhead
+\endfoot
+FR-AI-01, 04, 05 & UC-AI-01; quy trình tại Hình~\ref{fig:ai-search-pipeline} & Kết quả tìm kiếm bằng văn bản tại Bảng~\ref{tab:text-results} & Đạt \\ \hline
+FR-AI-02, 09 & UC-AI-02; Hình~\ref{fig:ai-search-pipeline} & Bảng~\ref{tab:image-paired-exact-results} và \ref{tab:image-paired-similarity-results} & Đạt có giới hạn \\ \hline
+FR-AI-03, 08 & UC-AI-03; Hình~\ref{fig:activity-multimodal-search} & Kết quả tìm kiếm kết hợp tại Bảng~\ref{tab:hybrid-results} & Đạt một phần \\ \hline
+FR-AI-06, 07, 11 & UC-AI-04 và UC-AI-06; đồ thị tại Hình~\ref{fig:assistant-state-graph} & Bảng~\ref{tab:rag-results} và \ref{tab:conversational-critical-gates} & Đạt \\ \hline
+FR-AI-10 & UC-AI-07 và UC-AI-08; luồng tại Hình~\ref{fig:ai-sync-flow} & Nhóm đồng bộ tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
+FR-AI-12 & Cơ chế dự phòng giữa Backend và AI Service & Kế hoạch và kết quả tại Bảng~\ref{tab:system-test-plan} và \ref{tab:executed-system-results} & Đạt \\ \hline
+EC-FR-01--05 & Các ca sử dụng khách hàng/quản trị; Hình~\ref{fig:database-overview} và \ref{fig:order-state-design} & 102/102 ca hồi quy tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
+NFR-01 & Ngưỡng nghiệm thu hiệu năng & Bảng~\ref{tab:executed-system-results}; artifact AI \path{Evidence/performance/ai-concurrent-load-valid-backend-representative-20260831.json} và soak \path{Evidence/performance/checkout-payment-soak-2h-20260901.json} & Đạt \\ \hline
+NFR-02 & JWT, RBAC và kiểm soát dữ liệu đầu vào & Nhóm bảo mật tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
+NFR-03, 04 & Dự phòng dịch vụ và giao dịch dữ liệu & Bảng~\ref{tab:system-test-execution} và \ref{tab:executed-system-results} & Đạt \\ \hline
+NFR-05 & Kiến trúc mô-đun Frontend--Backend--AI Service & Bằng chứng thiết kế và kiểm thử hồi quy & Đạt về thiết kế \\ \hline
+NFR-06 & Giao diện đáp ứng và tương thích trình duyệt & Smoke test Chrome/Edge và Playwright Firefox/WebKit 8/8 tại Bảng~\ref{tab:executed-system-results} & Đạt, còn giới hạn Safari thật \\ \hline
+NFR-07 & Health check, logging và quan sát hệ thống & Kiểm thử khả dụng/quan sát, health và correlation ID tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
+NFR-08 & MySQL là nguồn chuẩn; Qdrant là chỉ mục truy hồi & Đối soát đồng bộ tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
+NFR-09 & Bộ chỉ số chất lượng và độ trễ AI & Các bảng kết quả Text/Image/Hybrid/RAG; artifact Text Search tắt rerank tại \path{Evidence/performance/text-search-no-rerank-latency-20260830.json} & Đạt \\ \hline
+\end{longtable}
+
+%=====================================================
+\subsection{Thảo luận và hướng hoàn thiện}
+
+Kết quả AI cho thấy Vector Search phù hợp hơn BM25 ở truy vấn ngữ nghĩa; fusion cải thiện Hybrid Search so với hai cấu hình đơn phương thức, trong khi baseline post-filter có cấu trúc giữ ràng buộc tốt hơn nhưng không bao gồm lỗi hiểu ngôn ngữ tự nhiên. RAG và memory giúp trợ lý trả lời có căn cứ và duy trì ngữ cảnh. Rerank hiện làm giảm chất lượng trên cả Text Search, Hybrid Search và truy hồi hội thoại, nên các cấu hình production không rerank được lựa chọn.
+
+Đánh giá còn bốn giới hạn chính. Thứ nhất, tập AI chưa hoàn toàn held-out và một phần nhãn similarity được tạo bằng luật. Thứ hai, Image Search mới được đo tuần tự và tải AI đồng thời mới chạy sáu worker trong ba phút; tải checkout/payment đã có soak hai giờ nhưng chưa đại diện cho tải phân tán nhiều máy. Thứ ba, một số hành trình E2E mới được kiểm chứng ở biên API/dữ liệu. Thứ tư, chưa có pentest chuyên dụng; kết quả Safari hiện được đại diện bởi WebKit tự động thay vì xác nhận trên thiết bị Apple thật.
+
+Công việc ưu tiên tiếp theo là cải thiện khả năng giữ đồng thời ràng buộc của Hybrid Search và xác nhận trên tập held-out có người duyệt. Với AI Service, có thể tiếp tục giảm hai lần gọi LLM trung bình trên mỗi lượt Assistant và theo dõi cache hit rate, nhưng các hạng mục này không còn chặn ngưỡng P95 hiện tại.
+
+%=====================================================
+\subsection{Kết chương}
+
+Chương này đã trình bày thiết kế thực nghiệm, kế hoạch kiểm thử và kết quả đánh giá cho cả AI Service lẫn hệ thống hoàn chỉnh. Cấu hình được đề xuất là Vector Search không rerank cho tìm kiếm văn bản, fusion không rerank cho tìm kiếm kết hợp, và RAG + memory không rerank cho trợ lý hội thoại. Backend, nghiệp vụ cốt lõi và nhóm kiểm thử bảo mật đạt kết quả tốt; các hạn chế về Hybrid Search và tải dài hạn cần được xử lý trước khi nghiệm thu toàn bộ.

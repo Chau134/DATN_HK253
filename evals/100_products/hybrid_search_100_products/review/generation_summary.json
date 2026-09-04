@@ -1,0 +1,34 @@
+{
+  "case_count": 25,
+  "cases_per_group": 5,
+  "test_group_counts": {
+    "available-image": 5,
+    "different-color": 5,
+    "different-material": 5,
+    "specific-use": 5,
+    "external-image": 5
+  },
+  "test_type_counts": {
+    "similar_style_available_image": 5,
+    "similar_style_different_color": 5,
+    "similar_style_different_material": 5,
+    "similar_style_specific_use": 5,
+    "similar_style_external_image": 5
+  },
+  "candidate_row_count": 139,
+  "unique_case_ids": true,
+  "unique_image_source_ids": true,
+  "duplicate_image_source_product_ids": [],
+  "invalid_source_product_ids": [],
+  "invalid_candidate_product_ids": [],
+  "cases_missing_candidates": [],
+  "provided_image_count": 25,
+  "missing_image_count": 0,
+  "missing_image_case_ids": [],
+  "ground_truth_policy": "versioned_human_review",
+  "approved_ready_case_count": 25,
+  "valid": true,
+  "unused_provided_image_product_ids": [],
+  "catalog_image_source_count": 5,
+  "reviewed_case_count": 25
+}

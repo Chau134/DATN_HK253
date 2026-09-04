@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-08-27T04:35:33.451096+00:00",
+  "commit_sha": "f5b474119df3a184c7471991b2892606a97f881b",
+  "catalog_snapshot": "C:\\A\\DACN_HK252\\evals\\conversational_ai_validation\\data\\master_80\\product_snapshot.csv",
+  "qdrant_collection": "unknown",
+  "model_config": "runtime-environment",
+  "embedding_config": "runtime-environment",
+  "reranker_config": "runtime-environment",
+  "endpoint": "http://localhost:8000/assistant/chat",
+  "seed": 252,
+  "execution_id": "master80-llm_no_rag-20260827T042853Z",
+  "evaluator_version": "rag-evaluator-v3",
+  "session_mode": "isolated_turns",
+  "context_modes": [
+    "full_context"
+  ]
+}

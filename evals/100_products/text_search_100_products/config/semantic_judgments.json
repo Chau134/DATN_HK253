@@ -1,0 +1,5673 @@
+{
+  "version": 2,
+  "grade_scale": {
+    "0": "not relevant",
+    "1": "weakly relevant",
+    "2": "relevant alternative",
+    "3": "exact or fully relevant"
+  },
+  "default_rule": "Every acceptable_product_id receives grade 3.",
+  "review_scope": "All reviewed Top-5 candidates observed across approved robustness runs.",
+  "judgments": {
+    "accentless-title-001": {
+      "1": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoa/satin"
+      },
+      "303": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: hoa; thiếu/khác: nu/satin"
+      },
+      "255": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoa/satin"
+      },
+      "421": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: satin; thiếu/khác: hoa/nu"
+      }
+    },
+    "conversational-title-002": {
+      "2": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "301": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: cao/maxi/nu"
+      },
+      "488": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/maxi/nu"
+      },
+      "1772": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: cao; thiếu/khác: maxi/nu"
+      },
+      "99": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: cao; thiếu/khác: maxi/nu"
+      }
+    },
+    "reordered-keywords-003": {
+      "3": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "704": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: chu/in"
+      },
+      "703": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: chu/in"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: chu/in"
+      },
+      "861": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay; thiếu/khác: chu/dai/in"
+      }
+    },
+    "minor-typo-004": {
+      "4": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "298": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: bi/cham; thiếu/khác: nu"
+      },
+      "108": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bi/cham/nu"
+      },
+      "24": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: bi/cham"
+      },
+      "1692": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bi/cham/nu"
+      }
+    },
+    "accentless-title-005": {
+      "5": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "298": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: linen; thiếu/khác: nu"
+      },
+      "8": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: linen"
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: linen/nu"
+      },
+      "11": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: linen"
+      }
+    },
+    "conversational-title-006": {
+      "6": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "19": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nu"
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nu"
+      },
+      "108": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nu"
+      },
+      "110": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nu"
+      }
+    },
+    "reordered-keywords-007": {
+      "7": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "11": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nu/ong/rong"
+      },
+      "18": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      },
+      "1735": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần dài thay cho quần jeans); khớp: ong/rong; thiếu/khác: nu"
+      },
+      "1734": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần dài thay cho quần jeans); khớp: ong/rong; thiếu/khác: nu"
+      }
+    },
+    "minor-typo-008": {
+      "8": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "14": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần short; khớp: bermuda; thiếu/khác: nu/soc"
+      },
+      "41": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      },
+      "40": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: bermuda/soc"
+      },
+      "104": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      }
+    },
+    "accentless-title-009": {
+      "9": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: xoe"
+      },
+      "1": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: xoe"
+      },
+      "4": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: xoe"
+      }
+    },
+    "conversational-title-010": {
+      "10": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "17": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo khoác; thiếu/khác: cuu/gia/long/nu"
+      },
+      "255": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      },
+      "704": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      },
+      "861": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      }
+    },
+    "reordered-keywords-011": {
+      "11": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "7": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nu/ong/rong"
+      },
+      "1734": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ong/rong; thiếu/khác: nu"
+      },
+      "1034": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: rong; thiếu/khác: nu/ong"
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/ong/rong"
+      }
+    },
+    "minor-typo-012": {
+      "12": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1420": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: nam"
+      },
+      "47": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: nam"
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: nam"
+      },
+      "3": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: nam/soc"
+      }
+    },
+    "accentless-title-013": {
+      "13": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "255": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      },
+      "41": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: kimono/nam"
+      },
+      "144": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: kimono/nam"
+      },
+      "40": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      }
+    },
+    "conversational-title-014": {
+      "8": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "The transformed query omits gender; the women's striped Bermuda shorts are fully relevant."
+      },
+      "14": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Source men's Bermuda shorts; fully relevant after gender was omitted."
+      },
+      "41": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nam"
+      },
+      "40": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nam"
+      },
+      "104": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nam"
+      }
+    },
+    "reordered-keywords-015": {
+      "15": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len/nam"
+      },
+      "19": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len/nam"
+      },
+      "299": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nam"
+      },
+      "110": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: nam"
+      }
+    },
+    "minor-typo-016": {
+      "16": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "108": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: keo/khoa/nam"
+      },
+      "299": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: keo/khoa/nam"
+      },
+      "47": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: keo/khoa/len/nam"
+      },
+      "110": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: keo/khoa/nam"
+      }
+    },
+    "accentless-title-017": {
+      "17": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "10": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      },
+      "16": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: da"
+      },
+      "20": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: da"
+      },
+      "13": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: da"
+      }
+    },
+    "conversational-title-018": {
+      "18": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "7": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần jeans; thiếu/khác: cotton/hemp/nam"
+      },
+      "840": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cotton; thiếu/khác: hemp/nam"
+      },
+      "144": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cotton/hemp/nam"
+      },
+      "113": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cotton/hemp/nam"
+      }
+    },
+    "reordered-keywords-019": {
+      "19": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len/nam; thiếu/khác: soc"
+      },
+      "12": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nam/soc; thiếu/khác: len"
+      },
+      "299": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: len/soc; thiếu/khác: nam"
+      },
+      "6": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      }
+    },
+    "minor-typo-020": {
+      "20": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1419": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hoodie; thiếu/khác: nam/thao/the"
+      },
+      "134": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nam/thao/the"
+      },
+      "843": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nam/thao/the"
+      },
+      "3": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nam/thao/the"
+      },
+      "1473": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nam/thao/the"
+      }
+    },
+    "accentless-title-021": {
+      "21": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "17": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: can/cong/khong/nghe"
+      },
+      "245": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: khong; thiếu/khác: can/cong/nam/nghe"
+      },
+      "13": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: can/cong/khong/nghe"
+      },
+      "20": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nam; thiếu/khác: can/cong/khong/nghe"
+      }
+    },
+    "conversational-title-022": {
+      "22": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "27": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/poplin; thiếu/khác: dinh/gia/ngoc/trai"
+      },
+      "25": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo blouse thay cho áo sơ mi); khớp: nu/poplin; thiếu/khác: dinh/gia/ngoc/trai"
+      },
+      "26": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo blouse thay cho áo sơ mi); khớp: nu/poplin; thiếu/khác: dinh/gia/ngoc/trai"
+      },
+      "134": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: dinh/gia/ngoc/poplin"
+      }
+    },
+    "reordered-keywords-023": {
+      "23": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: nu/safari"
+      },
+      "1": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: safari"
+      },
+      "40": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: safari"
+      },
+      "41": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: nu/safari"
+      }
+    },
+    "minor-typo-024": {
+      "24": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "65": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/vai; thiếu/khác: lot/nhan"
+      },
+      "64": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/vai; thiếu/khác: lot/nhan"
+      },
+      "843": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nu/vai; thiếu/khác: lot/nhan"
+      },
+      "27": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: lot/nhan/vai"
+      }
+    },
+    "accentless-title-025": {
+      "25": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "26": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "27": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: nu/poplin; thiếu/khác: beo"
+      },
+      "22": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: nu/poplin; thiếu/khác: beo"
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: beo/nu/poplin"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: beo/nu/poplin"
+      }
+    },
+    "conversational-title-026": {
+      "26": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "25": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "27": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: nu/poplin; thiếu/khác: beo"
+      },
+      "22": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: nu/poplin; thiếu/khác: beo"
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: beo/nu/poplin"
+      }
+    },
+    "reordered-keywords-027": {
+      "27": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "22": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/poplin; thiếu/khác: tron"
+      },
+      "25": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo blouse thay cho áo sơ mi); khớp: nu/poplin; thiếu/khác: tron"
+      },
+      "26": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo blouse thay cho áo sơ mi); khớp: nu/poplin; thiếu/khác: tron"
+      },
+      "861": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nu/tron; thiếu/khác: poplin"
+      }
+    },
+    "minor-typo-028": {
+      "40": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "41": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: day/ngan/rut; thiếu/khác: nu"
+      },
+      "1370": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: day/ngan/nu/rut"
+      },
+      "64": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: ngan/nu; thiếu/khác: day/rut"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: day/ngan/rut"
+      }
+    },
+    "accentless-title-029": {
+      "41": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "722": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: da/day/ngan/rut"
+      },
+      "288": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: da/day/ngan/rut"
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: da/day/ngan/rut"
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: da/day/ngan/rut"
+      },
+      "144": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: da/day/ngan/rut"
+      }
+    },
+    "conversational-title-030": {
+      "47": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "226": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: xanh; thiếu/khác: nau/polo/soc"
+      },
+      "113": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: xanh; thiếu/khác: nau/polo/soc"
+      },
+      "25": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: nau/polo/soc/xanh"
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: nau/polo/xanh"
+      },
+      "108": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: polo; thiếu/khác: nau/soc/xanh"
+      },
+      "49": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: nau/polo/xanh"
+      }
+    },
+    "reordered-keywords-031": {
+      "48": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc/vest; thiếu/khác: hong"
+      },
+      "95": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: hong/soc; thiếu/khác: vest"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: hong/vest"
+      },
+      "49": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: hong/vest"
+      }
+    },
+    "minor-typo-032": {
+      "49": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "26": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: johnny/soc/trang"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      },
+      "48": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      }
+    },
+    "accentless-title-033": {
+      "50": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "48": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc/vest; thiếu/khác: be/nhat"
+      },
+      "25": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: be/nhat/soc/vest"
+      },
+      "49": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: be/nhat/vest"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: be/nhat/vest"
+      }
+    },
+    "conversational-title-034": {
+      "64": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "65": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: ngan/nu/patte/vai"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/vai; thiếu/khác: ngan/patte"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: ngan/nu/patte"
+      },
+      "41": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: ngan; thiếu/khác: nu/patte/vai"
+      }
+    },
+    "reordered-keywords-035": {
+      "65": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "64": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: ngan/nu/patte/vai; thiếu/khác: mau/nau"
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau; thiếu/khác: mau/ngan/nu/patte"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu/vai; thiếu/khác: mau/nau/ngan/patte"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: mau/nau/vai; thiếu/khác: ngan/nu/patte"
+      }
+    },
+    "minor-typo-036": {
+      "95": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: hong/soc; thiếu/khác: no/yem"
+      },
+      "1420": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: hong/no/yem"
+      },
+      "19": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: hong/no/yem"
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/no/soc/yem"
+      }
+    },
+    "accentless-title-037": {
+      "99": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "110": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: be; thiếu/khác: cao/vai"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: be/cao"
+      },
+      "25": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: be/cao/vai"
+      },
+      "26": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: be/cao/vai"
+      },
+      "108": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: be/cao/vai"
+      }
+    },
+    "conversational-title-038": {
+      "104": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1692": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: caro; thiếu/khác: ngan/tay/zara"
+      },
+      "1611": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: caro; thiếu/khác: ngan/tay/zara"
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: zara; thiếu/khác: caro/ngan/tay"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: caro; thiếu/khác: ngan/tay/zara"
+      }
+    },
+    "reordered-keywords-039": {
+      "108": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: cam/polo"
+      },
+      "299": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: len/polo; thiếu/khác: cam"
+      },
+      "110": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: len; thiếu/khác: cam/polo"
+      },
+      "47": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: polo; thiếu/khác: cam/len"
+      }
+    },
+    "minor-typo-040": {
+      "110": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "108": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: len; thiếu/khác: be/thuyen"
+      },
+      "99": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: be; thiếu/khác: len/thuyen"
+      },
+      "6": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: be/thuyen"
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: be/thuyen"
+      }
+    },
+    "accentless-title-041": {
+      "113": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: zara"
+      },
+      "288": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: zara"
+      },
+      "144": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: zara"
+      },
+      "218": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: zara"
+      }
+    },
+    "conversational-title-042": {
+      "134": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1419": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hoodie/nu/phan/tuong"
+      },
+      "20": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "đúng một phần loại sản phẩm nhưng sai giới tính được nêu trong query"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoodie/phan/tuong"
+      },
+      "255": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoodie/phan/tuong"
+      }
+    },
+    "reordered-keywords-043": {
+      "144": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "288": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/nhat/xanh; thiếu/khác: no/that/z1975"
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: nhat/no/that/z1975"
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: nhat/no/that/z1975"
+      },
+      "7": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: denim/nhat/no/that"
+      }
+    },
+    "minor-typo-044": {
+      "171": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: lung/oversize/that/thun"
+      },
+      "134": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: lung/oversize/that/thun"
+      },
+      "706": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: lung/oversize/that/thun"
+      },
+      "3": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: lung/oversize/that/thun"
+      }
+    },
+    "accentless-title-045": {
+      "218": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: gian/indigo/ly/xep"
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: gian/indigo/ly/xep"
+      },
+      "144": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: gian/indigo/ly/xep"
+      },
+      "288": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: gian/indigo/ly/xep"
+      }
+    },
+    "conversational-title-046": {
+      "226": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: peplum"
+      },
+      "144": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: peplum"
+      },
+      "288": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: peplum"
+      },
+      "218": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: peplum"
+      }
+    },
+    "reordered-keywords-047": {
+      "245": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1029": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: khong/tay/tron; thiếu/khác: thay/xuyen"
+      },
+      "1031": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: khong/tay/tron; thiếu/khác: thay/xuyen"
+      },
+      "1030": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: khong/tay/tron; thiếu/khác: thay/xuyen"
+      },
+      "25": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; thiếu/khác: khong/tay/thay/tron"
+      }
+    },
+    "minor-typo-048": {
+      "255": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: dai/kim/loai/soi"
+      },
+      "704": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: dai/nu/tay; thiếu/khác: kim/loai/soi"
+      },
+      "703": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: dai/nu/tay; thiếu/khác: kim/loai/soi"
+      },
+      "41": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: tay; thiếu/khác: dai/kim/loai/nu"
+      },
+      "27": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: dai/kim/loai/soi"
+      },
+      "104": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: tay; thiếu/khác: dai/kim/loai/nu"
+      }
+    },
+    "accentless-title-049": {
+      "288": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "144": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/nhat/xanh"
+      },
+      "113": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: nhat"
+      },
+      "226": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: nhat"
+      },
+      "218": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: denim/xanh; thiếu/khác: nhat"
+      }
+    },
+    "conversational-title-050": {
+      "298": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "4": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: bi/cham; thiếu/khác: linen/ngan/phong/tay"
+      },
+      "301": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: bi/cham/linen/ngan"
+      },
+      "303": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: bi/cham/linen/ngan"
+      },
+      "302": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: bi/cham/linen/ngan"
+      }
+    },
+    "reordered-keywords-051": {
+      "299": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "108": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: len/polo; thiếu/khác: ngan/soc/tay"
+      },
+      "16": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len; thiếu/khác: ngan/polo/soc/tay"
+      },
+      "47": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: polo/soc; thiếu/khác: len/ngan/tay"
+      },
+      "298": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan/tay; thiếu/khác: len/polo/soc"
+      }
+    },
+    "minor-typo-052": {
+      "300": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "302": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: chocolate/nau"
+      },
+      "301": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: chocolate/nau"
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 4 thuộc tính đặc hiệu; khớp: day/hai/nau/ren; thiếu/khác: chocolate/mini"
+      },
+      "303": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini; thiếu/khác: chocolate/nau/ren"
+      }
+    },
+    "accentless-title-053": {
+      "301": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "302": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: den"
+      },
+      "300": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: den"
+      },
+      "1370": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren; thiếu/khác: day/den/hai/mini"
+      },
+      "1420": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren; thiếu/khác: day/den/hai/mini"
+      }
+    },
+    "conversational-title-054": {
+      "302": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "301": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: nhat/vang"
+      },
+      "300": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini/ren; thiếu/khác: nhat/vang"
+      },
+      "303": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini; thiếu/khác: nhat/ren/vang"
+      },
+      "1692": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren; thiếu/khác: day/hai/mini/nhat"
+      }
+    },
+    "reordered-keywords-055": {
+      "303": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "301": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini; thiếu/khác: hoa/ly/tiet/xep"
+      },
+      "302": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini; thiếu/khác: hoa/ly/tiet/xep"
+      },
+      "300": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: day/hai/mini; thiếu/khác: hoa/ly/tiet/xep"
+      },
+      "1356": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: day/hai/hoa/ly"
+      }
+    },
+    "minor-typo-056": {
+      "339": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "340": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "875": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: lyocell; thiếu/khác: dap/ngan/tay/tui"
+      },
+      "840": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dap/lyocell/ngan/tay"
+      },
+      "95": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dap/lyocell/ngan/tay"
+      }
+    },
+    "accentless-title-057": {
+      "339": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "340": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      },
+      "459": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      },
+      "578": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; khớp: ngan; thiếu/khác: dap/lyocell/tay/tui"
+      }
+    },
+    "conversational-title-058": {
+      "421": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      },
+      "1029": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: hong; thiếu/khác: bat/doi/fuchsia/satin"
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      },
+      "340": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      }
+    },
+    "reordered-keywords-059": {
+      "459": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (đầm jumpsuit thay cho jumpsuit); khớp: vai; thiếu/khác: chinh/day/dieu"
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: chinh/day/dieu/vai"
+      },
+      "421": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: chinh/day/dieu/vai"
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: chinh/day/dieu/vai"
+      }
+    },
+    "minor-typo-060": {
+      "488": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "459": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (jumpsuit thay cho đầm jumpsuit); khớp: vai; thiếu/khác: beo/caro/mau/nau"
+      },
+      "625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (jumpsuit thay cho đầm jumpsuit); khớp: mau; thiếu/khác: beo/caro/nau/tran"
+      },
+      "65": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: mau/nau/vai; thiếu/khác: beo/caro/tran"
+      },
+      "339": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (jumpsuit thay cho đầm jumpsuit); thiếu/khác: beo/caro/mau/nau"
+      }
+    },
+    "accentless-title-061": {
+      "578": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; khớp: ngan; thiếu/khác: keo/khoa"
+      },
+      "340": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; khớp: ngan; thiếu/khác: keo/khoa"
+      },
+      "421": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: keo/khoa/ngan"
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: keo/khoa/ngan"
+      }
+    },
+    "conversational-title-062": {
+      "625": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1735": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: mau/navy/xanh; thiếu/khác: dai/lung/that"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (đầm jumpsuit thay cho jumpsuit); khớp: mau; thiếu/khác: dai/lung/navy/that"
+      },
+      "578": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dai/lung/mau/navy"
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dai/lung/mau/navy"
+      }
+    },
+    "reordered-keywords-063": {
+      "704": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "703": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "3": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay"
+      },
+      "843": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay"
+      },
+      "861": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay; thiếu/khác: dai"
+      }
+    },
+    "minor-typo-064": {
+      "3": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "Long-sleeve T-shirt with an additional graphic attribute."
+      },
+      "704": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact duplicate-title group."
+      },
+      "703": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact duplicate-title group."
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "Long-sleeve crew-neck T-shirt with an additional fabric attribute."
+      },
+      "705": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: dai/nu/tay"
+      },
+      "863": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay; thiếu/khác: dai"
+      }
+    },
+    "accentless-title-065": {
+      "705": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "707": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "706": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "703": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: basic/hieu/mau/phai"
+      },
+      "933": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: mau; thiếu/khác: basic/hieu/phai/ung"
+      }
+    },
+    "conversational-title-066": {
+      "706": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "707": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "705": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "703": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: basic/hieu/mau/phai"
+      },
+      "704": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: basic/hieu/mau/phai"
+      },
+      "933": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: mau; thiếu/khác: basic/hieu/phai/ung"
+      }
+    },
+    "reordered-keywords-067": {
+      "705": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "707": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "706": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "933": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: mau; thiếu/khác: basic/hieu/phai/ung"
+      },
+      "703": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: basic/hieu/mau/phai"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: basic/hieu/mau/phai"
+      }
+    },
+    "minor-typo-068": {
+      "722": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1356": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau/nhat; thiếu/khác: gan/nu/xanh"
+      },
+      "41": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: gan/mau/nhat/nu"
+      },
+      "113": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: gan/mau/nhat/nu"
+      },
+      "1370": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: gan/nhat/nu/xanh"
+      },
+      "840": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: nu; thiếu/khác: gan/mau/nhat/xanh"
+      }
+    },
+    "accentless-title-069": {
+      "723": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: gan/mau/nu; thiếu/khác: than/xam"
+      },
+      "724": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: gan/mau/nu; thiếu/khác: than/xam"
+      },
+      "1356": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: gan/nu/than/xam"
+      },
+      "1370": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: gan/nu/than/xam"
+      }
+    },
+    "conversational-title-070": {
+      "724": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact black ribbed camisole."
+      },
+      "1035": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "Black strappy bodysuit is only a weak alternative to a ribbed camisole."
+      },
+      "301": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: den; thiếu/khác: gan/mau/nu"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: gan/mau/nu; thiếu/khác: den"
+      },
+      "1356": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: den/gan/nu"
+      },
+      "723": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: gan/mau/nu; thiếu/khác: den"
+      }
+    },
+    "reordered-keywords-071": {
+      "840": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "875": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: nu; thiếu/khác: cotton/supima"
+      },
+      "1035": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo bodysuit thay cho áo hai dây); thiếu/khác: cotton/nu/supima"
+      },
+      "1356": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/nu/supima"
+      },
+      "1420": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/nu/supima"
+      }
+    },
+    "minor-typo-072": {
+      "843": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact product after typo correction."
+      },
+      "3": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "Long-sleeve T-shirt but misses crew-neck and raw-fabric requirements."
+      },
+      "704": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: tho/tron/vai"
+      },
+      "703": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: tho/tron/vai"
+      },
+      "862": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: dai/tho/vai"
+      },
+      "863": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: dai/tho/vai"
+      },
+      "861": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: dai/tho/vai"
+      }
+    },
+    "accentless-title-073": {
+      "861": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "862": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: capeo/nu/tay/tron"
+      },
+      "863": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: capeo/nu/tay/tron"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: capeo"
+      },
+      "245": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tay/tron; thiếu/khác: capeo/nu"
+      }
+    },
+    "conversational-title-074": {
+      "862": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "863": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "861": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cape/nu/tay/tron"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: cape"
+      },
+      "245": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tay/tron; thiếu/khác: cape/nu"
+      }
+    },
+    "reordered-keywords-075": {
+      "862": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "863": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "861": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cape/nu/tay/tron"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: cape"
+      },
+      "245": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tay/tron; thiếu/khác: cape/nu"
+      }
+    },
+    "minor-typo-076": {
+      "875": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1033": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo bodysuit thay cho áo hai dây); thiếu/khác: body/lyocell/mong/nu"
+      },
+      "1611": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: body/lyocell/mong/nu"
+      },
+      "1032": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo bodysuit thay cho áo hai dây); thiếu/khác: body/lyocell/mong/nu"
+      },
+      "1035": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo bodysuit thay cho áo hai dây); thiếu/khác: body/lyocell/mong/nu"
+      }
+    },
+    "accentless-title-077": {
+      "933": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "707": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: mau; thiếu/khác: cotton/pastel/slub/vang"
+      },
+      "3": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: cotton/mau/pastel/slub"
+      },
+      "862": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: cotton/mau/pastel/slub"
+      },
+      "705": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: mau; thiếu/khác: cotton/pastel/slub/vang"
+      }
+    },
+    "conversational-title-078": {
+      "1029": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1030": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1031": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1036": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: khong"
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: khong/tay/tron"
+      }
+    },
+    "reordered-keywords-079": {
+      "1029": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1030": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1031": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1036": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: khong"
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: khong/tay/tron"
+      }
+    },
+    "minor-typo-080": {
+      "1029": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1030": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1031": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1036": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: khong"
+      },
+      "245": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: khong/tay/tron"
+      }
+    },
+    "accentless-title-081": {
+      "1033": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1032": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day/hai; thiếu/khác: lien/mach"
+      },
+      "1034": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day; thiếu/khác: hai/lien/mach"
+      },
+      "1029": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: day/hai/lien/mach"
+      }
+    },
+    "conversational-title-082": {
+      "1033": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1032": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day/hai; thiếu/khác: lien/mach"
+      },
+      "1034": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day; thiếu/khác: hai/lien/mach"
+      },
+      "1029": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: day/hai/lien/mach"
+      }
+    },
+    "reordered-keywords-083": {
+      "1034": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day; thiếu/khác: rong/vuong"
+      },
+      "1033": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day; thiếu/khác: rong/vuong"
+      },
+      "1032": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day; thiếu/khác: rong/vuong"
+      },
+      "1029": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: day/rong/vuong"
+      }
+    },
+    "minor-typo-084": {
+      "1035": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1032": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day/hai; thiếu/khác: mau"
+      },
+      "1356": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo hai dây thay cho áo bodysuit); khớp: mau; thiếu/khác: day/hai"
+      },
+      "1033": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: day/hai; thiếu/khác: mau"
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: day/hai; thiếu/khác: mau"
+      },
+      "875": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo hai dây thay cho áo bodysuit); thiếu/khác: day/hai/mau"
+      }
+    },
+    "accentless-title-085": {
+      "1036": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1029": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: dai"
+      },
+      "1030": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: dai"
+      },
+      "1031": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: tay/tron; thiếu/khác: dai"
+      },
+      "1035": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: dai/tay/tron"
+      }
+    },
+    "conversational-title-086": {
+      "1356": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1488": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: hong/mau/nhat/nhun"
+      },
+      "1035": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo bodysuit thay cho áo hai dây); khớp: mau; thiếu/khác: hong/nhat/nhun"
+      },
+      "1692": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: hong/mau/nhat/nhun"
+      },
+      "1473": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/mau/nhat/nhun"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau/nhat; thiếu/khác: hong/nhun"
+      }
+    },
+    "reordered-keywords-087": {
+      "1370": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ren/vien; thiếu/khác: be/mau"
+      },
+      "1482": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: be/mau"
+      },
+      "1692": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: be/mau"
+      },
+      "1488": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: be/mau"
+      }
+    },
+    "minor-typo-088": {
+      "1419": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau; thiếu/khác: bratz/dai/tay"
+      },
+      "65": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau; thiếu/khác: bratz/dai/tay"
+      },
+      "703": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: dai/tay; thiếu/khác: bratz/nau"
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bratz/dai/nau/tay"
+      }
+    },
+    "accentless-title-089": {
+      "1420": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1482": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/v; thiếu/khác: soc"
+      },
+      "1488": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/v; thiếu/khác: soc"
+      },
+      "1692": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren; thiếu/khác: soc/v"
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren; thiếu/khác: soc/v"
+      }
+    },
+    "conversational-title-090": {
+      "1473": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1370": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren/vien; thiếu/khác: day/hai/lua/nau"
+      },
+      "1692": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren/vien; thiếu/khác: day/hai/lua/nau"
+      },
+      "1482": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren/vien; thiếu/khác: day/hai/lua/nau"
+      },
+      "1488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren/vien; thiếu/khác: day/hai/lua/nau"
+      }
+    },
+    "reordered-keywords-091": {
+      "1482": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1488": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ren/vien; thiếu/khác: v"
+      },
+      "1420": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/v; thiếu/khác: vien"
+      },
+      "1692": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: v"
+      }
+    },
+    "minor-typo-092": {
+      "1482": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact duplicate-title group."
+      },
+      "1488": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": "Exact duplicate-title group."
+      },
+      "1420": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "V-neck lace camisole with an extra striped attribute."
+      },
+      "1692": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: v"
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ren/vien; thiếu/khác: v"
+      }
+    },
+    "accentless-title-093": {
+      "1692": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1611": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ren/vien; thiếu/khác: caro"
+      },
+      "1482": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: caro"
+      },
+      "1370": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: caro"
+      }
+    },
+    "conversational-title-094": {
+      "1692": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1611": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1473": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ren/vien; thiếu/khác: caro"
+      },
+      "1482": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: caro"
+      },
+      "1370": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: ren/vien; thiếu/khác: caro"
+      }
+    },
+    "reordered-keywords-095": {
+      "1734": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1735": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: ly/mau/ong/rong; thiếu/khác: nau"
+      },
+      "7": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần jeans thay cho quần dài); khớp: ong/rong; thiếu/khác: ly/mau/nau/xep"
+      },
+      "703": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: ly/mau/nau/ong"
+      },
+      "1737": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: ong/rong; thiếu/khác: ly/mau/nau/xep"
+      },
+      "65": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "Sai loại sản phẩm; chỉ trùng màu nâu nên không đáp ứng ý định tìm quần dài ống rộng xếp ly."
+      }
+    },
+    "minor-typo-096": {
+      "1735": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: mau/navy/xanh; thiếu/khác: ly/ong/rong/xep"
+      },
+      "11": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ong/rong; thiếu/khác: ly/mau/navy/xanh"
+      },
+      "1734": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: ly/mau/ong/rong; thiếu/khác: navy/xanh"
+      },
+      "1737": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: ong/rong/xanh; thiếu/khác: ly/mau/navy/xep"
+      }
+    },
+    "accentless-title-097": {
+      "1736": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: mau/nau; thiếu/khác: bo/gau"
+      },
+      "47": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau; thiếu/khác: bo/gau/mau"
+      },
+      "1419": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau; thiếu/khác: bo/gau/mau"
+      },
+      "703": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bo/gau/mau/nau"
+      }
+    },
+    "conversational-title-098": {
+      "1737": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "226": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: ke/ong/rong/soc"
+      },
+      "113": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: ke/ong/rong/soc"
+      },
+      "625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh; thiếu/khác: ke/ong/rong/soc"
+      },
+      "7": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần jeans thay cho quần dài); khớp: ong/rong; thiếu/khác: ke/soc/xanh"
+      }
+    },
+    "reordered-keywords-099": {
+      "1772": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "724": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: den; thiếu/khác: cao/cap"
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/cap/den"
+      },
+      "1030": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/cap/den"
+      },
+      "245": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/cap/den"
+      }
+    },
+    "minor-typo-100": {
+      "1845": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1737": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ke/soc; thiếu/khác: dai"
+      },
+      "299": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: dai/ke"
+      },
+      "1420": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: dai/ke"
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: dai/ke"
+      }
+    },
+    "accentless-title-product-6": {
+      "6": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1075": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: len"
+      },
+      "24": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: len"
+      },
+      "1319": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: len/nu"
+      },
+      "1446": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: len/nu"
+      }
+    },
+    "conversational-title-product-7": {
+      "7": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "2010": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần dài thay cho quần jeans); khớp: rong; thiếu/khác: nu/ong"
+      },
+      "1809": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần dài thay cho quần jeans); khớp: ong; thiếu/khác: nu/rong"
+      },
+      "1897": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nu/ong; thiếu/khác: rong"
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/ong/rong"
+      }
+    },
+    "reordered-keywords-product-8": {
+      "8": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "860": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      },
+      "858": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      },
+      "859": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      },
+      "381": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bermuda/nu/soc"
+      }
+    },
+    "minor-typo-product-9": {
+      "385": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "632": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "690": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "536": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "9": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "1646": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: nu/xoe"
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: xoe"
+      }
+    },
+    "accentless-title-product-10": {
+      "10": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "753": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      },
+      "122": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      },
+      "24": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: cuu/gia/long"
+      },
+      "1845": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cuu/gia/long/nu"
+      }
+    },
+    "conversational-title-product-24": {
+      "24": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "200": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: lot/nhan/nu/vai"
+      },
+      "126": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: lot/nhan/vai"
+      },
+      "129": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: lot/nhan/vai"
+      },
+      "128": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: lot/nhan/vai"
+      }
+    },
+    "reordered-keywords-product-47": {
+      "47": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "216": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: xanh; thiếu/khác: nau/polo/soc"
+      },
+      "200": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo sơ mi thay cho áo blouse); khớp: soc/xanh; thiếu/khác: nau/polo"
+      },
+      "632": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: xanh; thiếu/khác: nau/polo/soc"
+      },
+      "1166": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: xanh; thiếu/khác: nau/polo/soc"
+      }
+    },
+    "minor-typo-product-48": {
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/soc/vest"
+      },
+      "1731": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/soc/vest"
+      },
+      "1693": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/soc/vest"
+      },
+      "1730": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/soc/vest"
+      },
+      "1646": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: hong/soc/vest"
+      },
+      "48": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc/vest; thiếu/khác: hong"
+      },
+      "1311": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: hong; thiếu/khác: soc/vest"
+      },
+      "1389": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: hong; thiếu/khác: soc/vest"
+      },
+      "49": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: hong/vest"
+      }
+    },
+    "accentless-title-product-49": {
+      "49": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1446": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: trang; thiếu/khác: johnny/soc"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      },
+      "48": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      },
+      "50": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: johnny/trang"
+      }
+    },
+    "conversational-title-product-50": {
+      "50": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "48": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc/vest; thiếu/khác: be/nhat"
+      },
+      "830": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: be/nhat/soc/vest"
+      },
+      "558": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: be/nhat/soc/vest"
+      },
+      "1075": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: be/nhat; thiếu/khác: soc/vest"
+      },
+      "49": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: be/nhat/vest"
+      },
+      "47": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo blouse; khớp: soc; thiếu/khác: be/nhat/vest"
+      }
+    },
+    "reordered-keywords-product-122": {
+      "122": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: cao; thiếu/khác: lich/noi/nu/thanh"
+      },
+      "123": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: nu; thiếu/khác: cao/lich/noi/thanh"
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: nu; thiếu/khác: cao/lich/noi/thanh"
+      },
+      "1025": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: nu; thiếu/khác: cao/lich/noi/thanh"
+      }
+    },
+    "minor-typo-product-123": {
+      "123": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: ke/no/nu/v"
+      },
+      "49": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: ke/no/nu/v"
+      },
+      "50": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: ke/no/nu/v"
+      },
+      "200": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ke/soc; thiếu/khác: no/nu/v"
+      }
+    },
+    "accentless-title-product-126": {
+      "126": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "216": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: nhat/nu/poplin/tui"
+      },
+      "200": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: nhat/nu/poplin/tui"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: nhat/poplin/tui/xanh"
+      },
+      "235": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: tui; thiếu/khác: nhat/nu/poplin/xanh"
+      }
+    },
+    "conversational-title-product-128": {
+      "128": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "129": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: bong/caro/nu; thiếu/khác: ngan"
+      },
+      "264": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: bong; thiếu/khác: caro/ngan/nu"
+      },
+      "190": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: bong/caro/ngan/nu"
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: bong/caro/ngan"
+      }
+    },
+    "reordered-keywords-product-129": {
+      "129": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "128": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: bong/caro/nu; thiếu/khác: crop/do"
+      },
+      "1102": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: bong/nu; thiếu/khác: caro/crop/do"
+      },
+      "860": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: crop; thiếu/khác: bong/caro/do/nu"
+      },
+      "859": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: crop; thiếu/khác: bong/caro/do/nu"
+      }
+    },
+    "minor-typo-product-134": {
+      "134": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoodie/phan/tuong"
+      },
+      "223": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: hoodie/nu/phan/tuong"
+      },
+      "128": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoodie/phan/tuong"
+      },
+      "129": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: nu; thiếu/khác: hoodie/phan/tuong"
+      }
+    },
+    "accentless-title-product-190": {
+      "190": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "200": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: ke/soc/zara; thiếu/khác: bomber/cotton"
+      },
+      "1857": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: ke/soc/zara; thiếu/khác: bomber/cotton"
+      },
+      "235": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: zara; thiếu/khác: bomber/cotton/ke/soc"
+      },
+      "128": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: bomber/cotton/ke/soc"
+      }
+    },
+    "conversational-title-product-196": {
+      "196": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: lung; thiếu/khác: day/nau/no/zara"
+      },
+      "1025": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: zara; thiếu/khác: day/lung/nau/no"
+      },
+      "47": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: day/lung/no/zara"
+      },
+      "123": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: no; thiếu/khác: day/lung/nau/zara"
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: day/lung/no/zara"
+      },
+      "1290": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: lung; thiếu/khác: day/nau/no/zara"
+      },
+      "1449": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: day/lung/no/zara"
+      },
+      "1332": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: lung/zara; thiếu/khác: day/nau/no"
+      }
+    },
+    "reordered-keywords-product-200": {
+      "200": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "216": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: ke/soc/trang/tru"
+      },
+      "632": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: xanh/zara; thiếu/khác: ke/soc/trang/tru"
+      },
+      "49": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (áo blouse thay cho áo sơ mi); khớp: soc/trang; thiếu/khác: ke/tru/xanh/zara"
+      },
+      "126": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: ke/soc/trang/tru"
+      }
+    },
+    "minor-typo-product-216": {
+      "216": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "200": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: nep/tailored/xep"
+      },
+      "126": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: xanh; thiếu/khác: nep/tailored/xep"
+      },
+      "223": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: nep/tailored/xanh/xep"
+      },
+      "134": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: nep/tailored/xanh/xep"
+      }
+    },
+    "accentless-title-product-223": {
+      "223": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "24": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: beo/dai/ecru/ren"
+      },
+      "264": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ren/tay; thiếu/khác: beo/dai/ecru/vien"
+      },
+      "128": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: beo/dai/ecru/ren"
+      },
+      "235": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: beo/dai/ecru/ren"
+      }
+    },
+    "conversational-title-product-235": {
+      "235": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "126": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: tui; thiếu/khác: collection/linen/nguc/zara"
+      },
+      "190": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: zara; thiếu/khác: collection/linen/nguc/tui"
+      },
+      "200": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; khớp: zara; thiếu/khác: collection/linen/nguc/tui"
+      },
+      "223": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo sơ mi; thiếu/khác: collection/linen/nguc/tui"
+      }
+    },
+    "reordered-keywords-product-264": {
+      "264": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1389": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: ren"
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: ren"
+      },
+      "1075": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: bong/ren"
+      },
+      "1166": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: bong/ren"
+      }
+    },
+    "minor-typo-product-319": {
+      "319": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "536": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: khong/linen/midi/tay"
+      },
+      "474": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: khong/linen/midi/tay"
+      },
+      "632": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: tay; thiếu/khác: khong/linen/midi"
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: khong/linen/midi/tay"
+      }
+    },
+    "accentless-title-product-339": {
+      "339": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "340": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: ngan; thiếu/khác: dap/lyocell/tay/tui"
+      },
+      "676": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      }
+    },
+    "conversational-title-product-340": {
+      "339": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "340": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: ngan; thiếu/khác: dap/lyocell/tay/tui"
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      },
+      "421": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: dap/lyocell/ngan/tay"
+      }
+    },
+    "reordered-keywords-product-381": {
+      "381": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: bong/hoa/jacquard/tiet"
+      },
+      "558": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: bong/hoa/jacquard/tiet"
+      },
+      "690": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: bong/hoa/jacquard/ngan"
+      },
+      "668": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: bong/hoa/jacquard/tiet"
+      }
+    },
+    "minor-typo-product-385": {
+      "385": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "690": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: theu; thiếu/khác: bet/ngan/vai"
+      },
+      "649": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: bet/theu/vai"
+      },
+      "474": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: vai; thiếu/khác: bet/ngan/theu"
+      },
+      "381": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: bet/theu/vai"
+      }
+    },
+    "accentless-title-product-421": {
+      "421": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bat/doi/fuchsia/hong"
+      },
+      "676": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      },
+      "340": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: bat/doi/fuchsia/hong"
+      }
+    },
+    "conversational-title-product-474": {
+      "474": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "536": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: eo/zara; thiếu/khác: cat/khoet/lanh/vai"
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: vai; thiếu/khác: cat/eo/khoet/lanh"
+      },
+      "632": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: zara; thiếu/khác: cat/eo/khoet/lanh"
+      },
+      "649": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: cat/eo/khoet/lanh"
+      }
+    },
+    "reordered-keywords-product-481": {
+      "481": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "668": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: beo/xep; thiếu/khác: ca/mini/ro"
+      },
+      "690": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: mini; thiếu/khác: beo/ca/ro/xep"
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: beo/ca/mini/ro"
+      },
+      "381": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: beo/ca/mini/ro"
+      }
+    },
+    "minor-typo-product-488": {
+      "381": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: beo/caro/mau/nau"
+      },
+      "668": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: beo/caro; thiếu/khác: mau/nau/tran/vai"
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: beo/caro/mau/nau"
+      },
+      "385": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: beo/caro/mau/nau"
+      },
+      "481": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: beo; thiếu/khác: caro/mau/nau/tran"
+      },
+      "488": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1475": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau/vai; thiếu/khác: beo/caro/mau/tran"
+      },
+      "1731": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau/nau; thiếu/khác: beo/caro/tran/vai"
+      }
+    },
+    "accentless-title-product-536": {
+      "536": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "2011": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: xep/zara; thiếu/khác: eo/ly/om"
+      },
+      "1680": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ly/xep; thiếu/khác: eo/om/zara"
+      },
+      "1165": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ly/xep; thiếu/khác: eo/om/zara"
+      },
+      "474": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: eo/zara; thiếu/khác: ly/om/xep"
+      }
+    },
+    "conversational-title-product-558": {
+      "558": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: corset/kieu"
+      },
+      "649": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: corset/kieu"
+      },
+      "668": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: corset/kieu"
+      },
+      "381": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: corset/kieu"
+      }
+    },
+    "reordered-keywords-product-625": {
+      "625": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "632": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau/xanh; thiếu/khác: dai/lung/navy/that"
+      },
+      "216": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: xanh; thiếu/khác: dai/lung/mau/navy"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (đầm jumpsuit thay cho jumpsuit); khớp: mau; thiếu/khác: dai/lung/navy/that"
+      },
+      "6": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dai/lung/mau/navy"
+      }
+    },
+    "minor-typo-product-632": {
+      "632": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "319": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: tay; thiếu/khác: denim/mau/phong/v"
+      },
+      "536": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: zara; thiếu/khác: denim/mau/phong/tay"
+      },
+      "668": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: denim/mau/phong/tay"
+      },
+      "649": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: v; thiếu/khác: denim/mau/phong/tay"
+      }
+    },
+    "accentless-title-product-649": {
+      "649": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "676": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: day; thiếu/khác: chu/den/lien/manh"
+      },
+      "1312": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: den; thiếu/khác: chu/day/lien/manh"
+      },
+      "1311": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: chu/day/den/lien"
+      },
+      "1646": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: chu/day/den/lien"
+      }
+    },
+    "conversational-title-product-668": {
+      "668": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: beo/caro; thiếu/khác: ke/lien/ngan/xep"
+      },
+      "481": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: beo/xep; thiếu/khác: caro/ke/lien/ngan"
+      },
+      "128": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: caro/ngan; thiếu/khác: beo/ke/lien/xep"
+      },
+      "558": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: ngan; thiếu/khác: beo/caro/ke/lien"
+      }
+    },
+    "reordered-keywords-product-676": {
+      "676": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (đầm jumpsuit thay cho jumpsuit); khớp: vai; thiếu/khác: day/hai/nhan/tang"
+      },
+      "625": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: day/hai/nhan/tang"
+      },
+      "339": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: day/hai/nhan/tang"
+      },
+      "421": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại jumpsuit; thiếu/khác: day/hai/nhan/tang"
+      }
+    },
+    "minor-typo-product-690": {
+      "690": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "632": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: phong/tay; thiếu/khác: mini/sequin/theu"
+      },
+      "481": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: mini; thiếu/khác: phong/sequin/tay/theu"
+      },
+      "385": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; khớp: theu; thiếu/khác: mini/phong/sequin/tay"
+      },
+      "381": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại đầm; thiếu/khác: mini/phong/sequin/tay"
+      }
+    },
+    "accentless-title-product-722": {
+      "722": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1311": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: gan/nhat/nu/xanh"
+      },
+      "1312": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: gan/nhat/nu/xanh"
+      },
+      "1646": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: gan/mau/nhat/nu"
+      },
+      "875": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: nu; thiếu/khác: gan/mau/nhat/xanh"
+      }
+    },
+    "conversational-title-product-753": {
+      "753": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "816": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: raglan/xanh"
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: dai/nu/raglan/tay"
+      },
+      "860": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: tay; thiếu/khác: dai/nu/raglan/xanh"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: tay; thiếu/khác: dai/nu/raglan/xanh"
+      }
+    },
+    "reordered-keywords-product-813": {
+      "813": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "860": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton; thiếu/khác: 2/den/lop/supima"
+      },
+      "992": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton/supima; thiếu/khác: 2/den/lop"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton; thiếu/khác: 2/den/lop/supima"
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: 2/cotton/den/lop"
+      }
+    },
+    "minor-typo-product-816": {
+      "816": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1003": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/theu; thiếu/khác: dai/hoa/tiet"
+      },
+      "982": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: hoa/nu/tiet; thiếu/khác: dai/tay/theu"
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: hoa/theu/tiet"
+      },
+      "830": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay; thiếu/khác: dai/hoa/theu/tiet"
+      }
+    },
+    "accentless-title-product-830": {
+      "830": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "816": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay; thiếu/khác: khoa/kim/loai/ngan"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: khoa/kim/loai/nu"
+      },
+      "1003": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/nu/tay; thiếu/khác: khoa/kim/loai/ta"
+      },
+      "860": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: khoa/kim/loai/nu"
+      }
+    },
+    "conversational-title-product-843": {
+      "843": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1003": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: dai/tho/vai"
+      },
+      "816": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: tho/tron/vai"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: tay; thiếu/khác: dai/nu/tho/tron"
+      },
+      "753": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: dai/nu/tay; thiếu/khác: tho/tron/vai"
+      }
+    },
+    "reordered-keywords-product-858": {
+      "858": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "860": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: beo/ngan/nhun; thiếu/khác: cottonay"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: beo/ngan/nhun; thiếu/khác: cottonay"
+      },
+      "813": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: beo/cottonay/ngan/nhun"
+      },
+      "830": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan; thiếu/khác: beo/cottonay/nhun"
+      }
+    },
+    "minor-typo-product-859": {
+      "860": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "859": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: beo/ngan/nhun; thiếu/khác: cotton/crop/tay"
+      },
+      "830": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: beo/cotton/crop/nhun"
+      },
+      "1003": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: beo/cotton/crop/nhun"
+      }
+    },
+    "accentless-title-product-860": {
+      "860": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "859": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: beo/ngan/nhun; thiếu/khác: cotton/crop/tay"
+      },
+      "830": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: beo/cotton/crop/nhun"
+      },
+      "1003": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: beo/cotton/crop/nhun"
+      }
+    },
+    "conversational-title-product-875": {
+      "875": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1311": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: body/lyocell/mong/nu"
+      },
+      "1312": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: body/lyocell/mong/nu"
+      },
+      "1646": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: body/lyocell/mong/nu"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: nu; thiếu/khác: body/lyocell/mong/om"
+      }
+    },
+    "reordered-keywords-product-982": {
+      "982": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "816": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: hoa/nu/tiet; thiếu/khác: cinamoroll/hinh/in"
+      },
+      "830": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu; thiếu/khác: cinamoroll/hinh/hoa/in"
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: cinamoroll/hinh/hoa/in"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: cinamoroll/hinh/hoa/in"
+      }
+    },
+    "minor-typo-product-992": {
+      "992": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "813": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton/supima; thiếu/khác: hieu/kep/nu/om"
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; thiếu/khác: cotton/hieu/kep/nu"
+      },
+      "860": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton; thiếu/khác: hieu/kep/nu/om"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: cotton; thiếu/khác: hieu/kep/nu/om"
+      }
+    },
+    "accentless-title-product-1003": {
+      "1003": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "843": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/tron; thiếu/khác: ngan/nhan/theu"
+      },
+      "816": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: nu/tay/theu; thiếu/khác: ngan/nhan/tron"
+      },
+      "859": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan/tay; thiếu/khác: nhan/nu/theu/tron"
+      },
+      "858": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo thun; khớp: ngan; thiếu/khác: nhan/nu/tay/theu"
+      }
+    },
+    "conversational-title-product-1025": {
+      "1025": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: hoa/nu; thiếu/khác: in/tiet/viscose/woman"
+      },
+      "196": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: zara; thiếu/khác: hoa/in/nu/tiet"
+      },
+      "264": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: hoa/in/nu/tiet"
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: hoa/in/nu/tiet"
+      }
+    },
+    "reordered-keywords-product-1045": {
+      "1045": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1399": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: yem; thiếu/khác: ren/satin/vien"
+      },
+      "1291": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: ren/satin/vien/yem"
+      },
+      "1290": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; thiếu/khác: ren/satin/vien/yem"
+      },
+      "1368": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: ren/satin/vien/yem"
+      }
+    },
+    "minor-typo-product-1075": {
+      "1075": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "264": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: be/mau/ngan/nhat"
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: mau; thiếu/khác: be/ngan/nhat/nu"
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: nu/tay; thiếu/khác: be/mau/ngan/nhat"
+      },
+      "122": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: nu; thiếu/khác: be/mau/ngan/nhat"
+      }
+    },
+    "accentless-title-product-1102": {
+      "1102": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1389": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: hoa/no/nu/vuong"
+      },
+      "264": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: hoa/no/nu/vuong"
+      },
+      "1025": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: hoa/nu; thiếu/khác: bong/no/tay/vuong"
+      },
+      "123": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: no/nu; thiếu/khác: bong/hoa/tay/vuong"
+      }
+    },
+    "conversational-title-product-1165": {
+      "1165": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1166": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: cheo/dai/ly/mau; thiếu/khác: den"
+      },
+      "1075": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: mau/tay; thiếu/khác: cheo/dai/den/ly"
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: cheo/dai/den/ly"
+      },
+      "1389": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: cheo/dai/den/ly"
+      }
+    },
+    "reordered-keywords-product-1166": {
+      "1166": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1165": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: cheo/dai/ly/mau; thiếu/khác: xanh"
+      },
+      "47": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: xanh; thiếu/khác: cheo/dai/ly/mau"
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: mau; thiếu/khác: cheo/dai/ly/tay"
+      },
+      "1075": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: mau/tay; thiếu/khác: cheo/dai/ly/xanh"
+      }
+    },
+    "minor-typo-product-1174": {
+      "1175": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 6 thuộc tính đặc hiệu; khớp: corset/dap/ngang/noi"
+      },
+      "1174": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1176": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 4 thuộc tính đặc hiệu; khớp: corset/ngang/noi/vai; thiếu/khác: dap/tre"
+      },
+      "1277": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tre/vai; thiếu/khác: corset/dap/ngang/noi"
+      },
+      "1276": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tre/vai; thiếu/khác: corset/dap/ngang/noi"
+      }
+    },
+    "accentless-title-product-1175": {
+      "1175": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1174": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 6 thuộc tính đặc hiệu; khớp: corset/dap/ngang/noi; thiếu/khác: mau"
+      },
+      "1176": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 4 thuộc tính đặc hiệu; khớp: corset/ngang/noi/vai; thiếu/khác: dap/mau/tre"
+      },
+      "24": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: corset/dap/mau/ngang"
+      },
+      "1857": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau; thiếu/khác: corset/dap/ngang/noi"
+      }
+    },
+    "conversational-title-product-1176": {
+      "1176": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1174": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 4 thuộc tính đặc hiệu; khớp: corset/ngang/noi/vai; thiếu/khác: det"
+      },
+      "1175": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 4 thuộc tính đặc hiệu; khớp: corset/ngang/noi/vai; thiếu/khác: det"
+      },
+      "558": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: corset/ngang; thiếu/khác: det/noi/vai"
+      },
+      "1475": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ngang/vai; thiếu/khác: corset/det/noi"
+      }
+    },
+    "reordered-keywords-product-1191": {
+      "1191": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: kim/loai; thiếu/khác: chi/det/gan"
+      },
+      "1446": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: chi/det/gan/kim"
+      },
+      "1075": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: chi/det/gan/kim"
+      },
+      "1165": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: chi/det/gan/kim"
+      }
+    },
+    "minor-typo-product-1194": {
+      "860": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: crop/tay; thiếu/khác: phong/poplin/vai"
+      },
+      "859": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: crop/tay; thiếu/khác: phong/poplin/vai"
+      },
+      "843": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: tay/vai; thiếu/khác: crop/phong/poplin"
+      },
+      "830": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: tay; thiếu/khác: crop/phong/poplin/vai"
+      },
+      "858": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: crop/phong/poplin/tay"
+      },
+      "1194": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1102": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: tay; thiếu/khác: crop/phong/poplin/vai"
+      },
+      "122": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: crop/phong/poplin/tay"
+      },
+      "49": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: crop/phong/poplin/tay"
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: phong; thiếu/khác: crop/poplin/tay/vai"
+      }
+    },
+    "accentless-title-product-1276": {
+      "1276": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1277": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1175": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: tre/vai; thiếu/khác: bandeau"
+      },
+      "1174": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: tre/vai; thiếu/khác: bandeau"
+      },
+      "385": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: bandeau/tre"
+      }
+    },
+    "conversational-title-product-1277": {
+      "1276": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1277": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1175": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: tre/vai; thiếu/khác: bandeau"
+      },
+      "1174": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: tre/vai; thiếu/khác: bandeau"
+      },
+      "385": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: bandeau/tre"
+      }
+    },
+    "reordered-keywords-product-1290": {
+      "1291": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1290": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1399": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: lung; thiếu/khác: gian/khoet"
+      },
+      "1368": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: khoet/lung"
+      },
+      "1367": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: khoet/lung"
+      }
+    },
+    "minor-typo-product-1291": {
+      "1291": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1290": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1399": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: lung; thiếu/khác: gian/khoet"
+      },
+      "1368": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: khoet/lung"
+      },
+      "1367": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: khoet/lung"
+      }
+    },
+    "accentless-title-product-1311": {
+      "1311": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1312": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: cai/mau/nut; thiếu/khác: hong"
+      },
+      "1174": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cai/hong/mau/nut"
+      },
+      "875": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cai/hong/mau/nut"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: cai/hong/nut"
+      }
+    },
+    "conversational-title-product-1312": {
+      "1312": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1311": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: cai/mau/nut; thiếu/khác: den"
+      },
+      "1332": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cai/den/mau/nut"
+      },
+      "1646": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cai/den/mau/nut"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; khớp: mau; thiếu/khác: cai/den/nut"
+      }
+    },
+    "reordered-keywords-product-1319": {
+      "1319": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1311": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: hong/mau; thiếu/khác: be/cao/dai/det"
+      },
+      "830": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim/tay; thiếu/khác: be/cao/dai/det"
+      },
+      "48": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: hong; thiếu/khác: be/cao/dai/det"
+      },
+      "421": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: hong; thiếu/khác: be/cao/dai/det"
+      }
+    },
+    "minor-typo-product-1332": {
+      "1332": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1399": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ho/lung/yem; thiếu/khác: rua/theu/tua/vien"
+      },
+      "1045": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vien/yem; thiếu/khác: ho/lung/rua/theu"
+      },
+      "816": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: theu; thiếu/khác: ho/lung/rua/tua"
+      },
+      "1291": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: lung; thiếu/khác: ho/rua/theu/tua"
+      }
+    },
+    "accentless-title-product-1366": {
+      "1366": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1290": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: bandeau/bodysuit/mau/nau"
+      },
+      "1368": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: nau"
+      },
+      "1367": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: nau"
+      },
+      "1399": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bandeau/bodysuit/gian/mau"
+      }
+    },
+    "conversational-title-product-1367": {
+      "1367": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1366": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: den"
+      },
+      "1368": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: den"
+      },
+      "1045": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bandeau/bodysuit/den/gian"
+      },
+      "1290": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: bandeau/bodysuit/den/mau"
+      }
+    },
+    "reordered-keywords-product-1368": {
+      "1368": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1366": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: hong"
+      },
+      "1367": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 3 thuộc tính đặc hiệu; khớp: bandeau/bodysuit/gian/mau; thiếu/khác: hong"
+      },
+      "1290": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: bandeau/bodysuit/hong/mau"
+      },
+      "1291": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gian; thiếu/khác: bandeau/bodysuit/hong/mau"
+      }
+    },
+    "minor-typo-product-1389": {
+      "1389": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1102": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: khong/taffeta"
+      },
+      "264": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: bong/tay; thiếu/khác: khong/taffeta"
+      },
+      "1165": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: bong/khong/taffeta"
+      },
+      "1166": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: tay; thiếu/khác: bong/khong/taffeta"
+      }
+    },
+    "accentless-title-product-1399": {
+      "1399": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1291": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: lung; thiếu/khác: ho/nep/xp/yem"
+      },
+      "1290": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: lung; thiếu/khác: ho/nep/xp/yem"
+      },
+      "1045": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo bodysuit; khớp: yem; thiếu/khác: ho/lung/nep/xp"
+      },
+      "1680": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ho; thiếu/khác: lung/nep/xp/yem"
+      }
+    },
+    "conversational-title-product-1419": {
+      "1419": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "196": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: bratz/dai/tay"
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: bratz/dai/tay"
+      },
+      "1290": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bratz/dai/nau/tay"
+      },
+      "1399": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bratz/dai/nau/tay"
+      }
+    },
+    "reordered-keywords-product-1446": {
+      "1446": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "49": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: trang; thiếu/khác: cao/ho/lung/mau"
+      },
+      "264": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; thiếu/khác: cao/ho/lung/mau"
+      },
+      "122": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo kiểu; khớp: cao; thiếu/khác: ho/lung/mau/trang"
+      },
+      "1194": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/ho/lung/mau"
+      }
+    },
+    "minor-typo-product-1448": {
+      "1448": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1319": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim/mau; thiếu/khác: da/halter/sa/sac"
+      },
+      "1449": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim/mau; thiếu/khác: da/halter/sa/sac"
+      },
+      "1625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim; thiếu/khác: da/halter/mau/sa"
+      },
+      "830": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim; thiếu/khác: da/halter/mau/sa"
+      }
+    },
+    "accentless-title-product-1449": {
+      "1449": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1319": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: det/kim/mau; thiếu/khác: cotton/ly/nau/nhun"
+      },
+      "1191": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: det/kim; thiếu/khác: cotton/ly/mau/nau"
+      },
+      "1446": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau; thiếu/khác: cotton/det/kim/ly"
+      },
+      "1075": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau; thiếu/khác: cotton/det/kim/ly"
+      }
+    },
+    "conversational-title-product-1475": {
+      "843": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: gi/le/nang/nau"
+      },
+      "858": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gi/le/nang/nau"
+      },
+      "830": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gi/le/nang/nau"
+      },
+      "860": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gi/le/nang/nau"
+      },
+      "859": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gi/le/nang/nau"
+      },
+      "1475": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gi/le/nang/nau"
+      },
+      "488": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nau/vai; thiếu/khác: gi/le/nang/thun"
+      },
+      "1176": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nang/vai; thiếu/khác: gi/le/nau/thun"
+      },
+      "1449": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: gi/le/nang/thun"
+      }
+    },
+    "reordered-keywords-product-1528": {
+      "1528": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1730": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; khớp: tui; thiếu/khác: cao/cu/giat/hieu"
+      },
+      "1693": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: cao/cu/giat/hieu"
+      },
+      "1731": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: cao/cu/giat/hieu"
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cao/cu/giat/hieu"
+      }
+    },
+    "minor-typo-product-1625": {
+      "1625": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1191": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: kim/loai; thiếu/khác: polyamide/vien/xoan"
+      },
+      "1448": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim; thiếu/khác: loai/polyamide/vien/xoan"
+      },
+      "830": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: kim/loai; thiếu/khác: polyamide/vien/xoan"
+      },
+      "1449": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: kim; thiếu/khác: loai/polyamide/vien/xoan"
+      }
+    },
+    "accentless-title-product-1646": {
+      "1646": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1312": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/pointelle"
+      },
+      "1311": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/pointelle"
+      },
+      "875": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/pointelle"
+      },
+      "722": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo hai dây; thiếu/khác: cotton/pointelle"
+      }
+    },
+    "conversational-title-product-1680": {
+      "1680": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1291": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bat/bodysuit/doi/ho"
+      },
+      "1290": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: bat/bodysuit/doi/ho"
+      },
+      "1368": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: bodysuit; thiếu/khác: bat/doi/ho/ly"
+      },
+      "1367": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: bodysuit; thiếu/khác: bat/doi/ho/ly"
+      }
+    },
+    "reordered-keywords-product-1693": {
+      "1693": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1528": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: kaki/khoa/phao"
+      },
+      "1731": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: kaki/khoa/phao"
+      },
+      "1730": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: kaki/khoa/phao"
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: kaki/khoa/phao"
+      }
+    },
+    "minor-typo-product-1730": {
+      "1730": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1528": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; khớp: tui; thiếu/khác: ca/cuc/gia/van"
+      },
+      "1693": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: ca/cuc/gia/tui"
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: ca/cuc/gia/tui"
+      },
+      "1731": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: ca/cuc/gia/tui"
+      }
+    },
+    "accentless-title-product-1731": {
+      "1731": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1475": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nau; thiếu/khác: dai/mau/nu"
+      },
+      "1528": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: dai/mau/nau/nu"
+      },
+      "1693": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại áo gile; thiếu/khác: dai/mau/nau/nu"
+      },
+      "875": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu; thiếu/khác: dai/mau/nau"
+      }
+    },
+    "conversational-title-product-1772": {
+      "1772": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: den; thiếu/khác: cao/cap"
+      },
+      "1367": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: den; thiếu/khác: cao/cap"
+      },
+      "1312": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: den; thiếu/khác: cao/cap"
+      },
+      "813": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: den; thiếu/khác: cao/cap"
+      }
+    },
+    "reordered-keywords-product-1809": {
+      "1809": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1857": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: mau; thiếu/khác: gian/loe/nhat/ong"
+      },
+      "1175": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: mau/vai; thiếu/khác: gian/loe/nhat/ong"
+      },
+      "24": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: vai; thiếu/khác: gian/loe/mau/nhat"
+      },
+      "816": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gian/loe/mau/nhat"
+      }
+    },
+    "minor-typo-product-1845": {
+      "668": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: ke; thiếu/khác: dai/soc"
+      },
+      "649": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dai/ke/soc"
+      },
+      "558": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dai/ke/soc"
+      },
+      "385": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dai/ke/soc"
+      },
+      "381": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: dai/ke/soc"
+      },
+      "1845": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1857": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ke/soc; thiếu/khác: dai"
+      },
+      "190": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ke/soc; thiếu/khác: dai"
+      },
+      "8": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: dai/ke"
+      },
+      "48": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: soc; thiếu/khác: dai/ke"
+      }
+    },
+    "accentless-title-product-1857": {
+      "1857": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1809": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: mau; thiếu/khác: balloon/ke/soc/zara"
+      },
+      "1845": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: ke/soc; thiếu/khác: balloon/mau/zara"
+      },
+      "1988": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: zara; thiếu/khác: balloon/ke/mau/soc"
+      },
+      "2011": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: zara; thiếu/khác: balloon/ke/mau/soc"
+      },
+      "1945": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: zara; thiếu/khác: balloon/ke/mau/soc"
+      }
+    },
+    "conversational-title-product-1897": {
+      "1897": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1941": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cargo/mau/nu; thiếu/khác: kaki/nhat/ong/suong"
+      },
+      "1945": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cargo/nu; thiếu/khác: kaki/mau/nhat/ong"
+      },
+      "1809": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: mau/nhat/ong; thiếu/khác: cargo/kaki/nu/suong"
+      },
+      "2010": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: cargo/kaki/mau/nhat"
+      }
+    },
+    "reordered-keywords-product-1899": {
+      "1899": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "2011": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; thiếu/khác: gau/lung/mau/nhat"
+      },
+      "1449": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: mau/nhun; thiếu/khác: gau/lung/nhat/nu"
+      },
+      "1075": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: mau/nhat/nu; thiếu/khác: gau/lung/nhun/xam"
+      },
+      "2010": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gau; thiếu/khác: lung/mau/nhat/nhun"
+      }
+    },
+    "minor-typo-product-1941": {
+      "1941": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1528": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: hieu/ung; thiếu/khác: cam/cargo/dat/mau"
+      },
+      "1897": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cargo/mau/nu; thiếu/khác: cam/dat/hieu/phai"
+      },
+      "1899": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: mau/nu; thiếu/khác: cam/cargo/dat/hieu"
+      },
+      "992": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: hieu/nu/ung; thiếu/khác: cam/cargo/dat/mau"
+      }
+    },
+    "accentless-title-product-1945": {
+      "1945": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "2011": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len/zara; thiếu/khác: cap/cargo/nu/vua"
+      },
+      "1899": {
+        "grade": 0,
+        "review_status": "reviewed",
+        "notes": "không khớp loại sản phẩm hoặc thuộc tính đặc hiệu; khớp: nu/xam; thiếu/khác: cap/cargo/len/vua"
+      },
+      "1897": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cargo/nu; thiếu/khác: cap/len/vua/xam"
+      },
+      "1941": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: cargo/nu; thiếu/khác: cap/len/vua/xam"
+      }
+    },
+    "conversational-title-product-1988": {
+      "1988": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1945": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm nhưng còn 2 thuộc tính đặc hiệu; khớp: cap/nu/zara; thiếu/khác: nut"
+      },
+      "1312": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nut; thiếu/khác: cap/nu/zara"
+      },
+      "1311": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: nut; thiếu/khác: cap/nu/zara"
+      },
+      "2011": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: zara; thiếu/khác: cap/nu/nut"
+      }
+    },
+    "reordered-keywords-product-2010": {
+      "2010": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "7": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "loại gần liên quan (quần jeans thay cho quần dài); khớp: rong; thiếu/khác: chinh/dieu/gau/that"
+      },
+      "2011": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: rong; thiếu/khác: chinh/dieu/gau/that"
+      },
+      "625": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: that; thiếu/khác: chinh/dieu/gau/rong"
+      },
+      "1899": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: gau; thiếu/khác: chinh/dieu/rong/that"
+      }
+    },
+    "minor-typo-product-2011": {
+      "2011": {
+        "grade": 3,
+        "review_status": "reviewed",
+        "notes": ""
+      },
+      "1945": {
+        "grade": 1,
+        "review_status": "reviewed",
+        "notes": "sai loại sản phẩm, chỉ còn liên quan một phần; khớp: len/zara; thiếu/khác: collection/li/ong/rong"
+      },
+      "1857": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: zara; thiếu/khác: collection/len/li/ong"
+      },
+      "1988": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: zara; thiếu/khác: collection/len/li/ong"
+      },
+      "2010": {
+        "grade": 2,
+        "review_status": "reviewed",
+        "notes": "đúng loại quần dài; khớp: rong; thiếu/khác: collection/len/li/ong"
+      }
+    }
+  }
+}

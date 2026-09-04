@@ -1,0 +1,27 @@
+{
+  "run_id": "MIXED-LOAD-20260830-063917",
+  "started_at_utc": "2026-08-30T06:39:17.864072+00:00",
+  "base_url": "http://127.0.0.1:18080",
+  "workers": 10,
+  "configured_duration_seconds": 301.0,
+  "cycle_period_seconds": 2.5,
+  "elapsed_seconds": 302.521,
+  "throughput_requests_per_second": 19.999,
+  "overall": {
+    "requests": 6050,
+    "successful": 6050,
+    "failed": 0,
+    "p50_ms": 93.05,
+    "p95_ms": 182.79,
+    "p99_ms": 266.76,
+    "max_ms": 520.54
+  },
+  "operations": {
+    "cart_add": {"requests": 1210, "successful": 1210, "failed": 0, "p50_ms": 123.74, "p95_ms": 207.18, "p99_ms": 320.24, "max_ms": 520.54},
+    "cart_delete": {"requests": 1210, "successful": 1210, "failed": 0, "p50_ms": 69.76, "p95_ms": 143.47, "p99_ms": 175.34, "max_ms": 347.21},
+    "cart_read": {"requests": 1210, "successful": 1210, "failed": 0, "p50_ms": 55.35, "p95_ms": 98.53, "p99_ms": 144.52, "max_ms": 188.16},
+    "cart_update": {"requests": 1210, "successful": 1210, "failed": 0, "p50_ms": 114.34, "p95_ms": 222.54, "p99_ms": 290.09, "max_ms": 505.17},
+    "catalog": {"requests": 1210, "successful": 1210, "failed": 0, "p50_ms": 85.06, "p95_ms": 136.0, "p99_ms": 217.81, "max_ms": 308.97}
+  },
+  "errors": []
+}

@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "case_count": 12,
+  "automatic_pass_count": 12,
+  "human_reviewed_count": 0,
+  "hard_gate_passed": true,
+  "hard_failure_question_ids": [],
+  "note": "Final hard-gate status is determined automatically from response, trace, context and evidence. Human fields are optional artifacts.",
+  "automatic_failure_question_ids": [],
+  "human_failure_question_ids": []
+}

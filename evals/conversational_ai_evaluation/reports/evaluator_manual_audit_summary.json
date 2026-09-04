@@ -1,0 +1,33 @@
+{
+  "total_cases": 80,
+  "required_audit_cases": 16,
+  "completed_audit_cases": 16,
+  "coverage": 0.2,
+  "audited_categories": [
+    "filter_refinement",
+    "followup_ordinal",
+    "product_comparison",
+    "product_factual",
+    "product_recommendation",
+    "unanswerable"
+  ],
+  "audit_complete": true,
+  "agreement": {
+    "rule_based_grounding_score": {
+      "agreement": 1.0,
+      "false_positive_question_ids": [],
+      "false_negative_question_ids": []
+    },
+    "token_f1_relevancy": {
+      "agreement": 0.75,
+      "false_positive_question_ids": [
+        "conv-rec-0010-t0",
+        "conv-ord-0002-t0",
+        "conv-rec-0004-t0"
+      ],
+      "false_negative_question_ids": [
+        "conv-ord-0001-t1"
+      ]
+    }
+  }
+}

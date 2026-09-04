@@ -1,0 +1,6 @@
+{
+  "source": "mysql",
+  "products": 1000,
+  "version": "20260817T175933Z",
+  "output": "C:\\A\\DACN_HK252\\evals\\conversational_ai_evaluation\\data\\product_snapshot.csv"
+}

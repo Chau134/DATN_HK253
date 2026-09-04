@@ -1,0 +1,361 @@
+% Tệp được tách theo nhóm để duy trì từ điển dữ liệu của Chương 6.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{payments} (Thanh toán)}
+    \label{tab:data-dictionary-payments} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{payment\_number}} & \texttt{varchar(50)} & Mã thanh toán duy nhất; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{method}} & \texttt{varchar(50)} & Phương thức thanh toán; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{amount}} & \texttt{decimal(12,2)} & Số tiền; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{refunded\_amount}} & \texttt{decimal(12,2)} & Số tiền đã hoàn; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{provider}} & \texttt{varchar(50)} & Nhà cung cấp thanh toán. \\
+        \hline
+        \texttt{\seqsplit{gateway\_payment\_id}} & \texttt{varchar(150)} & Định danh thanh toán tại cổng. \\
+        \hline
+        \texttt{\seqsplit{gateway\_order\_id}} & \texttt{varchar(150)} & Định danh đơn hàng tại cổng. \\
+        \hline
+        \texttt{\seqsplit{idempotency\_key}} & \texttt{varchar(100)} & Khóa duy nhất chống xử lý lặp; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{requested\_at}} & \texttt{datetime(6)} & Thời điểm yêu cầu thanh toán. \\
+        \hline
+        \texttt{\seqsplit{authorized\_at}} & \texttt{datetime(6)} & Thời điểm ủy quyền thanh toán. \\
+        \hline
+        \texttt{\seqsplit{paid\_at}} & \texttt{datetime(6)} & Thời điểm thanh toán thành công. \\
+        \hline
+        \texttt{\seqsplit{failed\_at}} & \texttt{datetime(6)} & Thời điểm thất bại. \\
+        \hline
+        \texttt{\seqsplit{cancelled\_at}} & \texttt{datetime(6)} & Thời điểm hủy. \\
+        \hline
+        \texttt{\seqsplit{refunded\_at}} & \texttt{datetime(6)} & Thời điểm hoàn tiền. \\
+        \hline
+        \texttt{\seqsplit{expires\_at}} & \texttt{datetime(6)} & Thời điểm hết hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{failure\_code}} & \texttt{varchar(100)} & Mã lỗi. \\
+        \hline
+        \texttt{\seqsplit{failure\_message}} & \texttt{varchar(255)} & Thông báo lỗi. \\
+        \hline
+        \texttt{\seqsplit{metadata}} & \texttt{text} & Siêu dữ liệu bổ sung. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{payment\_transactions} (Giao dịch thanh toán)}
+    \label{tab:data-dictionary-payment-transactions} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{payment\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{payments.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{transaction\_type}} & \texttt{varchar(50)} & Loại giao dịch; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{amount}} & \texttt{decimal(12,2)} & Số tiền; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{provider}} & \texttt{varchar(50)} & Nhà cung cấp thanh toán. \\
+        \hline
+        \texttt{\seqsplit{gateway\_transaction\_id}} & \texttt{varchar(150)} & Định danh giao dịch tại cổng. \\
+        \hline
+        \texttt{\seqsplit{gateway\_payment\_id}} & \texttt{varchar(150)} & Định danh thanh toán tại cổng. \\
+        \hline
+        \texttt{\seqsplit{idempotency\_key}} & \texttt{varchar(100)} & Khóa duy nhất chống xử lý lặp; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{failure\_code}} & \texttt{varchar(100)} & Mã lỗi. \\
+        \hline
+        \texttt{\seqsplit{failure\_message}} & \texttt{varchar(255)} & Thông báo lỗi. \\
+        \hline
+        \texttt{\seqsplit{request\_payload}} & \texttt{text} & Dữ liệu yêu cầu gửi đến cổng. \\
+        \hline
+        \texttt{\seqsplit{response\_payload}} & \texttt{text} & Dữ liệu phản hồi từ cổng. \\
+        \hline
+        \texttt{\seqsplit{processed\_at}} & \texttt{datetime(6)} & Thời điểm xử lý. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{payment\_webhook\_events} (Sự kiện webhook thanh toán)}
+    \label{tab:data-dictionary-payment-webhook-events} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{provider}} & \texttt{varchar(50)} & Nhà cung cấp thanh toán; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{event\_id}} & \texttt{varchar(150)} & Định danh sự kiện tại nhà cung cấp; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{event\_type}} & \texttt{varchar(100)} & Loại sự kiện. \\
+        \hline
+        \texttt{\seqsplit{payment\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{payments.id}. \\
+        \hline
+        \texttt{\seqsplit{payment\_transaction\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{payment\_transactions.id}. \\
+        \hline
+        \texttt{\seqsplit{gateway\_payment\_id}} & \texttt{varchar(150)} & Định danh thanh toán tại cổng. \\
+        \hline
+        \texttt{\seqsplit{gateway\_transaction\_id}} & \texttt{varchar(150)} & Định danh giao dịch tại cổng. \\
+        \hline
+        \texttt{\seqsplit{processing\_status}} & \texttt{varchar(50)} & Trạng thái xử lý sự kiện; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{headers}} & \texttt{text} & Các header của webhook. \\
+        \hline
+        \texttt{\seqsplit{payload}} & \texttt{text} & Nội dung webhook; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{signature}} & \texttt{varchar(255)} & Chữ ký xác thực webhook. \\
+        \hline
+        \texttt{\seqsplit{received\_at}} & \texttt{datetime(6)} & Thời điểm nhận webhook. \\
+        \hline
+        \texttt{\seqsplit{processed\_at}} & \texttt{datetime(6)} & Thời điểm xử lý. \\
+        \hline
+        \texttt{\seqsplit{error\_message}} & \texttt{text} & Thông báo lỗi khi xử lý. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{promotions} (Chương trình khuyến mãi)}
+    \label{tab:data-dictionary-promotions} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{name}} & \texttt{varchar(150)} & Tên; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{description}} & \texttt{text} & Nội dung mô tả. \\
+        \hline
+        \texttt{\seqsplit{discount\_type}} & \texttt{varchar(50)} & Loại giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{discount\_value}} & \texttt{decimal(12,2)} & Giá trị giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{max\_discount\_amount}} & \texttt{decimal(12,2)} & Số tiền giảm tối đa. \\
+        \hline
+        \texttt{\seqsplit{min\_order\_amount}} & \texttt{decimal(12,2)} & Giá trị đơn hàng tối thiểu; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{priority}} & \texttt{int} & Độ ưu tiên áp dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{stackable}} & \texttt{boolean} & Cho biết có thể kết hợp với ưu đãi khác. \\
+        \hline
+        \texttt{\seqsplit{customer\_scope}} & \texttt{varchar(50)} & Phạm vi khách hàng áp dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{eligible\_user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{customer\_segment}} & \texttt{varchar(100)} & Phân khúc khách hàng. \\
+        \hline
+        \texttt{\seqsplit{starts\_at}} & \texttt{datetime(6)} & Thời điểm bắt đầu hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{ends\_at}} & \texttt{datetime(6)} & Thời điểm kết thúc hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{promotion\_products} (Sản phẩm áp dụng khuyến mãi)}
+    \label{tab:data-dictionary-promotion-products} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{promotion\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{promotions.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{active}} & \texttt{boolean} & Cho biết bản ghi đang hoạt động. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{promotion\_categories} (Danh mục áp dụng khuyến mãi)}
+    \label{tab:data-dictionary-promotion-categories} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{promotion\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{promotions.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{category\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{categories.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{active}} & \texttt{boolean} & Cho biết bản ghi đang hoạt động. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{coupons} (Mã giảm giá)}
+    \label{tab:data-dictionary-coupons} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{code}} & \texttt{varchar(50)} & Mã giảm giá; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{name}} & \texttt{varchar(150)} & Tên; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{description}} & \texttt{text} & Nội dung mô tả. \\
+        \hline
+        \texttt{\seqsplit{discount\_type}} & \texttt{varchar(50)} & Loại giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{discount\_value}} & \texttt{decimal(12,2)} & Giá trị giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{max\_discount\_amount}} & \texttt{decimal(12,2)} & Số tiền giảm tối đa. \\
+        \hline
+        \texttt{\seqsplit{min\_order\_amount}} & \texttt{decimal(12,2)} & Giá trị đơn hàng tối thiểu; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{usage\_limit}} & \texttt{int} & Tổng số lượt sử dụng tối đa. \\
+        \hline
+        \texttt{\seqsplit{usage\_limit\_per\_user}} & \texttt{int} & Số lượt sử dụng tối đa cho mỗi người. \\
+        \hline
+        \texttt{\seqsplit{used\_count}} & \texttt{int} & Số lượt đã sử dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{customer\_scope}} & \texttt{varchar(50)} & Phạm vi khách hàng áp dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{eligible\_user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{customer\_segment}} & \texttt{varchar(100)} & Phân khúc khách hàng. \\
+        \hline
+        \texttt{\seqsplit{starts\_at}} & \texttt{datetime(6)} & Thời điểm bắt đầu hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{ends\_at}} & \texttt{datetime(6)} & Thời điểm kết thúc hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{coupon\_redemptions} (Lượt sử dụng mã giảm giá)}
+    \label{tab:data-dictionary-coupon-redemptions} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{coupon\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{coupons.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}. \\
+        \hline
+        \texttt{\seqsplit{redemption\_key}} & \texttt{varchar(100)} & Khóa duy nhất của lượt sử dụng; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{coupon\_code}} & \texttt{varchar(50)} & Mã coupon được chụp tại thời điểm sử dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{discount\_type}} & \texttt{varchar(50)} & Loại giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{discount\_value}} & \texttt{decimal(12,2)} & Giá trị giảm giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{discount\_amount}} & \texttt{decimal(12,2)} & Tổng số tiền được giảm; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{order\_amount}} & \texttt{decimal(12,2)} & Giá trị đơn tại thời điểm áp dụng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{redeemed\_at}} & \texttt{datetime(6)} & Thời điểm sử dụng. \\
+        \hline
+        \texttt{\seqsplit{cancelled\_at}} & \texttt{datetime(6)} & Thời điểm hủy. \\
+        \hline
+        \texttt{\seqsplit{cancel\_reason}} & \texttt{varchar(150)} & Lý do hủy lượt sử dụng. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}

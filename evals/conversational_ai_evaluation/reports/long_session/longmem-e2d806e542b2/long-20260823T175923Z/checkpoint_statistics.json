@@ -1,0 +1,86 @@
+{
+  "run_id": "longmem-e2d806e542b2",
+  "sessions": [
+    {
+      "case_id": "long-memory-01",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-02",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-03",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-04",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-05",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-06",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-07",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-08",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-09",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-10",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    }
+  ],
+  "note": "Counts are black-box checkpoint/compaction coverage statistics; no message content is stored."
+}

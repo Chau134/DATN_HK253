@@ -1,0 +1,728 @@
+{
+  "run_id": "text-v4-vector-no-rerank-20260830-latency",
+  "captured_at": "2026-08-30T22:54:03.277218+07:00",
+  "completed": true,
+  "service_instance_id": "9c5c22904e0a436dac862850e7f821a2",
+  "service_started_at": "2026-08-30T14:36:52.926793+00:00",
+  "base_url": "http://localhost:8000",
+  "endpoint": "/search/text",
+  "top_k": 20,
+  "execution": "sequential",
+  "latency_boundary": "client end-to-end POST /search/text, including response body read and JSON decode",
+  "percentile_method": "R-7 linear interpolation over successful requests",
+  "rerank_expected": false,
+  "rerank_observed": false,
+  "request_count": 100,
+  "successful_request_count": 100,
+  "failed_request_count": 0,
+  "total_latency_ms": {
+    "mean": 1285.728,
+    "p50": 1000.856,
+    "p95": 3838.283,
+    "p99": 4896.811,
+    "min": 19.577,
+    "max": 5889.924
+  },
+  "requests": [
+    {
+      "query_id": "text-q0001",
+      "query_type": "positive",
+      "latency_ms": 494.153,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0002",
+      "query_type": "positive",
+      "latency_ms": 4779.202,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0003",
+      "query_type": "positive",
+      "latency_ms": 746.922,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0005",
+      "query_type": "positive",
+      "latency_ms": 1017.213,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0006",
+      "query_type": "positive",
+      "latency_ms": 2788.497,
+      "result_count": 6,
+      "success": true
+    },
+    {
+      "query_id": "text-q0007",
+      "query_type": "positive",
+      "latency_ms": 1261.988,
+      "result_count": 16,
+      "success": true
+    },
+    {
+      "query_id": "text-q0008",
+      "query_type": "positive",
+      "latency_ms": 793.972,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0009",
+      "query_type": "positive",
+      "latency_ms": 1020.393,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0010",
+      "query_type": "positive",
+      "latency_ms": 924.231,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0011",
+      "query_type": "positive",
+      "latency_ms": 1013.951,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0012",
+      "query_type": "positive",
+      "latency_ms": 961.17,
+      "result_count": 3,
+      "success": true
+    },
+    {
+      "query_id": "text-q0014",
+      "query_type": "positive",
+      "latency_ms": 1203.092,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-q0016",
+      "query_type": "positive",
+      "latency_ms": 923.079,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0018",
+      "query_type": "positive",
+      "latency_ms": 3300.503,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-q0019",
+      "query_type": "positive",
+      "latency_ms": 1080.757,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0020",
+      "query_type": "positive",
+      "latency_ms": 2243.583,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0021",
+      "query_type": "positive",
+      "latency_ms": 1233.534,
+      "result_count": 15,
+      "success": true
+    },
+    {
+      "query_id": "text-q0022",
+      "query_type": "positive",
+      "latency_ms": 925.833,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0023",
+      "query_type": "positive",
+      "latency_ms": 796.744,
+      "result_count": 3,
+      "success": true
+    },
+    {
+      "query_id": "text-q0024",
+      "query_type": "positive",
+      "latency_ms": 1179.628,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0026",
+      "query_type": "positive",
+      "latency_ms": 3812.917,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0028",
+      "query_type": "positive",
+      "latency_ms": 1246.352,
+      "result_count": 7,
+      "success": true
+    },
+    {
+      "query_id": "text-q0029",
+      "query_type": "positive",
+      "latency_ms": 717.051,
+      "result_count": 3,
+      "success": true
+    },
+    {
+      "query_id": "text-q0030",
+      "query_type": "positive",
+      "latency_ms": 1015.552,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-q0031",
+      "query_type": "positive",
+      "latency_ms": 1077.624,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-q0033",
+      "query_type": "positive",
+      "latency_ms": 927.282,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0034",
+      "query_type": "positive",
+      "latency_ms": 981.238,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-q0035",
+      "query_type": "positive",
+      "latency_ms": 915.918,
+      "result_count": 7,
+      "success": true
+    },
+    {
+      "query_id": "text-q0036",
+      "query_type": "positive",
+      "latency_ms": 1035.581,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0039",
+      "query_type": "positive",
+      "latency_ms": 1180.263,
+      "result_count": 4,
+      "success": true
+    },
+    {
+      "query_id": "text-q0040",
+      "query_type": "positive",
+      "latency_ms": 724.02,
+      "result_count": 15,
+      "success": true
+    },
+    {
+      "query_id": "text-q0042",
+      "query_type": "positive",
+      "latency_ms": 2403.316,
+      "result_count": 12,
+      "success": true
+    },
+    {
+      "query_id": "text-q0043",
+      "query_type": "positive",
+      "latency_ms": 4320.231,
+      "result_count": 2,
+      "success": true
+    },
+    {
+      "query_id": "text-q0044",
+      "query_type": "positive",
+      "latency_ms": 3345.095,
+      "result_count": 5,
+      "success": true
+    },
+    {
+      "query_id": "text-q0046",
+      "query_type": "positive",
+      "latency_ms": 840.464,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0047",
+      "query_type": "positive",
+      "latency_ms": 1143.125,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0048",
+      "query_type": "positive",
+      "latency_ms": 3565.866,
+      "result_count": 2,
+      "success": true
+    },
+    {
+      "query_id": "text-q0049",
+      "query_type": "positive",
+      "latency_ms": 4835.41,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0051",
+      "query_type": "positive",
+      "latency_ms": 1008.999,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0054",
+      "query_type": "positive",
+      "latency_ms": 939.727,
+      "result_count": 2,
+      "success": true
+    },
+    {
+      "query_id": "text-q0057",
+      "query_type": "positive",
+      "latency_ms": 981.551,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0058",
+      "query_type": "positive",
+      "latency_ms": 1067.892,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0059",
+      "query_type": "positive",
+      "latency_ms": 878.449,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-q0062",
+      "query_type": "positive",
+      "latency_ms": 5889.924,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0063",
+      "query_type": "positive",
+      "latency_ms": 958.006,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0065",
+      "query_type": "positive",
+      "latency_ms": 906.747,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0066",
+      "query_type": "positive",
+      "latency_ms": 900.453,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0068",
+      "query_type": "positive",
+      "latency_ms": 3216.099,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0073",
+      "query_type": "positive",
+      "latency_ms": 1016.573,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0074",
+      "query_type": "positive",
+      "latency_ms": 4886.78,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0075",
+      "query_type": "positive",
+      "latency_ms": 1009.388,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0077",
+      "query_type": "positive",
+      "latency_ms": 945.724,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-q0078",
+      "query_type": "positive",
+      "latency_ms": 810.473,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-q0080",
+      "query_type": "positive",
+      "latency_ms": 3012.442,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0081",
+      "query_type": "positive",
+      "latency_ms": 1040.512,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0082",
+      "query_type": "positive",
+      "latency_ms": 924.18,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0084",
+      "query_type": "positive",
+      "latency_ms": 1011.35,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0085",
+      "query_type": "positive",
+      "latency_ms": 971.642,
+      "result_count": 7,
+      "success": true
+    },
+    {
+      "query_id": "text-q0087",
+      "query_type": "positive",
+      "latency_ms": 1028.861,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-q0089",
+      "query_type": "positive",
+      "latency_ms": 942.542,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-q0091",
+      "query_type": "negative",
+      "latency_ms": 25.192,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0092",
+      "query_type": "negative",
+      "latency_ms": 19.577,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0093",
+      "query_type": "negative",
+      "latency_ms": 128.76,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0094",
+      "query_type": "negative",
+      "latency_ms": 46.514,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0095",
+      "query_type": "negative",
+      "latency_ms": 32.775,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0096",
+      "query_type": "negative",
+      "latency_ms": 19.779,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0097",
+      "query_type": "negative",
+      "latency_ms": 24.795,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0098",
+      "query_type": "negative",
+      "latency_ms": 34.957,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0099",
+      "query_type": "negative",
+      "latency_ms": 19.828,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-q0100",
+      "query_type": "negative",
+      "latency_ms": 58.852,
+      "result_count": 0,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0001",
+      "query_type": "positive",
+      "latency_ms": 327.167,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0002",
+      "query_type": "positive",
+      "latency_ms": 993.363,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0003",
+      "query_type": "positive",
+      "latency_ms": 1245.49,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0004",
+      "query_type": "positive",
+      "latency_ms": 879.284,
+      "result_count": 15,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0005",
+      "query_type": "positive",
+      "latency_ms": 746.81,
+      "result_count": 3,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0006",
+      "query_type": "positive",
+      "latency_ms": 1053.544,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0007",
+      "query_type": "positive",
+      "latency_ms": 1110.693,
+      "result_count": 5,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0008",
+      "query_type": "positive",
+      "latency_ms": 867.6,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0009",
+      "query_type": "positive",
+      "latency_ms": 908.494,
+      "result_count": 14,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0010",
+      "query_type": "positive",
+      "latency_ms": 1018.575,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0011",
+      "query_type": "positive",
+      "latency_ms": 919.238,
+      "result_count": 6,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0012",
+      "query_type": "positive",
+      "latency_ms": 1030.235,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0013",
+      "query_type": "positive",
+      "latency_ms": 949.404,
+      "result_count": 12,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0014",
+      "query_type": "positive",
+      "latency_ms": 955.834,
+      "result_count": 2,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0015",
+      "query_type": "positive",
+      "latency_ms": 1047.806,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0016",
+      "query_type": "positive",
+      "latency_ms": 1406.684,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0017",
+      "query_type": "positive",
+      "latency_ms": 542.436,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0018",
+      "query_type": "positive",
+      "latency_ms": 3422.673,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0019",
+      "query_type": "positive",
+      "latency_ms": 1185.873,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0020",
+      "query_type": "positive",
+      "latency_ms": 652.83,
+      "result_count": 7,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0021",
+      "query_type": "positive",
+      "latency_ms": 1040.19,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0022",
+      "query_type": "positive",
+      "latency_ms": 1361.74,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0023",
+      "query_type": "positive",
+      "latency_ms": 754.515,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0024",
+      "query_type": "positive",
+      "latency_ms": 792.011,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0025",
+      "query_type": "positive",
+      "latency_ms": 1133.664,
+      "result_count": 1,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0026",
+      "query_type": "positive",
+      "latency_ms": 1280.306,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0027",
+      "query_type": "positive",
+      "latency_ms": 680.91,
+      "result_count": 2,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0028",
+      "query_type": "positive",
+      "latency_ms": 1008.349,
+      "result_count": 5,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0029",
+      "query_type": "positive",
+      "latency_ms": 1099.0,
+      "result_count": 20,
+      "success": true
+    },
+    {
+      "query_id": "text-sem-v1-q0030",
+      "query_type": "positive",
+      "latency_ms": 622.941,
+      "result_count": 1,
+      "success": true
+    }
+  ]
+}

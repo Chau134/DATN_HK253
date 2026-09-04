@@ -1,0 +1,75 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.*
+!.env.example
+.secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/timing.properties
+
+# Logs and runtime files
+*.log
+logs/
+tmp/
+temp/
+frontend/.git-backup/
+frontend/playwright-report/
+frontend/test-results/
+
+# Local data and database dumps
+data/
+qdrant_storage/
+qdrant_storage_*/
+service-ai/backups/
+*_dump.sql
+*.dump
+*.bak
+
+# Ensure database directory SQL files are tracked
+!database/*.sql
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.lol
+*.lot
+*.run.xml
+*.synctex.gz
+*.toc
+*.fdb_latexmk
+*.fls
+# Hybrid ground-truth visual review cache
+evals/search_evaluation/hybrid/reports/review/asset_cache/
+evals/search_evaluation/hybrid/reports/review/contact_sheets/

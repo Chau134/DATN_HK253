@@ -1,0 +1,44 @@
+%=========================
+% main.tex
+% Template LaTeX HCMUT - báo cáo đồ án tốt nghiệp
+% Cấu trúc nội dung đã được map theo mục lục yêu cầu.
+% Compile: pdfLaTeX -> Biber -> pdfLaTeX -> pdfLaTeX
+%=========================
+\documentclass[a4paper,12pt]{article}
+
+%========== Cấu hình ==========
+\input{Preamble/packages}
+\input{Preamble/metadata}
+\input{Preamble/listings}
+\input{Preamble/bibliography}
+\input{Preamble/style}
+
+\hypersetup{
+  pdftitle={\ReportTitle},
+  pdfauthor={\ReportAuthors}
+}
+\begin{document}
+
+%========== Bìa + phần đầu ==========
+\input{FrontMatter/cover}
+\input{FrontMatter/lists}
+
+%========== Nội dung chính theo mục lục đã map =========
+\input{Sections/00-Guideline}
+\input{Sections/01-GioiThieu}
+\input{Sections/02-KienThucNenTang}
+\input{Sections/03-CongNgheSuDung}
+\input{Sections/05-KhaiThacYeuCau}
+\input{Sections/06-PhanTichHeThong}
+\input{Sections/07-ThietKeHeThong}
+\input{Sections/08-CaiDatHeThong}
+\input{Sections/04-CongTrinhLienQuan}
+\input{Sections/09-DanhGiaHeThong}
+\input{Sections/10-KetLuan}
+
+%========== Tài liệu tham khảo ==========
+\clearpage
+\pagenumbering{gobble}
+\phantomsection
+\printbibliography[heading=bibintoc,title={Tài liệu tham khảo}]
+\end{document}

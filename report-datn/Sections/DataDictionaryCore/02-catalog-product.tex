@@ -1,0 +1,168 @@
+Bảng~\ref{tab:data-summary-catalog-product} tóm tắt chức năng của các bảng trong nhóm. Chỉ các bảng cốt lõi, đại diện trực tiếp cho luồng nghiệp vụ chính, được mô tả chi tiết trường dữ liệu.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.34\textwidth}|>{\RaggedRight\arraybackslash}p{0.56\textwidth}|}
+    \caption{Các bảng thuộc nhóm danh mục và sản phẩm}
+    \label{tab:data-summary-catalog-product} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endfirsthead
+    \multicolumn{2}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endhead
+    \texttt{products} & Sản phẩm. \\
+    \hline
+    \texttt{categories} & Danh mục sản phẩm. \\
+    \hline
+    \texttt{product\_categories} & Liên kết sản phẩm--danh mục. \\
+    \hline
+    \texttt{product\_variants} & Biến thể sản phẩm. \\
+    \hline
+    \texttt{product\_attributes} & Thuộc tính sản phẩm. \\
+    \hline
+    \texttt{product\_images} & Hình ảnh sản phẩm. \\
+    \hline
+    \texttt{product\_prices} & Giá sản phẩm. \\
+    \hline
+\end{longtable}
+
+\paragraph{Các bảng cốt lõi.}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{products} (Sản phẩm)}
+    \label{tab:data-dictionary-products} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính. \\
+        \hline
+        \texttt{\seqsplit{age\_group}} & \texttt{varchar(100)} & Nhóm tuổi của sản phẩm. \\
+        \hline
+        \texttt{\seqsplit{age\_group\_vi}} & \texttt{varchar(100)} & Nhóm tuổi bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{article\_number}} & \texttt{varchar(100)} & Mã bài hàng của sản phẩm. \\
+        \hline
+        \texttt{\seqsplit{base\_colour}} & \texttt{varchar(100)} & Màu cơ bản. \\
+        \hline
+        \texttt{\seqsplit{base\_colour\_vi}} & \texttt{varchar(100)} & Màu cơ bản bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{brand\_name}} & \texttt{varchar(150)} & Tên thương hiệu. \\
+        \hline
+        \texttt{\seqsplit{catalog\_add\_date}} & \texttt{datetime(6)} & Thời điểm sản phẩm được thêm vào danh mục. \\
+        \hline
+        \texttt{\seqsplit{colour1}} & \texttt{varchar(100)} & Màu thứ nhất. \\
+        \hline
+        \texttt{\seqsplit{colour1\_vi}} & \texttt{varchar(100)} & Màu thứ nhất bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{colour2}} & \texttt{varchar(100)} & Màu thứ hai. \\
+        \hline
+        \texttt{\seqsplit{colour2\_vi}} & \texttt{varchar(100)} & Màu thứ hai bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{description}} & \texttt{text} & Nội dung mô tả. \\
+        \hline
+        \texttt{\seqsplit{description\_vi}} & \texttt{text} & Mô tả bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{external\_id}} & \texttt{bigint} & Định danh sản phẩm tại nguồn ngoài. \\
+        \hline
+        \texttt{\seqsplit{fit}} & \texttt{varchar(150)} & Kiểu dáng. \\
+        \hline
+        \texttt{\seqsplit{fit\_vi}} & \texttt{varchar(150)} & Kiểu dáng bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{gender}} & \texttt{varchar(50)} & Giới tính. \\
+        \hline
+        \texttt{\seqsplit{gender\_vi}} & \texttt{varchar(50)} & Giới tính bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{main\_image}} & \texttt{text} & Đường dẫn ảnh đại diện chính. \\
+        \hline
+        \texttt{\seqsplit{material}} & \texttt{varchar(150)} & Chất liệu. \\
+        \hline
+        \texttt{\seqsplit{material\_vi}} & \texttt{varchar(150)} & Chất liệu bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{product\_display\_name}} & \texttt{varchar(255)} & Tên hiển thị của sản phẩm; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_display\_name\_vi}} & \texttt{varchar(255)} & Tên hiển thị bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{product\_usage}} & \texttt{varchar(100)} & Mục đích sử dụng. \\
+        \hline
+        \texttt{\seqsplit{product\_usage\_vi}} & \texttt{varchar(100)} & Mục đích sử dụng bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{season}} & \texttt{varchar(50)} & Mùa sử dụng. \\
+        \hline
+        \texttt{\seqsplit{season\_vi}} & \texttt{varchar(50)} & Mùa sử dụng bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+        \texttt{\seqsplit{variant\_name}} & \texttt{varchar(255)} & Tên biến thể. \\
+        \hline
+        \texttt{\seqsplit{variant\_name\_vi}} & \texttt{varchar(255)} & Tên biến thể bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{year}} & \texttt{int} & Năm của mẫu sản phẩm. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{categories} (Danh mục sản phẩm)}
+    \label{tab:data-dictionary-categories} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{source\_category\_id}} & \texttt{bigint} & Định danh danh mục tại nguồn dữ liệu ngoài. \\
+        \hline
+        \texttt{\seqsplit{category\_level}} & \texttt{varchar(50)} & Cấp của danh mục; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{category\_name}} & \texttt{varchar(150)} & Tên danh mục; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{is\_active}} & \texttt{boolean} & Cho biết danh mục đang được kích hoạt và có thể sử dụng. \\
+        \hline
+        \texttt{\seqsplit{category\_name\_vi}} & \texttt{varchar(150)} & Tên danh mục bằng tiếng Việt. \\
+        \hline
+        \texttt{\seqsplit{parent\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{categories.id}. \\
+        \hline
+        \texttt{\seqsplit{canonical\_code}} & \texttt{varchar(100)} & Mã chuẩn duy nhất của danh mục; duy nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{product\_images} (Hình ảnh sản phẩm)}
+    \label{tab:data-dictionary-product-images} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{image\_type}} & \texttt{varchar(50)} & Loại hình ảnh; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{image\_url}} & \texttt{text} & Đường dẫn hình ảnh; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{sort\_order}} & \texttt{int} & Thứ tự hiển thị. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{timestamp} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}
+

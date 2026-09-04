@@ -1,0 +1,11 @@
+﻿dimension,group,question_count,rule_based_grounding_score,token_f1_relevancy,context_precision,context_recall,context_precision_product_id_proxy,context_recall_product_id_proxy
+category,filter_refinement,10,1.0,0.6664682,0.8,1.0,,
+category,followup_ordinal,10,1.0,0.6522711,0.9333332999999999,1.0,,
+category,product_comparison,10,1.0,0.8960827,1.0,1.0,,
+category,product_factual,20,1.0,0.9855277499999999,1.0,1.0,,
+category,product_recommendation,20,1.0,0.7376146,0.9333333500000001,1.0,,
+category,shop_knowledge,8,1.0,0.90272675,,,,
+category,unanswerable,2,1.0,1.0,1.0,1.0,,
+difficulty,easy,22,1.0,0.983813090909091,1.0,1.0,,
+difficulty,hard,12,1.0,0.6381895000000001,1.0,1.0,,
+difficulty,medium,46,1.0,0.7941460652173913,0.925,1.0,,

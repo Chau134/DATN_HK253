@@ -1,0 +1,32 @@
+{
+  "version": "long-session-v1",
+  "seed": 42,
+  "thresholds": {
+    "min_completed_session_rate": 1.0,
+    "min_http_success_rate": 1.0,
+    "min_nonempty_response_rate": 1.0,
+    "min_early_recall": 0.95,
+    "min_middle_recall": 0.95,
+    "min_recent_recall": 0.95,
+    "min_correction_supersedes_old_value": 1.0,
+    "min_reference_resolution": 0.95,
+    "min_cross_session_preference_recall": 0.95,
+    "min_session_isolation": 1.0,
+    "max_false_memory_rate": 0.0,
+    "max_unsupported_availability_claim_rate": 0.0,
+    "max_p95_latency_seconds": 30.0,
+    "max_late_to_early_latency_ratio": 2.0
+  },
+  "sessions": [
+    {"case_id": "long-memory-01", "budget": "700", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-02", "budget": "750", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-03", "budget": "800", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-04", "budget": "650", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-05", "budget": "720", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-06", "budget": "680", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-07", "budget": "780", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-08", "budget": "690", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-09", "budget": "730", "initial_color": "đen", "corrected_color": "xanh"},
+    {"case_id": "long-memory-10", "budget": "760", "initial_color": "đen", "corrected_color": "xanh"}
+  ]
+}

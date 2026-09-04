@@ -1,0 +1,135 @@
+{
+  "run_context": {
+    "run_id": "text-search-100-products-20260727-typo-recovery-v1",
+    "started_at": "2026-07-27T12:25:32.560090+00:00",
+    "endpoint": "http://localhost:8080/api/search/ai/text",
+    "ai_health_url": "http://localhost:8000/health/ready/text_search",
+    "ai_readiness_status": 200,
+    "ai_readiness": {
+      "ready": true,
+      "models": {
+        "text_embedding": true,
+        "image_embedding": true,
+        "llm": true,
+        "yolo": false
+      },
+      "capabilities": {
+        "text_search": true,
+        "image_search": true,
+        "assistant_llm": true
+      },
+      "capability": "text_search",
+      "instance_id": "cd2c18f0efe84655bb4c3881f48d0a36",
+      "started_at": "2026-07-27T12:13:17.701168+00:00"
+    },
+    "service_instance_id": "cd2c18f0efe84655bb4c3881f48d0a36",
+    "service_started_at": "2026-07-27T12:13:17.701168+00:00",
+    "preflight_smoke": {
+      "service_ai": {
+        "url": "http://localhost:8000/search/text",
+        "status_code": 200,
+        "latency_ms": 2498.967,
+        "sources": [
+          "text"
+        ],
+        "warnings": [],
+        "valid": true
+      },
+      "public_api": {
+        "url": "http://localhost:8080/api/search/ai/text",
+        "status_code": 200,
+        "latency_ms": 1017.688,
+        "sources": [
+          "text"
+        ],
+        "warnings": [],
+        "valid": true
+      },
+      "valid": true
+    },
+    "validity": "VALID",
+    "collection_name": "product_text_vectors_cohere_embed_v4_1536_metadata_v4",
+    "search_config": {
+      "top_k": 5,
+      "timeout_seconds": 30,
+      "health_check_every": 10,
+      "max_consecutive_fallbacks": 1,
+      "max_fallback_rate": 0.0
+    },
+    "completed_query_count": 100
+  },
+  "run_validity": "VALID",
+  "test_scope": "100-product deterministic robustness suite: accentless, conversational, reordered-keyword, and minor-typo queries",
+  "query_count": 100,
+  "test_type_counts": {
+    "accentless_title": 25,
+    "conversational_title": 25,
+    "reordered_keywords": 25,
+    "minor_typo": 25
+  },
+  "metrics_by_test_type": {
+    "accentless_title": {
+      "query_count": 25,
+      "hit_rate_at_1": 1.0,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.9885463822797982,
+      "empty_result_query_count": 0
+    },
+    "conversational_title": {
+      "query_count": 25,
+      "hit_rate_at_1": 1.0,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.974167733243538,
+      "empty_result_query_count": 0
+    },
+    "minor_typo": {
+      "query_count": 25,
+      "hit_rate_at_1": 0.96,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "mean_reciprocal_rank": 0.98,
+      "ndcg_at_5": 0.9778129704361223,
+      "empty_result_query_count": 0
+    },
+    "reordered_keywords": {
+      "query_count": 25,
+      "hit_rate_at_1": 1.0,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "ndcg_at_5": 0.9885811055707756,
+      "empty_result_query_count": 0
+    }
+  },
+  "http_success_count": 100,
+  "http_error_count": 0,
+  "hit_rate_at_1": 0.99,
+  "hit_rate_at_3": 1.0,
+  "hit_rate_at_5": 1.0,
+  "source_product_hit_rate_at_1": 0.95,
+  "source_product_hit_rate_at_5": 1.0,
+  "miss_count": 0,
+  "empty_result_query_count": 0,
+  "returned_result_count": 500,
+  "mean_results_per_query": 5.0,
+  "miss_filter_counts": {},
+  "mean_reciprocal_rank": 0.995,
+  "source_product_mean_reciprocal_rank": 0.975,
+  "semantic_ndcg_at_5": 0.9822770478825585,
+  "semantic_judgment_coverage_at_5": 1.0,
+  "duplicate_result_query_count": 0,
+  "mean_latency_ms": 1027.68512,
+  "p50_latency_ms": 998.901,
+  "p95_latency_ms": 1195.099,
+  "max_latency_ms": 7248.392,
+  "warning_counts": {},
+  "source_counts": {
+    "text": 500
+  },
+  "ai_service_degraded_query_count": 0,
+  "acceptance_gate_passed": true
+}

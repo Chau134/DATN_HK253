@@ -1,0 +1,20 @@
+{
+  "schema_version": "v4-reduced-100-rerank",
+  "mode": "text",
+  "query_count": 100,
+  "relevance_policy": "60_canonical_plus_30_reviewed_semantic_plus_10_negative",
+  "rerank": {
+    "enabled": true,
+    "model": "semantic-ranker-default@latest",
+    "top_k": 20,
+    "timeout_seconds": 10
+  },
+  "paths": {
+    "products_csv": "data/product_snapshot.csv",
+    "query_set_csv": "data/text_queries_v4_reduced.csv",
+    "ground_truth_csv": "data/ground_truth_text_v4_reduced.csv",
+    "search_results_csv": "data/search_results_text_v4_reduced_rerank.csv",
+    "metrics_json": "reports/metrics_text_v4_reduced_rerank.json",
+    "metrics_csv": "reports/metrics_text_v4_reduced_rerank.csv"
+  }
+}

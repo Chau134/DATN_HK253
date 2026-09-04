@@ -1,0 +1,18 @@
+{
+  "reviewed_at_utc": "2026-08-28T13:38:58.670585+00:00",
+  "query_count": 100,
+  "reference_images_approved": 100,
+  "ground_truth_rows_approved": 633,
+  "grade_distribution": {
+    "0": 14,
+    "1": 480,
+    "2": 38,
+    "3": 101
+  },
+  "source_distribution": {
+    "approved_image_ground_truth_transfer": 154,
+    "controlled_counterfactual_visual_review": 100,
+    "metadata_hybrid_rule_v1": 379
+  },
+  "review_status": "approved"
+}

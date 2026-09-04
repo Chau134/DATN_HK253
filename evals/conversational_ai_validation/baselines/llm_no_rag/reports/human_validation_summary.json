@@ -1,0 +1,167 @@
+{
+  "status": "awaiting_review",
+  "provenance": "incomplete",
+  "report_eligible": false,
+  "sample_size": 80,
+  "acceptable_rating": 4,
+  "completed_by_reviewer": {
+    "reviewer_a": 0,
+    "reviewer_b": 0
+  },
+  "consensus_counts": {
+    "pending": 80
+  },
+  "overall_agreement": {
+    "case_count": 0,
+    "percent_agreement": null,
+    "cohen_kappa": null
+  },
+  "dimension_agreement": {
+    "factual_correctness": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "groundedness": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "answer_relevancy": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "completeness": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "task_success": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "context_retention": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "refusal_correctness": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    },
+    "helpfulness": {
+      "case_count": 0,
+      "exact_agreement": null,
+      "within_one": null,
+      "kappa_at_4": null
+    }
+  },
+  "breakdown": {
+    "category": {
+      "critical_policy": {
+        "case_count": 2,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "critical_price": {
+        "case_count": 4,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "critical_product": {
+        "case_count": 2,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "critical_stock": {
+        "case_count": 4,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "filter_refinement": {
+        "case_count": 10,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "followup_ordinal": {
+        "case_count": 10,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "product_comparison": {
+        "case_count": 8,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "product_factual": {
+        "case_count": 16,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "product_recommendation": {
+        "case_count": 14,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "shop_knowledge": {
+        "case_count": 8,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "unanswerable": {
+        "case_count": 2,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "case_count": 18,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "hard": {
+        "case_count": 24,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      },
+      "medium": {
+        "case_count": 38,
+        "consensus_case_count": 0,
+        "acceptance_rate": null,
+        "adjudication_count": 0
+      }
+    }
+  },
+  "token_f1_calibration": {
+    "eligible_consensus_cases": 0,
+    "current_threshold": 0.7,
+    "current_threshold_performance": null,
+    "recommended_threshold": null,
+    "selection_rule": "maximize balanced accuracy, then F1, precision, and threshold",
+    "warning": "Need completed consensus labels containing both acceptable and unacceptable cases."
+  }
+}

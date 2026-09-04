@@ -1,0 +1,97 @@
+% Tệp được tách theo nhóm để duy trì từ điển dữ liệu của Chương 6.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{inventory\_reservations} (Giữ tồn kho)}
+    \label{tab:data-dictionary-inventory-reservations} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_variant\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{product\_variants.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{cart\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{carts.id}. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}. \\
+        \hline
+        \texttt{\seqsplit{reservation\_key}} & \texttt{varchar(100)} & Khóa duy nhất chống giữ tồn kho trùng; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{quantity}} & \texttt{int} & Số lượng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{reserved\_at}} & \texttt{datetime(6)} & Thời điểm giữ hàng. \\
+        \hline
+        \texttt{\seqsplit{expires\_at}} & \texttt{datetime(6)} & Thời điểm hết hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{consumed\_at}} & \texttt{datetime(6)} & Thời điểm phần giữ hàng được sử dụng. \\
+        \hline
+        \texttt{\seqsplit{released\_at}} & \texttt{datetime(6)} & Thời điểm giải phóng phần giữ hàng. \\
+        \hline
+        \texttt{\seqsplit{release\_reason}} & \texttt{varchar(150)} & Lý do giải phóng. \\
+        \hline
+        \texttt{\seqsplit{note}} & \texttt{text} & Ghi chú. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{inventory\_movements} (Biến động tồn kho)}
+    \label{tab:data-dictionary-inventory-movements} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}. \\
+        \hline
+        \texttt{\seqsplit{product\_variant\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{product\_variants.id}. \\
+        \hline
+        \texttt{\seqsplit{reservation\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{inventory\_reservations.id}. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}. \\
+        \hline
+        \texttt{\seqsplit{order\_item\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{order\_items.id}. \\
+        \hline
+        \texttt{\seqsplit{changed\_by\_user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{movement\_type}} & \texttt{varchar(50)} & Loại biến động tồn kho; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{quantity\_delta}} & \texttt{int} & Lượng tồn kho thay đổi; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{quantity\_before}} & \texttt{int} & Số lượng trước biến động. \\
+        \hline
+        \texttt{\seqsplit{quantity\_after}} & \texttt{int} & Số lượng sau biến động. \\
+        \hline
+        \texttt{\seqsplit{reference\_type}} & \texttt{varchar(50)} & Loại đối tượng nghiệp vụ tham chiếu. \\
+        \hline
+        \texttt{\seqsplit{reference\_id}} & \texttt{varchar(100)} & Định danh đối tượng nghiệp vụ tham chiếu. \\
+        \hline
+        \texttt{\seqsplit{idempotency\_key}} & \texttt{varchar(100)} & Khóa duy nhất chống xử lý lặp; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{reason}} & \texttt{varchar(150)} & Lý do. \\
+        \hline
+        \texttt{\seqsplit{note}} & \texttt{text} & Ghi chú. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}

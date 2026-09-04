@@ -1,0 +1,197 @@
+% Tệp được tách theo nhóm để duy trì từ điển dữ liệu của Chương 6.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{ai\_sync\_job} (Công việc đồng bộ AI)}
+    \label{tab:data-dictionary-ai-sync-job} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{job\_id}} & \texttt{varchar(36)} & Khóa chính. \\
+        \hline
+        \texttt{\seqsplit{sync\_type}} & \texttt{varchar(50)} & Loại tác vụ đồng bộ; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{requested\_limit}} & \texttt{int} & Số lượng bản ghi tối đa được yêu cầu xử lý. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(20)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{result\_json}} & \texttt{text} & Kết quả tác vụ ở định dạng JSON. \\
+        \hline
+        \texttt{\seqsplit{error\_message}} & \texttt{varchar(255)} & Thông báo lỗi khi xử lý. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{timestamp(6)} & Thời điểm tạo bản ghi; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{started\_at}} & \texttt{timestamp(6)} & Thời điểm bắt đầu xử lý. \\
+        \hline
+        \texttt{\seqsplit{completed\_at}} & \texttt{timestamp(6)} & Thời điểm hoàn tất xử lý. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{timestamp(6)} & Thời điểm cập nhật gần nhất; bắt buộc. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{ai\_sync\_state} (Trạng thái đồng bộ AI)}
+    \label{tab:data-dictionary-ai-sync-state} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{sync\_name}} & \texttt{varchar(100)} & Tên duy nhất của tiến trình đồng bộ; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{last\_success\_at}} & \texttt{timestamp(6)} & Thời điểm đồng bộ thành công gần nhất. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{timestamp(6)} & Thời điểm cập nhật gần nhất; bắt buộc. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{chat\_sessions} (Phiên hội thoại)}
+    \label{tab:data-dictionary-chat-sessions} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{session\_key}} & \texttt{varchar(120)} & Khóa duy nhất của phiên hội thoại; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{external\_user\_id}} & \texttt{varchar(120)} & Định danh khách chưa đăng nhập. \\
+        \hline
+        \texttt{\seqsplit{locale}} & \texttt{varchar(20)} & Ngôn ngữ của phiên; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{last\_message\_at}} & \texttt{datetime(6)} & Thời điểm có tin nhắn gần nhất. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{chat\_messages} (Tin nhắn hội thoại)}
+    \label{tab:data-dictionary-chat-messages} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{chat\_session\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{chat\_sessions.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{external\_user\_id}} & \texttt{varchar(120)} & Định danh khách chưa đăng nhập. \\
+        \hline
+        \texttt{\seqsplit{user\_message}} & \texttt{text} & Nội dung người dùng gửi. \\
+        \hline
+        \texttt{\seqsplit{assistant\_message}} & \texttt{text} & Nội dung trợ lý trả lời. \\
+        \hline
+        \texttt{\seqsplit{image\_present}} & \texttt{boolean} & Cho biết yêu cầu có kèm hình ảnh; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{image\_metadata}} & \texttt{text} & Siêu dữ liệu của hình ảnh. \\
+        \hline
+        \texttt{\seqsplit{filters\_json}} & \texttt{text} & Bộ lọc tìm kiếm ở định dạng JSON. \\
+        \hline
+        \texttt{\seqsplit{rewritten\_query}} & \texttt{varchar(1000)} & Truy vấn đã được AI viết lại. \\
+        \hline
+        \texttt{\seqsplit{warnings\_json}} & \texttt{text} & Danh sách cảnh báo ở định dạng JSON. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{chat\_message\_products} (Sản phẩm trong câu trả lời)}
+    \label{tab:data-dictionary-chat-message-products} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{chat\_message\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{chat\_messages.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}. \\
+        \hline
+        \texttt{\seqsplit{ai\_product\_id}} & \texttt{varchar(120)} & Định danh sản phẩm do dịch vụ AI trả về; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{rank\_position}} & \texttt{int} & Thứ hạng sản phẩm trong câu trả lời; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{score}} & \texttt{decimal(12,6)} & Điểm liên quan do AI trả về. \\
+        \hline
+        \texttt{\seqsplit{source}} & \texttt{varchar(50)} & Nguồn tạo kết quả. \\
+        \hline
+        \texttt{\seqsplit{product\_snapshot\_json}} & \texttt{text} & Bản chụp dữ liệu sản phẩm ở định dạng JSON. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{chat\_feedback} (Phản hồi hội thoại)}
+    \label{tab:data-dictionary-chat-feedback} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{chat\_message\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{chat\_messages.id}; bắt buộc; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{external\_user\_id}} & \texttt{varchar(120)} & Định danh khách chưa đăng nhập. \\
+        \hline
+        \texttt{\seqsplit{rating}} & \texttt{int} & Điểm đánh giá. \\
+        \hline
+        \texttt{\seqsplit{helpful}} & \texttt{boolean} & Cho biết câu trả lời hữu ích. \\
+        \hline
+        \texttt{\seqsplit{feedback\_type}} & \texttt{varchar(50)} & Loại phản hồi. \\
+        \hline
+        \texttt{\seqsplit{comment}} & \texttt{text} & Nội dung nhận xét. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}

@@ -1,0 +1,16 @@
+steps:
+  - name: gcr.io/kaniko-project/executor:latest
+    args:
+      - --dockerfile=Dockerfile
+      - --context=dir:///workspace
+      - --destination=asia-southeast1-docker.pkg.dev/$PROJECT_ID/dacn/service-ai:${_IMAGE_TAG}
+      - --cache=true
+      - --cache-repo=asia-southeast1-docker.pkg.dev/$PROJECT_ID/dacn/service-ai-cache
+      - --snapshot-mode=redo
+      - --use-new-run
+      - --compressed-caching=false
+options:
+  machineType: E2_HIGHCPU_8
+  diskSizeGb: 200
+substitutions:
+  _IMAGE_TAG: dev

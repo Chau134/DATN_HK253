@@ -1,0 +1,34 @@
+{
+  "mode": "multimodal",
+  "query_count": 100,
+  "sampling_seed": 42,
+  "max_products": 5000,
+  "min_queries_per_category": 5,
+  "max_queries_per_category": 20,
+  "min_candidates_per_query": 1,
+  "min_non_self_candidates_per_query": 1,
+  "manual_review_ratio": 0.2,
+  "difficulty_distribution": {
+    "easy": 34,
+    "medium": 33,
+    "hard": 33
+  },
+  "transformation_distribution": {
+    "color": 17,
+    "material": 17,
+    "usage": 17,
+    "price": 16,
+    "color_material": 11,
+    "color_usage": 11,
+    "material_usage": 11
+  },
+  "paths": {
+    "products_csv": "data/product_snapshot.csv",
+    "image_queries_csv": "../image/data/image_queries.csv",
+    "reference_image_requirements_csv": "data/reference_image_requirements.csv",
+    "sampled_items_csv": "data/sampled_multimodal_items.csv",
+    "query_set_csv": "data/multimodal_queries.csv",
+    "ground_truth_candidates_csv": "data/ground_truth_multimodal_candidates.csv",
+    "ground_truth_csv": "data/ground_truth_multimodal.csv"
+  }
+}

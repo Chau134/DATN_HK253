@@ -1,0 +1,190 @@
+{
+  "question_count": 80,
+  "metrics": {
+    "rule_based_grounding_score": 0.8239584750000001,
+    "token_f1_relevancy": 0.38912255,
+    "context_precision": 0.034482758620689655,
+    "context_recall": 0.034482758620689655,
+    "context_precision_product_id_proxy": null,
+    "context_recall_product_id_proxy": null
+  },
+  "thresholds": {
+    "rule_based_grounding_score": 0.85,
+    "token_f1_relevancy": 0.7,
+    "context_precision": 0.6,
+    "context_recall": 0.8
+  },
+  "threshold_checks": {
+    "rule_based_grounding_score": false,
+    "token_f1_relevancy": false,
+    "context_precision": false,
+    "context_recall": false
+  },
+  "acceptance_passed": false,
+  "context_modes": [
+    "full_context"
+  ],
+  "full_context_count": 80,
+  "context_release_gate_enabled": true,
+  "release_gate_metrics": [
+    "rule_based_grounding_score",
+    "token_f1_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "diagnostic_metrics": [
+    "context_precision_product_id_proxy",
+    "context_recall_product_id_proxy"
+  ],
+  "run_metadata": {
+    "generated_at": "2026-08-27T04:35:33.451096+00:00",
+    "commit_sha": "f5b474119df3a184c7471991b2892606a97f881b",
+    "catalog_snapshot": "C:\\A\\DACN_HK252\\evals\\conversational_ai_validation\\data\\master_80\\product_snapshot.csv",
+    "qdrant_collection": "unknown",
+    "model_config": "runtime-environment",
+    "embedding_config": "runtime-environment",
+    "reranker_config": "runtime-environment",
+    "endpoint": "http://localhost:8000/assistant/chat",
+    "seed": 252,
+    "execution_id": "master80-llm_no_rag-20260827T042853Z",
+    "evaluator_version": "rag-evaluator-v3",
+    "session_mode": "isolated_turns",
+    "context_modes": [
+      "full_context"
+    ]
+  },
+  "evaluator_version": "rag-evaluator-v4",
+  "measurement_note": "Context Precision/Recall gate release only when every case uses full_context; product-ID proxies remain diagnostic-only; source-less constraint turns are excluded from context aggregates (including deterministic shop-knowledge turns); unanswerable turns are scored by refusal behavior, and per-reference forbidden claims are enforced.",
+  "breakdown": {
+    "category": {
+      "critical_policy": {
+        "question_count": 2,
+        "rule_based_grounding_score": 0.75,
+        "token_f1_relevancy": 0.2765895,
+        "context_precision": null,
+        "context_recall": null,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "critical_price": {
+        "question_count": 4,
+        "rule_based_grounding_score": 0.75,
+        "token_f1_relevancy": 0.257348,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "critical_product": {
+        "question_count": 2,
+        "rule_based_grounding_score": 0.9166665,
+        "token_f1_relevancy": 0.6593665,
+        "context_precision": null,
+        "context_recall": null,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "critical_stock": {
+        "question_count": 4,
+        "rule_based_grounding_score": 0.75,
+        "token_f1_relevancy": 0.24249475,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "filter_refinement": {
+        "question_count": 10,
+        "rule_based_grounding_score": 0.9333334000000001,
+        "token_f1_relevancy": 0.48612530000000004,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "followup_ordinal": {
+        "question_count": 10,
+        "rule_based_grounding_score": 0.8666668,
+        "token_f1_relevancy": 0.5044698000000001,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "product_comparison": {
+        "question_count": 8,
+        "rule_based_grounding_score": 0.708333625,
+        "token_f1_relevancy": 0.2707,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "product_factual": {
+        "question_count": 16,
+        "rule_based_grounding_score": 0.8958334375,
+        "token_f1_relevancy": 0.544792,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "product_recommendation": {
+        "question_count": 14,
+        "rule_based_grounding_score": 0.8333335000000001,
+        "token_f1_relevancy": 0.36635935714285717,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "shop_knowledge": {
+        "question_count": 8,
+        "rule_based_grounding_score": 0.697917,
+        "token_f1_relevancy": 0.167658375,
+        "context_precision": null,
+        "context_recall": null,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "unanswerable": {
+        "question_count": 2,
+        "rule_based_grounding_score": 0.666667,
+        "token_f1_relevancy": 0.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "question_count": 18,
+        "rule_based_grounding_score": 0.8703705,
+        "token_f1_relevancy": 0.4957015,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "hard": {
+        "question_count": 24,
+        "rule_based_grounding_score": 0.833333375,
+        "token_f1_relevancy": 0.4105800416666667,
+        "context_precision": 0.2,
+        "context_recall": 0.2,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      },
+      "medium": {
+        "question_count": 38,
+        "rule_based_grounding_score": 0.7960528421052632,
+        "token_f1_relevancy": 0.3250856842105263,
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "context_precision_product_id_proxy": null,
+        "context_recall_product_id_proxy": null
+      }
+    }
+  }
+}

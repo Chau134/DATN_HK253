@@ -1,0 +1,32 @@
+{
+  "run_id": "keyword-bm25-v1",
+  "generated_at": "2026-08-26T05:11:40.926946+00:00",
+  "algorithm": "bm25_field_weighted",
+  "config": "C:\\A\\DACN_HK252\\evals\\search_evaluation\\keyword_baseline\\configs\\keyword_bm25.toml",
+  "products_csv": "C:\\A\\DACN_HK252\\evals\\search_evaluation\\text\\data\\product_snapshot.csv",
+  "query_set_csv": "C:\\A\\DACN_HK252\\evals\\search_evaluation\\text\\data\\text_queries_v2.csv",
+  "results_csv": "C:\\A\\DACN_HK252\\evals\\search_evaluation\\keyword_baseline\\data\\search_results_keyword_bm25.csv",
+  "product_count": 1000,
+  "query_count": 100,
+  "result_row_count": 1291,
+  "empty_query_count": 8,
+  "ranking": {
+    "top_k": 20,
+    "k1": 1.5,
+    "b": 0.75,
+    "minimum_token_coverage": 0.6,
+    "minimum_should_match": 1,
+    "field_weights": {
+      "product_name": 4,
+      "category": 3,
+      "brand": 2,
+      "color": 2,
+      "material": 2,
+      "gender": 1,
+      "price_bucket": 2,
+      "usage": 2,
+      "description": 1
+    }
+  },
+  "data_access_policy": "ranking reads query_id/query_text only; testcase facets and ground truth are not read"
+}

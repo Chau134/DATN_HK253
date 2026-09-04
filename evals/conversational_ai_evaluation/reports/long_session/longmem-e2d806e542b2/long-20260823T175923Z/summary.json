@@ -1,0 +1,158 @@
+{
+  "session_count": 10,
+  "completed_sessions": 10,
+  "total_requests": 230,
+  "metrics": {
+    "completed_session_rate": 1.0,
+    "http_success_rate": 1.0,
+    "nonempty_response_rate": 1.0,
+    "early_recall": 1.0,
+    "middle_recall": 1.0,
+    "recent_recall": 1.0,
+    "correction_supersedes_old_value": 1.0,
+    "reference_resolution": 1.0,
+    "cross_session_preference_recall": 1.0,
+    "session_isolation": 1.0,
+    "false_memory_rate": 0.0,
+    "unsupported_availability_claim_rate": 0.0,
+    "p95_latency_seconds": 4.375,
+    "late_to_early_latency_ratio": 0.8229
+  },
+  "probe_counts": {
+    "correction_supersedes_old_value": {
+      "passed": 10,
+      "total": 10
+    },
+    "cross_session_preference_recall": {
+      "passed": 10,
+      "total": 10
+    },
+    "early_recall": {
+      "passed": 20,
+      "total": 20
+    },
+    "false_memory": {
+      "passed": 10,
+      "total": 10
+    },
+    "middle_recall": {
+      "passed": 20,
+      "total": 20
+    },
+    "recent_recall": {
+      "passed": 10,
+      "total": 10
+    },
+    "reference_resolution": {
+      "passed": 20,
+      "total": 20
+    },
+    "session_isolation": {
+      "passed": 10,
+      "total": 10
+    }
+  },
+  "threshold_checks": {
+    "min_completed_session_rate": true,
+    "min_http_success_rate": true,
+    "min_nonempty_response_rate": true,
+    "min_early_recall": true,
+    "min_middle_recall": true,
+    "min_recent_recall": true,
+    "min_correction_supersedes_old_value": true,
+    "min_reference_resolution": true,
+    "min_cross_session_preference_recall": true,
+    "min_session_isolation": true,
+    "max_false_memory_rate": true,
+    "max_unsupported_availability_claim_rate": true,
+    "max_p95_latency_seconds": true,
+    "max_late_to_early_latency_ratio": true
+  },
+  "acceptance_passed": true,
+  "run_id": "longmem-e2d806e542b2",
+  "execution_id": "long-20260823T175923Z",
+  "config_version": "long-session-v1",
+  "seed": 42,
+  "session_statistics": [
+    {
+      "case_id": "long-memory-01",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-02",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-03",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-04",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-05",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-06",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-07",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-08",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-09",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    },
+    {
+      "case_id": "long-memory-10",
+      "turn_count": 20,
+      "completed": true,
+      "expected_compaction": true,
+      "http_success_count": 20,
+      "nonempty_count": 20
+    }
+  ]
+}

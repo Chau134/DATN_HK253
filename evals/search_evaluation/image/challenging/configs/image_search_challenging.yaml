@@ -1,0 +1,11 @@
+{
+    "mode":  "image",
+    "query_count":  100,
+    "pairing_key":  "query_id",
+    "query_condition":  "external_model_or_outdoor",
+    "paths":  {
+                  "query_set_csv":  "data/image_queries.csv",
+                  "search_results_csv":  "data/search_results_image_challenging.csv",
+                  "source_product_snapshot_csv":  "../data/product_snapshot.csv"
+              }
+}

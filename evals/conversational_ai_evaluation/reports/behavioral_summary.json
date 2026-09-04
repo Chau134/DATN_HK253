@@ -1,0 +1,18 @@
+{
+  "total_turns": 8,
+  "passed_turns": 8,
+  "failed_turns": 0,
+  "turn_pass_rate": 1.0,
+  "small_talk_no_retrieval_rate": 1.0,
+  "preference_recall_rate": 1.0,
+  "exact_small_talk_response_repeat_rate": 0.2,
+  "threshold_checks": {
+    "min_turn_pass_rate": true,
+    "min_small_talk_no_retrieval_rate": true,
+    "min_preference_recall_rate": true,
+    "max_exact_small_talk_response_repeat_rate": true
+  },
+  "thresholds_passed": true,
+  "execution_id": "behavior-20260823T181016Z",
+  "endpoint": "http://127.0.0.1:8000/assistant/chat"
+}

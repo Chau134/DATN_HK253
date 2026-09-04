@@ -1,0 +1,122 @@
+﻿{
+  "run_id": "E2E-03-HYBRID-WHITE-20260830-084859",
+  "executed_at": "2026-08-30T08:48:59.647149+00:00",
+  "endpoint": "http://127.0.0.1:8000/search/hybrid",
+  "request": {
+    "query": "t\u00ecm s\u1ea3n ph\u1ea9m n\u1eef gi\u1ed1ng \u1ea3nh, m\u00e0u tr\u1eafng, gi\u00e1 t\u1ed1i \u0111a m\u1ed9t tri\u1ec7u \u0111\u1ed3ng",
+    "image_url": "https://res.cloudinary.com/dhtlzqflg/image/upload/v1787583152/q86_okf4pg.png",
+    "filters": {
+      "gender": "women",
+      "colors": [
+        "white"
+      ],
+      "max_price": 1000000
+    },
+    "refinement": "cho t\u00f4i c\u00e1c l\u1ef1a ch\u1ecdn kh\u00e1c nh\u01b0ng gi\u1eef nguy\u00ean m\u00e0u, gi\u1edbi t\u00ednh v\u00e0 ng\u00e2n s\u00e1ch"
+  },
+  "hybrid": {
+    "product_ids": [
+      "831",
+      "1329",
+      "1195",
+      "385",
+      "892"
+    ],
+    "filters": {
+      "colors": [
+        "white"
+      ],
+      "max_price": 1000000.0,
+      "gender": "women"
+    },
+    "relaxed_filters": [],
+    "explicit_constraints_satisfied": true
+  },
+  "payload_verification": [
+    {
+      "product_id": "831",
+      "base_colour": "Oyster-white",
+      "color_keys": [
+        "white"
+      ],
+      "gender": "Women",
+      "selling_price": 299000.0
+    },
+    {
+      "product_id": "1329",
+      "base_colour": "White",
+      "color_keys": [
+        "white"
+      ],
+      "gender": "Women",
+      "selling_price": 299000.0
+    },
+    {
+      "product_id": "1195",
+      "base_colour": "White",
+      "color_keys": [
+        "white"
+      ],
+      "gender": "Women",
+      "selling_price": 599000.0
+    },
+    {
+      "product_id": "385",
+      "base_colour": "Oyster-white",
+      "color_keys": [
+        "white"
+      ],
+      "gender": "Women",
+      "selling_price": 899000.0
+    },
+    {
+      "product_id": "892",
+      "base_colour": "White",
+      "color_keys": [
+        "white"
+      ],
+      "gender": "Women",
+      "selling_price": 599000.0
+    }
+  ],
+  "conversation": [
+    {
+      "turn_sequence": 1,
+      "filters": {
+        "colors": [
+          "white"
+        ],
+        "max_price": 1000000.0,
+        "gender": "women"
+      },
+      "product_ids": [
+        "534",
+        "391",
+        "454"
+      ],
+      "warnings": []
+    },
+    {
+      "turn_sequence": 2,
+      "filters": {
+        "colors": [
+          "white"
+        ],
+        "max_price": 1000000.0,
+        "gender": "women"
+      },
+      "product_ids": [
+        "209",
+        "1063",
+        "40"
+      ],
+      "warnings": []
+    }
+  ],
+  "assertions": {
+    "returned_count": 5,
+    "payload_constraints_satisfied": true,
+    "conversation_constraints_preserved": true,
+    "result": "PASS"
+  }
+}

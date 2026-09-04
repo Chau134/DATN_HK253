@@ -1,0 +1,18 @@
+{
+    "mode":  "image",
+    "query_count":  100,
+    "pairing_key":  "query_id",
+    "query_condition":  "catalog_detail_1",
+    "difficulty_distribution":  {
+                                    "easy":  100,
+                                    "medium":  0,
+                                    "hard":  0
+                                },
+    "paths":  {
+                  "query_set_csv":  "data/image_queries.csv",
+                  "outdoor_image_requests_csv":  "data/outdoor_image_requests_34.csv",
+                  "source_product_snapshot_csv":  "../data/product_snapshot.csv",
+                  "source_product_images_csv":  "../data/product_images.csv",
+                  "search_results_csv":  "data/search_results_image_simple.csv"
+              }
+}

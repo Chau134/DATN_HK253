@@ -1,0 +1,36 @@
+{
+  "question_count": 80,
+  "category_counts": {
+    "filter_refinement": 10,
+    "followup_ordinal": 10,
+    "product_comparison": 10,
+    "product_factual": 20,
+    "product_recommendation": 20,
+    "shop_knowledge": 8,
+    "unanswerable": 2
+  },
+  "difficulty_counts": {
+    "easy": 22,
+    "hard": 12,
+    "medium": 46
+  },
+  "question_status_counts": {
+    "approved": 70,
+    "pending": 10
+  },
+  "reference_status_counts": {
+    "approved": 48,
+    "pending": 32
+  },
+  "evidence_status_counts": {
+    "approved": 48,
+    "needs_revision": 22,
+    "pending": 10
+  },
+  "review_warning_counts": {
+    "dynamic_history_expectation_requires_manual_check": 10,
+    "snapshot_missing_price_for_price_intent": 5
+  },
+  "structural_validation_passed": true,
+  "validation_errors": []
+}

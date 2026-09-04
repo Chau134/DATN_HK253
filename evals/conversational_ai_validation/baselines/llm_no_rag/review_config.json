@@ -1,0 +1,30 @@
+{
+  "suite": "conversational_ai_master_80_V3",
+  "version": "2.0",
+  "sample_size": 80,
+  "sampling_seed": 252,
+  "acceptable_rating": 4,
+  "current_token_f1_threshold": 0.7,
+  "source": {
+    "questions_csv": "../../data/master_80/question_set.csv",
+    "references_csv": "../../data/master_80/reference_answers.csv",
+    "evidence_csv": "../../data/master_80/required_evidence.csv",
+    "responses_csv": "reports/responses.csv",
+    "metrics_csv": "reports/rag_metrics_by_question.csv",
+    "metrics_summary_json": "reports/rag_metrics_summary.json",
+    "critical_cases_csv": "../../data/critical_cases.csv",
+    "critical_responses_csv": "reports/responses.csv"
+  },
+  "review": {
+    "reviewer_a_csv": "review/reviewer_a_V3.csv",
+    "reviewer_b_csv": "review/reviewer_b_V3.csv"
+  },
+  "reports": {
+    "sample_manifest_csv": "reports/review_manifest.csv",
+    "automatic_breakdown_csv": "reports/automatic_breakdown.csv",
+    "human_validation_summary_json": "reports/human_validation_summary.json",
+    "human_validation_by_case_csv": "reports/human_validation_by_case.csv",
+    "adjudication_csv": "review/adjudication.csv",
+    "calibration_csv": "reports/token_f1_calibration.csv"
+  }
+}

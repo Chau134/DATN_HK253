@@ -1,0 +1,24 @@
+{
+  "run_id": "text-v3-vector-rerank-20260826",
+  "service_instance_id": "836ea43d6f604b728addc5f26f5372cb",
+  "scope": "120 positive queries with text_search_latency log entries",
+  "logged_positive_requests": 120,
+  "rerank_applied_requests": 113,
+  "single_candidate_rerank_skips": 7,
+  "rerank_fallbacks": 0,
+  "total_latency_ms": {
+    "mean": 1660.9,
+    "p50": 1027.9,
+    "p95": 5813.7,
+    "p99": 6446.9
+  },
+  "rerank_stage_latency_ms": {
+    "mean_across_all_positive_queries": 309.5,
+    "p95_across_all_positive_queries": 377.0,
+    "max": 2493.0
+  },
+  "notes": [
+    "The seven zero-rerank cases returned exactly one candidate, so reordering was not applicable.",
+    "The no-rerank run did not preserve per-request latency, so a paired latency delta is not reported."
+  ]
+}

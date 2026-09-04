@@ -1,0 +1,30 @@
+{
+  "suite": "conversational_ai_validation_master_80",
+  "version": "2.0",
+  "sample_size": 80,
+  "sampling_seed": 252,
+  "acceptable_rating": 4,
+  "current_token_f1_threshold": 0.70,
+  "source": {
+    "questions_csv": "data/master_80/question_set.csv",
+    "references_csv": "data/master_80/reference_answers.csv",
+    "evidence_csv": "data/master_80/required_evidence.csv",
+    "responses_csv": "baselines/rag_memory_rerank_off/reports/responses.csv",
+    "metrics_csv": "baselines/rag_memory_rerank_off/reports/rag_metrics_by_question.csv",
+    "metrics_summary_json": "baselines/rag_memory_rerank_off/reports/rag_metrics_summary.json",
+    "critical_cases_csv": "data/critical_cases.csv",
+    "critical_responses_csv": "baselines/rag_memory_rerank_off/reports/responses.csv"
+  },
+  "review": {
+    "reviewer_a_csv": "baselines/rag_memory_rerank_off/review/reviewer_a.csv",
+    "reviewer_b_csv": "baselines/rag_memory_rerank_off/review/reviewer_b.csv"
+  },
+  "reports": {
+    "sample_manifest_csv": "baselines/rag_memory_rerank_off/reports/review_manifest.csv",
+    "automatic_breakdown_csv": "baselines/rag_memory_rerank_off/reports/automatic_breakdown.csv",
+    "human_validation_summary_json": "baselines/rag_memory_rerank_off/reports/human_validation_summary.json",
+    "human_validation_by_case_csv": "baselines/rag_memory_rerank_off/reports/human_validation_by_case.csv",
+    "adjudication_csv": "baselines/rag_memory_rerank_off/review/adjudication.csv",
+    "calibration_csv": "baselines/rag_memory_rerank_off/reports/token_f1_calibration.csv"
+  }
+}

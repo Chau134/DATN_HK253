@@ -1,0 +1,94 @@
+{
+  "variants": [
+    {
+      "variant": "llm_no_rag",
+      "label": "A. LLM-only (no RAG, no memory)",
+      "comparison_role": "no_rag",
+      "session_mode": "isolated_turns",
+      "reranker_enabled": false,
+      "optional": false,
+      "status": "complete",
+      "grounding": 0.8239584750000001,
+      "token_f1": 0.38912255,
+      "context_precision": 0.034482758620689655,
+      "context_recall": 0.034482758620689655,
+      "human_acceptance_rate": null
+    },
+    {
+      "variant": "rag_no_memory",
+      "label": "B. RAG without memory (reranker off)",
+      "comparison_role": "no_memory",
+      "session_mode": "isolated_turns",
+      "reranker_enabled": false,
+      "optional": false,
+      "status": "complete",
+      "grounding": 1.0,
+      "token_f1": 0.85330185,
+      "context_precision": 0.8817204354838709,
+      "context_recall": 0.8790322580645161,
+      "human_acceptance_rate": null
+    },
+    {
+      "variant": "rag_memory_rerank_off",
+      "label": "C. Full RAG with memory (reranker off)",
+      "comparison_role": "full_rerank_off",
+      "session_mode": "preserve_sessions",
+      "reranker_enabled": false,
+      "optional": false,
+      "status": "complete",
+      "grounding": 1.0,
+      "token_f1": 0.847229475,
+      "context_precision": 0.946236564516129,
+      "context_recall": 0.9435483870967742,
+      "human_acceptance_rate": null
+    },
+    {
+      "variant": "rag_memory_rerank_on_post_fix",
+      "label": "D. Full RAG with memory (reranker on, post-fix)",
+      "comparison_role": "full_rerank_on",
+      "session_mode": "preserve_sessions",
+      "reranker_enabled": true,
+      "optional": false,
+      "status": "complete",
+      "grounding": 1.0,
+      "token_f1": 0.842684025,
+      "context_precision": 0.9301075322580644,
+      "context_recall": 0.9274193548387096,
+      "human_acceptance_rate": 0.9125
+    }
+  ],
+  "causal_comparisons": [
+    {
+      "comparison": "full_minus_no_rag_grounding",
+      "delta": 0.176,
+      "ready": true
+    },
+    {
+      "comparison": "rerank_on_minus_off_rule_based_grounding_score",
+      "delta": 0.0,
+      "ready": true
+    },
+    {
+      "comparison": "rerank_on_minus_off_token_f1_relevancy",
+      "delta": -0.0045,
+      "ready": true
+    },
+    {
+      "comparison": "rerank_on_minus_off_context_precision",
+      "delta": -0.0161,
+      "ready": true
+    },
+    {
+      "comparison": "rerank_on_minus_off_context_recall",
+      "delta": -0.0161,
+      "ready": true
+    },
+    {
+      "comparison": "full_minus_no_memory_context_recall",
+      "delta": 0.0645,
+      "ready": true,
+      "note": "Automatic comparison on the approved ground truth."
+    }
+  ],
+  "all_required_complete": true
+}

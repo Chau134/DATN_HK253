@@ -1,0 +1,17 @@
+.gcloudignore
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.log
+htmlcov/
+.coverage
+dist/
+build/
+*.egg-info/
+tests/

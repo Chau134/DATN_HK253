@@ -1,0 +1,14 @@
+{
+  "schema_version": "v3-semantic",
+  "mode": "text",
+  "query_count": 130,
+  "relevance_policy": "v2_canonical_plus_reviewed_semantic_equivalence",
+  "paths": {
+    "products_csv": "data/product_snapshot.csv",
+    "query_set_csv": "data/text_queries_v3_semantic.csv",
+    "ground_truth_csv": "data/ground_truth_text_v3_semantic.csv",
+    "search_results_csv": "data/search_results_text_v3_semantic.csv",
+    "metrics_json": "reports/metrics_text_v3_semantic.json",
+    "metrics_csv": "reports/metrics_text_v3_semantic.csv"
+  }
+}

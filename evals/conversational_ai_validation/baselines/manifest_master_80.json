@@ -1,0 +1,60 @@
+{
+  "suite_version": "master-80-v2",
+  "questions": "../data/master_80/question_set.csv",
+  "references": "../data/master_80/reference_answers.csv",
+  "evidence": "../data/master_80/required_evidence.csv",
+  "variants": [
+    {
+      "id": "llm_no_rag",
+      "comparison_role": "no_rag",
+      "blind_code": "V3",
+      "label": "A. LLM-only (no RAG, no memory)",
+      "evaluation_variant": "llm_no_rag",
+      "session_mode": "isolated_turns",
+      "reranker_enabled": false,
+      "metrics_summary": "llm_no_rag/reports/rag_metrics_summary.json",
+      "metrics_by_question": "llm_no_rag/reports/rag_metrics_by_question.csv",
+      "responses": "llm_no_rag/reports/responses.csv",
+      "human_summary": "llm_no_rag/reports/human_validation_summary.json"
+    },
+    {
+      "id": "rag_no_memory",
+      "comparison_role": "no_memory",
+      "blind_code": "V1",
+      "label": "B. RAG without memory (reranker off)",
+      "evaluation_variant": "rag",
+      "session_mode": "isolated_turns",
+      "reranker_enabled": false,
+      "metrics_summary": "rag_no_memory/reports/rag_metrics_summary.json",
+      "metrics_by_question": "rag_no_memory/reports/rag_metrics_by_question.csv",
+      "responses": "rag_no_memory/reports/responses.csv",
+      "human_summary": "rag_no_memory/reports/human_validation_summary.json"
+    },
+    {
+      "id": "rag_memory_rerank_off",
+      "comparison_role": "full_rerank_off",
+      "blind_code": "V4",
+      "label": "C. Full RAG with memory (reranker off)",
+      "evaluation_variant": "rag",
+      "session_mode": "preserve_sessions",
+      "reranker_enabled": false,
+      "metrics_summary": "rag_memory_rerank_off/reports/rag_metrics_summary.json",
+      "metrics_by_question": "rag_memory_rerank_off/reports/rag_metrics_by_question.csv",
+      "responses": "rag_memory_rerank_off/reports/responses.csv",
+      "human_summary": "rag_memory_rerank_off/reports/human_validation_summary.json"
+    },
+    {
+      "id": "rag_memory_rerank_on",
+      "comparison_role": "full_rerank_on",
+      "blind_code": "V2",
+      "label": "D. Full RAG with memory (reranker on)",
+      "evaluation_variant": "rag",
+      "session_mode": "preserve_sessions",
+      "reranker_enabled": true,
+      "metrics_summary": "rag_memory_rerank_on/reports/rag_metrics_summary.json",
+      "metrics_by_question": "rag_memory_rerank_on/reports/rag_metrics_by_question.csv",
+      "responses": "rag_memory_rerank_on/reports/responses.csv",
+      "human_summary": "rag_memory_rerank_on/reports/human_validation_summary.json"
+    }
+  ]
+}

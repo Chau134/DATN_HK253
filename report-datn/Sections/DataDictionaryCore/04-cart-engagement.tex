@@ -1,0 +1,150 @@
+Bảng~\ref{tab:data-summary-cart-engagement} tóm tắt chức năng của các bảng trong nhóm. Chỉ các bảng cốt lõi, đại diện trực tiếp cho luồng nghiệp vụ chính, được mô tả chi tiết trường dữ liệu.
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.34\textwidth}|>{\RaggedRight\arraybackslash}p{0.56\textwidth}|}
+    \caption{Các bảng thuộc nhóm giỏ hàng và tương tác khách hàng}
+    \label{tab:data-summary-cart-engagement} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endfirsthead
+    \multicolumn{2}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên bảng} & \textbf{Chức năng} \\
+    \hline
+    \endhead
+    \texttt{carts} & Giỏ hàng. \\
+    \hline
+    \texttt{cart\_items} & Chi tiết giỏ hàng. \\
+    \hline
+    \texttt{wishlists} & Danh sách yêu thích. \\
+    \hline
+    \texttt{wishlist\_items} & Chi tiết danh sách yêu thích. \\
+    \hline
+    \texttt{product\_reviews} & Đánh giá sản phẩm. \\
+    \hline
+    \texttt{product\_review\_summaries} & Tổng hợp đánh giá sản phẩm. \\
+    \hline
+    \texttt{blogs} & Bài viết. \\
+    \hline
+\end{longtable}
+
+\paragraph{Các bảng cốt lõi.}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{carts} (Giỏ hàng)}
+    \label{tab:data-dictionary-carts} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{checked\_out\_at}} & \texttt{datetime(6)} & Thời điểm giỏ hàng được chuyển thành đơn. \\
+        \hline
+        \texttt{\seqsplit{expires\_at}} & \texttt{datetime(6)} & Thời điểm hết hiệu lực. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{cart\_items} (Chi tiết giỏ hàng)}
+    \label{tab:data-dictionary-cart-items} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{cart\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{carts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_variant\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{product\_variants.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{quantity}} & \texttt{int} & Số lượng; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{selected}} & \texttt{boolean} & Cho biết mặt hàng được chọn. \\
+        \hline
+        \texttt{\seqsplit{added\_unit\_price}} & \texttt{decimal(12,2)} & Đơn giá tại thời điểm thêm vào giỏ. \\
+        \hline
+        \texttt{\seqsplit{added\_discounted\_price}} & \texttt{decimal(12,2)} & Đơn giá sau giảm tại thời điểm thêm vào giỏ. \\
+        \hline
+        \texttt{\seqsplit{added\_effective\_price}} & \texttt{decimal(12,2)} & Đơn giá hiệu lực tại thời điểm thêm vào giỏ. \\
+        \hline
+        \texttt{\seqsplit{currency}} & \texttt{varchar(3)} & Mã tiền tệ ISO 4217; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.45\textwidth}|}
+    \caption{Mô tả chi tiết bảng \texttt{product\_reviews} (Đánh giá sản phẩm)}
+    \label{tab:data-dictionary-product-reviews} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (tiếp theo)} \\
+    \hline
+    \textbf{Tên trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+    \hline
+    \endhead
+    \texttt{\seqsplit{id}} & \texttt{bigint} & Khóa chính tự tăng. \\
+        \hline
+        \texttt{\seqsplit{product\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{products.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{product\_variant\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{product\_variants.id}. \\
+        \hline
+        \texttt{\seqsplit{user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{order\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{orders.id}. \\
+        \hline
+        \texttt{\seqsplit{order\_item\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{order\_items.id}; duy nhất. \\
+        \hline
+        \texttt{\seqsplit{rating}} & \texttt{int} & Điểm đánh giá; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{title}} & \texttt{varchar(150)} & Tiêu đề. \\
+        \hline
+        \texttt{\seqsplit{content}} & \texttt{text} & Nội dung. \\
+        \hline
+        \texttt{\seqsplit{status}} & \texttt{varchar(50)} & Trạng thái hiện tại; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{verified\_purchase}} & \texttt{boolean} & Cho biết đánh giá phát sinh từ giao dịch đã xác minh. \\
+        \hline
+        \texttt{\seqsplit{helpful\_count}} & \texttt{int} & Số lượt đánh dấu hữu ích; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{reported\_count}} & \texttt{int} & Số lượt báo cáo; bắt buộc. \\
+        \hline
+        \texttt{\seqsplit{moderation\_reason}} & \texttt{varchar(150)} & Lý do kiểm duyệt. \\
+        \hline
+        \texttt{\seqsplit{moderated\_by\_user\_account\_id}} & \texttt{bigint} & Khóa ngoại tham chiếu \texttt{user\_accounts.id}. \\
+        \hline
+        \texttt{\seqsplit{moderated\_at}} & \texttt{datetime(6)} & Thời điểm kiểm duyệt. \\
+        \hline
+        \texttt{\seqsplit{created\_at}} & \texttt{datetime(6)} & Thời điểm tạo bản ghi. \\
+        \hline
+        \texttt{\seqsplit{updated\_at}} & \texttt{datetime(6)} & Thời điểm cập nhật gần nhất. \\
+        \hline
+\end{longtable}
+
