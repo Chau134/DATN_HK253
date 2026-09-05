@@ -280,6 +280,24 @@ def test_title_tshirt_overrides_conflicting_sweater_source_category() -> None:
     assert "ao thun" in payload["category_aliases"]
     assert "ao len" not in payload["category_aliases"]
 
+def test_vietnamese_romper_title_preserves_jumpsuit_category() -> None:
+    item = ProductIndexItem(
+        product_id="488",
+        product_display_name="CHECKED PLAYSUIT",
+        product_display_name_vi="Dam lien quan mau trang nga va nau caro",
+        categories=[
+            {
+                "category_code": "jumpsuit_romper",
+                "category_name": "Jumpsuits & Playsuits",
+            }
+        ],
+    )
+
+    payload = _product_payload(item)
+
+    assert payload["source_category_keys"] == ["jumpsuit", "romper"]
+    assert payload["category_keys"] == ["jumpsuit", "romper"]
+
 
 @pytest.mark.parametrize(
     ("title", "title_vi", "source_code", "expected_key"),

@@ -312,7 +312,7 @@ class Settings(BaseSettings):
     max_search_top_k: int = Field(default=50, gt=0, le=100, alias="MAX_SEARCH_TOP_K")
     image_candidate_pool_size: int = Field(default=20, gt=0, alias="IMAGE_CANDIDATE_POOL_SIZE")
     image_product_overfetch_factor: int = Field(default=4, ge=1, le=20, alias="IMAGE_PRODUCT_OVERFETCH_FACTOR")
-    image_query_per_crop_limit_cap: int = Field(default=100, gt=0, le=1000, alias="IMAGE_QUERY_PER_CROP_LIMIT_CAP")
+    image_query_per_crop_limit_cap: int = Field(default=200, gt=0, le=1000, alias="IMAGE_QUERY_PER_CROP_LIMIT_CAP")
     image_yolo_category_soft_boost_weight: float = Field(
         default=0.03,
         ge=0,

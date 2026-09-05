@@ -43,6 +43,23 @@ def test_reference_review_requires_visual_checks() -> None:
         FINALIZE.validate_references([row], QUERIES)
 
 
+def test_reference_packet_starts_every_row_pending() -> None:
+    rows = BUILD.build_reference_rows(QUERIES, [])
+    assert len(rows) == 1
+    assert rows[0]["review_status"] == "pending"
+    assert rows[0]["identity_preserved"] == ""
+    assert rows[0]["requested_change_present"] == ""
+    assert rows[0]["unintended_change_absent"] == ""
+
+
+def test_rendered_html_escapes_javascript_newlines(tmp_path: Path) -> None:
+    output = tmp_path / "review.html"
+    BUILD.render_html([], [], output)
+    document = output.read_text(encoding="utf-8")
+    assert r'/[",\n]/' in document
+    assert r".join('\n')" in document
+
+
 def test_candidate_review_rejects_pending_rows() -> None:
     references = FINALIZE.validate_references([approved_reference()], QUERIES)
     with pytest.raises(ValueError, match="unresolved"):
@@ -59,15 +76,15 @@ def test_target_requires_grade_three() -> None:
         ], QUERIES, references)
 
 
-def test_prior_approved_visual_grade_is_reused() -> None:
+def test_candidate_packet_does_not_reuse_prior_or_rule_grade() -> None:
     products = [{"product_id": "p1", "product_name": "target"}, {"product_id": "p2", "product_name": "candidate"}]
     rows = BUILD.build_candidate_rows(
         [{**QUERIES[0], "query_text": "find blue", "image_url": "edited.jpg"}],
         [{"query_id": "q1", "relevant_product_id": "p2", "relevance_grade": "2"}],
         products,
-        [{"query_id": "image-q1", "relevant_product_id": "p2", "relevance_grade": "1", "review_status": "approved", "source": "human"}],
         [],
     )
-    assert rows[0]["review_status"] == "approved"
-    assert rows[0]["relevance_grade"] == "1"
-    assert rows[0]["reviewer_notes"].startswith("reused_image_ground_truth:")
+    assert rows[0]["review_status"] == "pending"
+    assert rows[0]["relevance_grade"] == ""
+    assert rows[0]["visual_similarity"] == ""
+    assert rows[0]["hard_constraints_satisfied"] == ""

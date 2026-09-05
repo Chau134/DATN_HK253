@@ -8,7 +8,7 @@ Chương này tổng kết mức độ hoàn thành của hệ thống, các gi�
 
 Kiến trúc gồm Frontend, Spring Boot Backend, AI Service, MySQL và Qdrant. Backend kiểm soát xác thực, phân quyền và giao dịch; AI Service đảm nhiệm hiểu truy vấn, embedding, truy hồi và sinh câu trả lời. MySQL là nguồn dữ liệu nghiệp vụ chuẩn, còn Qdrant là chỉ mục tìm kiếm. Giá, tồn kho và trạng thái sản phẩm được xác nhận lại qua Backend nên các chức năng thương mại điện tử cốt lõi vẫn hoạt động khi AI gặp sự cố.
 
-Trên tập thử nghiệm hiện tại, cấu hình không rerank cho kết quả phù hợp nhất. Vector Search đạt Hit@5 1,000 và NDCG@5 0,941; Image Search đạt Exact Hit@5 1,000 trên ảnh catalog và 0,970 trên ảnh thử thách. Hybrid fusion không rerank đạt Strict Hit@5 0,920, NDCG@5 0,855 và P95 0,892 giây, nhưng tỷ lệ Top-5 thỏa toàn bộ ràng buộc mới đạt 0,446. Trợ lý RAG kết hợp memory đạt Grounding 1,000, Context Precision 0,946, Context Recall 0,944 và vượt 12/12 ca dữ kiện quan trọng.
+Trên tập thử nghiệm hiện tại, cấu hình không rerank cho kết quả phù hợp nhất. Vector Search đạt Hit@5 1,000 và NDCG@5 0,941; Image Search đạt Exact Hit@5 1,000 trên ảnh catalog và 0,970 trên ảnh thử thách. Hybrid fusion không rerank đạt Strict Hit@5 0,920, NDCG@5 0,863 và P95 0,737 giây, nhưng tỷ lệ Top-5 thỏa toàn bộ ràng buộc mới đạt 0,450. Baseline ảnh kết hợp post-filter văn bản đạt Hit@5 0,960, NDCG@5 0,876 và thỏa ràng buộc@5 0,960. Trợ lý RAG kết hợp memory đạt Grounding 1,000, Context Precision 0,946, Context Recall 0,944 và vượt 12/12 ca dữ kiện quan trọng.
 
 Toàn bộ 102 ca hồi quy Backend và nghiệp vụ đều đạt. Các bài tải Backend hoàn tất 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 request, không lỗi, P95 48,863 ms và heap tăng ổn định 8,210 MiB. Tải AI đại diện đạt 216/216 request, không fallback Backend và đáp ứng các ngưỡng P95. Kiểm thử bảo mật, dự phòng dịch vụ, phục hồi Qdrant, health check, correlation ID và tương thích trình duyệt đều đạt trong phạm vi đã thực hiện.
 
@@ -17,7 +17,7 @@ Nhìn chung, đề tài đã đạt mục tiêu xây dựng và kiểm chứng h
 \subsection{Hạn chế}
 
 \begin{itemize}
-    \item \textbf{Dữ liệu đánh giá:} tập thử nghiệm dựa trên snapshot 1.000 sản phẩm thời trang; một phần ground truth Image/Hybrid kết hợp nhãn người với luật metadata, chưa đại diện cho danh mục lớn hoặc nhiều ngành hàng.
+    \item \textbf{Dữ liệu đánh giá:} tập thử nghiệm dựa trên snapshot 1.000 sản phẩm thời trang, chưa đại diện cho danh mục lớn hoặc nhiều ngành hàng. Ground truth Hybrid gồm 100 ảnh tham chiếu và 654/654 cặp candidate đã được duyệt thủ công; tuy nhiên, benchmark này chưa phải tập held-out độc lập cho các lần hiệu chỉnh tương lai, còn ground truth Image Search vẫn kết hợp nhãn người với một phần luật metadata.
 
     \item \textbf{Độ bền truy hồi:} Image Search suy giảm với ảnh khác nền hoặc góc chụp catalog. Hybrid Search chưa giữ tốt đồng thời mọi ràng buộc trong Top-5, dù ca E2E đã xử lý đúng màu, giới tính và ngân sách.
 

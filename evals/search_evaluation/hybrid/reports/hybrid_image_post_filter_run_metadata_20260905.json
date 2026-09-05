@@ -1,0 +1,16 @@
+{
+  "run_id": "hybrid-image-post-filter-20260905",
+  "method": "offline replay of frozen image-only Top-20 followed by exact normalized metadata post-filter",
+  "source_results": "data\\search_results_image_only_20260905.csv",
+  "source_responses": "reports\\hybrid_responses_image_only_20260905.jsonl",
+  "query_count": 100,
+  "candidate_pool_size": 20,
+  "output_top_k": 20,
+  "returned_rows": 249,
+  "empty_queries": 4,
+  "post_filter_latency_p95_ms": 0.789165,
+  "ground_truth_rows_before": 654,
+  "ground_truth_rows_after": 654,
+  "ground_truth_transfers_added": 0,
+  "unresolved_ground_truth_pairs": 0
+}

@@ -462,7 +462,7 @@ def _title_article_type_keys(normalized_title: str, normalized_title_vi: str) ->
     """Add only high-precision article-type hints; never infer accessory words in descriptions."""
     vi_title = f" {normalized_title_vi} "
     english_title = f" {normalized_title} "
-    if normalized_title_vi.startswith(("dam jumpsuit ", "jumpsuit ")):
+    if normalized_title_vi.startswith(("dam jumpsuit ", "jumpsuit ", "dam lien quan ")):
         return ["jumpsuit", "romper"]
     if normalized_title_vi.startswith(("dam ", "vay lien ")):
         return ["dress"]
