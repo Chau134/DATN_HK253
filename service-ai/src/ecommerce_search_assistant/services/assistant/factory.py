@@ -28,6 +28,11 @@ def _get_assistant_workflow_cached() -> AssistantWorkflow:
         recent_message_limit=settings.assistant_recent_message_limit,
         conversation_summary_max_chars=settings.assistant_conversation_summary_max_chars,
         conversation_context_max_chars=settings.assistant_conversation_context_max_chars,
+        query_context_max_chars=getattr(
+            settings,
+            "assistant_query_context_max_chars",
+            settings.assistant_conversation_context_max_chars,
+        ),
         eval_trace_enabled=eval_trace_enabled,
         evaluation_variant=settings.assistant_evaluation_variant,
     )

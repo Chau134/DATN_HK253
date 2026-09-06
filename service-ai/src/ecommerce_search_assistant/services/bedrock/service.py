@@ -8,7 +8,7 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from ecommerce_search_assistant.services.llm.service import BaseLlmService
+from ecommerce_search_assistant.services.llm.service import BaseLlmService, QueryUnderstanding
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +26,11 @@ class BedrockService(BaseLlmService):
         return bool(getattr(self, "_runtime_ready", False))
 
     def _generate_json(self, prompt: str, schema: type[BaseModel]) -> Any:
+        max_tokens = (
+            self.settings.bedrock_query_understanding_max_tokens
+            if schema is QueryUnderstanding
+            else self.settings.bedrock_max_tokens
+        )
         try:
             response = self._get_client().converse(
                 modelId=self.settings.bedrock_model_id,
@@ -38,6 +43,7 @@ class BedrockService(BaseLlmService):
                 inferenceConfig=_inference_config(
                     self.settings,
                     temperature=0.0,
+                    max_tokens=max_tokens,
                 ),
             )
         except Exception:
@@ -89,6 +95,7 @@ def _inference_config(
     settings: Any,
     *,
     temperature: float | None = None,
+    max_tokens: int | None = None,
 ) -> dict[str, Any]:
     config: dict[str, Any] = {
         "temperature": (
@@ -96,7 +103,7 @@ def _inference_config(
             if temperature is None
             else temperature
         ),
-        "maxTokens": settings.bedrock_max_tokens,
+        "maxTokens": settings.bedrock_max_tokens if max_tokens is None else max_tokens,
     }
     if settings.bedrock_top_p is not None:
         config["topP"] = settings.bedrock_top_p

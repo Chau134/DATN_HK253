@@ -47,8 +47,55 @@ def test_thresholds_are_checked_per_endpoint() -> None:
         "hybrid_search": {"requests": 10, "p95_ms": 2000},
         "assistant_chat": {"requests": 10, "p95_ms": 5000},
     }
-    result = LOAD.evaluate_thresholds(overall, operations, 0.01, 5000, 30000)
+    result = LOAD.evaluate_thresholds(overall, operations, 0.01, 5000, 5000)
     assert result["passed"]
+
+
+def test_assistant_above_nfr_p95_is_rejected() -> None:
+    overall = {"error_rate": 0.0, "correlation_id_rate": 1.0}
+    operations = {
+        "text_search": {"requests": 10, "p95_ms": 1000},
+        "hybrid_search": {"requests": 10, "p95_ms": 2000},
+        "assistant_chat": {"requests": 10, "p95_ms": 5318},
+    }
+
+    result = LOAD.evaluate_thresholds(overall, operations, 0.01, 5000, 5000)
+
+    assert not result["passed"]
+    assert not result["checks"]["assistant_chat_p95"]
+
+
+def test_assistant_fallback_metric_is_rejected() -> None:
+    overall = {"error_rate": 0.0, "correlation_id_rate": 1.0}
+    operations = {
+        "text_search": {"requests": 10, "p95_ms": 1000},
+        "hybrid_search": {"requests": 10, "p95_ms": 2000},
+        "assistant_chat": {"requests": 10, "p95_ms": 4000},
+    }
+    metrics = {
+        'ecommerce_assistant_fallback_total{reason="spring_boot_unavailable"}': 1.0,
+    }
+
+    result = LOAD.evaluate_thresholds(overall, operations, 0.01, 5000, 5000, metrics)
+
+    assert not result["passed"]
+    assert not result["checks"]["assistant_fallback_free"]
+
+
+def test_assistant_integration_preflight_rejects_degraded_reply() -> None:
+    healthy = LOAD.Sample("assistant_chat", 1000, 200, True, True, result_count=3)
+    degraded = LOAD.Sample(
+        "assistant_chat",
+        1000,
+        200,
+        True,
+        True,
+        result_count=3,
+        warnings=("spring_boot_unavailable",),
+    )
+
+    assert LOAD.valid_assistant_integration(healthy)
+    assert not LOAD.valid_assistant_integration(degraded)
 
 
 def test_invalid_response_contract_is_rejected() -> None:

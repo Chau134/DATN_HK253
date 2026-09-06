@@ -4,7 +4,9 @@ param(
     [int]$ReadyTimeoutSeconds = 240,
 
     [ValidatePattern('^[a-z]{2}(-gov)?-[a-z]+-\d$')]
-    [string]$BedrockRegion = 'ap-northeast-1'
+    [string]$BedrockRegion = 'ap-northeast-1',
+
+    [switch]$SkipBuild
 )
 
 $ErrorActionPreference = 'Stop'
@@ -44,8 +46,15 @@ try {
 
     Write-Host "Starting service-ai with Bedrock Region: $BedrockRegion"
 
-    & docker compose --project-directory $serviceDirectory -f $composeFile `
-        up -d --build --force-recreate service-ai
+    $composeArguments = @(
+        'compose',
+        '--project-directory', $serviceDirectory,
+        '-f', $composeFile,
+        'up', '-d', '--force-recreate'
+    )
+    $composeArguments += if ($SkipBuild) { '--no-build' } else { '--build' }
+    $composeArguments += 'service-ai'
+    & docker @composeArguments
     if ($LASTEXITCODE -ne 0) {
         throw "Could not start service-ai (docker compose exit code $LASTEXITCODE)."
     }

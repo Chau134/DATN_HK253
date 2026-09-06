@@ -117,7 +117,7 @@ Các ngưỡng nghiệm thu được xác lập theo quy mô tập dữ liệu, 
 Text Search & Hit@5 $\geq 0{,}95$; NDCG@5 $\geq 0{,}80$ & Vượt BM25 trên nhóm truy vấn ngữ nghĩa \\ \hline
 Image Search & Exact Hit@5 $\geq 0{,}95$; NDCG@5 $\geq 0{,}80$; P95 $\leq 5$ giây & Đạt trên cả ảnh catalog và ảnh bên ngoài \\ \hline
 Hybrid Search & Strict Hit@5 $\geq 0{,}90$; P95 $\leq 5$ giây & Kết quả phản ánh đồng thời ảnh và ràng buộc văn bản \\ \hline
-Conversational AI & Grounding $\geq 0{,}85$; Context Precision $\geq 0{,}60$; Context Recall $\geq 0{,}80$ & Toàn bộ ca critical phải qua hard gate \\ \hline
+Conversational AI & Grounding $\geq 0{,}85$; Context Precision $\geq 0{,}60$; Context Recall $\geq 0{,}80$; P95 $\leq 5$ giây & Toàn bộ ca critical phải qua hard gate \\ \hline
 Hệ thống & Không sai dữ liệu giao dịch hoặc truy cập trái quyền & Nghiệp vụ thương mại điện tử cốt lõi vẫn hoạt động khi AI lỗi \\ \hline
 \end{tabularx}
 \end{table}
@@ -389,7 +389,7 @@ Nhìn chung, các chức năng AI đạt mức sàn nội bộ với cấu hình
 
 Các bài tải Backend hoàn tất 21.231/21.231 request, với P95 Catalog 121,78 ms và Catalog--Cart 182,79 ms, đều đạt ngưỡng 500 ms. Soak checkout/payment tám worker trong hai giờ đạt 57.600/57.600 request, P95 48,863 ms; health luôn \texttt{UP}, HikariCP không có kết nối chờ, heap tăng ổn định 8,210 MiB và cleanup đạt 8/8.
 
-Tải AI control và đại diện lần lượt đạt 212/212 và 216/216 request. Ở workload đại diện, P95 Text Search, Hybrid Search và Assistant là 1,843/0,864/5,318 giây; tỷ lệ lỗi bằng 0\%, correlation ID đạt 100\% và không phát sinh fallback Backend. Các kết quả đều đạt ngưỡng; bằng chứng được lưu tại \path{Evidence/performance/checkout-payment-soak-2h-20260901.md} và \path{Evidence/performance/ai-concurrent-load-valid-backend-20260831.md}.
+Lượt tải AI nghiệm thu sau tối ưu hoàn tất 216/216 request trong ba phút với sáu worker. P95 Text Search, Hybrid Search và Assistant lần lượt là 1,412/3,412/2,776 giây; tỷ lệ lỗi bằng 0\%, correlation ID đạt 100\% và không phát sinh fallback Assistant. Health trước và sau phép đo đều ở trạng thái sẵn sàng, đồng thời đủ 72/72 lượt Assistant lấy ngữ cảnh sản phẩm từ Spring Backend kết nối cơ sở dữ liệu \texttt{DATN}. Cả ba luồng đều thấp hơn ngưỡng NFR-01 là P95 5 giây, vì vậy NFR-01 đạt. Bằng chứng được lưu tại \path{Evidence/performance/checkout-payment-soak-2h-20260901.md} và \path{Evidence/performance/ai-concurrent-load-nfr01-final-20260907.md}.
 
 \subsubsection{Bảo mật}
 
@@ -418,7 +418,7 @@ Bảng~\ref{tab:executed-system-results} tổng hợp trạng thái của từng
 Backend và nghiệp vụ & 102/102 ca hồi quy đạt; bao phủ xác thực, phân quyền, giỏ hàng, COD, tồn kho, coupon và payment & Đạt \\ \hline
 Đồng bộ dữ liệu & Đủ 1.000 \texttt{product\_id}; retry, snapshot và rollback đạt; hồi quy \texttt{product\_id=648} đạt 8/8 URL ảnh, không còn lỗi \texttt{master.m3u8} & Đạt \\ \hline
 End-to-end & Luồng COD, Image Search và cập nhật sản phẩm đạt; E2E-03 trả 5/5 sản phẩm thuộc họ White, đúng giới tính và ngân sách, đồng thời lượt tinh chỉnh hội thoại giữ nguyên ba ràng buộc & Đạt \\ \hline
-Hiệu năng & Backend đạt 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 với P95 48,863 ms và heap tăng ổn định 8,210 MiB; tải AI đại diện hợp lệ đạt 216/216, P95 Text/Hybrid/Assistant là 1,843/0,864/5,318 giây, fallback Backend bằng 0 và đều đạt ngưỡng & Đạt \\ \hline
+Hiệu năng & Backend đạt 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 với P95 48,863 ms và heap tăng ổn định 8,210 MiB; tải AI sau tối ưu đạt 216/216, P95 Text/Hybrid/Assistant là 1,412/3,412/2,776 giây, correlation ID đạt 100\% và fallback Assistant bằng 0 & Đạt \\ \hline
 Bảo mật & Kiểm tra quyền và input đạt; rate limit trả 429, upload quá cỡ trả 413 và dependency audit không còn lỗ hổng & Đạt \\ \hline
 Khả dụng và quan sát & Các chức năng thương mại điện tử hoạt động khi AI lỗi; Qdrant phục hồi được; health không phụ thuộc SMTP; correlation ID được truyền Backend--AI Service và có trong log & Đạt \\ \hline
 Tương thích giao diện & Chrome/Edge desktop/mobile đạt; Firefox/WebKit desktop/mobile đạt 8/8 ca Playwright & Đạt \\ \hline
@@ -450,7 +450,7 @@ FR-AI-06, 07, 11 & UC-AI-04 và UC-AI-06; đồ thị tại Hình~\ref{fig:assis
 FR-AI-10 & UC-AI-07 và UC-AI-08; luồng tại Hình~\ref{fig:ai-sync-flow} & Nhóm đồng bộ tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
 FR-AI-12 & Cơ chế dự phòng giữa Backend và AI Service & Kế hoạch và kết quả tại Bảng~\ref{tab:system-test-plan} và \ref{tab:executed-system-results} & Đạt \\ \hline
 EC-FR-01--05 & Các ca sử dụng khách hàng/quản trị; Hình~\ref{fig:database-overview} và \ref{fig:order-state-design} & 102/102 ca hồi quy tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
-NFR-01 & Ngưỡng nghiệm thu hiệu năng & Bảng~\ref{tab:executed-system-results}; artifact AI \path{Evidence/performance/ai-concurrent-load-valid-backend-representative-20260831.json} và soak \path{Evidence/performance/checkout-payment-soak-2h-20260901.json} & Đạt \\ \hline
+NFR-01 & Ngưỡng nghiệm thu hiệu năng & Bảng~\ref{tab:executed-system-results}; artifact AI \path{Evidence/performance/ai-concurrent-load-nfr01-final-20260907.json} và soak \path{Evidence/performance/checkout-payment-soak-2h-20260901.json} & Đạt; P95 của cả ba luồng AI đều dưới 5 giây \\ \hline
 NFR-02 & JWT, RBAC và kiểm soát dữ liệu đầu vào & Nhóm bảo mật tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
 NFR-03, 04 & Dự phòng dịch vụ và giao dịch dữ liệu & Bảng~\ref{tab:system-test-execution} và \ref{tab:executed-system-results} & Đạt \\ \hline
 NFR-05 & Kiến trúc mô-đun Frontend--Backend--AI Service & Bằng chứng thiết kế và kiểm thử hồi quy & Đạt về thiết kế \\ \hline
@@ -467,7 +467,7 @@ Kết quả AI cho thấy Vector Search phù hợp hơn BM25 ở truy vấn ng�
 
 Đánh giá còn bốn giới hạn chính. Thứ nhất, tập AI chưa hoàn toàn held-out và một phần nhãn similarity được tạo bằng luật. Thứ hai, Image Search mới được đo tuần tự và tải AI đồng thời mới chạy sáu worker trong ba phút; tải checkout/payment đã có soak hai giờ nhưng chưa đại diện cho tải phân tán nhiều máy. Thứ ba, một số hành trình E2E mới được kiểm chứng ở biên API/dữ liệu. Thứ tư, chưa có pentest chuyên dụng; kết quả Safari hiện được đại diện bởi WebKit tự động thay vì xác nhận trên thiết bị Apple thật.
 
-Công việc ưu tiên tiếp theo là cải thiện khả năng giữ đồng thời ràng buộc của Hybrid Search và xác nhận trên tập held-out có người duyệt. Với AI Service, có thể tiếp tục giảm hai lần gọi LLM trung bình trên mỗi lượt Assistant và theo dõi cache hit rate, nhưng các hạng mục này không còn chặn ngưỡng P95 hiện tại.
+Công việc ưu tiên tiếp theo là cải thiện khả năng giữ đồng thời ràng buộc của Hybrid Search và xác nhận trên tập held-out có người duyệt. Với AI Service, P95 đã đạt nhưng Assistant vẫn có P99 9,704 giây và cực đại 9,751 giây; do đó cần tiếp tục theo dõi độ trễ đuôi và tỷ lệ cache hit trong các đợt tải dài hơn. Các chỉ số đuôi này không làm thay đổi kết luận NFR-01 vì tiêu chí nghiệm thu đã xác lập theo P95.
 
 %=====================================================
 \subsection{Kết chương}

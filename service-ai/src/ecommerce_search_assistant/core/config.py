@@ -147,6 +147,12 @@ class Settings(BaseSettings):
     bedrock_temperature: float = Field(default=0.2, ge=0, le=2, alias="BEDROCK_TEMPERATURE")
     bedrock_top_p: float | None = Field(default=None, ge=0, le=1, alias="BEDROCK_TOP_P")
     bedrock_max_tokens: int = Field(default=2048, gt=0, alias="BEDROCK_MAX_TOKENS")
+    bedrock_query_understanding_max_tokens: int = Field(
+        default=1536,
+        ge=128,
+        le=2048,
+        alias="BEDROCK_QUERY_UNDERSTANDING_MAX_TOKENS",
+    )
     bedrock_timeout_seconds: float = Field(default=30, gt=0, alias="BEDROCK_TIMEOUT_SECONDS")
     bedrock_retry_attempts: int = Field(default=2, ge=0, le=10, alias="BEDROCK_RETRY_ATTEMPTS")
     bedrock_endpoint_url: str | None = Field(default=None, alias="BEDROCK_ENDPOINT_URL")
@@ -563,6 +569,12 @@ class Settings(BaseSettings):
         ge=1000,
         le=50000,
         alias="ASSISTANT_CONVERSATION_CONTEXT_MAX_CHARS",
+    )
+    assistant_query_context_max_chars: int = Field(
+        default=4000,
+        ge=1000,
+        le=50000,
+        alias="ASSISTANT_QUERY_CONTEXT_MAX_CHARS",
     )
     assistant_user_memory_enabled: bool = Field(default=True, alias="ASSISTANT_USER_MEMORY_ENABLED")
     assistant_user_memory_backend: Literal["auto", "disabled", "sqlite", "redis"] = Field(

@@ -8,12 +8,12 @@ services:
     image: mysql:8.4
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: DACN
+      MYSQL_DATABASE: DATN
     volumes:
       - mysql_data:/var/lib/mysql
       # Single data-only import file, available inside the container for the one-shot
       # import run AFTER Spring/Hibernate has created the schema (see database/README.md):
-      #   docker compose exec -T mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD" DACN' < database/data.sql
+      #   docker compose exec -T mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD" DATN' < database/data.sql
       - ./database/data.sql:/seed/data.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
@@ -90,7 +90,7 @@ services:
       - ./service-api-ecommerce/.env
     environment:
       # Point at the sibling containers instead of localhost.
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/DACN?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&zeroDateTimeBehavior=CONVERT_TO_NULL
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/DATN?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&zeroDateTimeBehavior=CONVERT_TO_NULL
       AI_SERVICE_BASE_URL: http://service-ai:8000
       AI_SERVICE_TIMEOUT_SECONDS: "600"
     ports:

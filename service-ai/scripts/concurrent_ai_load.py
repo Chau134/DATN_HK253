@@ -39,6 +39,8 @@ class Sample:
     valid_response: bool
     correlation_id_present: bool
     error: str = ""
+    result_count: int = 0
+    warnings: tuple[str, ...] = ()
 
 
 def percentile(values: list[float], probability: float) -> float:
@@ -161,6 +163,22 @@ def valid_response(operation: str, payload: Any, expected_session: str | None = 
     )
 
 
+def valid_assistant_integration(sample: Sample) -> bool:
+    """Reject a superficially valid reply that was produced through a degraded path."""
+    degraded_markers = ("fallback", "failed", "unavailable")
+    return (
+        sample.operation == "assistant_chat"
+        and sample.valid_response
+        and not sample.error
+        and sample.result_count > 0
+        and not any(
+            marker in warning
+            for warning in sample.warnings
+            for marker in degraded_markers
+        )
+    )
+
+
 def execute_operation(
     operation: str,
     base_url: str,
@@ -195,6 +213,15 @@ def execute_operation(
     valid = 200 <= status < 300 and valid_response(operation, response, expected_session)
     if not error and not valid:
         error = "response_contract_invalid"
+    result_count = 0
+    warnings: tuple[str, ...] = ()
+    if isinstance(response, dict):
+        product_ids = response.get("product_ids")
+        if isinstance(product_ids, list):
+            result_count = len(product_ids)
+        raw_warnings = response.get("warnings")
+        if isinstance(raw_warnings, list):
+            warnings = tuple(str(value) for value in raw_warnings if value)
     return Sample(
         operation=operation,
         latency_ms=latency_ms,
@@ -202,6 +229,8 @@ def execute_operation(
         valid_response=valid,
         correlation_id_present=bool(headers.get("x-correlation-id")),
         error=error,
+        result_count=result_count,
+        warnings=warnings,
     )
 
 
@@ -334,13 +363,20 @@ def metric_delta(before: dict[str, float], after: dict[str, float]) -> dict[str,
 
 def evaluate_thresholds(overall: dict[str, Any], operations: dict[str, dict[str, Any]],
                         max_error_rate: float, search_p95_ms: float,
-                        assistant_p95_ms: float) -> dict[str, Any]:
+                        assistant_p95_ms: float,
+                        prometheus_delta: dict[str, float] | None = None) -> dict[str, Any]:
+    metrics = prometheus_delta or {}
+    assistant_fallback_free = not any(
+        key.startswith("ecommerce_assistant_fallback_total{") and value > 0
+        for key, value in metrics.items()
+    )
     checks = {
         "overall_error_rate": overall["error_rate"] <= max_error_rate,
         "correlation_id_coverage": overall["correlation_id_rate"] == 1.0,
         "text_search_p95": operations["text_search"]["p95_ms"] <= search_p95_ms,
         "hybrid_search_p95": operations["hybrid_search"]["p95_ms"] <= search_p95_ms,
         "assistant_chat_p95": operations["assistant_chat"]["p95_ms"] <= assistant_p95_ms,
+        "assistant_fallback_free": assistant_fallback_free,
         "each_operation_has_samples": all(value["requests"] > 0 for value in operations.values()),
     }
     return {"passed": all(checks.values()), "checks": checks}
@@ -360,7 +396,7 @@ def main() -> int:
     parser.add_argument("--resource-interval", type=float, default=5.0)
     parser.add_argument("--max-error-rate", type=float, default=0.01)
     parser.add_argument("--search-p95-ms", type=float, default=5000.0)
-    parser.add_argument("--assistant-p95-ms", type=float, default=30000.0)
+    parser.add_argument("--assistant-p95-ms", type=float, default=5000.0)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.workers < len(OPERATIONS):
@@ -392,6 +428,12 @@ def main() -> int:
     ]
     if any(sample.error for sample in warmup):
         raise RuntimeError(f"warm-up failed: {[asdict(sample) for sample in warmup]}")
+    assistant_warmup = next(sample for sample in warmup if sample.operation == "assistant_chat")
+    if not valid_assistant_integration(assistant_warmup):
+        raise RuntimeError(
+            "assistant integration preflight failed: expected product results without "
+            f"fallback/unavailable warnings; got {asdict(assistant_warmup)}"
+        )
 
     metrics_before = prometheus_snapshot(base_url, args.timeout)
     resources: list[dict[str, Any]] = []
@@ -433,9 +475,11 @@ def main() -> int:
         grouped[sample.operation].append(sample)
     overall = summarize(all_samples)
     operation_summary = {operation: summarize(grouped[operation]) for operation in OPERATIONS}
+    prometheus_delta_result = metric_delta(metrics_before, metrics_after)
     acceptance = evaluate_thresholds(
         overall, operation_summary, args.max_error_rate,
         args.search_p95_ms, args.assistant_p95_ms,
+        prometheus_delta_result,
     )
     result = {
         "run_id": f"AI-CONCURRENT-{started_at.strftime('%Y%m%d-%H%M%S')}",
@@ -460,7 +504,7 @@ def main() -> int:
         "overall": overall,
         "operations": operation_summary,
         "resources": summarize_resources(resources),
-        "prometheus_delta": metric_delta(metrics_before, metrics_after),
+        "prometheus_delta": prometheus_delta_result,
         "thresholds": {
             "max_error_rate": args.max_error_rate,
             "search_p95_ms": args.search_p95_ms,

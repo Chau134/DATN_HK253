@@ -207,11 +207,16 @@ def build_assistant_graph(
     recent_message_limit: int = 12,
     conversation_summary_max_chars: int = 3000,
     conversation_context_max_chars: int = 8000,
+    query_context_max_chars: int | None = None,
     preference_store: UserPreferenceStore | None = None,
     eval_trace_enabled: bool = False,
     evaluation_variant: str = "rag",
 ) -> Any:
     resolved_preference_store = preference_store or NullUserPreferenceStore()
+    resolved_query_context_max_chars = min(
+        conversation_context_max_chars,
+        query_context_max_chars or conversation_context_max_chars,
+    )
     builder = StateGraph(AssistantState)
     builder.add_node("start", _timed_node("start", _start))
     builder.add_node("load_context", _timed_node("load_context", _load_context(resolved_preference_store)))
@@ -219,7 +224,11 @@ def build_assistant_graph(
         "understand_query_with_llm",
         _timed_node(
             "understand_query",
-            _understand_query_with_llm(llm_service, conversation_context_max_chars),
+            _understand_query_with_llm(
+                llm_service,
+                resolved_query_context_max_chars,
+                search_service,
+            ),
         ),
     )
     builder.add_node(
@@ -374,7 +383,11 @@ def _load_context(preference_store: UserPreferenceStore):
     return node
 
 
-def _understand_query_with_llm(llm_service: LlmService, context_max_chars: int):
+def _understand_query_with_llm(
+    llm_service: LlmService,
+    context_max_chars: int,
+    search_service: SearchService | None = None,
+):
     def node(state: AssistantState) -> AssistantState:
         message = state.get("message", "")
         if not message.strip():
@@ -507,11 +520,25 @@ def _understand_query_with_llm(llm_service: LlmService, context_max_chars: int):
                 "needs_image_search": False,
                 "needs_text_search": False,
             }
-        understanding = llm_service.analyze_user_query(
-            message,
-            locale=state.get("locale", "vi-VN"),
-            conversation_context=_conversation_context(state, context_max_chars),
+        locale = state.get("locale", "vi-VN")
+        query_context = (
+            _conversation_context(state, context_max_chars)
+            if _query_requires_conversation_context(state, message, analysis)
+            else None
         )
+        cached_understanding = (
+            getattr(search_service, "_understand_query_cached", None)
+            if query_context is None
+            else None
+        )
+        if callable(cached_understanding):
+            understanding = cached_understanding(message, locale=locale)
+        else:
+            understanding = llm_service.analyze_user_query(
+                message,
+                locale=locale,
+                conversation_context=query_context,
+            )
         understanding = _prefer_rule_based_product_route(understanding, analysis)
         current_rule_filters = _sanitize_current_turn_filters(state, analysis.filters)
         current_llm_filters = _sanitize_current_turn_filters(
@@ -2051,6 +2078,23 @@ def _conversation_context(state: AssistantState, max_chars: int) -> str | None:
         return None
     context = "\n\n".join(sections)
     return context[:max_chars]
+
+
+def _query_requires_conversation_context(
+    state: AssistantState,
+    message: str,
+    analysis: Any,
+) -> bool:
+    """Use conversational memory only when the current turn actually depends on it."""
+    reference_source = state.get("reference_resolution_source", "none")
+    return bool(
+        state.get("user_preferences")
+        or state.get("referenced_product_ids")
+        or (state.get("recent_messages") and not analysis.filters.category)
+        or reference_source not in {"none", "attached_image"}
+        or _extract_ordinal_index(message) is not None
+        or _is_filter_refinement(message, analysis.filters)
+    )
 
 
 def _memory_for_prompt(state: AssistantState):

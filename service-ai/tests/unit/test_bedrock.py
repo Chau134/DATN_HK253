@@ -11,6 +11,7 @@ from ecommerce_search_assistant.services.bedrock.service import (
     _normalize_bedrock_bearer_token,
 )
 from ecommerce_search_assistant.services.llm.factory import get_llm_service
+from ecommerce_search_assistant.services.llm.service import QueryUnderstanding
 
 
 class _Payload(BaseModel):
@@ -59,6 +60,40 @@ def test_bedrock_reply_generation_can_be_made_deterministic(
 
     assert config["temperature"] == 0.0
     assert config["maxTokens"] == settings.bedrock_max_tokens
+
+
+def test_bedrock_query_understanding_uses_smaller_output_budget(
+    settings: Settings,
+) -> None:
+    service = BedrockService(settings=settings)
+    fake_client = _FakeBedrockClient()
+    fake_client.converse = lambda **kwargs: (
+        fake_client.calls.append(kwargs)
+        or {
+            "output": {
+                "message": {
+                    "content": [
+                        {
+                            "text": (
+                                '{"intent":"search_product","rewritten_query":"áo",'
+                                '"filters":{},"needs_image_search":false,'
+                                '"needs_text_search":true,"clarifying_question":null,'
+                                '"referenced_product_ids":[]}'
+                            )
+                        }
+                    ]
+                }
+            }
+        }
+    )
+    service._client = fake_client
+
+    service._generate_json("Analyze.", QueryUnderstanding)
+
+    assert (
+        fake_client.calls[0]["inferenceConfig"]["maxTokens"]
+        == settings.bedrock_query_understanding_max_tokens
+    )
 
 
 def test_bedrock_readiness_tracks_credentials_and_successful_call(

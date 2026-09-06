@@ -132,7 +132,7 @@ MySQL là nguồn dữ liệu nghiệp vụ chính. Khi sản phẩm hoặc hìn
 \textbf{Mã} & \textbf{Nhóm} & \textbf{Mục tiêu và ràng buộc} & \textbf{ƯT} \\
 \hline
 \endhead
-NFR-01 & Hiệu năng & Với 500--2.000 sản phẩm và dưới 50 người dùng đồng thời: thương mại điện tử 1--3 giây, AI 2--5 giây tùy embedding, retrieval và LLM. & Cao \\
+NFR-01 & Hiệu năng & Với 500--2.000 sản phẩm và dưới 50 người dùng đồng thời, đo theo P95: API thương mại điện tử không quá 3 giây; Text Search, Image Search, Hybrid Search và Assistant không quá 5 giây. Tỷ lệ lỗi của bài tải không quá 1\%. & Cao \\
 \hline
 NFR-02 & Bảo mật & Phân quyền theo vai trò; mật khẩu băm bằng BCrypt; kiểm tra quyền API quản trị và tệp ảnh. & Cao \\
 \hline

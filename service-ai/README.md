@@ -149,6 +149,14 @@ All runtime configuration lives in `.env` and is loaded through `pydantic-settin
 
 LLM calls are selected with `LLM_PROVIDER`. Use `LLM_PROVIDER=bedrock` for Bedrock calls through the AWS SDK credential chain. Use `LLM_PROVIDER=fallback` for deterministic local behavior without a remote LLM call.
 
+Assistant query understanding uses a smaller latency-oriented budget than reply
+generation. `ASSISTANT_QUERY_CONTEXT_MAX_CHARS` bounds only the conversation
+context sent to query analysis, while `ASSISTANT_CONVERSATION_CONTEXT_MAX_CHARS`
+continues to bound the richer reply context. For Bedrock,
+`BEDROCK_QUERY_UNDERSTANDING_MAX_TOKENS` limits the compact structured JSON
+response independently of `BEDROCK_MAX_TOKENS`. The concurrent load runner uses
+the NFR-01 acceptance gate of Assistant P95 <= 5 seconds by default.
+
 ## Domain schemas
 
 Phase 2 adds Pydantic request and response contracts for product indexing, text search, image search, hybrid search, and assistant chat. Search filters remain optional, product indexing requires a non-empty `product_id` plus text or image content, and image payload schemas enforce `MAX_UPLOAD_MB` and allowed MIME types from config.
