@@ -70,6 +70,12 @@ service-ai/backups/
 *.toc
 *.fdb_latexmk
 *.fls
+
+# Microsoft Office lock files
+~$*.pptx
+~$*.docx
+~$*.xlsx
+
 # Hybrid ground-truth visual review cache
 evals/search_evaluation/hybrid/reports/review/asset_cache/
 evals/search_evaluation/hybrid/reports/review/contact_sheets/

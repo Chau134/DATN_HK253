@@ -39,8 +39,8 @@ Dữ liệu đánh giá được tạo từ snapshot chuẩn hóa của danh m�
 Text Search & 100 truy vấn & 90 truy vấn dương gồm 60 ca chuẩn và 30 ca thử thách ngữ nghĩa; 10 truy vấn âm gồm điều kiện bất khả thi và ngoài miền & Đối chiếu toàn bộ snapshot, gán mức liên quan theo thuộc tính và rà soát ground truth \\ \hline
 Image Search & 100 cặp, 200 ảnh & Mỗi sản phẩm có một ảnh catalog \texttt{DETAIL\_1} và một ảnh bên ngoài; bộ bên ngoài gồm 33 ảnh tương ứng \texttt{MODEL\_1}, 33 ảnh tương ứng \texttt{MODEL\_2--5} và 34 ảnh ngoại cảnh & Exact metric đối chiếu trực tiếp \texttt{source\_product\_id}; metric tương tự dùng pool đã duyệt với ngưỡng liên quan từ mức 2 \\ \hline
 Hybrid Search & 100 cặp ảnh--văn bản & Thay đổi màu, chất liệu, mục đích và giá; có ca kết hợp nhiều ràng buộc & Dùng ảnh phản thực đã kiểm soát, 100 ảnh tham chiếu được duyệt và toàn bộ 654 cặp candidate được chấm thủ công \\ \hline
-Conversational AI & 80 câu hỏi & Hỏi thuộc tính, so sánh, gợi ý, tinh chỉnh bộ lọc, tham chiếu thứ tự, kiến thức cửa hàng và câu không thể trả lời & Reference answer, bằng chứng bắt buộc, phát biểu bị cấm và context truy xuất; có bước kiểm tra thủ công evaluator \\ \hline
-Phiên dài & 10 phiên, 230 request & Mỗi phiên chính 20 lượt, kèm probe liên phiên và liên người dùng & Kiểm tra nhớ thông tin đầu--giữa--cuối, sửa ràng buộc, phân giải tham chiếu và cô lập phiên \\ \hline
+Trợ lý hội thoại & 80 câu hỏi & Hỏi thuộc tính, so sánh, gợi ý, tinh chỉnh bộ lọc, tham chiếu thứ tự, kiến thức cửa hàng và câu không thể trả lời & Reference answer, bằng chứng bắt buộc, phát biểu bị cấm và context truy xuất; có bước kiểm tra thủ công evaluator \\ \hline
+Phiên dài & 10 phiên, 230 request & Mỗi phiên chính 20 lượt, kèm probe liên phiên và liên người dùng & Kiểm tra nhớ thông tin ở đầu, giữa và cuối phiên; sửa ràng buộc, phân giải tham chiếu và cô lập phiên \\ \hline
 \end{longtable}
 
 \subsubsection{Quy trình xây dựng và kiểm soát ground truth}
@@ -58,9 +58,9 @@ Ground truth là tập nhãn dùng để xác định sản phẩm hoặc nội 
 \textbf{Bộ đánh giá} & \textbf{Đơn vị nhãn và quy mô} & \textbf{Cách tạo và kiểm soát nhãn} & \textbf{Trạng thái hiện tại} \\ \hline
 \endhead
 Text Search & 100 truy vấn, 2.703 cặp truy vấn--sản phẩm & Đối chiếu toàn bộ snapshot 1.000 sản phẩm theo ý định chuẩn hóa. Sản phẩm phải thỏa toàn bộ ràng buộc mới nhận mức 3; truy vấn âm nhận hành vi kỳ vọng không trả kết quả. Sáu mươi ca chuẩn gồm 20 easy, 20 medium và 20 hard; toàn bộ 30 ca chuẩn gốc của semantic challenge được giữ lại để đối chiếu cặp. & 2.703 nhãn đã \texttt{approved}. \\ \hline
-Image Search & 100 cặp truy vấn ghép theo sản phẩm; ground truth hợp nhất gồm 2.935 cặp & Giữ toàn bộ 2.000 nhãn cũ; bổ sung 36 cặp Top-5 được duyệt thị giác và 899 cặp dùng \texttt{metadata\_rule\_v1}. File review có grade đầy đủ nhưng trạng thái xuất là \texttt{pending}; các dòng này được chuẩn hóa thành \texttt{approved} sau khi người duyệt xác nhận hoàn tất. & 2.935 nhãn đã \texttt{approved}; phân bố grade 0/1/2/3 là 1.484/1.186/164/101. \\ \hline
+Image Search & 100 cặp truy vấn ghép theo sản phẩm; ground truth hợp nhất gồm 2.935 cặp & Giữ toàn bộ 2.000 nhãn cũ; bổ sung 36 cặp Top-5 được duyệt thị giác và 899 cặp dùng \texttt{metadata\_rule\_v1}. File review có grade đầy đủ nhưng trạng thái xuất là \texttt{pending}; các dòng này được chuẩn hóa thành \texttt{approved} sau khi người duyệt xác nhận hoàn tất. & 2.935 nhãn đã \texttt{approved}; phân bố grade 0/1/2/3 là 1.484 / 1.186 / 164 / 101. \\ \hline
 Hybrid Search & 100 cặp ảnh--văn bản, 654 cặp nhãn & Mỗi ca có một sản phẩm đích mức 3 từ biến đổi phản thực có kiểm soát. Một trăm ảnh tham chiếu và toàn bộ 654 cặp candidate đều được người đánh giá duyệt thủ công; không dùng luật tạo nhãn. & 654 nhãn đã \texttt{approved}; phân bố grade 1/2/3 là 104/450/100. \\ \hline
-Conversational AI & 80 câu hỏi, 80 reference answer và 120 evidence & Mỗi câu có nội dung bắt buộc, nội dung bị cấm, mã nguồn và bằng chứng. Packet được duyệt theo ba lớp question--reference--evidence và validator chỉ cho phép nghiệm thu khi các lớp cần thiết đều hoàn tất. & Toàn bộ question, reference và evidence cần thiết của 80 ca đã được duyệt \texttt{approved}. \\ \hline
+Trợ lý hội thoại & 80 câu hỏi, 80 reference answer và 120 evidence & Mỗi câu có nội dung bắt buộc, nội dung bị cấm, mã nguồn và bằng chứng. Packet được duyệt theo ba lớp question--reference--evidence và validator chỉ cho phép nghiệm thu khi các lớp cần thiết đều hoàn tất. & Toàn bộ question, reference và evidence cần thiết của 80 ca đã được duyệt \texttt{approved}. \\ \hline
 \end{longtable}
 
 Ground truth của Text Search được tạo độc lập bằng cách duyệt snapshot nên phù hợp để so sánh nhiều hệ thống. Ground truth Image Search được tạo bằng pooling: hợp ứng viên Top-20 của run cũ, simple và challenging, sau đó tái sử dụng nhãn cũ và bổ sung nhãn cho cặp mới; nhãn ngoài vùng ưu tiên Top-5 vẫn có một phần dùng luật metadata nên kết quả similarity Image Search được diễn giải là đánh giá kết hợp người--luật. Riêng ground truth Hybrid đã được đóng băng sau khi người đánh giá duyệt 100 ảnh tham chiếu và chấm thủ công toàn bộ 654 cặp candidate; baseline post-filter không cần bổ sung cặp nhãn nào. Khi thêm mô hình hoặc cấu hình truy hồi mới làm xuất hiện candidate ngoài pool này, vẫn cần mở rộng pool và gán nhãn trước khi so sánh. Ground truth Conversational AI đã hoàn tất duyệt cho lần chạy được báo cáo.
@@ -83,7 +83,7 @@ Với tập sản phẩm liên quan $Rel(q)$ và danh sách $K$ kết quả đ�
 
 \subsubsection{Thiết kế so sánh, thí nghiệm loại bỏ thành phần và độ bền}
 
-Một giá trị tuyệt đối như NDCG@5 bằng 0,80 hoặc Token-F1 bằng 0,80 không tự chứng minh hệ thống tốt. Tùy chức năng, báo cáo sử dụng một trong ba thiết kế: baseline giữa hai thuật toán, ablation bật--tắt một thành phần, hoặc kiểm tra độ bền ghép cặp khi chỉ thay đổi điều kiện đầu vào. Image Search thuộc thiết kế thứ ba: cùng image embedding được chạy trên hai ảnh của cùng sản phẩm để đo mức suy giảm do nền, người mẫu và góc chụp. Bảng~\ref{tab:ai-baseline-design} xác định vai trò của từng phép so sánh; những cấu hình chưa thực hiện tiếp tục được giữ trống để tránh tạo số liệu giả.
+Một giá trị tuyệt đối như NDCG@5 bằng 0,80 hoặc Token-F1 bằng 0,80 không tự chứng minh hệ thống tốt. Tùy chức năng, báo cáo sử dụng một trong ba thiết kế: baseline giữa hai thuật toán, ablation bật--tắt một thành phần, hoặc kiểm tra độ bền ghép cặp khi chỉ thay đổi điều kiện đầu vào. Image Search thuộc thiết kế thứ ba: cùng image embedding được chạy trên hai ảnh của cùng sản phẩm để đo mức suy giảm do nền, người mẫu và góc chụp. Bảng~\ref{tab:ai-baseline-design} xác định vai trò của từng phép so sánh. Các cấu hình chất lượng trong bảng đều đã được thực hiện; riêng độ trễ BM25 chưa được đo và được ghi rõ thay vì suy diễn số liệu.
 
 \begin{longtable}{|p{0.17\linewidth}|p{0.27\linewidth}|p{0.29\linewidth}|p{0.17\linewidth}|}
 \caption{Thiết kế baseline, ablation và kiểm tra độ bền cho các chức năng AI}\label{tab:ai-baseline-design}\\
@@ -105,7 +105,7 @@ Mọi cặp cấu hình phải giữ cố định snapshot, query set, ground tr
 
 \subsubsection{Cơ sở xác lập tiêu chí nghiệm thu}
 
-Các ngưỡng nghiệm thu được xác lập theo quy mô tập dữ liệu, giao diện Top-5 và yêu cầu phi chức năng của đồ án. Đây là mức sàn nội bộ để so sánh nhất quán giữa các cấu hình, không phải chuẩn chung cho mọi hệ thống tìm kiếm hoặc RAG. Một chức năng chỉ được kết luận đạt khi đồng thời vượt ngưỡng định lượng và không vi phạm điều kiện dữ liệu hoặc hard gate tương ứng.
+Các ngưỡng nghiệm thu được xác lập theo quy mô tập dữ liệu, giao diện Top-5 và yêu cầu phi chức năng của đồ án. Đây là mức sàn nội bộ để so sánh nhất quán giữa các cấu hình, không phải chuẩn chung cho mọi hệ thống tìm kiếm hoặc RAG. Một chức năng chỉ được kết luận \enquote{Đạt} khi đồng thời vượt ngưỡng định lượng và không vi phạm điều kiện dữ liệu hoặc hard gate tương ứng. Trạng thái \enquote{Đạt có giới hạn} được dùng khi chức năng vượt ngưỡng nhưng độ khái quát của bằng chứng còn hạn chế; \enquote{Đạt một phần} được dùng khi cấu hình đã đáp ứng chỉ số chính nhưng còn thiếu một thuộc tính quan trọng của yêu cầu.
 
 \begin{table}[H]
 \centering
@@ -335,12 +335,12 @@ Image Search & Pooled similarity Top-20 của hai điều kiện & Simple: Recal
 Hybrid Search & Image-only & Strict Hit@5 = 0,860; NDCG@5 = 0,667; thỏa toàn bộ ràng buộc@5 = 0,276; P95 = 0,953 giây & Đã chạy 100/100 truy vấn \\ \hline
 Hybrid Search & Text-only & Strict Hit@5 = 0,580; NDCG@5 = 0,504; thỏa toàn bộ ràng buộc@5 = 0,431; P95 = 5,815 giây & Đã chạy 100/100 truy vấn \\ \hline
 Hybrid Search & Ảnh + post-filter văn bản & Strict Hit@5 = 0,960; NDCG@5 = 0,876; thỏa toàn bộ ràng buộc@5 = 0,960; P95 = 0,953 giây & Replay đủ 100 truy vấn; 4 truy vấn rỗng; không bổ sung nhãn; baseline gần oracle \\ \hline
-Hybrid Search & Fusion, rerank tắt & Strict Hit@5 = 0,920; NDCG@5 = 0,863; thỏa toàn bộ ràng buộc@5 = 0,450; P95 = 0,737 giây & Đã chạy 100/100 truy vấn; được chọn trong các cấu hình production \\ \hline
+Hybrid Search & Fusion, rerank tắt & Strict Hit@5 = 0,920; NDCG@5 = 0,863; thỏa toàn bộ ràng buộc@5 = 0,450; P95 = 0,737 giây & Đã chạy 100/100 truy vấn; được chọn cho cấu hình hiện tại \\ \hline
 Hybrid Search & Fusion, rerank bật & Strict Hit@5 = 0,670; NDCG@5 = 0,568; thỏa toàn bộ ràng buộc@5 = 0,428; P95 = 2,425 giây & Đã chạy 100/100 truy vấn; reranker readiness đạt \texttt{true} \\ \hline
-Conversational AI & A: LLM không RAG, không memory & Grounding = 0,824; Context Precision = 0,034; Context Recall = 0,034; critical tự động = 4/12 & Đã chạy 80/80; không đạt hard gate; Token-F1 chẩn đoán = 0,389 \\ \hline
-Conversational AI & B: RAG không memory, rerank tắt & Grounding = 1,000; Context Precision = 0,882; Context Recall = 0,879; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,853 \\ \hline
-Conversational AI & C: RAG và memory, rerank tắt & Grounding = 1,000; Context Precision = 0,946; Context Recall = 0,944; critical tự động = 12/12 & Đã chạy 80/80; đạt và được chọn; Token-F1 chẩn đoán = 0,847 \\ \hline
-Conversational AI & RAG, memory và rerank bật (D) & Grounding = 1,000; Context Precision = 0,930; Context Recall = 0,927; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,843 \\ \hline
+Trợ lý hội thoại & A: LLM không RAG, không memory & Grounding = 0,824; Context Precision = 0,034; Context Recall = 0,034; critical tự động = 4/12 & Đã chạy 80/80; không đạt hard gate; Token-F1 chẩn đoán = 0,389 \\ \hline
+Trợ lý hội thoại & B: RAG không memory, rerank tắt & Grounding = 1,000; Context Precision = 0,882; Context Recall = 0,879; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,853 \\ \hline
+Trợ lý hội thoại & C: RAG và memory, rerank tắt & Grounding = 1,000; Context Precision = 0,946; Context Recall = 0,944; critical tự động = 12/12 & Đã chạy 80/80; đạt và được chọn; Token-F1 chẩn đoán = 0,847 \\ \hline
+Trợ lý hội thoại & RAG, memory và rerank bật (D) & Grounding = 1,000; Context Precision = 0,930; Context Recall = 0,927; critical tự động = 12/12 & Đã chạy 80/80; đạt hard gate; Token-F1 chẩn đoán = 0,843 \\ \hline
 \end{longtable}
 
 \subsubsection{So sánh trước và sau khi bật rerank}
@@ -355,8 +355,8 @@ Quy ước $\Delta$ trong Bảng~\ref{tab:rerank-comparison-template} là kết 
 \textbf{Chức năng} & \textbf{Chỉ số} & \textbf{Rerank tắt} & \textbf{Rerank bật} & \textbf{$\Delta$/kết luận} \\ \hline
 Text Search & Hit@5; NDCG@5; MRR; P95 & 1,000; 0,941; 0,963; 3,838 giây & 0,967; 0,903; 0,915; 4,225 giây & $-0{,}033$; $-0{,}038$; $-0{,}048$; rerank không được chọn \\ \hline
 Hybrid Search & Strict Hit@5; NDCG@5; thỏa ràng buộc@5; P95 & 0,920; 0,863; 0,450; 0,737 giây & 0,670; 0,568; 0,428; 2,425 giây & $-0{,}250$; $-0{,}294$; $-0{,}022$; $+1{,}689$ giây; chọn tắt \\ \hline
-Image Search & Chất lượng và P95 & \multicolumn{2}{c|}{Không áp dụng text reranker hiện tại} & Chỉ bổ sung nếu có bộ xếp hạng ảnh \\ \hline
-\makecell[l]{Conversational\\AI} & Grounding; Context Precision; Context Recall & 1,000; 0,946; 0,944 & 1,000; 0,930; 0,927 & 0,000; $-0{,}016$; $-0{,}016$; rerank không cải thiện metric tự động \\ \hline
+Image Search & Chất lượng và P95 & \multicolumn{2}{>{\centering\arraybackslash}p{0.25\linewidth}|}{Không áp dụng text reranker hiện tại} & Chỉ bổ sung nếu có bộ xếp hạng ảnh \\ \hline
+Trợ lý hội thoại & Grounding; Context Precision; Context Recall & 1,000; 0,946; 0,944 & 1,000; 0,930; 0,927 & 0,000; $-0{,}016$; $-0{,}016$; rerank không cải thiện metric tự động \\ \hline
 \end{tabularx}
 \end{table}
 
@@ -370,15 +370,15 @@ Rerank làm giảm các chỉ số chính của Text Search, Hybrid Search và t
 \begin{tabularx}{\linewidth}{|p{0.22\linewidth}|p{0.23\linewidth}|X|p{0.16\linewidth}|}
 \hline
 \textbf{Chức năng} & \textbf{Kết quả nổi bật} & \textbf{Điểm cần cải thiện hoặc giới hạn} & \textbf{Đánh giá} \\ \hline
-Text Search & Vector no-rerank đạt Hit@5 100\%; NDCG@5 0,941 và vượt BM25 & Rerank làm giảm Hit@5, NDCG@5 và MRR; cần hiệu chỉnh rồi xác nhận trên tập held-out & Chọn no-rerank \\ \hline
-Image Search & Exact Hit@5 đạt 100,0\%/97,0\%; NDCG@5 đạt 0,853/0,810 trên simple/challenging & Ảnh ngoài làm NDCG@5 giảm 0,043 và mAP giảm 0,052; P95 bổ sung đạt 1,002/0,989 giây; ground truth kết hợp nhãn người--luật & Đạt sàn exact, NDCG và P95 tuần tự; độ bền còn cần cải thiện \\ \hline
-Hybrid Search & Post-filter đạt Hit@5 96,0\%, NDCG@5 0,876 và thỏa ràng buộc@5 0,960; fusion tắt rerank có P95 tốt nhất 0,737 giây & Cả năm cấu hình đã chạy; post-filter dùng constraint có cấu trúc gần oracle; 100 ảnh tham chiếu và 654/654 cặp candidate đã được duyệt thủ công & Giữ fusion không rerank cho production; post-filter là baseline tốt nhất \\ \hline
-Conversational AI & A--D đã chạy 80/80; RAG nâng grounding 0,824 lên 1,000; memory nâng ordinal Context Recall 0,556 lên 1,000 & A chỉ đạt 4/12 critical; rerank làm Context Precision/Recall giảm 0,016 & Chọn RAG + memory, rerank tắt \\ \hline
+Text Search & Vector no-rerank đạt Hit@5 100\%; NDCG@5 0,941 và vượt BM25 & Rerank làm giảm Hit@5, NDCG@5 và MRR; cần hiệu chỉnh rồi xác nhận trên tập held-out & Đạt với no-rerank \\ \hline
+Image Search & Exact Hit@5 đạt 100,0\%/97,0\%; NDCG@5 đạt 0,853/0,810 trên simple/challenging & Ảnh ngoài làm NDCG@5 giảm 0,043 và mAP giảm 0,052; P95 bổ sung đạt 1,002/0,989 giây; ground truth kết hợp nhãn người--luật & Đạt có giới hạn \\ \hline
+Hybrid Search & Post-filter đạt Hit@5 96,0\%, NDCG@5 0,876 và thỏa ràng buộc@5 0,960; fusion tắt rerank có P95 tốt nhất 0,737 giây & Fusion tắt rerank chỉ đạt 0,450 về tỷ lệ thỏa đồng thời mọi ràng buộc@5; post-filter dùng constraint có cấu trúc gần oracle & Đạt một phần; chọn fusion no-rerank \\ \hline
+Conversational AI & A--D đã chạy 80/80; RAG nâng grounding 0,824 lên 1,000; memory nâng ordinal Context Recall 0,556 lên 1,000 & A chỉ đạt 4/12 critical; rerank làm Context Precision/Recall giảm 0,016 & Đạt với RAG + memory, no-rerank \\ \hline
 Memory phiên dài & Recall và isolation đạt 100\%; gateway contract test đạt 10/10 request & Backend forward đúng các trường session/user/request/turn; phiên A giữ 7 lượt, không lẫn phiên B và replay không nhân đôi trạng thái (xem \path{Evidence/e2e/gateway-long-memory-20260831.md}) & Đạt qua endpoint AI và Backend gateway \\ \hline
 \end{tabularx}
 \end{table}
 
-Nhìn chung, các chức năng AI đạt mức sàn nội bộ với cấu hình đã chọn. Hạn chế chính là độ bền của Image Search trên ảnh thực tế và khả năng giữ đồng thời toàn bộ ràng buộc của Hybrid Search. Ground truth Hybrid đã được duyệt thủ công toàn bộ, còn kết quả similarity Image Search vẫn phụ thuộc một phần vào nhãn theo luật.
+Nhìn chung, Text Search, Conversational AI và memory phiên dài đạt mức sàn nội bộ với cấu hình đã chọn. Image Search đạt có giới hạn vì suy giảm trên ảnh thực tế và ground truth similarity còn dùng một phần nhãn theo luật. Hybrid Search đạt các ngưỡng Strict Hit@5, NDCG@5 và P95, nhưng chỉ đạt 0,450 về tỷ lệ thỏa đồng thời mọi ràng buộc@5, nên được kết luận đạt một phần.
 
 %=====================================================
 \subsection{Đánh giá phi chức năng}
@@ -406,7 +406,7 @@ Giao diện đạt smoke test trên Chrome và Edge ở chế độ desktop/mobi
 %=====================================================
 \subsection{Tổng hợp kết quả kiểm thử hệ thống}
 
-Bảng~\ref{tab:executed-system-results} tổng hợp trạng thái của từng nhóm dựa trên bằng chứng thực nghiệm. Trạng thái \enquote{Đạt một phần} chỉ áp dụng cho phạm vi đã chạy.
+Bảng~\ref{tab:executed-system-results} tổng hợp trạng thái của từng nhóm dựa trên bằng chứng thực nghiệm. Các kết luận trong bảng áp dụng cho snapshot, cấu hình và tải đã mô tả; trạng thái \enquote{Đạt trong phạm vi} không được diễn giải thành chứng nhận sẵn sàng vận hành thương mại quy mô lớn.
 
 \begin{table}[H]
 \centering
@@ -417,17 +417,17 @@ Bảng~\ref{tab:executed-system-results} tổng hợp trạng thái của từng
 \textbf{Nhóm} & \textbf{Kết quả chính} & \textbf{Đánh giá} \\ \hline
 Backend và nghiệp vụ & 102/102 ca hồi quy đạt; bao phủ xác thực, phân quyền, giỏ hàng, COD, tồn kho, coupon và payment & Đạt \\ \hline
 Đồng bộ dữ liệu & Đủ 1.000 \texttt{product\_id}; retry, snapshot và rollback đạt; hồi quy \texttt{product\_id=648} đạt 8/8 URL ảnh, không còn lỗi \texttt{master.m3u8} & Đạt \\ \hline
-End-to-end & Luồng COD, Image Search và cập nhật sản phẩm đạt; E2E-03 trả 5/5 sản phẩm thuộc họ White, đúng giới tính và ngân sách, đồng thời lượt tinh chỉnh hội thoại giữ nguyên ba ràng buộc & Đạt \\ \hline
-Hiệu năng & Backend đạt 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 với P95 48,863 ms và heap tăng ổn định 8,210 MiB; tải AI sau tối ưu đạt 216/216, P95 Text/Hybrid/Assistant là 1,412/3,412/2,776 giây, correlation ID đạt 100\% và fallback Assistant bằng 0 & Đạt \\ \hline
-Bảo mật & Kiểm tra quyền và input đạt; rate limit trả 429, upload quá cỡ trả 413 và dependency audit không còn lỗ hổng & Đạt \\ \hline
+End-to-end & Năm hành trình COD, Image Search, Hybrid Search--hội thoại, cập nhật sản phẩm--đồng bộ và fallback khi AI lỗi đều đạt; E2E-03 trả 5/5 sản phẩm đúng họ màu, giới tính và ngân sách & Đạt trong phạm vi \\ \hline
+Hiệu năng & Backend đạt 21.231/21.231 request; soak checkout/payment hai giờ đạt 57.600/57.600 với P95 48,863 ms; tải AI đạt 216/216, P95 Text/Hybrid/Assistant là 1,412/3,412/2,776 giây; Image Search tuần tự có P95 1,002/0,989 giây & Đạt ngưỡng NFR-01 trong tải đã đo \\ \hline
+Bảo mật & Kiểm tra quyền và input đạt; rate limit trả 429, upload quá cỡ trả 413 và dependency audit không còn lỗ hổng & Đạt trong bộ kiểm thử; chưa pentest độc lập \\ \hline
 Khả dụng và quan sát & Các chức năng thương mại điện tử hoạt động khi AI lỗi; Qdrant phục hồi được; health không phụ thuộc SMTP; correlation ID được truyền Backend--AI Service và có trong log & Đạt \\ \hline
-Tương thích giao diện & Chrome/Edge desktop/mobile đạt; Firefox/WebKit desktop/mobile đạt 8/8 ca Playwright & Đạt \\ \hline
+Tương thích giao diện & Chrome/Edge desktop/mobile đạt; Firefox/WebKit desktop/mobile đạt 8/8 ca Playwright & Đạt NFR-06; chưa xác nhận Safari thật \\ \hline
 \end{tabularx}
 \end{table}
 
 Ca E2E-03 được chạy lại sau khi chuẩn hóa Ecru, Ivory và Trắng ngà về khóa \texttt{cream}, đồng thời ưu tiên màu catalog gốc khi bản dịch mâu thuẫn. Migration chỉ cập nhật payload cho 118 point text và 1.057 point image, không tạo lại vector; dry-run sau restart còn 0 point sai lệch. Top-5 gồm các sản phẩm White/Oyster-white, đều dành cho Women và có giá chỉ mục từ 299.000 đến 899.000 đồng. Trong phiên hội thoại hai lượt, cả lượt đầu và yêu cầu lựa chọn khác đều giữ \texttt{colors=[white]}, \texttt{gender=women} và \texttt{max\_price=1.000.000}; artifact được lưu tại \path{Evidence/e2e/e2e-03-hybrid-white-conversation-20260830.json}.
 
-Kết quả xác nhận các chức năng nghiệp vụ cốt lõi, cơ chế dự phòng và các kiểm soát bảo mật trong phạm vi chạy hoạt động đúng. Hệ thống chưa đủ điều kiện nghiệm thu toàn bộ do phạm vi kiểm thử phi chức năng chưa hoàn tất.
+Kết quả xác nhận các nhóm kiểm thử hệ thống và các NFR đã đặt ra đều đạt tiêu chí nghiệm thu nội bộ trong phạm vi chạy. Kết luận này không loại bỏ các giới hạn về tải AI ngắn, tải sinh từ một máy, thiếu pentest độc lập và chưa kiểm tra Safari trên thiết bị Apple thật; đây là các việc cần hoàn thiện trước khi xem xét triển khai thương mại quy mô lớn.
 
 %=====================================================
 \subsection{Ma trận truy vết yêu cầu và kết quả}
@@ -450,7 +450,7 @@ FR-AI-06, 07, 11 & UC-AI-04 và UC-AI-06; đồ thị tại Hình~\ref{fig:assis
 FR-AI-10 & UC-AI-07 và UC-AI-08; luồng tại Hình~\ref{fig:ai-sync-flow} & Nhóm đồng bộ tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
 FR-AI-12 & Cơ chế dự phòng giữa Backend và AI Service & Kế hoạch và kết quả tại Bảng~\ref{tab:system-test-plan} và \ref{tab:executed-system-results} & Đạt \\ \hline
 EC-FR-01--05 & Các ca sử dụng khách hàng/quản trị; Hình~\ref{fig:database-overview} và \ref{fig:order-state-design} & 102/102 ca hồi quy tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
-NFR-01 & Ngưỡng nghiệm thu hiệu năng & Bảng~\ref{tab:executed-system-results}; artifact AI \path{Evidence/performance/ai-concurrent-load-nfr01-final-20260907.json} và soak \path{Evidence/performance/checkout-payment-soak-2h-20260901.json} & Đạt; P95 của cả ba luồng AI đều dưới 5 giây \\ \hline
+NFR-01 & Ngưỡng nghiệm thu hiệu năng & Bảng~\ref{tab:executed-system-results}; artifact AI \path{Evidence/performance/ai-concurrent-load-nfr01-final-20260907.json} và soak \path{Evidence/performance/checkout-payment-soak-2h-20260901.json} & Đạt trong tải đã đo; P95 Text, Image, Hybrid và Assistant đều dưới 5 giây \\ \hline
 NFR-02 & JWT, RBAC và kiểm soát dữ liệu đầu vào & Nhóm bảo mật tại Bảng~\ref{tab:executed-system-results} & Đạt \\ \hline
 NFR-03, 04 & Dự phòng dịch vụ và giao dịch dữ liệu & Bảng~\ref{tab:system-test-execution} và \ref{tab:executed-system-results} & Đạt \\ \hline
 NFR-05 & Kiến trúc mô-đun Frontend--Backend--AI Service & Bằng chứng thiết kế và kiểm thử hồi quy & Đạt về thiết kế \\ \hline
@@ -463,7 +463,7 @@ NFR-09 & Bộ chỉ số chất lượng và độ trễ AI & Các bảng kết 
 %=====================================================
 \subsection{Thảo luận và hướng hoàn thiện}
 
-Kết quả AI cho thấy Vector Search phù hợp hơn BM25 ở truy vấn ngữ nghĩa; fusion cải thiện Hybrid Search so với hai cấu hình đơn phương thức, trong khi baseline post-filter có cấu trúc giữ ràng buộc tốt hơn nhưng không bao gồm lỗi hiểu ngôn ngữ tự nhiên. RAG và memory giúp trợ lý trả lời có căn cứ và duy trì ngữ cảnh. Rerank hiện làm giảm chất lượng trên cả Text Search, Hybrid Search và truy hồi hội thoại, nên các cấu hình production không rerank được lựa chọn.
+Kết quả AI cho thấy Vector Search phù hợp hơn BM25 ở truy vấn ngữ nghĩa; fusion cải thiện Hybrid Search so với hai cấu hình đơn phương thức, trong khi baseline post-filter có cấu trúc giữ ràng buộc tốt hơn nhưng không bao gồm lỗi hiểu ngôn ngữ tự nhiên. RAG và memory giúp trợ lý trả lời có căn cứ và duy trì ngữ cảnh. Rerank hiện làm giảm chất lượng trên cả Text Search, Hybrid Search và truy hồi hội thoại, nên cấu hình hiện tại chọn tắt rerank.
 
 Đánh giá còn bốn giới hạn chính. Thứ nhất, tập AI chưa hoàn toàn held-out và một phần nhãn similarity được tạo bằng luật. Thứ hai, Image Search mới được đo tuần tự và tải AI đồng thời mới chạy sáu worker trong ba phút; tải checkout/payment đã có soak hai giờ nhưng chưa đại diện cho tải phân tán nhiều máy. Thứ ba, một số hành trình E2E mới được kiểm chứng ở biên API/dữ liệu. Thứ tư, chưa có pentest chuyên dụng; kết quả Safari hiện được đại diện bởi WebKit tự động thay vì xác nhận trên thiết bị Apple thật.
 
@@ -472,4 +472,4 @@ Công việc ưu tiên tiếp theo là cải thiện khả năng giữ đồng t
 %=====================================================
 \subsection{Kết chương}
 
-Chương này đã trình bày thiết kế thực nghiệm, kế hoạch kiểm thử và kết quả đánh giá cho cả AI Service lẫn hệ thống hoàn chỉnh. Cấu hình được đề xuất là Vector Search không rerank cho tìm kiếm văn bản, fusion không rerank cho tìm kiếm kết hợp, và RAG + memory không rerank cho trợ lý hội thoại. Backend, nghiệp vụ cốt lõi và nhóm kiểm thử bảo mật đạt kết quả tốt; các hạn chế về Hybrid Search và tải dài hạn cần được xử lý trước khi nghiệm thu toàn bộ.
+Chương này đã trình bày thiết kế thực nghiệm, kế hoạch kiểm thử và kết quả đánh giá cho cả AI Service lẫn hệ thống hoàn chỉnh. Cấu hình được đề xuất là Vector Search không rerank cho tìm kiếm văn bản, fusion không rerank cho tìm kiếm kết hợp, và RAG + memory không rerank cho trợ lý hội thoại. Hệ thống đạt các tiêu chí nghiệm thu nội bộ trong phạm vi đồ án; riêng Image Search được đánh giá đạt có giới hạn và Hybrid Search đạt một phần. Các hạn chế về độ khái quát của benchmark, khả năng giữ ràng buộc, tải dài hạn và kiểm thử chuyên sâu cần được xử lý trước khi triển khai thương mại quy mô lớn.

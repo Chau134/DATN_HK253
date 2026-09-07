@@ -3,7 +3,7 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $presentationDir = Split-Path -Parent $scriptDir
 $workspaceDir = Split-Path -Parent $presentationDir
-$outputPath = Join-Path $presentationDir 'DoAnTotNghiep_Final_28slides_plus_appendix.pptx'
+$outputPath = Join-Path $presentationDir 'DoAnTotNghiep.pptx'
 if (-not [string]::IsNullOrWhiteSpace($env:DATN_PRESENTATION_OUTPUT)) {
     $outputPath = [System.IO.Path]::GetFullPath($env:DATN_PRESENTATION_OUTPUT)
 }
@@ -940,7 +940,7 @@ try {
     Add-Title $s 'Kiểm thử chức năng' 'Kết quả được đo trên cùng ground truth và cùng điều kiện' 'Các cấu hình được chọn theo bằng chứng; rerank bị tắt khi làm giảm chất lượng.'
     $aiResults=@(
         @{X=0.68;T='TEXT SEARCH';V='1,000';M='Hit@5';D='NDCG@5 0,941 · MRR 0,963';C=$C.Blue},
-        @{X=3.74;T='IMAGE SEARCH';V='0,970';M='Hit@5 challenging';D='Simple 1,000 · Top-10 1,000';C=$C.Orange},
+        @{X=3.74;T='IMAGE SEARCH';V='0,970';M='Exact Hit@5 challenging';D='Simple 1,000 · Top-10 1,000';C=$C.Orange},
         @{X=6.80;T='HYBRID SEARCH';V='0,920';M='Strict Hit@5';D='NDCG@5 0,863 · thỏa RB 0,450';C=$C.Teal},
         @{X=9.86;T='RAG + MEMORY';V='1,000';M='Grounding';D='Context P/R 0,946 / 0,944';C=$C.Red}
     )
@@ -1005,10 +1005,10 @@ try {
     }
     Add-Footer $s 26 'KIỂM THỬ & ĐÁNH GIÁ'
 
-    # 27 — Performance, security, usability
+    # 27 — Performance, security, compatibility
     $s = $deck.Slides.Add(27, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Hiệu năng, bảo mật & khả năng sử dụng' 'Đạt các gate đã chạy — đồng thời giữ rõ giới hạn đánh giá' 'Số liệu đại diện cho môi trường thử nghiệm, không được suy rộng thành production.'
+    Add-Title $s 'Hiệu năng, bảo mật & tương thích' 'Đạt các gate đã chạy — đồng thời giữ rõ giới hạn đánh giá' 'Số liệu đại diện cho môi trường thử nghiệm, không được suy rộng thành production.'
     Add-Shape $s $msoShapeRoundedRectangle 0.68 2.00 3.80 4.47 $C.Card $C.Blue | Out-Null
     Add-Text $s 'HIỆU NĂNG' 0.98 2.30 1.42 0.22 10 $C.Blue $true 1 'Aptos' 1 0 | Out-Null
     Add-Text $s '182,79 ms' 0.98 2.78 2.72 0.55 27 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
@@ -1017,7 +1017,8 @@ try {
     Add-Text $s '57.600 / 57.600' 0.98 4.08 2.55 0.34 18 $C.Blue $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Text $s 'request soak 2 giờ · 0 lỗi' 0.98 4.47 2.74 0.25 10 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     Add-Text $s 'P95 soak 48,863 ms' 0.98 5.08 2.86 0.30 13 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-    Add-Text $s 'AI 216/216 · P95 tối đa 5,318 giây' 0.98 5.78 3.05 0.34 8 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'AI 216/216 · P95 tối đa 3,412 giây' 0.98 5.68 3.05 0.34 8 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Text / Hybrid / Assistant: 1,412 / 3,412 / 2,776 giây' 0.98 5.98 3.10 0.34 7 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
 
     Add-Shape $s $msoShapeRoundedRectangle 4.76 2.00 3.80 4.47 $C.Card $C.Red | Out-Null
     Add-Text $s 'BẢO MẬT' 5.06 2.30 1.42 0.22 10 $C.Red $true 1 'Aptos' 1 0 | Out-Null
@@ -1031,7 +1032,7 @@ try {
     Add-Text $s 'Chưa thay thế pentest độc lập' 5.06 5.81 2.70 0.27 9 $C.Orange $true 1 'Aptos' 1 0 | Out-Null
 
     Add-Shape $s $msoShapeRoundedRectangle 8.84 2.00 3.80 4.47 $C.Card $C.Teal | Out-Null
-    Add-Text $s 'TƯƠNG THÍCH & UX' 9.14 2.30 2.16 0.22 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'TƯƠNG THÍCH' 9.14 2.30 2.16 0.22 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
     Add-Text $s '8 / 8' 9.14 2.80 1.56 0.55 27 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Text $s 'Playwright Firefox / WebKit' 9.14 3.35 2.65 0.28 10 $C.Muted $true 1 'Aptos' 1 0 | Out-Null
     Add-Line $s 9.14 3.82 12.31 3.82 $C.Line 1 | Out-Null
@@ -1044,10 +1045,10 @@ try {
     # 28 — Test summary
     $s = $deck.Slides.Add(28, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Tổng hợp kết quả kiểm thử' 'Các mục tiêu cốt lõi đạt — nhưng chưa tuyên bố production-ready' 'Kết luận được phân tầng theo mức bằng chứng và phạm vi đã kiểm thử.'
+    Add-Title $s 'Tổng hợp kết quả kiểm thử' 'Kết luận theo phạm vi bằng chứng' '“Đạt”, “Đạt có giới hạn” và “Đạt một phần” phản ánh đúng phạm vi kiểm chứng.'
     $status=@(
         @{X=0.68;Y=2.00;T='Text Search';S='ĐẠT';D='Hit@5 1,000 · vượt BM25';C=$C.Teal},
-        @{X=4.74;Y=2.00;T='Image Search';S='ĐẠT CÓ GIỚI HẠN';D='Ảnh challenging Hit@5 0,970';C=$C.Orange},
+        @{X=4.74;Y=2.00;T='Image Search';S='ĐẠT CÓ GIỚI HẠN';D='Challenging Exact Hit@5 0,970';C=$C.Orange},
         @{X=8.80;Y=2.00;T='Hybrid Search';S='ĐẠT MỘT PHẦN';D='Strict Hit@5 0,920 · RB 0,450';C=$C.Red},
         @{X=0.68;Y=3.43;T='RAG & Memory';S='ĐẠT';D='Grounding 1,000 · critical 12/12';C=$C.Teal},
         @{X=4.74;Y=3.43;T='Nghiệp vụ & tích hợp';S='ĐẠT';D='102/102 · sync · E2E · fallback';C=$C.Teal},
@@ -1062,8 +1063,8 @@ try {
     }
     Add-Shape $s $msoShapeRoundedRectangle 0.68 5.17 11.96 1.20 $C.Teal $C.Teal | Out-Null
     Add-Text $s 'KẾT LUẬN KIỂM THỬ' 0.98 5.45 2.12 0.22 10 $C.TealDark $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Hệ thống chứng minh được tính khả thi kỹ thuật và giá trị tích hợp.' 3.00 5.35 8.92 0.38 18 $C.Navy $true 1 'Aptos Display' 1 0 | Out-Null
-    Add-Text $s 'Cần xác nhận trên tập held-out, tải phân tán và người dùng thật trước vận hành thương mại.' 3.00 5.84 8.94 0.26 10 $C.TealDark $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Hệ thống đạt tiêu chí nghiệm thu nội bộ trong phạm vi đồ án.' 3.00 5.35 8.92 0.38 18 $C.Navy $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Kết quả chưa phải chứng nhận sẵn sàng vận hành thương mại quy mô lớn.' 3.00 5.84 8.94 0.26 10 $C.TealDark $true 1 'Aptos' 1 0 | Out-Null
     Add-Footer $s 28 'KIỂM THỬ & ĐÁNH GIÁ'
 
     # 29 — Limitations and roadmap
@@ -1073,16 +1074,16 @@ try {
     Add-Text $s 'HẠN CHẾ HIỆN TẠI' 0.68 2.00 2.18 0.22 10 $C.Red $true 1 'Aptos' 1 0 | Out-Null
     Add-Text $s 'ƯU TIÊN TIẾP THEO' 6.88 2.00 2.18 0.22 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
     $limits=@(
-        @{N='01';T='Dữ liệu & ground truth';D='1.000 sản phẩm thời trang; một phần nhãn dùng luật.';C=$C.Blue},
-        @{N='02';T='Độ bền truy hồi';D='Ảnh thực tế suy giảm; Hybrid chưa giữ mọi ràng buộc.';C=$C.Orange},
-        @{N='03';T='Độ rộng kiểm thử vận hành';D='AI load 6 worker/3 phút; soak một máy; chưa tải phân tán.';C=$C.Red},
-        @{N='04';T='Khả dụng người dùng';D='Chưa có SUS và đo thời gian hoàn thành tác vụ.';C=$C.Teal}
+        @{N='01';T='Dữ liệu & ground truth';D='1.000 sản phẩm; chưa held-out; nhãn ảnh còn dùng luật.';C=$C.Blue},
+        @{N='02';T='Truy hồi đa phương thức';D='Ảnh thực tế suy giảm; Hybrid giữ đủ ràng buộc mới 0,450.';C=$C.Orange},
+        @{N='03';T='Thiết kế so sánh';D='BM25 chưa đo latency; P95 rerank chưa phải phép đo paired.';C=$C.Red},
+        @{N='04';T='Độ sâu vận hành';D='AI 6 worker/3 phút; P99 Assistant 9,704 s; chưa pentest/Safari thật.';C=$C.Teal}
     )
     $road=@(
-        @{N='01';T='Held-out & ảnh người dùng';D='Mở rộng dữ liệu, pool và gán nhãn độc lập.';C=$C.Blue},
-        @{N='02';T='Hard filter & fusion mới';D='Tách ràng buộc bắt buộc; chỉ bật rerank khi cải thiện.';C=$C.Orange},
-        @{N='03';T='Production assurance';D='Tải AI dài hơn, tải phân tán, pentest và tracing.';C=$C.Red},
-        @{N='04';T='Mở rộng sản phẩm';D='Event-driven indexing, SUS, thanh toán và vận chuyển.';C=$C.Teal}
+        @{N='01';T='Hoàn thiện Hybrid Search';D='Tách hard/soft constraint; fallback post-filter khi cần.';C=$C.Blue},
+        @{N='02';T='Benchmark held-out';D='Ảnh người dùng, candidate mới và gán nhãn độc lập.';C=$C.Orange},
+        @{N='03';T='Đánh giá & vận hành AI';D='Đo BM25, rerank paired, soak dài và tải phân tán.';C=$C.Red},
+        @{N='04';T='Bảo mật & trải nghiệm';D='Pentest, thiết bị thật, SUS rồi mới mở rộng nghiệp vụ.';C=$C.Teal}
     )
     $ly=2.40
     for($i=0;$i -lt 4;$i++){
@@ -1099,7 +1100,7 @@ try {
         $ly += 1.04
     }
     Add-Text $s 'Ưu tiên trước mắt' 0.68 6.68 1.54 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Hybrid held-out  →  tải phân tán  →  đánh giá người dùng  →  mở rộng nghiệp vụ' 2.20 6.59 10.00 0.36 14 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Hybrid constraints  →  held-out  →  tải dài & paired  →  pentest' 2.20 6.59 10.00 0.36 14 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Footer $s 29 'KẾT LUẬN'
 
     # 30 — Conclusion and Q&A
@@ -1111,7 +1112,7 @@ try {
     $contrib=@(
         @{X=0.68;N='01';T='Tích hợp end-to-end';D='Tìm kiếm đa phương thức, RAG và hành trình mua sắm.';C=$C.Blue},
         @{X=4.74;N='02';T='Kiến trúc có đường biên';D='Backend kiểm soát nghiệp vụ; AI suy giảm độc lập.';C=$C.Orange},
-        @{X=8.80;N='03';T='Đánh giá bằng bằng chứng';D='Baseline, ablation, E2E và kiểm thử phi chức năng.';C=$C.Teal}
+        @{X=8.80;N='03';T='Đánh giá bằng bằng chứng';D='Đạt trong phạm vi; chưa đồng nghĩa production-ready.';C=$C.Teal}
     )
     foreach($contribItem in $contrib){
         Add-Shape $s $msoShapeRoundedRectangle $contribItem.X 3.06 3.56 1.63 $C.Card $C.Line | Out-Null
@@ -1139,7 +1140,7 @@ try {
         @('Hybrid Search','100 cặp','Strict Hit@5 · RB@5','0,920 · 0,450','Một phần'),
         @('RAG & Memory','80 + 230 req','Grounding · context · critical','1,000 · 0,946/0,944 · 12/12','Đạt'),
         @('Backend / E2E','102 ca + hành trình','Data · auth · transaction','102/102 · E2E đạt','Đạt'),
-        @('Phi chức năng','21.231 + 57.600 + 216','Backend · soak · AI','0 lỗi · 48,863 ms · 5,318 s','Trong phạm vi')
+        @('Phi chức năng','21.231 + 57.600 + 216','Backend · soak · AI','0 lỗi · 48,863 ms · P95 max 3,412 s','Trong phạm vi')
     )
     $my=2.51
     foreach($row in $matrix){
@@ -1177,7 +1178,7 @@ try {
     )
     foreach($p in $perf){Add-Shape $s $msoShapeRoundedRectangle $p.X 4.73 2.10 1.20 $C.Card $C.Line|Out-Null;Add-Text $s $p.V ($p.X+0.18) 4.98 1.74 0.36 20 $p.C $true 2 'Aptos Display' 1 0|Out-Null;Add-Text $s $p.T ($p.X+0.18) 5.49 1.74 0.23 9 $C.Muted $false 2 'Aptos' 1 0|Out-Null}
     Add-Text $s 'KẾT QUẢ BỔ SUNG' 0.68 6.35 1.58 0.20 9 $C.Orange $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Soak: P95 48,863 ms · heap +8,210 MiB  |  AI P95 Text / Hybrid / Assistant: 1,843 / 0,864 / 5,318 giây.' 2.26 6.25 9.84 0.40 10 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Soak: P95 48,863 ms · heap +8,210 MiB  |  AI P95 Text / Hybrid / Assistant: 1,412 / 3,412 / 2,776 giây.' 2.26 6.25 9.84 0.40 10 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
     Add-AppendixFooter $s 'A2 / A6'
 
     # A3 — Full ERD

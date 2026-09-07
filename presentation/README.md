@@ -6,11 +6,11 @@ Thư mục này chứa bộ slide được sinh tự động cho đề tài:
 
 ## Nội dung hiện tại
 
-- `DoAnTotNghiep_Final_28slides_plus_appendix.pptx`: bản hoàn chỉnh gồm 30 slide chính và 6 slide phụ lục A1–A6 (giữ nguyên tên file để tương thích với quy trình hiện tại).
+- `DoAnTotNghiep.pptx`: bản hoàn chỉnh gồm 30 slide chính và 6 slide phụ lục A1–A6.
 - `scripts/build-presentation.ps1`: mã nguồn tái tạo toàn bộ file PowerPoint hoàn chỉnh.
 - `notes/`: lời dẫn cho slide 1–28, kịch bản demo và cách dùng phụ lục.
 - `assets/video/`: vị trí đặt video để script tự động nhúng vào slide 21.
-- `previews/final/`: 34 ảnh slide và contact sheet toàn bộ.
+- `previews/final/`: 36 ảnh slide và contact sheet toàn bộ.
 - `previews/sections/`: contact sheet theo từng phần trình bày.
 - `previews/reference/`: ảnh tham khảo dùng trong quá trình thiết kế.
 - `archive/versions/`: các bản trung gian 8, 16 và 21 slide.
@@ -19,7 +19,7 @@ Thư mục này chứa bộ slide được sinh tự động cho đề tài:
 
 ```text
 presentation/
-├── DoAnTotNghiep_Final_28slides_plus_appendix.pptx
+├── DoAnTotNghiep.pptx
 ├── README.md
 ├── archive/versions/
 ├── assets/video/
@@ -39,7 +39,7 @@ Yêu cầu Microsoft PowerPoint trên Windows. Từ thư mục gốc project, ch
 powershell -ExecutionPolicy Bypass -File presentation/scripts/build-presentation.ps1
 ```
 
-Script sử dụng ảnh, sơ đồ và số liệu kiểm thử thật trong project, sau đó ghi đè file PPTX hoàn chỉnh cùng 34 ảnh preview. Nếu có `assets/video/demo-san-pham.mp4`, video sẽ được nhúng vào slide 21 và nút mở file dự phòng sẽ được tạo bằng đường dẫn tương đối.
+Script sử dụng ảnh, sơ đồ và số liệu kiểm thử thật trong project, sau đó ghi đè file PPTX hoàn chỉnh cùng 36 ảnh preview. Nếu có `assets/video/demo-san-pham.mp4`, video sẽ được nhúng vào slide 21 và nút mở file dự phòng sẽ được tạo bằng đường dẫn tương đối.
 
 ## Quy ước thiết kế
 

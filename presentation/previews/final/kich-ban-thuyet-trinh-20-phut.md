@@ -49,7 +49,7 @@
 
 ## Slide 8 — Điểm khác biệt (30 giây)
 
-> Điểm khác biệt không chỉ là gọi một mô hình AI. Giải pháp tạo một vòng lặp end-to-end: hiểu yêu cầu, truy hồi có ràng buộc, tư vấn dựa trên dữ liệu, rồi đưa người dùng trở lại hành động mua hàng. AI Service được tách khỏi nghiệp vụ lõi và kết quả được kiểm chứng bằng baseline, ablation cùng các bài kiểm thử hệ thống.
+> Điểm khác biệt không chỉ là gọi một mô hình AI. Giải pháp tạo một vòng lặp end-to-end: hiểu yêu cầu, truy hồi có ràng buộc, tư vấn dựa trên dữ liệu, rồi đưa người dùng trở lại hành động mua hàng.
 
 **Chuyển phần:**
 
@@ -154,15 +154,15 @@
 
 ## Slide 27 — Phi chức năng (50 giây)
 
-> Tải Backend hoàn tất 21.231 trên 21.231 request. P95 tải hỗn hợp Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Tải AI đại diện đạt 216 trên 216 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,843; 0,864 và 5,318 giây. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận Safari trên thiết bị thật.
+> Tải Backend hoàn tất 21.231 trên 21.231 request. P95 tải hỗn hợp Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Tải AI đại diện đạt 216 trên 216 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,412; 3,412 và 2,776 giây. Image Search tuần tự có P95 1,002 và 0,989 giây trên hai điều kiện ảnh. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận Safari trên thiết bị thật.
 
 ## Slide 28 — Tổng hợp kết quả (35 giây)
 
-> Text Search, RAG, nghiệp vụ và tích hợp đều đạt các gate đặt ra. Image Search đạt nhưng suy giảm trên ảnh bên ngoài. Hybrid Search đạt Strict Hit@5 nhưng mới đáp ứng một phần vì chưa giữ tốt tất cả ràng buộc. Do đó, đề tài đã chứng minh tính khả thi kỹ thuật và giá trị tích hợp, nhưng chưa tuyên bố production-ready.
+> Text Search, RAG, nghiệp vụ và tích hợp đạt các gate đặt ra. Image Search đạt có giới hạn vì suy giảm trên ảnh bên ngoài và ground truth similarity còn dùng một phần nhãn theo luật. Hybrid Search đạt một phần vì tỷ lệ Top-5 thỏa đồng thời mọi ràng buộc chỉ đạt 0,450. Nhìn chung, hệ thống đạt tiêu chí nghiệm thu nội bộ trong phạm vi đồ án, nhưng kết quả này chưa phải chứng nhận production-ready.
 
 ## Slide 29 — Hạn chế và hướng phát triển (35 giây)
 
-> Bốn hạn chế chính là dữ liệu mới dừng ở 1.000 sản phẩm thời trang; một phần ground truth ảnh còn dùng luật; tải AI mới chạy sáu worker trong ba phút và bài soak chỉ dùng một máy; cuối cùng là chưa có đánh giá người dùng thật. Thứ tự ưu tiên tiếp theo là xây dựng tập held-out, cải thiện hard filter và fusion, chạy tải AI dài hơn và phân tán, thực hiện pentest, sau đó mới mở rộng nghiệp vụ.
+> Các hạn chế chính là benchmark 1.000 sản phẩm chưa hoàn toàn held-out; Hybrid Search chưa giữ tốt đồng thời mọi ràng buộc; BM25 chưa đo latency và hai lượt P95 rerank chưa phải phép đo paired; tải AI mới chạy sáu worker trong ba phút, trong khi P99 Assistant còn 9,704 giây. Thứ tự ưu tiên là hoàn thiện constraint của Hybrid Search, xây dựng benchmark held-out, chạy tải AI dài và paired đầy đủ, rồi thực hiện pentest và đánh giá trên thiết bị thật.
 
 ## Slide 30 — Kết luận và Q&A (30 giây)
 
