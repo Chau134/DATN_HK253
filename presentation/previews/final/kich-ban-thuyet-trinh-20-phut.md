@@ -1,7 +1,7 @@
 # Kịch bản thuyết trình đồ án — khoảng 20 phút
 
 **Đề tài:** Xây dựng Trợ lý Mua sắm Đa phương tiện sử dụng RAG và Computer Vision
-**Phạm vi trình bày:** Slide 1–30. Slide A1–A6 chỉ dùng khi hỏi đáp.
+**Phạm vi trình bày:** Slide 1–30. Slide 31 dùng cho Q&A, slide 32 là tài liệu tham khảo; A1–A6 chỉ mở khi hội đồng hỏi sâu.
 **Tổng thời lượng mục tiêu:** 19 phút 30 giây đến 20 phút.
 
 ## Phân bổ thời gian
@@ -15,8 +15,6 @@
 | Kết luận | 30 | 30 giây |
 | Chuyển slide và khoảng dừng nhấn ý | Toàn bài | khoảng 50 giây |
 
-> Khi luyện tập, nên giữ phần nói trong khoảng 17 phút và video demo khoảng 2 phút 30 giây. Không đọc toàn bộ nội dung trên slide; chỉ giải thích thông điệp và số liệu quan trọng.
-
 ---
 
 ## Slide 1 — Trang bìa (20 giây)
@@ -29,7 +27,7 @@
 
 ## Slide 3 — Bối cảnh và lý do chọn đề tài (30 giây)
 
-> Khi mua sắm trực tuyến, khách hàng thường không nhớ chính xác tên sản phẩm. Họ có thể mô tả nhu cầu bằng ngôn ngữ tự nhiên, đưa một ảnh tham khảo, rồi hỏi tiếp về màu sắc, kích thước hoặc giá. Vì vậy, hệ thống cần hiểu đồng thời văn bản, hình ảnh và ngữ cảnh hội thoại, thay vì xử lý từng kênh riêng lẻ.
+> Hành vi tìm kiếm mua sắm đang chuyển từ từ khóa sang đa phương thức. Theo Google, Lens xử lý gần 20 tỷ lượt tìm kiếm trực quan mỗi tháng và khoảng 20 phần trăm liên quan đến mua sắm. Về nền tảng kỹ thuật, RAG nối mô hình sinh với dữ liệu truy xuất, còn CLIP cho thấy khả năng học biểu diễn ảnh–văn bản từ 400 triệu cặp. Vì vậy, bài toán thực tế là kết nối mô tả, ảnh tham chiếu và ngữ cảnh hội thoại với dữ liệu sản phẩm có thể kiểm chứng.
 
 ## Slide 4 — Bài toán thực tế (35 giây)
 
@@ -45,7 +43,7 @@
 
 ## Slide 7 — Giải pháp liên quan (30 giây)
 
-> Tìm kiếm truyền thống mạnh ở bộ lọc nghiệp vụ nhưng hạn chế về ngữ nghĩa. Tìm kiếm ảnh khai thác tín hiệu thị giác. Chatbot LLM giao tiếp tự nhiên nhưng dễ thiếu căn cứ nếu tách khỏi dữ liệu sản phẩm. Khoảng trống mà em hướng đến là kết nối các năng lực này trong một quy trình mua sắm thống nhất.
+> Google Lens mạnh ở đầu vào hình ảnh và quy mô tìm kiếm trực quan, nhưng không quản lý source of truth hay giao dịch của từng cửa hàng. Google AI Commerce Search khai thác catalog và sự kiện người dùng để tìm kiếm, gợi ý, nhưng vẫn là dịch vụ managed cần tích hợp với nghiệp vụ. Alexa for Shopping, trước đây là Rufus, mạnh ở hội thoại mua sắm dựa trên catalog, review và thông tin web, nhưng vận hành trong hệ sinh thái đóng. Giải pháp đề xuất kết nối Text, Image, Hybrid Search, RAG và memory với Backend xác nhận giá, tồn kho và giao dịch; đổi lại, bằng chứng hiện mới ở quy mô nguyên mẫu 1.000 sản phẩm.
 
 ## Slide 8 — Điểm khác biệt (30 giây)
 
@@ -83,15 +81,15 @@
 
 ## Slide 15 — Công nghệ sử dụng (30 giây)
 
-> React được dùng cho giao diện SPA; Spring Boot cho nghiệp vụ và transaction; FastAPI cùng LangGraph cho workflow AI có trạng thái. MySQL, Qdrant và Redis đảm nhiệm các loại dữ liệu khác nhau. Các mô hình được đóng gói qua adapter để có thể thay đổi provider mà không sửa toàn bộ hệ thống.
+> React được dùng cho giao diện SPA; Spring Boot cho nghiệp vụ và transaction; FastAPI cùng LangGraph cho workflow AI có trạng thái. MySQL, Qdrant và Redis đảm nhiệm các loại dữ liệu khác nhau. Ngoài ra, mô hình và hạ tầng có sử dụng: Bedrock, cohere embedv4, yolo, docker và GCP.
 
 ## Slide 16 — Quyết định kỹ thuật quan trọng (40 giây)
 
-> Bốn quyết định chính là: Spring Boot làm cổng công khai duy nhất; MySQL giữ quyền quyết định dữ liệu nghiệp vụ; AI Service được tách và có fallback; các provider được cấu hình qua adapter. Nhờ đó, AI hỗ trợ quá trình ra quyết định nhưng không có quyền tự thay đổi giá, tồn kho hoặc trạng thái giao dịch.
+> Bốn quyết định chính là: Spring Boot làm cổng công khai duy nhất; MySQL giữ quyền quyết định dữ liệu nghiệp vụ; AI Service được tách và có fallback; các provider được cấu hình qua adapter, khi sửa provider không cần sửa toàn bộ hệ thống. Nhờ đó, AI hỗ trợ quá trình ra quyết định nhưng không có quyền tự thay đổi giá, tồn kho hoặc trạng thái giao dịch.
 
 **Chuyển phần:**
 
-> Từ thiết kế này, em đã hiện thực sản phẩm gồm cửa hàng, trợ lý AI và khu vực quản trị.
+> Từ thiết kế trên, em đã hiện thực sản phẩm gồm cửa hàng, trợ lý AI và khu vực quản trị.
 
 ---
 
@@ -132,29 +130,29 @@
 
 ---
 
-## Slide 22 — Chiến lược kiểm thử (35 giây)
+## Slide 22 — Chiến lược và môi trường kiểm thử (45 giây)
 
-> Em chia đánh giá thành hai lớp độc lập. Lớp thứ nhất đo chất lượng AI bằng baseline, ablation và ground truth đã duyệt. Lớp thứ hai kiểm tra Backend, tích hợp, end-to-end và các thuộc tính phi chức năng. Các lần chạy sử dụng snapshot 1.000 sản phẩm, schema và collection riêng, kèm seed và artifact để truy vết.
+> Em chia đánh giá thành hai lớp độc lập. Lớp thứ nhất đo chất lượng AI trên 100 truy vấn Text Search, 100 cặp ảnh, 100 truy vấn Hybrid, 80 câu hỏi RAG và 230 request phiên dài. Lớp thứ hai kiểm tra hệ thống hoàn chỉnh, gồm Backend, hợp đồng dịch vụ, đồng bộ dữ liệu, end-to-end và các thuộc tính phi chức năng. Mọi lần chạy sử dụng snapshot 1.000 sản phẩm, schema MySQL test, Qdrant collection riêng, cùng manifest, seed và ground truth đóng băng. Về nhãn đánh giá, Text Search có 2.703 nhãn được đối chiếu trên toàn snapshot; Image Search có 2.935 nhãn từ pooling Top-20, duyệt thị giác và luật metadata; Hybrid có 654 nhãn với toàn bộ candidate được duyệt thủ công; còn RAG dùng 80 bộ question, reference và evidence được duyệt theo ba lớp.
 
 ## Slide 23 — Tiêu chí đánh giá AI Service (45 giây)
 
-> Mỗi chức năng cần một bộ chỉ số riêng. Text Search dùng Hit@5 để đo khả năng tìm thấy kết quả đúng, NDCG và MRR để đo thứ hạng, đồng thời kiểm tra truy vấn âm và P95. Image Search bổ sung Exact Hit và Exact MRR cho đúng sản phẩm nguồn, cùng Recall, NDCG và mAP cho sản phẩm tương tự. Hybrid Search dùng Strict Hit@5 và tỷ lệ thỏa toàn bộ ràng buộc. Với RAG, em đo grounding, Context Precision, Context Recall và bắt buộc vượt 12 trên 12 ca critical. Các metric chỉ được diễn giải cùng ground truth và ngưỡng nghiệm thu tương ứng.
+> Mỗi chức năng cần một bộ chỉ số riêng. Hit@5 trả lời có ít nhất một kết quả đúng trong năm vị trí đầu hay không; NDCG ưu tiên kết quả liên quan cao xuất hiện sớm; MRR đo vị trí của kết quả đúng đầu tiên. Với ảnh, Exact Hit kiểm tra đúng sản phẩm nguồn, còn NDCG và mAP đo xếp hạng các sản phẩm tương tự. Với Hybrid, Strict Hit yêu cầu có ứng viên thỏa toàn bộ ý định và tỷ lệ thỏa ràng buộc đo từng kết quả Top-5. Với RAG, grounding đo phát biểu có bằng chứng, còn Context Precision và Recall đo mức ít nhiễu và không bỏ sót. P95 được tính trên biên client end-to-end và không so trực tiếp giữa các workload khác nhau.
 
 ## Slide 24 — Thiết kế so sánh (45 giây)
 
 > Để so sánh công bằng, mỗi thí nghiệm giữ nguyên dữ liệu và chỉ thay thành phần cần kiểm chứng. Text Search so BM25 với Vector trước và sau rerank. Image Search ghép cặp cùng 100 sản phẩm giữa ảnh catalog và ảnh bên ngoài. Hybrid Search so năm cấu hình từ image-only, text-only, post-filter đến fusion có hoặc không rerank. Trợ lý được ablation từ LLM thuần, thêm RAG, thêm memory rồi thêm rerank. Cấu hình cuối được chọn theo chất lượng, gate và độ trễ, không mặc định giải pháp phức tạp hơn sẽ tốt hơn.
 
-## Slide 25 — Kết quả kiểm thử chức năng (55 giây)
+## Slide 25 — Kết quả so sánh baseline (55 giây)
 
-> Với Text Search, cấu hình vector không rerank đạt Hit@5 bằng 1,000, NDCG@5 bằng 0,941 và MRR bằng 0,963. Image Search đạt Exact Hit@5 bằng 0,970 trên ảnh thử thách và 1,000 trên ảnh catalog. Hybrid fusion không rerank đạt Strict Hit@5 bằng 0,920, NDCG@5 bằng 0,863; tuy nhiên, mức thỏa toàn bộ ràng buộc trong Top-5 mới đạt 0,450. Với trợ lý, cấu hình RAG kết hợp memory và tắt rerank đạt grounding 1,000, Context Precision 0,946 và Context Recall 0,944. Ngoài ra, 102 trên 102 ca Backend và 430 trên 430 ca hồi quy AI đều đạt.
+> Trên cùng tập thử thách ngữ nghĩa, Vector không rerank tăng Hit@5 từ 0,756 của BM25 lên 1,000, tức tăng 0,244; NDCG@5 tăng từ 0,689 lên 0,941, tức tăng 0,252. Với Hybrid, fusion không rerank tăng Strict Hit@5 từ 0,580 của text-only lên 0,920, tăng 0,340. Tuy nhiên, khi bật rerank, chỉ số này giảm từ 0,920 xuống 0,670; vì vậy em tắt rerank theo bằng chứng thay vì mặc định cấu hình phức tạp hơn sẽ tốt hơn. Ở hai nhóm còn lại, Image Search trên ảnh ngoài đạt Exact Hit@5 0,970; RAG nâng grounding từ 0,824 lên 1,000 và critical gate từ 4 trên 12 lên 12 trên 12.
 
 ## Slide 26 — API và tích hợp (30 giây)
 
 > Hệ thống có 26 Spring Controller với 126 request mapping và 14 endpoint FastAPI. Em kiểm tra hợp đồng request–response, API key nội bộ, full và incremental sync, retry, snapshot, rollback và fallback khi AI lỗi. Hai collection có đủ 1.000 product ID; correlation ID được truyền xuyên từ Backend sang AI Service để truy vết request.
-
+**giải thích: “Ở phần tích hợp, em kiểm tra dữ liệu trao đổi giữa các dịch vụ có đúng định dạng hay không; các API nội bộ có được bảo vệ hay không; dữ liệu từ MySQL sang Qdrant có được đồng bộ đầy đủ và chính xác hay không. Em cũng kiểm tra khả năng thử lại khi xảy ra lỗi, lưu trạng thái cũ để phục hồi, quay lại phiên bản ổn định khi cập nhật thất bại và duy trì các chức năng cốt lõi khi AI Service không hoạt động.”
 ## Slide 27 — Phi chức năng (50 giây)
 
-> Tải Backend hoàn tất 21.231 trên 21.231 request. P95 tải hỗn hợp Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Tải AI đại diện đạt 216 trên 216 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,412; 3,412 và 2,776 giây. Image Search tuần tự có P95 1,002 và 0,989 giây trên hai điều kiện ảnh. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận Safari trên thiết bị thật.
+> Tải Backend hoàn tất 21.231 trên 21.231 request. P95 tải hỗn hợp Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Tải AI đại diện đạt 216 trên 216 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,412; 3,412 và 2,776 giây. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận Safari trên thiết bị thật.
 
 ## Slide 28 — Tổng hợp kết quả (35 giây)
 
@@ -164,9 +162,17 @@
 
 > Các hạn chế chính là benchmark 1.000 sản phẩm chưa hoàn toàn held-out; Hybrid Search chưa giữ tốt đồng thời mọi ràng buộc; BM25 chưa đo latency và hai lượt P95 rerank chưa phải phép đo paired; tải AI mới chạy sáu worker trong ba phút, trong khi P99 Assistant còn 9,704 giây. Thứ tự ưu tiên là hoàn thiện constraint của Hybrid Search, xây dựng benchmark held-out, chạy tải AI dài và paired đầy đủ, rồi thực hiện pentest và đánh giá trên thiết bị thật.
 
-## Slide 30 — Kết luận và Q&A (30 giây)
+## Slide 30 — Kết luận (30 giây)
 
-> Đề tài đóng góp một hệ thống end-to-end tích hợp tìm kiếm đa phương thức, RAG và hành trình mua sắm; một kiến trúc có đường biên trách nhiệm rõ ràng; cùng quy trình đánh giá dựa trên baseline, ablation và kiểm thử hệ thống. Thông điệp em muốn nhấn mạnh là: AI hỗ trợ quyết định, còn dữ liệu nghiệp vụ luôn giữ quyền kiểm soát. Em xin cảm ơn hội đồng và sẵn sàng trả lời câu hỏi.
+> Đề tài đóng góp một hệ thống end-to-end tích hợp tìm kiếm đa phương thức, RAG và hành trình mua sắm; một kiến trúc có đường biên trách nhiệm rõ ràng; cùng quy trình đánh giá dựa trên baseline, ablation và kiểm thử hệ thống. Thông điệp em muốn nhấn mạnh là: AI hỗ trợ quyết định, còn dữ liệu nghiệp vụ luôn giữ quyền kiểm soát. Kết luận này áp dụng cho snapshot 1.000 sản phẩm và các tải đã đo, chưa đồng nghĩa production-ready.
+
+## Slide 31 — Q&A
+
+> Em xin cảm ơn Hội đồng đã lắng nghe và sẵn sàng trả lời câu hỏi. Khi trao đổi, ưu tiên mở đúng phụ lục theo nhóm câu hỏi: ma trận kiểm thử, hiệu năng, ERD, API, lỗi đã khắc phục hoặc bản đồ bằng chứng.
+
+## Slide 32 — Tài liệu tham khảo
+
+Không trình bày thành lời nếu không được hỏi. Các mục [1]–[5] là nguồn ngoài cho slide 3 và slide 7; nguồn nội bộ trỏ tới báo cáo cùng các artifact đánh giá.
 
 ---
 

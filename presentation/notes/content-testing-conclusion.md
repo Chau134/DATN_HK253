@@ -1,18 +1,18 @@
 # Nội dung thuyết trình — Kiểm thử, kết luận và phụ lục
 
-Thời lượng gợi ý cho slide 22–30: **6–7 phút**. Không trình bày phụ lục theo thứ tự; chỉ mở trang phù hợp khi hội đồng hỏi.
+Thời lượng gợi ý cho slide 22–30: **6–7 phút**. Slide 31 là Q&A, slide 32 là tài liệu tham khảo; không trình bày phụ lục theo thứ tự, chỉ mở trang phù hợp khi hội đồng hỏi.
 
-## Slide 22 — Chiến lược và môi trường kiểm thử
+## Slide 22 — Dữ liệu và cấu hình đánh giá
 
-**Thông điệp:** Chất lượng AI và tính đúng của hệ thống được kiểm chứng như hai lớp độc lập.
+**Thông điệp:** Mọi kết quả dùng cùng dữ liệu đóng băng, nhãn có provenance và biên đo có thể tái lập.
 
-> Nhóm chia đánh giá thành hai lớp. Lớp AI đo chất lượng truy hồi, RAG và bộ nhớ bằng baseline, ablation cùng ground truth đã duyệt. Lớp hệ thống kiểm tra nghiệp vụ, tích hợp, end-to-end và các thuộc tính phi chức năng. Mọi lần chạy dùng snapshot 1.000 sản phẩm, schema và collection riêng, seed cùng manifest có thể truy vết.
+> Dữ liệu bắt đầu từ snapshot 1.000 sản phẩm trong MySQL. Text Search có 2.703 nhãn; Image Search có 2.935 nhãn kết hợp duyệt thị giác và luật metadata; Hybrid có 654 nhãn duyệt thủ công; RAG có 80 bộ question--reference--evidence đã duyệt. Các lần chạy giữ nguyên snapshot, model, prompt và collection, kiểm tra readiness, lưu manifest cùng run ID. Độ trễ được đo end-to-end ở client; bootstrap dùng 10.000 mẫu và seed 42.
 
 ## Slide 23–25 — Tiêu chí, thiết kế so sánh và kết quả chức năng
 
 **Thông điệp:** Cấu hình cuối được chọn theo kết quả thực nghiệm, không mặc định thành phần phức tạp hơn sẽ tốt hơn.
 
-> Text Search không rerank đạt Hit@5 bằng 1,000. Image Search đạt Exact Hit@5 bằng 0,970 trên ảnh thử thách. Hybrid fusion không rerank đạt Strict Hit@5 bằng 0,920, nhưng tỷ lệ thỏa đồng thời mọi ràng buộc trong Top-5 chỉ đạt 0,450. RAG kết hợp memory đạt grounding 1,000. Ngoài AI, 102 trên 102 ca Backend và 430 ca hồi quy AI đều đạt.
+> Hit@5 đo có ít nhất một kết quả đúng trong Top-5; NDCG ưu tiên kết quả đúng ở vị trí cao; MRR đo vị trí kết quả đúng đầu tiên. Trên tập thử thách ngữ nghĩa, Vector không rerank tăng Hit@5 từ 0,756 lên 1,000 và NDCG@5 từ 0,689 lên 0,941 so với BM25. Hybrid fusion tăng Strict Hit@5 từ 0,580 lên 0,920 so với text-only. Bật rerank làm chỉ số này giảm còn 0,670, nên cấu hình cuối tắt rerank. Image Search ảnh ngoài đạt Exact Hit@5 0,970; RAG nâng grounding từ 0,824 lên 1,000.
 
 ## Slide 26 — Kiểm thử API và tích hợp
 
@@ -38,11 +38,19 @@ Thời lượng gợi ý cho slide 22–30: **6–7 phút**. Không trình bày 
 
 > Các giới hạn chính nằm ở benchmark chưa hoàn toàn held-out, Hybrid Search chưa giữ đủ ràng buộc, BM25 chưa đo latency, so sánh P95 rerank chưa paired và tải AI mới kéo dài ba phút. Assistant còn P99 9,704 giây. Hướng ưu tiên là hoàn thiện constraint của Hybrid Search, xây dựng benchmark held-out, chạy tải dài và paired đầy đủ, rồi pentest và đánh giá trên thiết bị thật.
 
-## Slide 30 — Kết luận và Q&A
+## Slide 30 — Kết luận
 
 **Thông điệp kết thúc:** AI hỗ trợ quyết định; dữ liệu nghiệp vụ giữ quyền kiểm soát.
 
-> Đề tài đóng góp một hệ thống end-to-end, một kiến trúc có đường biên trách nhiệm rõ ràng và một quy trình đánh giá bằng baseline, ablation cùng kiểm thử hệ thống. Nhóm xin cảm ơn hội đồng và sẵn sàng trả lời câu hỏi.
+> Đề tài đóng góp một hệ thống end-to-end, một kiến trúc có đường biên trách nhiệm rõ ràng và một quy trình đánh giá bằng baseline, ablation cùng kiểm thử hệ thống. Kết luận áp dụng cho snapshot và tải đã đo, chưa đồng nghĩa production-ready.
+
+## Slide 31 — Q&A
+
+> Nhóm xin cảm ơn hội đồng và sẵn sàng trả lời câu hỏi. Mở đúng phụ lục theo chủ đề được hỏi.
+
+## Slide 32 — Tài liệu tham khảo
+
+Không trình bày nếu không được hỏi. Dùng để truy vết các nguồn ngoài ở slide 3 và slide 7; nguồn số liệu nội bộ nằm trong báo cáo và thư mục đánh giá.
 
 ## Cách dùng phụ lục
 

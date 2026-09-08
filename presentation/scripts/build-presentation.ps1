@@ -40,7 +40,7 @@ $msoShapeRoundedRectangle = 5
 $msoShapeOval = 9
 $msoFalse = 0
 $msoTrue = -1
-$mainSlideCount = 30
+$mainSlideCount = 32
 
 function Add-Shape {
     param($slide, [int]$type, [double]$x, [double]$y, [double]$w, [double]$h,
@@ -264,18 +264,18 @@ try {
     Add-Text $s '2210510' 10.82 5.69 1.38 0.22 10 $C.Muted $true 3 'Aptos' 1 0 | Out-Null
 
     Add-Text $s 'TP. HỒ CHÍ MINH, THÁNG 9/2026' 0.70 6.72 11.92 0.24 10 $C.Gray $true 2 'Aptos' 1 0 | Out-Null
-    Add-Text $s '01 / 30' 11.30 7.18 1.35 0.18 8 $C.Gray $true 3 'Aptos' 1 0 | Out-Null
+    Add-Text $s '01 / 32' 11.30 7.18 1.35 0.18 8 $C.Gray $true 3 'Aptos' 1 0 | Out-Null
 
     # 02 — Agenda
     $s = $deck.Slides.Add(2, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Lộ trình trình bày' 'Từ bài toán đến bằng chứng' '30 slide · 5 phần · một câu chuyện xuyên suốt'
+    Add-Title $s 'Lộ trình trình bày' 'Từ bài toán đến bằng chứng' '32 slide · 5 phần · một câu chuyện xuyên suốt'
     $chapters = @(
         @{No='01'; Name='Mở đầu & bài toán'; Range='01–08'; Active=$true},
         @{No='02'; Name='Phân tích & thiết kế'; Range='09–16'; Active=$false},
         @{No='03'; Name='Sản phẩm & demo'; Range='17–21'; Active=$false},
         @{No='04'; Name='Kiểm thử & đánh giá'; Range='22–28'; Active=$false},
-        @{No='05'; Name='Kết luận & Q&A'; Range='29–30'; Active=$false}
+        @{No='05'; Name='Kết luận & trao đổi'; Range='29–32'; Active=$false}
     )
     $x = 0.68
     for ($i=0; $i -lt $chapters.Count; $i++) {
@@ -299,25 +299,30 @@ try {
     # 03 — Context
     $s = $deck.Slides.Add(3, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Bối cảnh' 'Người dùng tìm kiếm bằng “ý định”, không chỉ bằng từ khóa' 'Một nhu cầu mua sắm thường đồng thời chứa ngữ nghĩa, hình ảnh tham chiếu và ràng buộc.'
-    $cards = @(
-        @{X=0.68; Color=$C.Blue; Label='VĂN BẢN'; Quote='“Áo khoác nhẹ, màu trung tính, dưới 800 nghìn”'; Icon='search'},
-        @{X=4.49; Color=$C.Orange; Label='HÌNH ẢNH'; Quote='“Tôi muốn một mẫu có kiểu dáng tương tự ảnh này”'; Icon='image'},
-        @{X=8.30; Color=$C.Teal; Label='HỘI THOẠI'; Quote='“Mẫu thứ hai còn màu đen và size M không?”'; Icon='chat'}
+    Add-Title $s 'Bối cảnh' 'Tìm kiếm mua sắm đang chuyển từ từ khóa sang đa phương thức' 'Nhu cầu thực tế đồng thời chứa ngữ nghĩa, hình ảnh tham chiếu và ngữ cảnh hội thoại.'
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 2.02 3.26 3.72 $C.Card $C.Blue | Out-Null
+    Add-Text $s 'QUY MÔ HÀNH VI' 0.98 2.30 1.82 0.22 10 $C.Blue $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s '≈ 20 tỷ' 0.98 2.79 2.42 0.54 28 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'lượt tìm kiếm trực quan bằng Google Lens mỗi tháng' 0.98 3.34 2.52 0.68 13 $C.Muted $true 1 'Aptos' 1 0 | Out-Null
+    Add-Line $s 0.98 4.20 3.62 4.20 $C.Line 1 | Out-Null
+    Add-Text $s '20%' 0.98 4.46 1.30 0.50 24 $C.Teal $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'liên quan đến mua sắm' 2.02 4.53 1.45 0.42 11 $C.White $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s '[1] Google, 2024' 0.98 5.28 2.30 0.20 8 $C.Gray $false 1 'Aptos' 1 0 | Out-Null
+
+    $signals=@(
+        @{Y=2.02;N='01';T='Văn bản';D='Mô tả phong cách, giá và mục đích bằng ngôn ngữ tự nhiên.';C=$C.Blue},
+        @{Y=3.28;N='02';T='Hình ảnh';D='Ảnh tham chiếu mang tín hiệu khó diễn đạt thành từ khóa.';C=$C.Orange},
+        @{Y=4.54;N='03';T='Hội thoại';D='Câu hỏi tiếp nối phụ thuộc kết quả và ràng buộc lượt trước.';C=$C.Teal}
     )
-    foreach ($card in $cards) {
-        Add-Shape $s $msoShapeRoundedRectangle $card.X 2.04 3.43 2.62 $C.Card $C.Line | Out-Null
-        if ($card.Icon -eq 'search') { Add-IconSearch $s ($card.X + 0.30) 2.33 $card.Color }
-        elseif ($card.Icon -eq 'image') { Add-IconImage $s ($card.X + 0.30) 2.30 $card.Color }
-        else { Add-IconChat $s ($card.X + 0.30) 2.31 $card.Color }
-        Add-Text $s $card.Label ($card.X + 0.98) 2.35 1.85 0.22 10 $card.Color $true 1 'Aptos' 1 0 | Out-Null
-        Add-Text $s $card.Quote ($card.X + 0.30) 3.08 2.83 1.06 18 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-        Add-Text $s 'Ý định cần được hiểu trong ngữ cảnh sản phẩm thực tế.' ($card.X + 0.30) 4.16 2.78 0.34 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    foreach($item in $signals){
+        Add-Shape $s $msoShapeRoundedRectangle 4.24 $item.Y 8.40 1.02 $C.Navy2 $C.Line | Out-Null
+        Add-CircleLabel $s $item.N 4.52 ($item.Y+0.22) 0.48 $item.C $C.Navy 10
+        Add-Text $s $item.T 5.24 ($item.Y+0.15) 1.35 0.28 15 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+        Add-Text $s $item.D 6.62 ($item.Y+0.13) 5.55 0.48 11 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     }
-    Add-Line $s 1.28 5.35 11.73 5.35 $C.Line 1 | Out-Null
-    Add-CircleLabel $s '!' 0.68 5.67 0.48 $C.Orange $C.Navy 18
-    Add-Text $s 'Khoảng trống cần giải quyết' 1.36 5.63 2.58 0.30 12 $C.Orange $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Liên kết ba tín hiệu này thành một hành trình tìm kiếm và tư vấn liền mạch.' 3.80 5.59 8.48 0.43 17 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 6.02 11.96 0.72 $C.Teal $C.Teal | Out-Null
+    Add-Text $s 'XU HƯỚNG CÔNG NGHỆ' 0.95 6.25 1.90 0.20 9 $C.TealDark $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'RAG gắn sinh ngôn ngữ với dữ liệu truy xuất [2] · CLIP học biểu diễn ảnh–văn bản từ 400 triệu cặp [3].' 2.80 6.16 9.35 0.36 11 $C.Navy $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Footer $s 3
 
     # 04 — Real problem
@@ -413,42 +418,24 @@ try {
     # 07 — Related approaches
     $s = $deck.Slides.Add(7, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Khảo sát giải pháp liên quan' 'Mỗi nhóm giải pháp giải quyết tốt một phần bài toán' 'So sánh theo năng lực cốt lõi, không theo thương hiệu hay giao diện sản phẩm.'
-    $left = 0.68; $top = 2.00
-    $colX = @(0.68, 4.36, 6.38, 8.40, 10.42)
-    $colW = @(3.60, 1.94, 1.94, 1.94, 2.22)
-    $headers = @('Nhóm giải pháp', 'Hiểu ngữ nghĩa', 'Tìm bằng ảnh', 'Hội thoại có căn cứ', 'Tích hợp nghiệp vụ')
-    for ($i=0; $i -lt $headers.Count; $i++) {
-        $fill = if ($i -eq 0) { $C.Card } else { $C.Navy2 }
-        Add-Shape $s $msoShapeRectangle $colX[$i] $top $colW[$i] 0.72 $fill $C.Line | Out-Null
-        Add-Text $s $headers[$i] ($colX[$i] + 0.10) ($top + 0.12) ($colW[$i] - 0.20) 0.44 10 $C.Muted $true $(if($i -eq 0){1}else{2}) 'Aptos' 3 0 | Out-Null
-    }
-    $rows = @(
-        @{Name='Tìm kiếm từ khóa & bộ lọc'; V=@('△','—','—','●')},
-        @{Name='Tìm kiếm ảnh tương đồng'; V=@('—','●','—','△')},
-        @{Name='Chatbot dựa trên LLM'; V=@('●','△','△','—')},
-        @{Name='Giải pháp đề xuất'; V=@('●','●','●','●'); Highlight=$true}
+    Add-Title $s 'Khảo sát giải pháp liên quan' 'Ba sản phẩm mạnh ở ba lát cắt khác nhau' 'Ưu–nhược điểm được đối chiếu theo phạm vi công bố; hàng cuối là giải pháp của đề tài.'
+    $solutions=@(
+        @{X=0.68;Y=1.94;T='Google Lens';A='Ảnh → nhận diện và kết quả trực quan';P='+ Quy mô lớn; đầu vào tự nhiên';M='− Không quản lý giao dịch hay source of truth của cửa hàng';R='[1]';C=$C.Blue},
+        @{X=6.78;Y=1.94;T='Google AI Commerce Search';A='Catalog + sự kiện → search/recommendation';P='+ Tối ưu cho dữ liệu bán lẻ';M='− Dịch vụ managed; nghiệp vụ vẫn phải tích hợp bên ngoài';R='[4]';C=$C.Teal},
+        @{X=0.68;Y=4.08;T='Alexa for Shopping';A='Trước đây là Rufus · LLM + catalog/review/web';P='+ Hỏi đáp và so sánh bằng ngôn ngữ tự nhiên';M='− Hệ sinh thái đóng; khó kiểm soát kiến trúc và phép đo';R='[5]';C=$C.Orange},
+        @{X=6.78;Y=4.08;T='Giải pháp đề xuất';A='Text/Image/Hybrid + RAG + memory + Backend xác nhận';P='+ End-to-end; có fallback và bằng chứng đánh giá';M='− Nguyên mẫu 1.000 sản phẩm; chưa chứng minh production scale';R='Nội bộ';C=$C.Red;H=$true}
     )
-    $ry = 2.72
-    foreach ($row in $rows) {
-        $highlight = $row.ContainsKey('Highlight')
-        $rowFill = if ($highlight) { $C.Teal } else { $C.Card }
-        $rowText = if ($highlight) { $C.Navy } else { $C.White }
-        for ($i=0; $i -lt 5; $i++) {
-            Add-Shape $s $msoShapeRectangle $colX[$i] $ry $colW[$i] 0.82 $rowFill $(if($highlight){$C.TealDark}else{$C.Line}) | Out-Null
-        }
-        Add-Text $s $row.Name 0.88 ($ry + 0.20) 3.18 0.37 12 $rowText $true 1 'Aptos' 3 0 | Out-Null
-        for ($i=0; $i -lt 4; $i++) {
-            $mark = $row.V[$i]
-            $markColor = if ($highlight) { $C.Navy } elseif ($mark -eq '●') { $C.Teal } elseif ($mark -eq '△') { $C.Orange } else { $C.Gray }
-            Add-Text $s $mark ($colX[$i+1]) ($ry + 0.13) $colW[$i+1] 0.50 18 $markColor $true 2 'Aptos Display' 3 0 | Out-Null
-        }
-        $ry += 0.82
+    foreach($sol in $solutions){
+        $fill=if($sol.ContainsKey('H')){$C.Card}else{$C.Navy2}
+        Add-Shape $s $msoShapeRoundedRectangle $sol.X $sol.Y 5.86 1.82 $fill $sol.C | Out-Null
+        Add-Shape $s $msoShapeRectangle $sol.X $sol.Y 0.09 1.82 $sol.C | Out-Null
+        Add-Text $s $sol.T ($sol.X+0.30) ($sol.Y+0.18) 3.78 0.30 16 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+        Add-Text $s $sol.R ($sol.X+4.72) ($sol.Y+0.20) 0.70 0.22 9 $sol.C $true 3 'Aptos' 1 0 | Out-Null
+        Add-Text $s $sol.A ($sol.X+0.30) ($sol.Y+0.60) 5.12 0.32 11 $sol.C $true 1 'Aptos' 1 0 | Out-Null
+        Add-Text $s $sol.P ($sol.X+0.30) ($sol.Y+1.02) 5.10 0.25 10 $C.White $true 1 'Aptos' 1 0 | Out-Null
+        Add-Text $s $sol.M ($sol.X+0.30) ($sol.Y+1.35) 5.10 0.34 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     }
-    Add-Text $s '● đáp ứng tốt' 0.70 6.35 1.42 0.22 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s '△ đáp ứng một phần' 2.22 6.35 1.64 0.22 9 $C.Orange $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s '— không phải trọng tâm' 3.97 6.35 1.90 0.22 9 $C.Gray $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Khoảng trống: một giải pháp end-to-end kết nối truy hồi đa phương thức với dữ liệu và nghiệp vụ thật.' 6.15 6.27 6.47 0.40 12 $C.White $true 3 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Nguồn: [1] Google Lens (2024) · [4] Google AI Commerce Search · [5] Alexa for Shopping. Chi tiết ở slide 32.' 0.70 6.36 11.64 0.24 8 $C.Gray $false 1 'Aptos' 1 0 | Out-Null
     Add-Footer $s 7
 
     # 08 — Differentiation
@@ -861,55 +848,57 @@ try {
     }
     Add-Footer $s 21 'SẢN PHẨM & DEMO'
 
-    # 22 — Test strategy and environment
+    # 22 — Dataset, labels, and measurement protocol
     $s = $deck.Slides.Add(22, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Chiến lược & môi trường kiểm thử' 'Đánh giá từ thuật toán đến hành trình người dùng' 'Hai lớp kiểm chứng độc lập: chất lượng AI và tính đúng đắn của hệ thống hoàn chỉnh.'
-    Add-Shape $s $msoShapeRoundedRectangle 0.68 2.00 5.76 1.56 $C.Card $C.Blue | Out-Null
-    Add-Text $s 'LỚP 01' 0.98 2.27 0.72 0.20 9 $C.Blue $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Chất lượng AI' 1.75 2.20 2.25 0.34 19 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-    Add-Text $s '100 text · 100 cặp ảnh · 100 hybrid · 80 câu RAG · 230 request phiên dài' 0.98 2.81 4.98 0.38 10 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
-    Add-Shape $s $msoShapeRoundedRectangle 6.88 2.00 5.76 1.56 $C.Card $C.Teal | Out-Null
-    Add-Text $s 'LỚP 02' 7.18 2.27 0.72 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Hệ thống hoàn chỉnh' 7.95 2.20 2.96 0.34 19 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-    Add-Text $s 'Backend · hợp đồng dịch vụ · đồng bộ dữ liệu · E2E · phi chức năng' 7.18 2.81 4.92 0.38 10 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
-    $stages=@(
-        @{X=0.68;N='01';T='Baseline & ablation';D='BM25 / vector / fusion / RAG / memory / rerank';C=$C.Blue},
-        @{X=3.74;N='02';T='Regression & integration';D='Unit, security, controller, contract và dữ liệu';C=$C.Teal},
-        @{X=6.80;N='03';T='End-to-end';D='COD, image, hybrid, cập nhật, AI fallback';C=$C.Orange},
-        @{X=9.86;N='04';T='Phi chức năng';D='Tải, bảo mật, khả dụng, quan sát, trình duyệt';C=$C.Red}
+    Add-Title $s 'Dữ liệu & cấu hình đánh giá' 'Mọi kết quả bắt đầu từ một snapshot và ground truth đóng băng' 'Nguồn dữ liệu, cách gán nhãn và biên đo được lưu cùng từng run để có thể tái lập.'
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 1.92 5.76 1.24 $C.Card $C.Blue | Out-Null
+    Add-Text $s 'NGUỒN DỮ LIỆU' 0.98 2.18 1.62 0.20 9 $C.Blue $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Snapshot 1.000 sản phẩm thời trang từ MySQL' 0.98 2.50 4.98 0.30 16 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'product_id · danh mục · màu · chất liệu · giới tính · giá · ảnh' 0.98 2.83 4.96 0.22 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    Add-Shape $s $msoShapeRoundedRectangle 6.88 1.92 5.76 1.24 $C.Card $C.Teal | Out-Null
+    Add-Text $s 'TẬP ĐÁNH GIÁ' 7.18 2.18 1.42 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s '100 text · 100 cặp ảnh · 100 hybrid · 80 câu RAG' 7.18 2.50 4.98 0.30 15 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Text: 90 dương + 10 âm · Image: catalog + ảnh ngoài · RAG: 120 evidence' 7.18 2.83 4.98 0.22 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'CÁCH XÂY DỰNG GROUND TRUTH' 0.68 3.48 2.74 0.20 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    $labels=@(
+        @{X=0.68;T='Text Search';V='2.703 nhãn';D='Đối chiếu toàn snapshot; full-intent mới grade 3.';C=$C.Blue},
+        @{X=3.74;T='Image Search';V='2.935 nhãn';D='Pooling Top-20; duyệt thị giác + luật metadata.';C=$C.Orange},
+        @{X=6.80;T='Hybrid Search';V='654 nhãn';D='100 ảnh và toàn bộ candidate được duyệt thủ công.';C=$C.Teal},
+        @{X=9.86;T='RAG';V='80 câu';D='Question–reference–evidence duyệt theo ba lớp.';C=$C.Red}
     )
-    foreach($t in $stages){
-        Add-Shape $s $msoShapeRoundedRectangle $t.X 3.98 2.78 1.72 $C.Navy2 $C.Line | Out-Null
-        Add-CircleLabel $s $t.N ($t.X+0.21) 4.22 0.48 $t.C $C.Navy 10
-        Add-Text $s $t.T ($t.X+0.83) 4.16 1.69 0.48 13 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-        Add-Text $s $t.D ($t.X+0.21) 4.86 2.30 0.56 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    foreach($lab in $labels){
+        Add-Shape $s $msoShapeRoundedRectangle $lab.X 3.83 2.78 1.31 $C.Navy2 $C.Line | Out-Null
+        Add-Text $s $lab.T ($lab.X+0.22) 4.04 1.42 0.22 10 $lab.C $true 1 'Aptos' 1 0 | Out-Null
+        Add-Text $s $lab.V ($lab.X+1.50) 4.02 1.04 0.26 13 $C.White $true 3 'Aptos Display' 1 0 | Out-Null
+        Add-Text $s $lab.D ($lab.X+0.22) 4.48 2.32 0.45 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     }
-    Add-Shape $s $msoShapeRoundedRectangle 0.68 6.08 11.96 0.67 $C.Navy2 $C.Line | Out-Null
-    Add-Text $s 'MÔI TRƯỜNG' 0.95 6.30 1.13 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Snapshot 1.000 sản phẩm · schema MySQL test · Qdrant collection riêng · manifest + seed + ground truth đóng băng' 2.10 6.21 10.12 0.36 11 $C.White $true 1 'Aptos' 1 0 | Out-Null
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 5.53 11.96 1.10 $C.Card $C.Line | Out-Null
+    Add-Text $s 'CẤU HÌNH ĐO' 0.95 5.79 1.28 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Cùng snapshot, model/prompt và collection · readiness trước run · client end-to-end bằng đồng hồ monotonic' 2.17 5.70 9.98 0.30 11 $C.White $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Chất lượng chạy cùng query set; tải đồng thời đo riêng · manifest/run_id lưu cấu hình · bootstrap 10.000 mẫu, seed 42.' 2.17 6.09 9.98 0.27 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     Add-Footer $s 22 'KIỂM THỬ & ĐÁNH GIÁ'
 
     # 23 — AI Service evaluation criteria
     $s = $deck.Slides.Add(23, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Tiêu chí đánh giá AI Service' 'Mỗi chức năng cần một bộ chỉ số phù hợp với mục tiêu' 'Đánh giá đồng thời khả năng tìm đúng, chất lượng thứ hạng, mức có căn cứ và độ trễ.'
+    Add-Title $s 'Tiêu chí đánh giá AI Service' 'Mỗi chỉ số đo một khía cạnh khác nhau' 'Mũi tên ↑ nghĩa là cao hơn tốt hơn; P95 ↓ nghĩa là 95% yêu cầu hoàn tất không quá giá trị này.'
     $criteria=@(
-        @{X=0.68;Y=2.00;T='TEXT SEARCH';M="Hit@5 · Precision@5 · Recall@5`rNDCG@5 · MRR · truy vấn âm · P95";G='Gate: Hit@5 ≥ 0,95 · NDCG@5 ≥ 0,80';C=$C.Blue},
-        @{X=6.80;Y=2.00;T='IMAGE SEARCH';M="Exact Hit@1/5/10 · Exact MRR`rRecall · NDCG · mAP · P95";G='Gate: Exact Hit@5 ≥ 0,95 · NDCG@5 ≥ 0,80';C=$C.Orange},
-        @{X=0.68;Y=4.14;T='HYBRID SEARCH';M="Strict Hit@5 · graded NDCG@5`rThỏa ràng buộc@5 · query có kết quả · P95";G='Gate: Strict Hit@5 ≥ 0,90 · P95 ≤ 5 giây';C=$C.Teal},
-        @{X=6.80;Y=4.14;T='RAG + MEMORY';M="Grounding · Context Precision / Recall`rCritical gate · isolation · Token-F1 chẩn đoán";G='Gate: Grounding ≥ 0,85 · critical 12/12';C=$C.Red}
+        @{X=0.68;Y=2.00;T='TEXT SEARCH';M="Hit@5 ↑: có kết quả đúng trong Top-5`rNDCG@5 ↑: đúng hơn được xếp cao · MRR ↑: đúng đầu tiên sớm hơn";G='Gate: Hit@5 ≥ 0,95 · NDCG@5 ≥ 0,80';C=$C.Blue},
+        @{X=6.80;Y=2.00;T='IMAGE SEARCH';M="Exact Hit ↑: tìm lại đúng sản phẩm nguồn`rNDCG/mAP ↑: chất lượng xếp hạng các sản phẩm tương tự";G='Gate: Exact Hit@5 ≥ 0,95 · NDCG@5 ≥ 0,80';C=$C.Orange},
+        @{X=0.68;Y=4.14;T='HYBRID SEARCH';M="Strict Hit@5 ↑: có ứng viên thỏa toàn ý định`rThỏa RB@5 ↑: tỷ lệ kết quả giữ đủ mọi ràng buộc";G='Gate: Strict Hit@5 ≥ 0,90 · P95 ≤ 5 giây';C=$C.Teal},
+        @{X=6.80;Y=4.14;T='RAG + MEMORY';M="Grounding ↑: phát biểu có bằng chứng`rContext P/R ↑: bằng chứng ít nhiễu và không bỏ sót";G='Gate: Grounding ≥ 0,85 · critical 12/12';C=$C.Red}
     )
     foreach($criterion in $criteria){
         Add-Shape $s $msoShapeRoundedRectangle $criterion.X $criterion.Y 5.84 1.78 $C.Card $C.Line | Out-Null
         Add-Shape $s $msoShapeRectangle $criterion.X $criterion.Y 0.09 1.78 $criterion.C | Out-Null
         Add-Text $s $criterion.T ($criterion.X+0.30) ($criterion.Y+0.22) 2.22 0.24 11 $criterion.C $true 1 'Aptos' 1 0 | Out-Null
-        Add-Text $s $criterion.M ($criterion.X+0.30) ($criterion.Y+0.62) 5.12 0.58 13 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+        Add-Text $s $criterion.M ($criterion.X+0.30) ($criterion.Y+0.60) 5.12 0.66 11 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
         Add-Line $s ($criterion.X+0.30) ($criterion.Y+1.30) ($criterion.X+5.50) ($criterion.Y+1.30) $C.Line 0.8 | Out-Null
         Add-Text $s $criterion.G ($criterion.X+0.30) ($criterion.Y+1.43) 5.12 0.22 9 $C.Muted $true 1 'Aptos' 1 0 | Out-Null
     }
-    Add-Text $s 'Cách đọc kết quả' 0.68 6.32 1.58 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Metric tuyệt đối chỉ có ý nghĩa khi đi cùng ground truth, baseline và cùng điều kiện chạy.' 2.22 6.23 10.06 0.36 14 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'BIÊN ĐO ĐỘ TRỄ' 0.68 6.32 1.76 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Client end-to-end: gửi request → đọc body → giải mã JSON; không so trực tiếp các workload khác nhau.' 2.38 6.23 9.90 0.36 12 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Footer $s 23 'KIỂM THỬ & ĐÁNH GIÁ'
 
     # 24 — Baseline and comparison design
@@ -934,36 +923,36 @@ try {
     Add-Text $s 'Ưu tiên cấu hình đạt gate, chất lượng tốt hơn và độ trễ thấp hơn — không mặc định mô hình phức tạp hơn sẽ tốt hơn.' 2.72 6.27 9.38 0.32 12 $C.Navy $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Footer $s 24 'KIỂM THỬ & ĐÁNH GIÁ'
 
-    # 25 — Functional testing
+    # 25 — Baseline versus proposed results
     $s = $deck.Slides.Add(25, $ppLayoutBlank)
     Add-Background $s
-    Add-Title $s 'Kiểm thử chức năng' 'Kết quả được đo trên cùng ground truth và cùng điều kiện' 'Các cấu hình được chọn theo bằng chứng; rerank bị tắt khi làm giảm chất lượng.'
-    $aiResults=@(
-        @{X=0.68;T='TEXT SEARCH';V='1,000';M='Hit@5';D='NDCG@5 0,941 · MRR 0,963';C=$C.Blue},
-        @{X=3.74;T='IMAGE SEARCH';V='0,970';M='Exact Hit@5 challenging';D='Simple 1,000 · Top-10 1,000';C=$C.Orange},
-        @{X=6.80;T='HYBRID SEARCH';V='0,920';M='Strict Hit@5';D='NDCG@5 0,863 · thỏa RB 0,450';C=$C.Teal},
-        @{X=9.86;T='RAG + MEMORY';V='1,000';M='Grounding';D='Context P/R 0,946 / 0,944';C=$C.Red}
+    Add-Title $s 'Kết quả so sánh baseline' 'Cấu hình được chọn từ chênh lệch đo trên cùng tập truy vấn' 'Δ = cấu hình bên phải trừ baseline; dấu âm ở hàng cuối giải thích vì sao rerank bị tắt.'
+    $cols=@(0.68,3.25,5.43,6.93,8.43,9.83);$widths=@(2.51,2.12,1.44,1.44,1.34,2.81)
+    $heads=@('Phép so sánh','Chỉ số','Baseline','Đề xuất','Δ','Quyết định')
+    for($i=0;$i -lt 6;$i++){Add-Shape $s $msoShapeRectangle $cols[$i] 1.93 $widths[$i] 0.55 $C.Card $C.Line|Out-Null;Add-Text $s $heads[$i] ($cols[$i]+0.08) 2.09 ($widths[$i]-0.16) 0.20 9 $C.Muted $true $(if($i -lt 2){1}else{2}) 'Aptos' 1 0|Out-Null}
+    $comparative=@(
+        @('Text: BM25 → Vector','Hit@5','0,756','1,000','+0,244','Chọn Vector no-rerank'),
+        @('Text: BM25 → Vector','NDCG@5','0,689','0,941','+0,252','Xếp hạng tốt hơn'),
+        @('Hybrid: Text-only → Fusion','Strict Hit@5','0,580','0,920','+0,340','Fusion đạt gate'),
+        @('Hybrid: no-rerank → rerank','Strict Hit@5','0,920','0,670','−0,250','Tắt rerank')
     )
-    foreach($r in $aiResults){
-        Add-Shape $s $msoShapeRoundedRectangle $r.X 2.00 2.78 2.30 $C.Card $C.Line | Out-Null
-        Add-Text $s $r.T ($r.X+0.22) 2.28 2.26 0.20 9 $r.C $true 1 'Aptos' 1 0 | Out-Null
-        Add-Text $s $r.V ($r.X+0.22) 2.73 1.55 0.54 27 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-        Add-Text $s $r.M ($r.X+0.22) 3.30 2.20 0.25 10 $C.Muted $true 1 'Aptos' 1 0 | Out-Null
-        Add-Line $s ($r.X+0.22) 3.72 ($r.X+2.50) 3.72 $C.Line 1 | Out-Null
-        Add-Text $s $r.D ($r.X+0.22) 3.86 2.25 0.24 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    $cy=2.48
+    for($r=0;$r -lt $comparative.Count;$r++){
+        $row=$comparative[$r];$deltaColor=if($r -eq 3){$C.Red}else{$C.Teal}
+        for($i=0;$i -lt 6;$i++){Add-Shape $s $msoShapeRectangle $cols[$i] $cy $widths[$i] 0.72 $(if($r%2 -eq 0){$C.Navy2}else{$C.Card}) $C.Line|Out-Null}
+        Add-Text $s $row[0] 0.84 ($cy+0.20) 2.20 0.27 10 $C.White $true 1 'Aptos' 1 0|Out-Null
+        Add-Text $s $row[1] 3.39 ($cy+0.20) 1.82 0.27 10 $C.Muted $true 1 'Aptos' 1 0|Out-Null
+        Add-Text $s $row[2] 5.51 ($cy+0.18) 1.28 0.30 13 $C.Muted $true 2 'Aptos Display' 1 0|Out-Null
+        Add-Text $s $row[3] 7.01 ($cy+0.18) 1.28 0.30 13 $C.White $true 2 'Aptos Display' 1 0|Out-Null
+        Add-Text $s $row[4] 8.51 ($cy+0.18) 1.18 0.30 13 $deltaColor $true 2 'Aptos Display' 1 0|Out-Null
+        Add-Text $s $row[5] 10.00 ($cy+0.19) 2.44 0.28 10 $deltaColor $true 1 'Aptos' 1 0|Out-Null
+        $cy+=0.72
     }
-    Add-Text $s 'HỒI QUY & HÀNH TRÌNH' 0.68 4.72 2.47 0.20 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
-    $reg=@(
-        @{X=0.68;V='102/102';T='Backend & nghiệp vụ';D='Auth · RBAC · cart · COD · tồn kho · coupon · payment';C=$C.Blue},
-        @{X=4.74;V='430/430';T='AI regression';D='Bao phủ xử lý truy vấn, retrieval, memory và correlation';C=$C.Teal},
-        @{X=8.80;V='5/5';T='Kết quả E2E-03';D='Đúng màu White · Women · ngân sách; giữ ràng buộc lượt sau';C=$C.Orange}
+    $other=@(
+        @{X=0.68;T='IMAGE — ẢNH NGOÀI';V='Exact Hit@5 0,970';D='NDCG@5 0,810 · giảm 0,043 so với ảnh catalog';C=$C.Orange},
+        @{X=6.78;T='RAG + MEMORY';V='Grounding 0,824 → 1,000';D='Critical 4/12 → 12/12 · ordinal Context Recall 0,556 → 1,000';C=$C.Teal}
     )
-    foreach($r in $reg){
-        Add-Shape $s $msoShapeRoundedRectangle $r.X 5.08 3.56 1.30 $C.Navy2 $C.Line | Out-Null
-        Add-Text $s $r.V ($r.X+0.24) 5.32 1.20 0.39 21 $r.C $true 1 'Aptos Display' 1 0 | Out-Null
-        Add-Text $s $r.T ($r.X+1.43) 5.33 1.75 0.26 12 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
-        Add-Text $s $r.D ($r.X+0.24) 5.85 3.00 0.29 9 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
-    }
+    foreach($o in $other){Add-Shape $s $msoShapeRoundedRectangle $o.X 5.62 5.86 0.92 $C.Card $o.C|Out-Null;Add-Text $s $o.T ($o.X+0.23) 5.82 1.82 0.20 9 $o.C $true 1 'Aptos' 1 0|Out-Null;Add-Text $s $o.V ($o.X+2.02) 5.75 3.52 0.28 15 $C.White $true 1 'Aptos Display' 1 0|Out-Null;Add-Text $s $o.D ($o.X+0.23) 6.15 5.18 0.22 8 $C.Muted $false 1 'Aptos' 1 0|Out-Null}
     Add-Footer $s 25 'KIỂM THỬ & ĐÁNH GIÁ'
 
     # 26 — API and integration testing
@@ -1103,7 +1092,7 @@ try {
     Add-Text $s 'Hybrid constraints  →  held-out  →  tải dài & paired  →  pentest' 2.20 6.59 10.00 0.36 14 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
     Add-Footer $s 29 'KẾT LUẬN'
 
-    # 30 — Conclusion and Q&A
+    # 30 — Conclusion
     $s = $deck.Slides.Add(30, $ppLayoutBlank)
     Add-Background $s
     Add-Text $s 'KẾT LUẬN' 0.68 0.55 2.20 0.24 11 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
@@ -1121,14 +1110,55 @@ try {
         Add-Text $s $contribItem.D ($contribItem.X+0.25) 4.03 2.96 0.40 10 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
     }
     Add-Line $s 0.68 5.22 12.64 5.22 $C.Line 1 | Out-Null
-    Add-Text $s 'XIN CẢM ƠN HỘI ĐỒNG' 0.68 5.62 4.68 0.25 11 $C.Muted $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Q & A' 8.84 5.46 3.52 0.75 34 $C.White $true 3 'Aptos Display' 1 0 | Out-Null
-    Add-Text $s 'Lê Trần Anh Dũng · Huỳnh Thái Minh Châu · Nguyễn Đức Duy' 0.68 6.30 7.55 0.27 10 $C.Gray $false 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'GVHD: ThS. Võ Thanh Hùng' 8.80 6.30 3.55 0.27 10 $C.Gray $false 3 'Aptos' 1 0 | Out-Null
-    Add-Footer $s 30 'KẾT LUẬN · Q&A'
+    Add-Text $s 'KẾT QUẢ CỐT LÕI' 0.68 5.55 1.84 0.22 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Tìm đúng hơn trên truy vấn ngữ nghĩa · tư vấn có căn cứ · nghiệp vụ vẫn nhất quán khi AI suy giảm.' 2.40 5.45 9.92 0.44 15 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Phạm vi kết luận: snapshot 1.000 sản phẩm và các tải đã đo; chưa đồng nghĩa production-ready.' 0.68 6.25 11.64 0.28 10 $C.Gray $false 1 'Aptos' 1 0 | Out-Null
+    Add-Footer $s 30 'KẾT LUẬN'
+
+    # 31 — Q&A
+    $s = $deck.Slides.Add(31, $ppLayoutBlank)
+    Add-Background $s
+    Add-Text $s 'TRAO ĐỔI' 0.68 0.58 2.20 0.24 11 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Q & A' 0.65 1.24 5.12 0.94 46 $C.White $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Text $s 'Cảm ơn Hội đồng đã lắng nghe.' 0.68 2.16 6.20 0.45 20 $C.Teal $true 1 'Aptos Display' 1 0 | Out-Null
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 3.15 11.96 2.06 $C.Card $C.Line | Out-Null
+    $qa=@(
+        @{X=1.95;N='01';T='Bài toán';D='Nhu cầu · phạm vi · điểm khác biệt';C=$C.Blue},
+        @{X=5.05;N='02';T='Kỹ thuật';D='Kiến trúc · RAG · multimodal';C=$C.Orange},
+        @{X=8.15;N='03';T='Bằng chứng';D='Ground truth · baseline · latency';C=$C.Teal},
+        @{X=11.25;N='04';T='Giới hạn';D='Rủi ro · hướng phát triển';C=$C.Red}
+    )
+    foreach($q in $qa){Add-CircleLabel $s $q.N ($q.X-0.29) 3.55 0.58 $q.C $C.Navy 11;Add-Text $s $q.T ($q.X-1.18) 4.30 2.36 0.30 14 $C.White $true 2 'Aptos Display' 1 0|Out-Null;Add-Text $s $q.D ($q.X-1.24) 4.70 2.48 0.42 9 $C.Muted $false 2 'Aptos' 1 0|Out-Null}
+    Add-Text $s 'Lê Trần Anh Dũng · Huỳnh Thái Minh Châu · Nguyễn Đức Duy' 0.68 6.25 7.55 0.27 10 $C.Gray $false 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'GVHD: ThS. Võ Thanh Hùng' 8.80 6.25 3.55 0.27 10 $C.Gray $false 3 'Aptos' 1 0 | Out-Null
+    Add-Footer $s 31 'Q&A'
+
+    # 32 — References
+    $s = $deck.Slides.Add(32, $ppLayoutBlank)
+    Add-Background $s
+    Add-Title $s 'Tài liệu tham khảo' 'Nguồn cho bối cảnh, giải pháp liên quan và phương pháp' 'Các liên kết màu xanh có thể mở trực tiếp; số liệu nội bộ được truy vết trong repository.'
+    $refs=@(
+        @{Y=1.90;N='[1]';T='Google (2024). 3 ways visual search helps you shop.';L='blog.google — Google Lens';U='https://blog.google/products-and-platforms/products/shopping/visual-search-lens-shopping/';C=$C.Blue},
+        @{Y=2.55;N='[2]';T='Lewis et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.';L='arXiv:2005.11401';U='https://arxiv.org/abs/2005.11401';C=$C.Teal},
+        @{Y=3.20;N='[3]';T='Radford et al. (2021). Learning Transferable Visual Models From Natural Language Supervision.';L='arXiv:2103.00020';U='https://arxiv.org/abs/2103.00020';C=$C.Orange},
+        @{Y=3.85;N='[4]';T='Google Cloud. AI Commerce Search — Implementation overview.';L='cloud.google/retail/docs';U='https://cloud.google.com/retail/docs/overview';C=$C.Blue},
+        @{Y=4.50;N='[5]';T='Amazon (2024, updated 2026). Rufus / Alexa for Shopping.';L='aboutamazon — Alexa Shopping';U='https://www.aboutamazon.com/news/retail/amazon-rufus';C=$C.Red}
+    )
+    foreach($ref in $refs){
+        Add-Shape $s $msoShapeRoundedRectangle 0.68 $ref.Y 11.96 0.54 $C.Card $C.Line | Out-Null
+        Add-Text $s $ref.N 0.92 ($ref.Y+0.15) 0.54 0.20 10 $ref.C $true 1 'Aptos' 1 0 | Out-Null
+        $refLink=Add-Text $s $ref.T 1.45 ($ref.Y+0.12) 7.10 0.24 10 $C.White $true 1 'Aptos' 1 0
+        $refLink.ActionSettings(1).Hyperlink.Address=$ref.U
+        $urlLink=Add-Text $s $ref.L 8.60 ($ref.Y+0.13) 3.62 0.22 8 $ref.C $false 3 'Consolas' 1 0
+        $urlLink.ActionSettings(1).Hyperlink.Address=$ref.U
+    }
+    Add-Shape $s $msoShapeRoundedRectangle 0.68 5.98 11.96 0.64 $C.Navy2 $C.Line | Out-Null
+    Add-Text $s 'NGUỒN NỘI BỘ' 0.95 6.20 1.42 0.20 9 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'report-datn/Sections/09-DanhGiaHeThong.tex · evals/search_evaluation/ · evals/conversational_ai_validation/' 2.27 6.12 9.88 0.30 9 $C.White $true 1 'Consolas' 1 0 | Out-Null
+    Add-Footer $s 32 'TÀI LIỆU THAM KHẢO'
 
     # A1 — Detailed test matrix
-    $s = $deck.Slides.Add(31, $ppLayoutBlank)
+    $s = $deck.Slides.Add(33, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A1' 'Ma trận kiểm thử chi tiết' 'Quy mô, chỉ số chính và bằng chứng được lưu theo từng nhóm.'
     $cols=@(0.68,3.02,5.00,8.23,10.76);$widths=@(2.28,1.92,3.17,2.47,1.88)
@@ -1156,7 +1186,7 @@ try {
     Add-AppendixFooter $s 'A1 / A6'
 
     # A2 — Detailed performance results
-    $s = $deck.Slides.Add(32, $ppLayoutBlank)
+    $s = $deck.Slides.Add(34, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A2' 'Kết quả hiệu năng chi tiết' 'Backend 21.231 request · soak 2 giờ 57.600 request · tải AI đại diện 216 request.'
     Add-Text $s 'P95 TRƯỚC / SAU TỐI ƯU' 0.68 2.02 2.40 0.22 10 $C.Teal $true 1 'Aptos' 1 0 | Out-Null
@@ -1182,7 +1212,7 @@ try {
     Add-AppendixFooter $s 'A2 / A6'
 
     # A3 — Full ERD
-    $s = $deck.Slides.Add(33, $ppLayoutBlank)
+    $s = $deck.Slides.Add(35, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A3' 'ERD tổng thể' 'Bảy miền dữ liệu nghiệp vụ; phóng to khi hội đồng yêu cầu truy vết quan hệ.'
     Add-Shape $s $msoShapeRoundedRectangle 0.68 1.82 11.96 4.95 $C.White $C.Line | Out-Null
@@ -1190,7 +1220,7 @@ try {
     Add-AppendixFooter $s 'A3 / A6'
 
     # A4 — API list
-    $s = $deck.Slides.Add(34, $ppLayoutBlank)
+    $s = $deck.Slides.Add(36, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A4' 'Danh sách API theo miền trách nhiệm' 'Spring Boot công khai nghiệp vụ; FastAPI chỉ phục vụ AI và vận hành nội bộ.'
     Add-Shape $s $msoShapeRoundedRectangle 0.68 1.96 7.34 4.68 $C.Card $C.Blue | Out-Null
@@ -1216,7 +1246,7 @@ try {
     Add-AppendixFooter $s 'A4 / A6'
 
     # A5 — Defects discovered and fixed
-    $s = $deck.Slides.Add(35, $ppLayoutBlank)
+    $s = $deck.Slides.Add(37, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A5' 'Các lỗi đã phát hiện và khắc phục' 'Kiểm thử được dùng để thay đổi thiết kế, không chỉ xác nhận kết quả cuối.'
     $fixes=@(
@@ -1241,7 +1271,7 @@ try {
     Add-AppendixFooter $s 'A5 / A6'
 
     # A6 — Evidence map
-    $s = $deck.Slides.Add(36, $ppLayoutBlank)
+    $s = $deck.Slides.Add(38, $ppLayoutBlank)
     Add-Background $s
     Add-Title $s 'Phụ lục A6' 'Bản đồ bằng chứng & tài liệu bổ sung' 'Các đường dẫn nằm trong repository để truy vết hoặc mở khi hội đồng hỏi sâu.'
     $evidence=@(
