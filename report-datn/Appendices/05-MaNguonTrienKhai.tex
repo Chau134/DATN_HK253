@@ -1,0 +1,84 @@
+%=========================
+% Appendices/05-MaNguonTrienKhai.tex
+% Phụ lục E -- Mã nguồn và lệnh triển khai minh họa
+%=========================
+
+\section{Mã nguồn và lệnh triển khai minh họa}
+\label{appendix:source-code}
+
+Phụ lục này tập hợp các đoạn mã ngắn phục vụ chuẩn bị dữ liệu, huấn luyện mô hình,
+khởi động môi trường local và triển khai hệ thống. Các giá trị bí mật được thay bằng
+placeholder; khóa thật chỉ được cung cấp qua biến môi trường hoặc Secret Manager.
+
+\begin{lstlisting}[style=terminal,caption={Cài đặt thư viện phục vụ fine-tune YOLOv26},label={lst:appendix-install-ultralytics}]
+pip install -U ultralytics
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Cấu hình tập dữ liệu YOLO},label={lst:appendix-yolo-data}]
+train: /kaggle/input/fashion_dataset/train/images
+val: /kaggle/input/fashion_dataset/val/images
+test: /kaggle/input/fashion_dataset/test/images
+
+nc: 4
+names:
+  0: accessories
+  1: bags
+  2: clothing
+  3: shoes
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python,caption={Huấn luyện mô hình YOLOv26s},label={lst:appendix-yolo-train}]
+from ultralytics import YOLO
+
+model = YOLO("yolo26s.pt")
+model.train(
+    data="/kaggle/working/data.yaml",
+    epochs=40,
+    imgsz=640,
+    batch=24,
+    pretrained=True,
+    patience=8,
+    amp=True,
+)
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Khởi động môi trường local bằng Docker Compose},label={lst:appendix-local-compose}]
+docker compose up -d mysql qdrant
+docker compose up -d --build service-ai
+docker compose up -d --build spring-api frontend
+docker compose ps
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Kiểm tra cấu hình trước khi triển khai trên GCE VM},label={lst:appendix-gce-config}]
+sudo docker compose \
+  --env-file .env.production \
+  -f docker-compose.yml \
+  -f docker-compose.vm.yml config --quiet
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Build và cập nhật các dịch vụ trên GCE VM},label={lst:appendix-gce-deploy}]
+sudo docker compose --env-file .env.production \
+  -f docker-compose.yml -f docker-compose.vm.yml \
+  build spring-api frontend
+
+sudo docker compose --env-file .env.production \
+  -f docker-compose.yml -f docker-compose.vm.yml \
+  up -d --no-deps --force-recreate spring-api frontend
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Build image AI Service bằng Cloud Build},label={lst:appendix-cloud-build}]
+gcloud builds submit service-ai \
+  --region=asia-southeast1 \
+  --config=service-ai/cloudbuild.kaniko.yaml \
+  --substitutions=_IMAGE_TAG=<IMMUTABLE_TAG>
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal,caption={Kiểm tra nhanh dịch vụ sau triển khai},label={lst:appendix-deployment-check}]
+curl -fsS http://127.0.0.1:8080/api/blogs
+curl -fsS http://127.0.0.1:80
+curl -fsS http://10.148.0.4:6333/collections
+\end{lstlisting}
+
+Các đoạn mã trên chỉ minh họa thứ tự và cách gọi công cụ. Khi triển khai thực tế,
+người vận hành phải kiểm tra image tag, secret, network route và trạng thái health
+trước khi chuyển lưu lượng đến phiên bản mới.

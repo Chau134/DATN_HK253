@@ -1,0 +1,176 @@
+\section{Công nghệ và quyết định lựa chọn}
+
+Chương này trình bày các nhóm công nghệ được lựa chọn để xây dựng trợ lý mua sắm
+đa phương thức. Nội dung tập trung vào vai trò trong hệ thống, lý do lựa chọn và
+các giới hạn cần kiểm soát; các nguyên lý embedding, truy hồi, RAG và các cấu hình
+chi tiết được trình bày ở Chương 3, Chương 5 và phụ lục.
+
+\subsection{Tiêu chí và tổng quan lựa chọn công nghệ}
+
+Các công nghệ được đánh giá theo năm tiêu chí chính:
+\begin{enumerate}[label=\arabic*., leftmargin=1.15cm]
+    \item đáp ứng nghiệp vụ thương mại điện tử và tìm kiếm đa phương thức;
+    \item phù hợp với mã nguồn và năng lực triển khai của đề tài;
+    \item có hợp đồng giao tiếp rõ ràng, thuận tiện kiểm thử và thay thế;
+    \item vận hành được trong môi trường container;
+    \item cân bằng chất lượng, độ trễ, chi phí và khả năng quản trị.
+\end{enumerate}
+
+Việc lựa chọn không chỉ dựa trên mức độ phổ biến của công cụ mà còn dựa trên khả
+năng tích hợp với các thành phần đã có và khả năng thay thế khi cần.
+
+Kiến trúc công nghệ được tổ chức thành các nhóm. React đảm nhiệm giao diện; Spring
+Boot và MySQL xử lý nghiệp vụ cùng dữ liệu chuẩn; FastAPI điều phối AI Service;
+LangGraph quản lý workflow hội thoại; Bedrock cung cấp LLM và embedding; Qdrant
+phục vụ truy hồi vector; Docker, Google Compute Engine và Cloud Run cung cấp môi
+trường triển khai. Các nhóm này giao tiếp qua API và không để trình duyệt truy cập
+trực tiếp vào cơ sở dữ liệu, vector database hoặc khóa dịch vụ AI.
+
+\begin{table}[H]
+    \centering
+    \caption{Tổng quan các nhóm công nghệ được lựa chọn}
+    \label{tab:technology_stack_overview}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\linewidth}{|p{0.25\linewidth}|X|}
+        \hline
+        \textbf{Nhóm} & \textbf{Công nghệ chính} \\ \hline
+        Ứng dụng và dữ liệu & React, Redux Toolkit, Spring Boot, Spring Security, MySQL \\ \hline
+        AI và đa phương thức & Python, FastAPI, LangGraph, Amazon Bedrock, YOLOv26, Pillow \\ \hline
+        Truy hồi và trạng thái & Cohere Embed v4, Qdrant, hybrid fusion, reranker, Redis \\ \hline
+        Triển khai & Docker, Docker Compose, Google Compute Engine, Cloud Run \\ \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Công nghệ ứng dụng và dữ liệu nghiệp vụ}
+
+Frontend sử dụng React 19 để xây dựng giao diện theo component \parencite{reactdocs2024}.
+React phù hợp với các màn hình có nhiều trạng thái tương tác như bộ lọc, danh sách
+kết quả, giỏ hàng, vùng tải ảnh và hội thoại nhiều lượt. Redux Toolkit quản lý các
+trạng thái dùng chung như phiên đăng nhập và giỏ hàng; React Router tổ chức điều
+hướng phía client; Axios tập trung việc gọi API, xử lý token, timeout và lỗi. Nhóm
+công nghệ này giúp tái sử dụng giao diện giữa tìm kiếm văn bản, hình ảnh và kết hợp.
+Mọi dữ liệu nghiệp vụ quan trọng vẫn phải được Backend xác nhận, do Frontend không
+được tự quyết định giá, tồn kho hoặc trạng thái đơn hàng.
+
+Backend sử dụng Java 21 và Spring Boot 4.0.6 để xây dựng REST API. Spring Boot cung
+cấp hệ sinh thái thống nhất cho controller, validation, transaction, security và
+truy cập dữ liệu quan hệ \parencite{springbootdocs2024}. Spring Security cùng OAuth2
+Client xử lý xác thực và phân quyền; Spring Data JPA ánh xạ entity; RestClient thực
+hiện giao tiếp nội bộ với AI Service. Spring Boot được chọn vì phù hợp với các nghiệp
+vụ có ràng buộc giao dịch như tồn kho, khuyến mãi, đơn hàng và thanh toán COD. Hạn
+chế là cấu hình và thời gian khởi động lớn hơn một API tối giản; vì vậy suy luận AI
+được tách thành một dịch vụ Python độc lập.
+
+MySQL 8.4 là nguồn dữ liệu chuẩn cho tài khoản, sản phẩm, tồn kho, giỏ hàng, khuyến
+mãi và đơn hàng. Mô hình quan hệ hỗ trợ khóa ngoại, transaction và các ràng buộc
+nghiệp vụ cần thiết. Qdrant chỉ là chỉ mục phục vụ tìm kiếm, có thể tái tạo từ MySQL;
+tính chất transaction của InnoDB được mô tả trong tài liệu MySQL chính thức
+\parencite{mysqlinnodb2026}. Kết quả AI chỉ cung cấp mã sản phẩm và điểm tương đồng,
+sau đó Backend đọc lại giá,
+tồn kho và trạng thái hiện hành trước khi trả về cho người dùng.
+
+\subsection{Công nghệ AI và xử lý dữ liệu đa phương thức}
+
+AI Service sử dụng Python 3.11, FastAPI và Pydantic. FastAPI phù hợp với API bất đồng
+bộ, sinh OpenAPI từ type hints và kết nối với hệ sinh thái xử lý AI \parencite{fastapidocs2024}.
+Pydantic chuẩn hóa request/response; HTTPX thực hiện lời gọi đến Backend và các dịch
+vụ mô hình; Pillow giải mã, resize và crop ảnh. Ranh giới REST giúp thay đổi provider
+embedding hoặc LLM mà không làm thay đổi giao diện người dùng. Đổi lại, hợp đồng API,
+timeout và cơ chế xử lý lỗi giữa hai dịch vụ phải được kiểm soát rõ ràng.
+
+LangGraph điều phối workflow hội thoại có trạng thái dưới dạng graph
+\parencite{langgraph2024docs}. Các node đảm nhiệm phân tích truy vấn, định tuyến,
+truy hồi, lấy dữ liệu sản phẩm và sinh phản hồi; các điều kiện chuyển trạng thái được
+giới hạn trước để bảo đảm hành vi có thể kiểm thử. Redis được dùng ở môi trường Cloud
+Run để lưu checkpoint và preference memory ngoài tiến trình, phù hợp với vai trò lưu
+trữ trạng thái và dữ liệu trung gian của Redis \parencite{redisdocs2026}. Cách tổ chức này phù hợp
+với việc container AI Service có thể được thay thế, nhưng cần giới hạn dung lượng,
+thời gian lưu trữ và quyền truy cập bộ nhớ.
+
+LLM được sử dụng qua Amazon Bedrock để phân tích ý định, trích xuất thuộc tính, viết
+lại truy vấn và diễn đạt câu trả lời. Dữ kiện về sản phẩm không lấy trực tiếp từ tri
+thức tham số của mô hình mà được cung cấp bởi tầng truy hồi và Backend. Dịch vụ managed
+giúp không phải vận hành GPU cho LLM, nhưng tạo phụ thuộc vào mạng, quota, chi phí và
+provider \parencite{awsbedrockdocs2026}; vì vậy AI Service cần timeout, retry có giới hạn,
+fallback và ghi nhận model cùng độ trễ.
+
+YOLOv26s được dùng như một bước tăng cường trong xử lý ảnh. Mô hình được fine-tune
+trên dữ liệu thời trang để phát hiện các nhóm phụ kiện, túi, quần áo và giày; bounding
+box đủ tin cậy được crop trước khi tạo image embedding. Pillow thực hiện giải mã và
+chuẩn hóa ảnh. YOLO không phải điều kiện bắt buộc của Image Search: nếu không phát
+hiện được vùng phù hợp, hệ thống dùng ảnh đầy đủ. Cách fallback này cho phép cấu hình
+Cloud Run tắt YOLO để giảm kích thước container và yêu cầu tài nguyên.
+
+\subsection{Công nghệ truy hồi, xếp hạng và quản lý trạng thái}
+
+Cohere Embed v4 qua Amazon Bedrock tạo vector cho văn bản và hình ảnh trong cùng
+pipeline đa phương thức. Hệ thống duy trì collection riêng cho từng modality, mỗi
+point liên kết với mã sản phẩm và các thuộc tính dùng để lọc như danh mục, màu, giá
+hoặc trạng thái hoạt động. Embedding managed giúp thống nhất mô hình biểu diễn mà
+không phải phục vụ mô hình vision--language cục bộ; hạn chế là độ trễ mạng, quota và
+chi phí theo request \parencite{cohereembedv42026}.
+
+Qdrant được chọn làm vector database vì hỗ trợ cosine similarity, HNSW, payload
+filtering, API Python và self-host bằng Docker \parencite{qdrant_docs}. Search Service
+truy hồi các ứng viên từ nhánh văn bản và hình ảnh, quy về mã sản phẩm rồi áp dụng
+metadata cùng ràng buộc nghiệp vụ. Cách triển khai này cho phép kiểm soát dữ liệu và
+chi phí ở quy mô catalog hiện tại. Đổi lại, nhóm phát triển phải quản lý volume,
+snapshot, backup và khả năng tái lập chỉ mục.
+
+Các nhánh truy hồi được hợp nhất bằng hybrid fusion sau khi chuẩn hóa điểm. Reranker
+managed chỉ được bật qua feature flag trên tập ứng viên nhỏ, vì nó có thể làm tăng độ
+trễ và chi phí. Cấu hình báo cáo ưu tiên fusion không rerank do kết quả đánh giá hiện
+tại chưa chứng minh rerank cải thiện các chỉ số chính; thành phần này vẫn được giữ để
+thử nghiệm trong các cấu hình sau.
+
+Redis đồng thời cung cấp nơi lưu checkpoint và trạng thái hội thoại khi AI Service
+chạy trên Cloud Run. Trạng thái cần được phân tách theo người dùng và phiên, có TTL,
+giới hạn dung lượng và không được chứa dữ liệu nhạy cảm ngoài phạm vi cần thiết. Việc
+đưa trạng thái ra ngoài container giúp các instance xử lý tiếp cùng một phiên, trong
+khi MySQL vẫn giữ vai trò nguồn chuẩn cho dữ liệu giao dịch.
+
+\subsection{Công nghệ triển khai và tổng hợp quyết định}
+
+Docker đóng gói Frontend, Spring Boot Backend, AI Service, MySQL và Qdrant thành các
+image hoặc container có cấu hình xác định. Docker Compose mô tả network, health check,
+phụ thuộc dịch vụ và named volume, giúp môi trường phát triển cùng kiểm thử được khởi
+tạo nhất quán. Frontend và Backend sử dụng build nhiều giai đoạn; secret và cấu hình
+môi trường không được đóng trực tiếp vào image. Volume của MySQL và Qdrant vẫn cần
+được sao lưu trước khi cập nhật \parencite{dockerdocs2026,dockercompose2026}.
+
+Trong môi trường Google Cloud, GCE VM chạy Frontend, Spring Boot Backend, MySQL và
+Qdrant; AI Service được triển khai riêng trên Cloud Run. Cloud Run kết nối đến các
+dịch vụ cần thiết qua mạng riêng; Secret Manager cung cấp token Bedrock, internal API
+key và Redis URL. GCE phù hợp với thành phần cần volume và cấu hình mạng ổn định,
+trong khi Cloud Run phù hợp với AI Service dạng stateless khi checkpoint được đưa vào
+Redis. Đổi lại, mô hình này cần quản lý IAM, logging, quota, private networking và
+chi phí trên hai kiểu môi trường \parencite{gce2026,cloudrun2026}.
+
+\begin{table}[H]
+    \centering
+    \caption{Công nghệ và vai trò cốt lõi}
+    \label{tab:technology_core_roles}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\linewidth}{|p{0.22\linewidth}|p{0.30\linewidth}|X|}
+        \hline
+        \textbf{Nhóm công nghệ} & \textbf{Công nghệ} & \textbf{Vai trò cốt lõi trong hệ thống} \\ \hline
+        Giao diện & React, Redux Toolkit, React Router, Axios & Xây dựng giao diện, quản lý trạng thái phía client, điều hướng và giao tiếp REST API. \\ \hline
+        Backend nghiệp vụ & Java, Spring Boot, Spring Security, JPA, RestClient & Cung cấp REST API, xác thực, phân quyền, transaction và giao tiếp với AI Service. \\ \hline
+        Dữ liệu chuẩn & MySQL & Lưu trữ tài khoản, sản phẩm, tồn kho, giỏ hàng, khuyến mãi và đơn hàng. \\ \hline
+        AI Service & Python, FastAPI, Pydantic, Amazon Bedrock & Phân tích truy vấn, điều phối xử lý AI, kiểm tra dữ liệu vào/ra và sinh phản hồi. \\ \hline
+        Hội thoại & LangGraph, Redis & Điều phối workflow nhiều lượt, lưu checkpoint và trạng thái phiên ngoài container. \\ \hline
+        Đa phương thức & YOLOv26, Pillow, Cohere Embed v4 & Phát hiện/crop vùng sản phẩm, tiền xử lý ảnh và tạo embedding văn bản--hình ảnh. \\ \hline
+        Truy hồi & Qdrant, hybrid fusion, reranker & Lưu vector, lọc metadata, truy hồi ứng viên và hợp nhất/xếp hạng kết quả. \\ \hline
+        Triển khai & Docker, Docker Compose, GCE, Cloud Run, Secret Manager & Đóng gói, kết nối, triển khai các dịch vụ và quản lý cấu hình bí mật. \\ \hline
+    \end{tabularx}
+\end{table}
+
+\subsection*{Kết chương}
+
+Chương này đã rút gọn các lựa chọn công nghệ thành năm nhóm: tiêu chí và tổng quan;
+ứng dụng và dữ liệu nghiệp vụ; AI và xử lý đa phương thức; truy hồi, xếp hạng và
+trạng thái; triển khai và tổng hợp quyết định. Cấu trúc này giữ lại các quyết định
+ảnh hưởng trực tiếp đến hệ thống, còn nguyên lý lý thuyết, kiến trúc chi tiết và bằng
+chứng vận hành được trình bày ở các chương tương ứng. Lựa chọn cuối cùng ưu tiên khả
+năng tích hợp, tái lập và kiểm soát dữ liệu, đồng thời duy trì các fallback cần thiết
+cho các dịch vụ AI phụ thuộc bên ngoài.

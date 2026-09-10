@@ -61,6 +61,7 @@ service-ai/backups/
 *.aux
 *.bbl
 *.bcf
+*.bcf-SAVE-ERROR
 *.blg
 *.lof
 *.lol
@@ -70,6 +71,10 @@ service-ai/backups/
 *.toc
 *.fdb_latexmk
 *.fls
+.chapter-pages.txt
+
+# Local MiKTeX state
+.miktex-*/
 
 # Microsoft Office lock files
 ~$*.pptx

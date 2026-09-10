@@ -23,22 +23,24 @@
 \input{FrontMatter/cover}
 \input{FrontMatter/lists}
 
-%========== Nội dung chính theo mục lục đã map =========
-\input{Sections/00-Guideline}
-\input{Sections/01-GioiThieu}
-\input{Sections/02-KienThucNenTang}
-\input{Sections/03-CongNgheSuDung}
-\input{Sections/05-KhaiThacYeuCau}
-\input{Sections/06-PhanTichHeThong}
-\input{Sections/07-ThietKeHeThong}
-\input{Sections/08-CaiDatHeThong}
-\input{Sections/04-CongTrinhLienQuan}
-\input{Sections/09-DanhGiaHeThong}
-\input{Sections/10-KetLuan}
+%========== Nội dung chính theo mục lục =========
+\input{Sections/01-GioiThieuDeTai}
+\input{Sections/02-PhanTichYeuCau}
+\input{Sections/03-CoSoLyThuyet}
+\input{Sections/04-CongNgheVaQuyetDinhLuaChon}
+\input{Sections/05-ThietKeHeThong}
+\input{Sections/06-HienThucVaTrienKhaiHeThong}
+\input{Sections/07-KiemThuHeThong}
+\clearpage
+\input{Sections/08-KetLuanVaHuongPhatTrien}
 
 %========== Tài liệu tham khảo ==========
 \clearpage
 \pagenumbering{gobble}
 \phantomsection
 \printbibliography[heading=bibintoc,title={Tài liệu tham khảo}]
+
+%========== Phụ lục ==============
+% Nội dung chi tiết được chuyển từ các chương chính và tiếp tục bổ sung sau.
+\input{FrontMatter/appendices}
 \end{document}

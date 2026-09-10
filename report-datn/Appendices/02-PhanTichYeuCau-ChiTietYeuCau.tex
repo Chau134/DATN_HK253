@@ -1,0 +1,72 @@
+%=========================
+% Appendices/02-PhanTichYeuCau-ChiTietYeuCau.tex
+% Phụ lục A – Yêu cầu chức năng chi tiết
+%=========================
+\section{Yêu cầu chức năng chi tiết}
+
+Phụ lục này trình bày danh mục yêu cầu chức năng của trợ lý mua sắm đa phương
+thức và website thương mại điện tử. Yêu cầu dữ liệu và yêu cầu phi chức năng đã
+được trình bày đầy đủ trong Chương 2 nên không lặp lại tại đây.
+
+\subsection{Trợ lý mua sắm đa phương thức}
+
+\begin{longtable}{|p{0.12\linewidth}|p{0.25\linewidth}|p{0.45\linewidth}|p{0.10\linewidth}|}
+\caption{Yêu cầu chức năng AI}\label{tab:ai-functional-requirements}\\
+\hline
+\textbf{Mã} & \textbf{Chức năng} & \textbf{Mô tả} & \textbf{Ưu tiên} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Mã} & \textbf{Chức năng} & \textbf{Mô tả} & \textbf{Ưu tiên} \\
+\hline
+\endhead
+FR-AI-01 & Tìm kiếm text & Tạo text embedding và truy hồi sản phẩm phù hợp theo ngữ nghĩa. & Cao \\
+\hline
+FR-AI-02 & Tìm kiếm image & Nhận ảnh, tạo image embedding và tìm sản phẩm tương tự. & Cao \\
+\hline
+FR-AI-03 & Hybrid search & Kết hợp ảnh tham chiếu với điều kiện văn bản. & Cao \\
+\hline
+FR-AI-04 & Phân tích truy vấn & Trích xuất loại sản phẩm, màu, kích thước, thương hiệu và khoảng giá. & Cao \\
+\hline
+FR-AI-05 & Lọc metadata & Lọc theo giá, danh mục, màu sắc, thương hiệu và tồn kho. & Cao \\
+\hline
+FR-AI-06 & Hội thoại nhiều lượt & Duy trì ngữ cảnh, ràng buộc và lựa chọn trước đó. & Cao \\
+\hline
+FR-AI-07 & Phản hồi có căn cứ & Chỉ sinh phản hồi từ dữ liệu sản phẩm được truy hồi. & Cao \\
+\hline
+FR-AI-08 & Fusion và rerank & Hợp nhất các nhánh text/image và sắp xếp ứng viên. & Cao \\
+\hline
+FR-AI-09 & Gợi ý tương tự & Đề xuất sản phẩm liên quan dựa trên độ tương đồng. & TB \\
+\hline
+FR-AI-10 & Đồng bộ chỉ mục & Cập nhật hoặc xóa embedding/payload Qdrant khi sản phẩm thay đổi. & Cao \\
+\hline
+FR-AI-11 & Lịch sử và log & Lưu checkpoint, trạng thái phiên, latency và log cần thiết. & TB \\
+\hline
+FR-AI-12 & Phản hồi dự phòng & thương mại điện tử cơ bản vẫn hoạt động khi dịch vụ AI tạm lỗi. & Cao \\
+\hline
+\end{longtable}
+YOLO chỉ là bước crop tùy chọn ở môi trường phát triển; tìm kiếm đa ngôn ngữ và mô hình local là hướng mở rộng.
+
+\subsection{Website thương mại điện tử}
+
+\begin{longtable}{|p{0.14\linewidth}|p{0.26\linewidth}|p{0.42\linewidth}|p{0.10\linewidth}|}
+\caption{Yêu cầu chức năng thương mại điện tử}\label{tab:ecommerce-functional-requirements}\\
+\hline
+\textbf{Mã} & \textbf{Chức năng} & \textbf{Mô tả} & \textbf{Ưu tiên} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Mã} & \textbf{Chức năng} & \textbf{Mô tả} & \textbf{Ưu tiên} \\
+\hline
+\endhead
+EC-FR-01 & Tài khoản & Đăng ký, đăng nhập, cập nhật thông tin và đổi mật khẩu. & Cao \\
+\hline
+EC-FR-02 & Sản phẩm/giỏ hàng & Xem, lọc sản phẩm; thêm, sửa, xóa sản phẩm trong giỏ. & Cao \\
+\hline
+EC-FR-03 & Đặt hàng COD & Xác nhận nhận hàng, tạo đơn và thanh toán khi nhận hàng. & Cao \\
+\hline
+EC-FR-04 & Đơn hàng/đánh giá & Theo dõi đơn hàng và đánh giá sản phẩm đã mua. & TB \\
+\hline
+EC-FR-05 & Quản trị & Quản lý sản phẩm, ảnh, tồn kho, đơn hàng, người dùng, blog và dashboard. & Cao \\
+\hline
+\end{longtable}

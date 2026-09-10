@@ -232,6 +232,21 @@ python scripts/05_compute_metrics.py `
   --output-csv reports/metrics_image.csv
 ```
 
+### Gradual audit of the 2,000 judgments
+
+To inspect the existing 500 human-reviewed rows and audit the remaining 1,500
+`metadata_rule_v1` rows gradually, build the standalone audit page:
+
+```powershell
+python scripts/12_build_ground_truth_audit.py
+```
+
+Open `reports/review/image_ground_truth_audit.html`. The page keeps the current
+grade and provenance, filters human versus `metadata_rule_v1`, stores progress in
+browser local storage, and exports `ground_truth_image_audit.csv` with both the
+original and audited grades. The audit export is separate from the canonical ground
+truth and does not overwrite it.
+
 ## Structure
 
 ```text
@@ -251,6 +266,7 @@ image/
     01_sample_images.py
     02_generate_queries.py
     03_generate_ground_truth_candidates.py
+    12_build_ground_truth_audit.py
     04_run_search.py
     05_compute_metrics.py
 ```

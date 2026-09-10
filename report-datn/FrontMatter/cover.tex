@@ -93,15 +93,15 @@
   \end{tabular}
 
   \vspace{1mm}
-  \begin{center}
-    \textbf{---o0o---}
-  \end{center}
+  % Dịch riêng dấu phân cách sang trái 13.5 mm để tâm của nó trùng tâm trang.
+  % Minipage thông tin được đặt lệch phải theo biểu mẫu, nên center cục bộ
+  % không đồng nghĩa với center của toàn bộ trang.
+  \noindent\hspace*{-13.5mm}%
+  \makebox[125mm][c]{\textbf{---o0o---}}\par
   \vspace{1mm}
 
   \begin{tabular}{@{}>{\bfseries}p{25mm}@{}p{98mm}@{}}
-    SVTH 1: & \StudentOne \\
-    SVTH 2: & \StudentTwo \\
-    SVTH 3: & \StudentThree
+    SVTH: & \StudentName
   \end{tabular}
 \end{minipage}
 

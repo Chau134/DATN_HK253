@@ -1,17 +1,26 @@
-% Sections/08-CaiDatHeThong.tex
-% Chương 7 – Cài đặt hệ thống
+% Sections/06-HienThucVaTrienKhaiHeThong.tex
+% Chương 6 -- Hiện thực và triển khai hệ thống
 %=========================
 
-\section{Cài đặt hệ thống}
+\section{Hiện thực và triển khai hệ thống}
 
-Chương này trình bày cách hệ thống được đóng gói và triển khai bằng Docker trên Google Cloud Platform. Nội dung tập trung vào môi trường triển khai, cấu hình tài nguyên, cách chạy các container và thứ tự khởi động các thành phần chính.
-\subsection{Chuẩn bị dữ liệu đầu vào cho database}
+Chương này trình bày kết quả hiện thực và cách triển khai hệ thống thương mại điện tử tích hợp trợ lý mua sắm đa phương thức. Nội dung kết nối phần hiện thực giao diện, dữ liệu và các thành phần AI với quá trình đóng gói, cấu hình, triển khai và vận hành. Các quyết định kiến trúc và nghiệp vụ đã được trình bày ở Chương 5; chương này tập trung vào cách các quyết định đó được hiện thực trong môi trường chạy thực tế.
 
-Dữ liệu sản phẩm ban đầu của hệ thống được thu thập trực tiếp từ website Zara bằng chương trình thu thập dữ liệu tự động. Với mỗi sản phẩm, hệ thống ghi nhận các thông tin cần thiết như tên, mô tả, màu sắc, chất liệu, hình ảnh, danh mục và các thuộc tính liên quan. Do dữ liệu thu thập chủ yếu sử dụng tiếng Anh, hệ thống tiếp tục sử dụng mô hình Qwen3.5-9B để dịch các trường văn bản sang tiếng Việt, đồng thời giữ lại các giá trị tiếng Anh cần thiết nhằm bảo toàn thông tin nguồn.
+% \subsection{Tổng quan và phạm vi hiện thực}
 
-Sau bước Việt hóa, 1.000 sản phẩm được trích xuất để xây dựng bộ dữ liệu phục vụ đồ án. Dữ liệu này tiếp tục được rà soát, chỉnh sửa và cập nhật vào database nhằm khắc phục các giá trị chưa phù hợp, đồng thời chuẩn hóa cách biểu diễn tên sản phẩm, danh mục, màu sắc, chất liệu và các thuộc tính mô tả.
+% Hệ thống được hiện thực theo các nhóm thành phần gồm Frontend React, Spring Boot Backend, AI Service FastAPI, MySQL, Qdrant và các dịch vụ hạ tầng hỗ trợ. Frontend cung cấp các màn hình mua sắm, tài khoản, trợ lý AI và quản trị; Backend điều phối xác thực, nghiệp vụ và dữ liệu; AI Service thực hiện embedding, truy hồi, reranking và hội thoại. MySQL giữ dữ liệu nghiệp vụ chuẩn, còn Qdrant lưu chỉ mục dẫn xuất phục vụ tìm kiếm.
 
-Kết quả của quá trình xử lý là tệp \texttt{1000\_final.sql}. Đây là phiên bản database chính thức được sử dụng xuyên suốt trong đồ án, phục vụ các chức năng hiển thị, quản lý, tìm kiếm, lọc sản phẩm và đồng bộ dữ liệu sang AI Service.
+% Quy trình hiện thực gồm chuẩn bị dữ liệu, xây dựng các image dịch vụ, cấu hình biến môi trường, chạy kiểm tra ở local và triển khai bản pilot trên Google Cloud Platform. Mỗi thành phần được đóng gói độc lập để có thể cập nhật hoặc rollback theo image tag; dữ liệu lâu dài được tách khỏi vòng đời container bằng named volume hoặc cơ chế lưu trữ tương ứng.
+
+\subsection{Hiện thực giao diện và các luồng nghiệp vụ}
+
+Phần hiện thực giao diện tập trung vào các luồng mà khách hàng và quản trị viên trực tiếp sử dụng. Các màn hình, cách liên kết giữa chúng và nguyên tắc phản hồi được trình bày theo nhóm ở nội dung chính của chương.
+
+\input{Sections/06-GiaoDienVaLuongNghiepVu}
+
+\subsection{Chuẩn bị dữ liệu và hiện thực các thành phần AI}
+
+Dữ liệu sản phẩm được thu thập tự động từ website Zara, gồm tên, mô tả, màu sắc, chất liệu, hình ảnh, danh mục và các thuộc tính liên quan. Do phần lớn dữ liệu ở dạng tiếng Anh, mô hình Qwen3.5-9B được dùng để Việt hóa các trường văn bản; những giá trị tiếng Anh cần thiết vẫn được giữ lại để bảo toàn thông tin nguồn. Sau khi rà soát và chuẩn hóa, 1.000 sản phẩm được chọn làm dữ liệu chính thức của đồ án và lưu trong tệp \texttt{1000\_final.sql}. Tệp này được dùng cho các chức năng sản phẩm, tìm kiếm, lọc và đồng bộ sang AI Service. Các lệnh chuẩn bị dữ liệu và huấn luyện được trình bày trong Phụ lục E.
 
 \begin{table}[H]
 \centering
@@ -20,29 +29,26 @@ Kết quả của quá trình xử lý là tệp \texttt{1000\_final.sql}. Đây
 \begin{tabularx}{\linewidth}{|p{0.30\linewidth}|X|}
 \hline
 \textbf{Thành phần} & \textbf{Mô tả} \\ \hline
-Nguồn dữ liệu & Dữ liệu sản phẩm được thu thập từ website Zara \\ \hline
-Việt hóa dữ liệu & Dịch các trường văn bản sang tiếng Việt bằng mô hình Qwen3.5-9B \\ \hline
-Lựa chọn dữ liệu & Trích xuất 1.000 sản phẩm để xây dựng bộ dữ liệu cho đồ án \\ \hline
-Hoàn thiện dữ liệu & Rà soát, chỉnh sửa, cập nhật database và chuẩn hóa các thuộc tính sản phẩm \\ \hline
-Kết quả & Tệp \texttt{1000\_final.sql} được sử dụng làm database chính thức của hệ thống \\ \hline
+Nguồn dữ liệu & Thu thập sản phẩm tự động từ website Zara \\ \hline
+Việt hóa & Dịch trường văn bản bằng Qwen3.5-9B, giữ lại giá trị tiếng Anh cần thiết \\ \hline
+Lựa chọn & Chọn 1.000 sản phẩm cho bộ dữ liệu của đồ án \\ \hline
+Hoàn thiện & Rà soát, chuẩn hóa thuộc tính và cập nhật database \\ \hline
+Kết quả & Tệp \texttt{1000\_final.sql} được dùng làm database chính thức \\ \hline
 \end{tabularx}
 \end{table}
 
-\subsection{Cài đặt fine-tune YOLOv26}
-Để mô hình phù hợp hơn với miền dữ liệu thương mại điện tử thời trang, YOLOv26 được fine-tune trên tập dữ liệu thời trang được xây dựng dựa trên nguồn Fashionpedia. Fashionpedia là bộ dữ liệu thị giác máy tính trong lĩnh vực thời trang, cung cấp dữ liệu ảnh cùng annotation phục vụ các bài toán như phát hiện đối tượng, phân đoạn đối tượng và nhận diện thuộc tính thời trang \parencite{jia2020fashionpedia}. Trong quá trình huấn luyện, dữ liệu được chuyển đổi về định dạng YOLO và gom thành bốn nhóm nhãn chính: \textit{accessories}, \textit{bags}, \textit{clothing} và \textit{shoes}. Các nhóm nhãn này tương ứng với những loại sản phẩm phổ biến trong hệ thống, đồng thời đủ tổng quát để hỗ trợ chức năng tìm kiếm bằng hình ảnh.
+\paragraph{Fine-tune và đóng gói mô hình YOLOv26.}
+Để thích nghi với dữ liệu thương mại điện tử thời trang, YOLOv26 được fine-tune trên tập dữ liệu xây dựng từ Fashionpedia, một bộ dữ liệu ảnh thời trang có annotation cho bài toán phát hiện đối tượng \parencite{jia2020fashionpedia}. Dữ liệu tham khảo từ phiên bản trên Hugging Face Datasets, được lưu ở dạng Parquet và có giấy phép CC-BY-4.0 \parencite{huggingfaceFashionpedia}. Sau khi chuyển sang định dạng YOLO, các nhãn được gom thành bốn lớp: \textit{accessories}, \textit{bags}, \textit{clothing} và \textit{shoes}; đây là các nhóm phù hợp với sản phẩm trong hệ thống và đủ tổng quát cho tìm kiếm bằng hình ảnh.
 
-Nguồn dữ liệu được tham khảo từ phiên bản Fashionpedia được công bố trên Hugging Face Datasets. Bộ dữ liệu này thuộc nhóm dữ liệu ảnh cho bài toán object detection, có định dạng lưu trữ Parquet và giấy phép CC-BY-4.0 \parencite{huggingfaceFashionpedia}.
-
-
-
-Trước khi huấn luyện, môi trường cần cài đặt thư viện \texttt{ultralytics} để sử dụng API huấn luyện mô hình YOLO. Lệnh cài đặt được trình bày trong \Cref{lst:install-ultralytics}.
-
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Cài đặt thư viện Ultralytics phục vụ fine-tune YOLOv26},label={lst:install-ultralytics}]
 pip install -U ultralytics
 \end{lstlisting}
+\fi
 
-Tập dữ liệu được tổ chức theo định dạng YOLO, gồm ba tập con là train, validation và test. File cấu hình dữ liệu được tạo bằng đoạn mã trong \Cref{lst:yolo-data-yaml}.
+Tập dữ liệu gồm ba tập train, validation và test. File cấu hình xác định đường dẫn, bốn lớp nói trên và được dùng cùng thư viện \texttt{ultralytics} để huấn luyện.
 
+\iffalse
 \begin{lstlisting}[language=Python,caption={Tạo file cấu hình dữ liệu cho fine-tune YOLOv26},label={lst:yolo-data-yaml}]
 import os
 
@@ -65,9 +71,11 @@ with open("/kaggle/working/data.yaml", "w") as f:
 print("Saved /kaggle/working/data.yaml")
 print(open("/kaggle/working/data.yaml").read())
 \end{lstlisting}
+\fi
 
-Sau khi chuẩn bị file cấu hình dữ liệu, mô hình YOLOv26s được nạp từ weight ban đầu \texttt{yolo26s.pt}. Quá trình huấn luyện kiểm tra GPU khả dụng, cấu hình thiết bị huấn luyện và thực hiện fine-tune trên tập dữ liệu đã chuẩn bị. Đoạn mã huấn luyện được trình bày trong \Cref{lst:yolo-train}.
+Mô hình YOLOv26s được nạp từ weight \texttt{yolo26s.pt} và huấn luyện trong 40 epoch với ảnh đầu vào \texttt{640}, kế thừa weight đã học trước, dừng sớm sau 8 epoch không cải thiện và dùng mixed precision trên GPU.
 
+\iffalse
 \begin{lstlisting}[language=Python,caption={Fine-tune mô hình YOLOv26s trên tập dữ liệu thời trang},label={lst:yolo-train}]
 import torch
 from ultralytics import YOLO
@@ -105,10 +113,9 @@ results = model.train(
     verbose=True
 )
 \end{lstlisting}
+\fi
 
-Trong cấu hình trên, mô hình được huấn luyện trong 40 epoch với kích thước ảnh đầu vào là \texttt{640}. Tham số \texttt{pretrained=True} cho phép mô hình kế thừa trọng số đã học trước đó, giúp quá trình fine-tune phù hợp hơn so với huấn luyện lại từ đầu. Tham số \texttt{patience=8} được dùng để dừng sớm khi kết quả đánh giá không cải thiện, còn \texttt{amp=True} giúp tăng tốc huấn luyện bằng mixed precision trên GPU.
-
-Sau khi huấn luyện, kết quả đánh giá mô hình được trình bày trong \Cref{tab:yolov26-finetune-result}. Do bài toán phát hiện đối tượng không sử dụng độ chính xác theo nghĩa phân loại thông thường, hệ thống đánh giá mô hình thông qua các chỉ số Precision, Recall, mAP50 và mAP50-95.
+Kết quả được đánh giá bằng Precision, Recall, mAP50 và mAP50-95 như trình bày trong \Cref{tab:yolov26-finetune-result}.
 
 \begin{table}[H]
 \centering
@@ -125,24 +132,23 @@ Shoes & 1267 & 2448 & 0.924 & 0.880 & 0.945 & 0.763 \\ \hline
 \end{tabularx}
 \end{table}
 
-Kết quả cho thấy mô hình đạt Precision tổng thể là 0.875, Recall là 0.760, mAP50 đạt 0.849 và mAP50-95 đạt 0.685. Trong đó, hai nhóm \textit{clothing} và \textit{shoes} có kết quả tốt nhất với mAP50 lần lượt là 0.947 và 0.945. Điều này cho thấy mô hình nhận diện tốt các sản phẩm có hình dạng rõ ràng và số lượng mẫu tương đối lớn trong tập dữ liệu.
+Mô hình đạt Precision 0.875, Recall 0.760, mAP50 0.849 và mAP50-95 0.685. Hai lớp \textit{clothing} và \textit{shoes} tốt nhất theo mAP50 (lần lượt 0.947 và 0.945), trong khi \textit{accessories} thấp hơn với mAP50-95 là 0.512 do vật thể nhỏ và dễ lẫn với nền. Tuy vậy, kết quả tổng thể đáp ứng mục tiêu phát hiện vùng sản phẩm để crop trước khi tạo image embedding.
 
-Đối với nhóm \textit{accessories}, kết quả thấp hơn với mAP50-95 đạt 0.512. Nguyên nhân có thể đến từ việc phụ kiện thường có kích thước nhỏ, hình dạng đa dạng và dễ bị nhiễu bởi nền ảnh hoặc các vật thể khác. Tuy nhiên, với mục tiêu chính là phát hiện vùng sản phẩm để crop ảnh trước khi tạo image embedding, kết quả tổng thể vẫn đáp ứng được yêu cầu tiền xử lý ảnh cho chức năng tìm kiếm bằng hình ảnh.
+Thời gian suy luận trung bình khoảng 1.8ms mỗi ảnh. Weight tốt nhất được lưu trong thư mục model của AI Service và nạp khi container khởi động.
 
-Bên cạnh độ chính xác phát hiện đối tượng, mô hình cũng có thời gian suy luận thấp, với thời gian inference trung bình khoảng 1.8ms trên mỗi ảnh trong môi trường đánh giá. Điều này cho thấy mô hình phù hợp để tích hợp vào AI Service nhằm hỗ trợ xử lý ảnh trong luồng image search và hybrid search.
-
-Sau khi huấn luyện, weight tốt nhất của mô hình được sử dụng trong AI Service. File weight có thể được lưu trong thư mục model của service như \Cref{lst:yolo-weight-path}.
-
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Đường dẫn lưu weight YOLOv26 sau khi fine-tune},label={lst:yolo-weight-path}]
 ai-service/models/yolov26/best.pt
 \end{lstlisting}
+\fi
 
-Khi AI Service khởi động, mô hình YOLOv26 fine-tuned được load từ file weight này. Trong luồng tìm kiếm bằng hình ảnh, service nhận ảnh từ Spring Boot Backend, phát hiện vùng sản phẩm bằng YOLOv26, crop ảnh nếu phát hiện thành công, sau đó tạo image embedding và truy vấn Qdrant để tìm các sản phẩm tương đồng.
-
-Trong trường hợp YOLOv26 không phát hiện được vùng sản phẩm hoặc điểm tin cậy thấp, AI Service sử dụng ảnh gốc làm fallback để tiếp tục tạo image embedding. 
-\subsection{Môi trường cài đặt và các chế độ vận hành}
+Khi khởi động, AI Service load weight này. Trong tìm kiếm bằng hình ảnh, service nhận ảnh từ Spring Boot Backend, phát hiện và crop vùng sản phẩm, tạo image embedding rồi truy vấn Qdrant. Nếu không phát hiện được vùng phù hợp hoặc độ tin cậy thấp, ảnh gốc được dùng làm fallback để không gián đoạn quá trình tạo embedding.
+\subsection{Cấu hình môi trường và chạy hệ thống local}
 
 Hệ thống hỗ trợ hai chế độ vận hành: chạy toàn bộ trên máy local để phát triển, kiểm thử và triển khai phân tán trên Google Cloud Platform (GCP) để phục vụ bản demo. Cả hai chế độ đều sử dụng Docker để bảo đảm môi trường thực thi nhất quán, tuy nhiên vị trí của AI Service và cách kết nối giữa các dịch vụ có sự khác biệt.
+
+Các lệnh chuẩn bị biến môi trường, khởi động Docker Compose và kiểm tra nhanh được đưa vào Phụ
+lục E; phần này tập trung giải thích vai trò của từng dịch vụ và thứ tự khởi động.
 
 \begin{table}[H]
 \centering
@@ -160,12 +166,13 @@ Dữ liệu lâu dài & Docker named volume cho MySQL và Qdrant & Docker named 
 
 Các công nghệ và phiên bản nền tảng chính được sử dụng gồm Java 21 và Spring Boot 4 cho Backend, Python 3.11 cùng FastAPI cho AI Service, React 19 và Vite cho Frontend, MySQL 8.4, Qdrant và Docker Compose. Frontend được build bằng Node.js 20 rồi phục vụ dưới dạng tệp tĩnh qua nginx. Backend và Frontend sử dụng Dockerfile nhiều giai đoạn nhằm giảm kích thước image chạy thực tế.
 
-\subsection{Cài đặt và chạy hệ thống tại local}
+\paragraph{Đóng gói và chạy các dịch vụ tại local.}
 
 Ở chế độ local, tệp \texttt{docker-compose.yml} tại thư mục gốc mô tả toàn bộ các dịch vụ. MySQL và Qdrant sử dụng named volume lần lượt là \texttt{mysql\_data} và \texttt{qdrant\_storage}. Chỉ Frontend tại cổng 80 và Spring Boot Backend tại cổng 8080 được ánh xạ ra máy host; MySQL, Qdrant và AI Service chỉ giao tiếp trong mạng Docker để hạn chế truy cập trực tiếp không cần thiết.
 
 Trước khi khởi động, hai tệp cấu hình mẫu của Backend và AI Service được sao chép thành tệp \texttt{.env}. Người triển khai cần cập nhật mật khẩu MySQL, JWT secret, internal API key và thông tin xác thực của các dịch vụ mô hình. Giá trị \texttt{AI\_SERVICE\_INTERNAL\_API\_KEY} ở Backend phải trùng với \texttt{INTERNAL\_API\_KEY} và \texttt{SPRINGBOOT\_API\_KEY} ở AI Service. Các khóa bí mật chỉ được đặt trong biến môi trường hoặc tệp secret cục bộ và không được đưa vào Git.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Chuẩn bị cấu hình để chạy hệ thống tại local},label={lst:local-env-prepare}]
 Copy-Item .\service-api-ecommerce\.env.example .\service-api-ecommerce\.env
 Copy-Item .\service-ai\.env.example .\service-ai\.env
@@ -176,9 +183,11 @@ $env:AWS_BEARER_TOKEN_BEDROCK = 'bedrock-api-key'
 
 docker compose config --quiet
 \end{lstlisting}
+\fi
 
 Với volume MySQL mới, tệp \texttt{1000\_final.sql} được import một lần để khởi tạo dữ liệu chính thức của đồ án. Dữ liệu không được import lại ở mỗi lần khởi động vì có thể ghi đè các thay đổi phát sinh trong quá trình sử dụng.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Khởi động các dịch vụ và khởi tạo dữ liệu local},label={lst:local-compose-start}]
 docker compose up -d mysql qdrant
 
@@ -189,20 +198,26 @@ docker compose up -d --build service-ai
 docker compose up -d --build spring-api frontend
 docker compose ps
 \end{lstlisting}
+\fi
 
 Thứ tự trên bảo đảm hai dịch vụ dữ liệu sẵn sàng trước AI Service và Backend. AI Service khởi tạo các collection còn thiếu trong Qdrant khi container bắt đầu chạy. Sau đó, chức năng đồng bộ AI của Backend đọc dữ liệu sản phẩm từ MySQL, tạo embedding và cập nhật các vector tương ứng vào Qdrant. Việc đồng bộ có thể áp dụng cho toàn bộ 1.000 sản phẩm ở local hoặc giới hạn số lượng khi chỉ cần kiểm thử nhanh.
 
 Khi hệ thống đã sẵn sàng, Frontend được truy cập tại \texttt{http://localhost}, còn Backend tại \texttt{http://localhost:8080}. Trạng thái AI Service được xác nhận qua health status của container vì cổng 8000 không được publish ra host trong cấu hình Compose gốc.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Kiểm tra hệ thống chạy local},label={lst:local-compose-check}]
 docker compose ps
 Invoke-WebRequest http://localhost:8080/api/blogs
 Invoke-WebRequest http://localhost
 \end{lstlisting}
+\fi
 
-\subsection{Kiến trúc triển khai trên Google Cloud Platform}
+\subsection{Triển khai hệ thống trên Google Cloud Platform}
 
 Bản triển khai GCP được tổ chức theo mô hình phân tán. GCE VM \texttt{datn-stack-vm} đặt tại zone \texttt{asia-southeast1-b} chạy Frontend, Spring Boot Backend, MySQL và Qdrant. AI Service được đóng gói thành image riêng và triển khai trên Cloud Run tại region \texttt{asia-southeast1}. Cách tách AI Service cho phép cập nhật, giám sát và điều chỉnh tài nguyên độc lập với các dịch vụ nghiệp vụ.
+
+Các lệnh build image, cấu hình Cloud Run và cập nhật dịch vụ trên VM được trình bày ở Phụ lục E.
+Trong nội dung chính chỉ giữ lại cấu hình hạ tầng, cách phân vùng mạng và nguyên tắc quản lý secret.
 
 \begin{table}[H]
 \centering
@@ -223,7 +238,7 @@ Trên VM, Frontend được công khai qua cổng 80 và Backend qua cổng 8080
 
 Trong cấu hình Cloud Run, AI Service sử dụng các dịch vụ mô hình được quản lý thay vì tải mô hình lớn vào container. Cohere Embed v4 trên Amazon Bedrock được dùng để tạo vector văn bản và hình ảnh, Google Cloud Ranking API được dùng để rerank, còn mô hình GPT OSS trên Bedrock hỗ trợ phân tích truy vấn và sinh phản hồi. Image production không cài CUDA, PyTorch, Transformers hoặc Ultralytics; YOLO được tắt và hệ thống dùng ảnh đầy đủ làm phương án dự phòng.
 
-\subsection{Chuẩn bị hạ tầng và cấu hình triển khai GCP}
+\paragraph{Chuẩn bị hạ tầng và cấu hình triển khai GCP.}
 
 Trước lần triển khai đầu tiên, người vận hành cấu hình project GCP, kích hoạt các API cần thiết và tạo Artifact Registry, GCE VM, VPC Connector, firewall cùng service account cho Cloud Run. Mã nguồn đã được kiểm tra được đưa lên thư mục \texttt{/opt/dATN} trên VM. Các biến production của cụm Docker được lưu trong \texttt{/opt/dATN/.env.production} với quyền truy cập hạn chế.
 
@@ -231,10 +246,11 @@ Tệp \texttt{docker-compose.vm.yml} được dùng làm lớp override cho \tex
 
 Các giá trị nhạy cảm không được ghi trực tiếp trong image, lệnh deploy hoặc repository. Secret Manager cung cấp secret cho Cloud Run theo từng biến môi trường. Bedrock API key dạng ngắn hạn được ánh xạ vào \texttt{AWS\_BEARER\_TOKEN\_BEDROCK}, không được đặt nhầm vào các biến IAM \texttt{AWS\_ACCESS\_KEY\_ID} hoặc \texttt{AWS\_SECRET\_ACCESS\_KEY}. Internal API key ở Cloud Run và Backend phải sử dụng cùng một secret để xác thực các API nội bộ.
 
-\subsection{Triển khai các dịch vụ trên GCE VM}
+\paragraph{Triển khai các dịch vụ trên GCE VM.}
 
 Trước mỗi lần cập nhật, dữ liệu MySQL và collection Qdrant đang hoạt động được sao lưu. Sau đó cấu hình Compose được kiểm tra trước khi build để phát hiện sớm biến môi trường thiếu hoặc cấu hình override không hợp lệ. Các dịch vụ dữ liệu được khởi động trước, Backend được recreate sau khi MySQL healthy và Frontend được cập nhật cuối cùng.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Build và khởi động các dịch vụ trên GCE VM},label={lst:gce-compose-deploy}]
 cd /opt/dATN
 sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml config --quiet
@@ -242,35 +258,43 @@ sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-c
 sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml build spring-api frontend
 sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml up -d --no-deps --force-recreate spring-api frontend
 \end{lstlisting}
+\fi
 
 Named volume \texttt{datn\_mysql\_data} và \texttt{datn\_qdrant\_storage} lưu dữ liệu độc lập với vòng đời của container. Vì vậy quá trình cập nhật ứng dụng chỉ recreate Backend hoặc Frontend khi cần, không xóa hoặc tạo lại các volume dữ liệu.
 
-\subsection{Triển khai AI Service trên Cloud Run}
+\paragraph{Triển khai AI Service trên Cloud Run.}
 
 AI Service được build từ thư mục \texttt{service-ai} bằng Cloud Build và tệp \path{cloudbuild.kaniko.yaml}. Mỗi bản build sử dụng một tag bất biến để có thể xác định chính xác phiên bản và rollback khi cần.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Build image AI Service bằng Cloud Build},label={lst:cloud-build-ai}]
 cd service-ai
 gcloud builds submit . --region=asia-southeast1 --config=cloudbuild.kaniko.yaml --substitutions=_IMAGE_TAG=<IMMUTABLE_TAG>
 \end{lstlisting}
+\fi
 
 Image sau khi build được triển khai thành một revision Cloud Run mới với execution environment thế hệ hai, ingress nội bộ, VPC Connector và runtime service account riêng. Trong giai đoạn pilot, revision mới được gắn traffic tag để kiểm tra trước khi chuyển lưu lượng chính thức. Các biến cấu hình thông thường được cung cấp qua environment variables, còn Bedrock token, internal API key và Redis URL được mount từ Secret Manager.
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Các tham số chính khi triển khai AI Service lên Cloud Run},label={lst:cloud-run-ai-deploy}]
 gcloud run deploy service-ai-gptoss-pilot --region=asia-southeast1 --image=<IMMUTABLE_IMAGE> --execution-environment=gen2 --cpu=2 --memory=4Gi --max-instances=1 --ingress=internal --vpc-connector=datn-cloudrun-connector --vpc-egress=private-ranges-only --service-account=<RUNTIME_SERVICE_ACCOUNT> --no-traffic --tag=candidate --set-secrets=<SECRET_MAPPINGS>
 \end{lstlisting}
+\fi
 
 Cloud Run cung cấp biến \texttt{PORT=8080}; lệnh khởi động trong image ưu tiên biến này khi chạy Uvicorn. Endpoint \path{/health} được dùng cho startup probe, còn \path{/health/ready} được dùng để xác nhận các client embedding, reranking và LLM đã sẵn sàng. Chỉ sau khi candidate revision vượt qua các kiểm tra sức khỏe và tìm kiếm thì lưu lượng mới được chuyển sang revision này.
 
-\subsection{Khởi tạo vector và đồng bộ dữ liệu}
+\subsection{Đồng bộ dữ liệu, kiểm tra và khôi phục}
 
 MySQL là nguồn dữ liệu sản phẩm chính, còn Qdrant lưu vector và metadata phục vụ tìm kiếm. AI Service tạo hai collection riêng cho văn bản và hình ảnh; với Cohere Embed v4, cả hai collection sử dụng vector 1.536 chiều và độ đo Cosine. Không được ghi vector của các mô hình hoặc số chiều khác nhau vào cùng một collection.
+
+Các lệnh kiểm tra container, health check và kiểm tra endpoint sau triển khai được đưa vào Phụ lục E.
+Phần này tập trung vào tiêu chí xác nhận đồng bộ, sao lưu, rollback và khôi phục dữ liệu.
 
 Sau khi Backend và AI Service sẵn sàng, quản trị viên tạo một tác vụ đồng bộ qua API của Backend. Backend đọc sản phẩm từ MySQL theo batch, gửi dữ liệu sang AI Service và theo dõi kết quả của tác vụ. Ở môi trường local có thể đồng bộ toàn bộ 1.000 sản phẩm; bản GCP trong giai đoạn pilot giới hạn 500 sản phẩm để kiểm soát thời gian và chi phí. Một tác vụ mới không được tạo khi tác vụ trước vẫn ở trạng thái \texttt{QUEUED} hoặc \texttt{RUNNING}.
 
 Quá trình đồng bộ chỉ được xem là hoàn tất khi tổng số sản phẩm, số thành công, số thất bại và số point trong Qdrant khớp với giới hạn yêu cầu. Các lỗi tải ảnh từ nguồn ngoài được ghi nhận riêng; lỗi ảnh không được che khuất lỗi tạo text vector hoặc làm sai số lượng sản phẩm đã đồng bộ.
 
-\subsection{Kiểm tra sau cài đặt và triển khai}
+\paragraph{Kiểm tra sau cài đặt và triển khai.}
 
 Sau khi khởi động local hoặc triển khai GCP, hệ thống được kiểm tra theo thứ tự từ tầng dữ liệu đến tầng giao diện. Các tiêu chí chính gồm:
 
@@ -284,19 +308,31 @@ Sau khi khởi động local hoặc triển khai GCP, hệ thống được ki�
     \item Frontend tải thành công và gửi request đến đúng địa chỉ Backend đã được cấu hình khi build.
 \end{itemize}
 
+\iffalse
 \begin{lstlisting}[style=terminal,caption={Kiểm tra nhanh các container trên GCE VM},label={lst:gce-deployment-check}]
 sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml ps
 curl -fsS http://127.0.0.1:8080/api/blogs
 curl -fsS http://127.0.0.1:80
 curl -fsS http://10.148.0.4:6333/collections
 \end{lstlisting}
+\fi
 
 Log của các container trên VM được theo dõi bằng \texttt{docker logs}, trong khi log của AI Service được truy vấn từ Cloud Logging theo tên Cloud Run revision. Khi kiểm tra log, không in toàn bộ environment của container để tránh làm lộ secret.
 
-\subsection{Sao lưu và khôi phục khi triển khai}
+\paragraph{Sao lưu, rollback và khôi phục khi triển khai.}
 
 Trước khi deploy hoặc thay đổi schema, hệ thống tạo bản sao lưu MySQL và snapshot collection Qdrant. Việc cập nhật Backend hoặc Frontend không yêu cầu khởi động lại MySQL và Qdrant nếu cấu trúc dữ liệu không thay đổi. Không sử dụng \texttt{docker compose down -v} hoặc xóa hai named volume vì các thao tác này làm mất dữ liệu lâu dài.
 
 Khi revision AI Service mới gặp lỗi, Cloud Run được rollback bằng cách chuyển toàn bộ traffic về revision tốt gần nhất. Backend và Frontend được rollback theo image tag hoặc commit đã xác nhận. Với MySQL, bản dump cần được phục hồi và kiểm tra trên database tạm trước khi thay thế dữ liệu đang phục vụ; với Qdrant, collection cũ hoặc snapshot được giữ lại cho đến khi collection mới đã đồng bộ đầy đủ và vượt qua kiểm thử.
 
 Sau khi hoàn thành các bước kiểm tra, hệ thống sẵn sàng phục vụ các chức năng xem và quản lý sản phẩm, tìm kiếm truyền thống, tìm kiếm thông minh bằng văn bản hoặc hình ảnh, đặt hàng, thanh toán và trợ lý hội thoại.
+
+\subsection*{Kết chương}
+
+Chương này đã trình bày quá trình chuyển thiết kế thành hệ thống có thể chạy được,
+từ hiện thực giao diện và dữ liệu đến đóng gói các dịch vụ, chạy local và triển
+khai trên GCP. Các thành phần nghiệp vụ được giữ độc lập với AI Service; dữ liệu
+MySQL được bảo toàn qua các lần cập nhật; chỉ mục Qdrant có thể đồng bộ lại từ
+dữ liệu chuẩn. Quy trình health check, sao lưu và rollback giúp hệ thống có thể
+được kiểm tra, cập nhật và khôi phục có kiểm soát trước khi đánh giá ở chương
+tiếp theo.

@@ -1,0 +1,32 @@
+%=========================
+% FrontMatter/appendices.tex
+% Phụ lục chi tiết; tiếp tục bổ sung khi các chương còn lại được rút gọn.
+%=========================
+
+\clearpage
+\appendix
+\phantomsection
+\section*{PHỤ LỤC}
+\addcontentsline{toc}{section}{Phụ lục}
+
+% Hai chương phân tích cũ được giữ làm tài liệu chi tiết. Nhãn và tham chiếu
+% được thêm tiền tố để không trùng với các bảng, hình giữ lại ở Chương 2.
+\begingroup
+\let\AppendixOriginalLabel\label
+\renewcommand{\label}[1]{\AppendixOriginalLabel{appendix:#1}}
+
+% Mục A được đặt ngay sau tiêu đề PHỤ LỤC; các mục phụ lục tiếp theo
+% vẫn dùng định dạng section thông thường và bắt đầu ở trang mới.
+\titleformat{\section}
+  {\Large\bfseries\color{HCMUTDarkBlue}}
+  {Chương~\thesection}{0.8em}{--\ }
+\input{Appendices/02-PhanTichYeuCau-ChiTietYeuCau}
+
+\titleformat{\section}
+  {\clearpage\Large\bfseries\color{HCMUTDarkBlue}}
+  {Chương~\thesection}{0.8em}{--\ }
+\input{Appendices/02-PhanTichYeuCau-ChiTietMoHinh}
+\input{Appendices/03-ThietKeDuLieu}
+\input{Appendices/04-GiaoDienHienThuc}
+\input{Appendices/05-MaNguonTrienKhai}
+\endgroup
