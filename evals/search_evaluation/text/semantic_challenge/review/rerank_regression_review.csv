@@ -1,4 +1,0 @@
-query_id,query_text,semantic_variant_type,no_rerank_hit_at_5,rerank_hit_at_5,rerank_hit_at_20,review_priority,review_reason,reviewer_decision,reviewer_note
-text-sem-v1-q0013,quần dài Zara màu trắng bằng rayon,material_synonym,1,0,1,required,relevant_products_moved_below_top_5,pending,
-text-sem-v1-q0022,"cần áo hai dây, áo sát nách hay áo yếm nữ để đi hẹn hò, ngân sách 200 đến 500 nghìn",conversational_constraint,1,0,1,required,relevant_products_moved_below_top_5,pending,
-text-sem-v1-q0024,"quần dài nữ mặc đi chơi, tầm một đến hai triệu",conversational_constraint,1,0,1,required,relevant_products_moved_below_top_5,pending,

@@ -15,6 +15,8 @@ spec.loader.exec_module(POST_FILTER)
 
 def test_post_filter_preserves_image_order_and_requires_all_constraints() -> None:
     query = {
+        "query_id": "q", "transformation_type": "color_material_price_usage",
+        "query_text": "giống ảnh màu đỏ chất liệu cotton giá dưới 200k phù hợp đi làm",
         "category": "Áo thun", "color": "Đỏ", "material": "cotton",
         "price_bucket": "under_200k", "usage": "Đi làm",
     }
@@ -30,6 +32,21 @@ def test_post_filter_preserves_image_order_and_requires_all_constraints() -> Non
     ]
     output = POST_FILTER.filter_image_results(query, products, source, candidate_pool_size=20)
     assert [row["product_id"] for row in output] == ["p1", "p3"]
+
+
+def test_post_filter_does_not_apply_unrequested_fixture_columns() -> None:
+    query = {
+        "query_id": "q", "transformation_type": "color",
+        "query_text": "tìm áo giống ảnh nhưng đổi sang màu đỏ",
+        "category": "Áo thun", "color": "Đỏ", "material": "cotton",
+        "price_bucket": "under_200k", "usage": "Đi làm",
+    }
+    products = {
+        "right": {"category": "khác", "color": "Đỏ / Trắng", "material": "silk", "price": "900000", "usage": "du lịch"},
+        "wrong": {"category": "Áo thun", "color": "xanh", "material": "cotton", "price": "100", "usage": "Đi làm"},
+    }
+    source = [{"rank": "1", "product_id": "right"}, {"rank": "2", "product_id": "wrong"}]
+    assert [row["product_id"] for row in POST_FILTER.filter_image_results(query, products, source, candidate_pool_size=20)] == ["right"]
 
 
 def test_ground_truth_extension_reuses_only_approved_image_label() -> None:

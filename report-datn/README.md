@@ -146,15 +146,12 @@ tham khảo.
 - Đoạn mã dài, đặc tả đầy đủ, bộ ảnh giao diện, cấu hình triển khai và kết quả thô
   nên đặt trong phụ lục.
 
-Các nhóm phụ lục hiện tại và dự kiến:
+Các nhóm phụ lục hiện tại:
 
 - Phụ lục A -- Yêu cầu chức năng chi tiết.
 - Phụ lục B -- Mô hình phân tích, đặc tả Usecase và sơ đồ hoạt động chi tiết.
 - Phụ lục C -- Thiết kế dữ liệu và từ điển dữ liệu (đã triển khai).
-- Phụ lục D -- Giao diện và hướng dẫn sử dụng (dự kiến).
-- Phụ lục E -- Cài đặt và triển khai (dự kiến).
-- Phụ lục F -- Kiểm thử, dữ liệu thực nghiệm và bằng chứng (dự kiến).
-- Phụ lục G -- API và mã nguồn tiêu biểu (dự kiến).
+- Phụ lục D -- Mã nguồn và lệnh triển khai minh họa.
 
 ## Khi nộp bản chính thức
 

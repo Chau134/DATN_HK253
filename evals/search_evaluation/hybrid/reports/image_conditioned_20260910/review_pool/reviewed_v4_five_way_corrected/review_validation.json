@@ -1,0 +1,41 @@
+{
+  "version": "v4",
+  "ready_for_gt_version": true,
+  "error_count": 0,
+  "review_source_sha256": "bca023c98441ba8b75e32b3ecebc60115d4b5eeabfc3a400631359d84bd21009",
+  "expected_pool_sha256": "dc76cad6e89aea46a4efb27ff7bafd34f9dc47f6285144ccf49c84c1c3d073b9",
+  "base_ground_truth_sha256": "20c4ba4e75c5c9b832043822973b090a8a1153c7f9a98357d6fc170632db605d",
+  "derived_ground_truth_sha256": "c31ef35309ba1323f70a2c5c7257c35fe680b27410f6a81ad0b1e2a0fe3b8ea4",
+  "review_rows": 593,
+  "review_queries": 100,
+  "grade_distribution": {
+    "0": 139,
+    "1": 325,
+    "2": 128,
+    "3": 1
+  },
+  "constraint_distribution": {
+    "fail": 333,
+    "pass": 260
+  },
+  "base_rows_preserved": 1034,
+  "derived_rows": 1627,
+  "derived_queries": 100,
+  "grade_defaults_applied": 6,
+  "grade_default": "2",
+  "grade_overrides_applied": 1,
+  "grade_overrides": [
+    {
+      "query_id": "multimodal-q0063",
+      "product_id": "702",
+      "grade": "1"
+    }
+  ],
+  "constraint_defaults_applied": 0,
+  "reviewer_or_time_invented": false,
+  "attribution": "user supplied completed review in conversation",
+  "source_file_modified_at_utc": "2026-09-11T07:40:48.328074+00:00",
+  "imported_at_utc": "2026-09-11T07:48:37.484528+00:00",
+  "timestamp_note": "File/import timestamps are not human review timestamps.",
+  "manual_constraint_scope": "Only this delta, not an automatic verdict on every result or the exact evaluator gate."
+}

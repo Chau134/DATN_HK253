@@ -1,0 +1,301 @@
+[001/100] multimodal-q0001 stage=download
+[001/100] multimodal-q0001 stage=search
+[001/100] multimodal-q0001 status=200 results=11 search_ms=1578
+[002/100] multimodal-q0002 stage=download
+[002/100] multimodal-q0002 stage=search
+[002/100] multimodal-q0002 status=200 results=20 search_ms=391
+[003/100] multimodal-q0003 stage=download
+[003/100] multimodal-q0003 stage=search
+[003/100] multimodal-q0003 status=200 results=1 search_ms=1547
+[004/100] multimodal-q0004 stage=download
+[004/100] multimodal-q0004 stage=search
+[004/100] multimodal-q0004 status=200 results=2 search_ms=1516
+[005/100] multimodal-q0005 stage=download
+[005/100] multimodal-q0005 stage=search
+[005/100] multimodal-q0005 status=200 results=20 search_ms=969
+[006/100] multimodal-q0006 stage=download
+[006/100] multimodal-q0006 stage=search
+[006/100] multimodal-q0006 status=200 results=3 search_ms=1531
+[007/100] multimodal-q0007 stage=download
+[007/100] multimodal-q0007 stage=search
+[007/100] multimodal-q0007 status=200 results=11 search_ms=1750
+[008/100] multimodal-q0008 stage=download
+[008/100] multimodal-q0008 stage=search
+[008/100] multimodal-q0008 status=200 results=13 search_ms=1671
+[009/100] multimodal-q0009 stage=download
+[009/100] multimodal-q0009 stage=search
+[009/100] multimodal-q0009 status=200 results=20 search_ms=875
+[010/100] multimodal-q0010 stage=download
+[010/100] multimodal-q0010 stage=search
+[010/100] multimodal-q0010 status=200 results=4 search_ms=1593
+[011/100] multimodal-q0011 stage=download
+[011/100] multimodal-q0011 stage=search
+[011/100] multimodal-q0011 status=200 results=20 search_ms=1516
+[012/100] multimodal-q0012 stage=download
+[012/100] multimodal-q0012 stage=search
+[012/100] multimodal-q0012 status=200 results=4 search_ms=1640
+[013/100] multimodal-q0013 stage=download
+[013/100] multimodal-q0013 stage=search
+[013/100] multimodal-q0013 status=200 results=20 search_ms=781
+[014/100] multimodal-q0014 stage=download
+[014/100] multimodal-q0014 stage=search
+[014/100] multimodal-q0014 status=200 results=1 search_ms=1563
+[015/100] multimodal-q0015 stage=download
+[015/100] multimodal-q0015 stage=search
+[015/100] multimodal-q0015 status=200 results=20 search_ms=954
+[016/100] multimodal-q0016 stage=download
+[016/100] multimodal-q0016 stage=search
+[016/100] multimodal-q0016 status=200 results=3 search_ms=1594
+[017/100] multimodal-q0017 stage=download
+[017/100] multimodal-q0017 stage=search
+[017/100] multimodal-q0017 status=200 results=1 search_ms=1532
+[018/100] multimodal-q0018 stage=download
+[018/100] multimodal-q0018 stage=search
+[018/100] multimodal-q0018 status=200 results=3 search_ms=1907
+[019/100] multimodal-q0019 stage=download
+[019/100] multimodal-q0019 stage=search
+[019/100] multimodal-q0019 status=200 results=20 search_ms=1625
+[020/100] multimodal-q0020 stage=download
+[020/100] multimodal-q0020 stage=search
+[020/100] multimodal-q0020 status=200 results=20 search_ms=844
+[021/100] multimodal-q0021 stage=download
+[021/100] multimodal-q0021 stage=search
+[021/100] multimodal-q0021 status=200 results=2 search_ms=1360
+[022/100] multimodal-q0022 stage=download
+[022/100] multimodal-q0022 stage=search
+[022/100] multimodal-q0022 status=200 results=20 search_ms=1015
+[023/100] multimodal-q0023 stage=download
+[023/100] multimodal-q0023 stage=search
+[023/100] multimodal-q0023 status=200 results=1 search_ms=1531
+[024/100] multimodal-q0024 stage=download
+[024/100] multimodal-q0024 stage=search
+[024/100] multimodal-q0024 status=200 results=20 search_ms=985
+[025/100] multimodal-q0025 stage=download
+[025/100] multimodal-q0025 stage=search
+[025/100] multimodal-q0025 status=200 results=20 search_ms=1250
+[026/100] multimodal-q0026 stage=download
+[026/100] multimodal-q0026 stage=search
+[026/100] multimodal-q0026 status=200 results=11 search_ms=1547
+[027/100] multimodal-q0027 stage=download
+[027/100] multimodal-q0027 stage=search
+[027/100] multimodal-q0027 status=200 results=2 search_ms=1546
+[028/100] multimodal-q0028 stage=download
+[028/100] multimodal-q0028 stage=search
+[028/100] multimodal-q0028 status=200 results=20 search_ms=2109
+[029/100] multimodal-q0029 stage=download
+[029/100] multimodal-q0029 stage=search
+[029/100] multimodal-q0029 status=200 results=2 search_ms=1532
+[030/100] multimodal-q0030 stage=download
+[030/100] multimodal-q0030 stage=search
+[030/100] multimodal-q0030 status=200 results=11 search_ms=1797
+[031/100] multimodal-q0031 stage=download
+[031/100] multimodal-q0031 stage=search
+[031/100] multimodal-q0031 status=200 results=14 search_ms=1766
+[032/100] multimodal-q0032 stage=download
+[032/100] multimodal-q0032 stage=search
+[032/100] multimodal-q0032 status=200 results=15 search_ms=1672
+[033/100] multimodal-q0033 stage=download
+[033/100] multimodal-q0033 stage=search
+[033/100] multimodal-q0033 status=200 results=1 search_ms=1547
+[034/100] multimodal-q0034 stage=download
+[034/100] multimodal-q0034 stage=search
+[034/100] multimodal-q0034 status=200 results=20 search_ms=735
+[035/100] multimodal-q0035 stage=download
+[035/100] multimodal-q0035 stage=search
+[035/100] multimodal-q0035 status=200 results=15 search_ms=1046
+[036/100] multimodal-q0036 stage=download
+[036/100] multimodal-q0036 stage=search
+[036/100] multimodal-q0036 status=200 results=1 search_ms=1297
+[037/100] multimodal-q0037 stage=download
+[037/100] multimodal-q0037 stage=search
+[037/100] multimodal-q0037 status=200 results=3 search_ms=1406
+[038/100] multimodal-q0038 stage=download
+[038/100] multimodal-q0038 stage=search
+[038/100] multimodal-q0038 status=200 results=20 search_ms=875
+[039/100] multimodal-q0039 stage=download
+[039/100] multimodal-q0039 stage=search
+[039/100] multimodal-q0039 status=200 results=20 search_ms=485
+[040/100] multimodal-q0040 stage=download
+[040/100] multimodal-q0040 stage=search
+[040/100] multimodal-q0040 status=200 results=20 search_ms=640
+[041/100] multimodal-q0041 stage=download
+[041/100] multimodal-q0041 stage=search
+[041/100] multimodal-q0041 status=200 results=4 search_ms=1516
+[042/100] multimodal-q0042 stage=download
+[042/100] multimodal-q0042 stage=search
+[042/100] multimodal-q0042 status=200 results=3 search_ms=1422
+[043/100] multimodal-q0043 stage=download
+[043/100] multimodal-q0043 stage=search
+[043/100] multimodal-q0043 status=200 results=7 search_ms=1641
+[044/100] multimodal-q0044 stage=download
+[044/100] multimodal-q0044 stage=search
+[044/100] multimodal-q0044 status=200 results=20 search_ms=641
+[045/100] multimodal-q0045 stage=download
+[045/100] multimodal-q0045 stage=search
+[045/100] multimodal-q0045 status=200 results=20 search_ms=532
+[046/100] multimodal-q0046 stage=download
+[046/100] multimodal-q0046 stage=search
+[046/100] multimodal-q0046 status=200 results=20 search_ms=656
+[047/100] multimodal-q0047 stage=download
+[047/100] multimodal-q0047 stage=search
+[047/100] multimodal-q0047 status=200 results=20 search_ms=656
+[048/100] multimodal-q0048 stage=download
+[048/100] multimodal-q0048 stage=search
+[048/100] multimodal-q0048 status=200 results=20 search_ms=4016
+[049/100] multimodal-q0049 stage=download
+[049/100] multimodal-q0049 stage=search
+[049/100] multimodal-q0049 status=200 results=20 search_ms=500
+[050/100] multimodal-q0050 stage=download
+[050/100] multimodal-q0050 stage=search
+[050/100] multimodal-q0050 status=200 results=1 search_ms=1531
+[051/100] multimodal-q0051 stage=download
+[051/100] multimodal-q0051 stage=search
+[051/100] multimodal-q0051 status=200 results=20 search_ms=656
+[052/100] multimodal-q0052 stage=download
+[052/100] multimodal-q0052 stage=search
+[052/100] multimodal-q0052 status=200 results=3 search_ms=1641
+[053/100] multimodal-q0053 stage=download
+[053/100] multimodal-q0053 stage=search
+[053/100] multimodal-q0053 status=200 results=1 search_ms=1704
+[054/100] multimodal-q0054 stage=download
+[054/100] multimodal-q0054 stage=search
+[054/100] multimodal-q0054 status=200 results=20 search_ms=750
+[055/100] multimodal-q0055 stage=download
+[055/100] multimodal-q0055 stage=search
+[055/100] multimodal-q0055 status=200 results=20 search_ms=438
+[056/100] multimodal-q0056 stage=download
+[056/100] multimodal-q0056 stage=search
+[056/100] multimodal-q0056 status=200 results=15 search_ms=1375
+[057/100] multimodal-q0057 stage=download
+[057/100] multimodal-q0057 stage=search
+[057/100] multimodal-q0057 status=200 results=7 search_ms=1594
+[058/100] multimodal-q0058 stage=download
+[058/100] multimodal-q0058 stage=search
+[058/100] multimodal-q0058 status=200 results=18 search_ms=1703
+[059/100] multimodal-q0059 stage=download
+[059/100] multimodal-q0059 stage=search
+[059/100] multimodal-q0059 status=200 results=20 search_ms=766
+[060/100] multimodal-q0060 stage=download
+[060/100] multimodal-q0060 stage=search
+[060/100] multimodal-q0060 status=200 results=1 search_ms=1641
+[061/100] multimodal-q0061 stage=download
+[061/100] multimodal-q0061 stage=search
+[061/100] multimodal-q0061 status=200 results=1 search_ms=1750
+[062/100] multimodal-q0062 stage=download
+[062/100] multimodal-q0062 stage=search
+[062/100] multimodal-q0062 status=200 results=6 search_ms=1500
+[063/100] multimodal-q0063 stage=download
+[063/100] multimodal-q0063 stage=search
+[063/100] multimodal-q0063 status=200 results=1 search_ms=1953
+[064/100] multimodal-q0064 stage=download
+[064/100] multimodal-q0064 stage=search
+[064/100] multimodal-q0064 status=200 results=2 search_ms=1610
+[065/100] multimodal-q0065 stage=download
+[065/100] multimodal-q0065 stage=search
+[065/100] multimodal-q0065 status=200 results=1 search_ms=1546
+[066/100] multimodal-q0066 stage=download
+[066/100] multimodal-q0066 stage=search
+[066/100] multimodal-q0066 status=200 results=20 search_ms=828
+[067/100] multimodal-q0067 stage=download
+[067/100] multimodal-q0067 stage=search
+[067/100] multimodal-q0067 status=200 results=14 search_ms=1500
+[068/100] multimodal-q0068 stage=download
+[068/100] multimodal-q0068 stage=search
+[068/100] multimodal-q0068 status=200 results=14 search_ms=1531
+[069/100] multimodal-q0069 stage=download
+[069/100] multimodal-q0069 stage=search
+[069/100] multimodal-q0069 status=200 results=6 search_ms=1765
+[070/100] multimodal-q0070 stage=download
+[070/100] multimodal-q0070 stage=search
+[070/100] multimodal-q0070 status=200 results=2 search_ms=2328
+[071/100] multimodal-q0071 stage=download
+[071/100] multimodal-q0071 stage=search
+[071/100] multimodal-q0071 status=200 results=20 search_ms=672
+[072/100] multimodal-q0072 stage=download
+[072/100] multimodal-q0072 stage=search
+[072/100] multimodal-q0072 status=200 results=1 search_ms=1453
+[073/100] multimodal-q0073 stage=download
+[073/100] multimodal-q0073 stage=search
+[073/100] multimodal-q0073 status=200 results=7 search_ms=1672
+[074/100] multimodal-q0074 stage=download
+[074/100] multimodal-q0074 stage=search
+[074/100] multimodal-q0074 status=200 results=3 search_ms=1594
+[075/100] multimodal-q0075 stage=download
+[075/100] multimodal-q0075 stage=search
+[075/100] multimodal-q0075 status=200 results=4 search_ms=1454
+[076/100] multimodal-q0076 stage=download
+[076/100] multimodal-q0076 stage=search
+[076/100] multimodal-q0076 status=200 results=9 search_ms=1500
+[077/100] multimodal-q0077 stage=download
+[077/100] multimodal-q0077 stage=search
+[077/100] multimodal-q0077 status=200 results=20 search_ms=750
+[078/100] multimodal-q0078 stage=download
+[078/100] multimodal-q0078 stage=search
+[078/100] multimodal-q0078 status=200 results=20 search_ms=547
+[079/100] multimodal-q0079 stage=download
+[079/100] multimodal-q0079 stage=search
+[079/100] multimodal-q0079 status=200 results=9 search_ms=1671
+[080/100] multimodal-q0080 stage=download
+[080/100] multimodal-q0080 stage=search
+[080/100] multimodal-q0080 status=200 results=20 search_ms=484
+[081/100] multimodal-q0081 stage=download
+[081/100] multimodal-q0081 stage=search
+[081/100] multimodal-q0081 status=200 results=1 search_ms=1640
+[082/100] multimodal-q0082 stage=download
+[082/100] multimodal-q0082 stage=search
+[082/100] multimodal-q0082 status=200 results=20 search_ms=703
+[083/100] multimodal-q0083 stage=download
+[083/100] multimodal-q0083 stage=search
+[083/100] multimodal-q0083 status=200 results=20 search_ms=625
+[084/100] multimodal-q0084 stage=download
+[084/100] multimodal-q0084 stage=search
+[084/100] multimodal-q0084 status=200 results=1 search_ms=1485
+[085/100] multimodal-q0085 stage=download
+[085/100] multimodal-q0085 stage=search
+[085/100] multimodal-q0085 status=200 results=13 search_ms=1797
+[086/100] multimodal-q0086 stage=download
+[086/100] multimodal-q0086 stage=search
+[086/100] multimodal-q0086 status=200 results=20 search_ms=578
+[087/100] multimodal-q0087 stage=download
+[087/100] multimodal-q0087 stage=search
+[087/100] multimodal-q0087 status=200 results=1 search_ms=1891
+[088/100] multimodal-q0088 stage=download
+[088/100] multimodal-q0088 stage=search
+[088/100] multimodal-q0088 status=200 results=20 search_ms=1062
+[089/100] multimodal-q0089 stage=download
+[089/100] multimodal-q0089 stage=search
+[089/100] multimodal-q0089 status=200 results=1 search_ms=1500
+[090/100] multimodal-q0090 stage=download
+[090/100] multimodal-q0090 stage=search
+[090/100] multimodal-q0090 status=200 results=2 search_ms=1812
+[091/100] multimodal-q0091 stage=download
+[091/100] multimodal-q0091 stage=search
+[091/100] multimodal-q0091 status=200 results=17 search_ms=2000
+[092/100] multimodal-q0092 stage=download
+[092/100] multimodal-q0092 stage=search
+[092/100] multimodal-q0092 status=200 results=20 search_ms=734
+[093/100] multimodal-q0093 stage=download
+[093/100] multimodal-q0093 stage=search
+[093/100] multimodal-q0093 status=200 results=20 search_ms=765
+[094/100] multimodal-q0094 stage=download
+[094/100] multimodal-q0094 stage=search
+[094/100] multimodal-q0094 status=200 results=20 search_ms=547
+[095/100] multimodal-q0095 stage=download
+[095/100] multimodal-q0095 stage=search
+[095/100] multimodal-q0095 status=200 results=20 search_ms=782
+[096/100] multimodal-q0096 stage=download
+[096/100] multimodal-q0096 stage=search
+[096/100] multimodal-q0096 status=200 results=2 search_ms=1562
+[097/100] multimodal-q0097 stage=download
+[097/100] multimodal-q0097 stage=search
+[097/100] multimodal-q0097 status=200 results=2 search_ms=1703
+[098/100] multimodal-q0098 stage=download
+[098/100] multimodal-q0098 stage=search
+[098/100] multimodal-q0098 status=200 results=20 search_ms=500
+[099/100] multimodal-q0099 stage=download
+[099/100] multimodal-q0099 stage=search
+[099/100] multimodal-q0099 status=200 results=1 search_ms=1579
+[100/100] multimodal-q0100 stage=download
+[100/100] multimodal-q0100 stage=search
+[100/100] multimodal-q0100 status=200 results=2 search_ms=1625
+run_id=hybrid-image-conditioned-rollout-20260911 queries=100 result_rows=1118 errors=0 results=evals\search_evaluation\hybrid\reports\image_conditioned_20260910\rollout_20260911\production_results.csv responses=evals\search_evaluation\hybrid\reports\image_conditioned_20260910\rollout_20260911\production_responses.jsonl

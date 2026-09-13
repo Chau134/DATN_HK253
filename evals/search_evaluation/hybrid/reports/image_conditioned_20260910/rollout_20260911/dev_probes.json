@@ -1,0 +1,1521 @@
+{
+  "readiness": {
+    "ready": true,
+    "models": {
+      "text_embedding": true,
+      "image_embedding": true,
+      "llm": true,
+      "yolo": false
+    },
+    "capabilities": {
+      "text_search": true,
+      "image_search": true,
+      "assistant_llm": true
+    },
+    "effective_features": {
+      "reranker_enabled": false,
+      "yolo_enabled": false,
+      "hybrid_parallel_branches_enabled": true,
+      "hybrid_filter_recovery_enabled": true,
+      "hybrid_image_conditioned_enabled": true,
+      "hybrid_conditioned_rrf_enabled": false,
+      "hybrid_conditioned_recovery_enabled": true,
+      "hybrid_conditioned_grouped_retrieval_enabled": true
+    },
+    "evaluation_variant": "rag",
+    "capability": null,
+    "instance_id": "2c3c1d7c3fd243f7a08b0365711d1c8b",
+    "started_at": "2026-09-10T18:58:55.453866+00:00"
+  },
+  "scope": "metadata/contract probes, not visual relevance judgments",
+  "cases": [
+    {
+      "id": "dev-cotton",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Tìm mẫu giống ảnh, chất liệu cotton",
+        "filters": {
+          "material": "cotton"
+        },
+        "inferred_filters": {
+          "material": "cotton"
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "2003",
+          "2012",
+          "1941",
+          "853",
+          "1965",
+          "2037",
+          "1912",
+          "1745",
+          "1766",
+          "1877",
+          "2038",
+          "1961",
+          "1781",
+          "1746",
+          "1925",
+          "2010",
+          "988",
+          "2031",
+          "1979",
+          "1856"
+        ],
+        "results": [
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2037",
+            "score": 0.6423584,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1912",
+            "score": 0.6387787,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1745",
+            "score": 0.6317978,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1766",
+            "score": 0.6273355,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1877",
+            "score": 0.6204888,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2038",
+            "score": 0.619805,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1961",
+            "score": 0.61952937,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1781",
+            "score": 0.617099,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1746",
+            "score": 0.6145338,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1925",
+            "score": 0.61376727,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2010",
+            "score": 0.6082981,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "988",
+            "score": 0.60476846,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2031",
+            "score": 0.6037682,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1979",
+            "score": 0.5935535,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1856",
+            "score": 0.5911943,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 3985.000000000582,
+      "failures": []
+    },
+    {
+      "id": "dev-blend",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh nhưng chất liệu cotton và elastane",
+        "filters": {
+          "material": "cotton, elastane"
+        },
+        "inferred_filters": {
+          "material": "cotton, elastane"
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "2003",
+          "2012",
+          "853",
+          "1965",
+          "1912",
+          "1766",
+          "1877",
+          "1961",
+          "1781",
+          "1979",
+          "1856",
+          "713",
+          "1421",
+          "943",
+          "1540",
+          "1587",
+          "1137",
+          "981",
+          "942",
+          "1524"
+        ],
+        "results": [
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1912",
+            "score": 0.6387787,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1766",
+            "score": 0.6273355,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1877",
+            "score": 0.6204888,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1961",
+            "score": 0.61952937,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1781",
+            "score": 0.617099,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1979",
+            "score": 0.5935535,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1856",
+            "score": 0.5911943,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "713",
+            "score": 0.58821714,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1421",
+            "score": 0.5826651,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "943",
+            "score": 0.55761695,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1540",
+            "score": 0.5361128,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1587",
+            "score": 0.524359,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1137",
+            "score": 0.52050054,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "981",
+            "score": 0.5142091,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "942",
+            "score": 0.5097204,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1524",
+            "score": 0.50016856,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 1530.9999999881256,
+      "failures": []
+    },
+    {
+      "id": "dev-price",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Tìm mẫu giống ảnh, giá dưới 500k",
+        "filters": {
+          "max_price": 499999.99999999994
+        },
+        "inferred_filters": {
+          "max_price": 499999.99999999994
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "853",
+          "1457",
+          "1337",
+          "988",
+          "896",
+          "713",
+          "891",
+          "1232",
+          "780",
+          "972",
+          "707",
+          "769",
+          "1327",
+          "782",
+          "1661",
+          "943",
+          "933",
+          "1461",
+          "948",
+          "962"
+        ],
+        "results": [
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1457",
+            "score": 0.6281077,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1337",
+            "score": 0.6057875,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "988",
+            "score": 0.60476846,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "896",
+            "score": 0.5933049,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "713",
+            "score": 0.58821714,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "891",
+            "score": 0.58132505,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1232",
+            "score": 0.5807776,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "780",
+            "score": 0.58068085,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "972",
+            "score": 0.5795265,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "707",
+            "score": 0.57577837,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "769",
+            "score": 0.5681379,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1327",
+            "score": 0.5677147,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "782",
+            "score": 0.565176,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1661",
+            "score": 0.56238973,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "943",
+            "score": 0.55761695,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "933",
+            "score": 0.5484699,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1461",
+            "score": 0.5435897,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "948",
+            "score": 0.54001826,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "962",
+            "score": 0.5395306,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 437.0000000053551,
+      "failures": []
+    },
+    {
+      "id": "dev-price-inclusive",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh, giá không quá 1 triệu",
+        "filters": {
+          "max_price": 1000000.0
+        },
+        "inferred_filters": {
+          "max_price": 1000000.0
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "1853",
+          "1909",
+          "1849",
+          "1948",
+          "1933",
+          "1850",
+          "2003",
+          "1793",
+          "1974",
+          "1996",
+          "2012",
+          "1941",
+          "1922",
+          "1764",
+          "2032",
+          "853",
+          "1964",
+          "1830",
+          "2009",
+          "1965"
+        ],
+        "results": [
+          {
+            "product_id": "1853",
+            "score": 0.7851938,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1909",
+            "score": 0.7823012,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1849",
+            "score": 0.76741135,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1948",
+            "score": 0.7578054,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1933",
+            "score": 0.7448697,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1850",
+            "score": 0.7377516,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1793",
+            "score": 0.7043599,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1974",
+            "score": 0.6944908,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1996",
+            "score": 0.6935375,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1922",
+            "score": 0.67403567,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1764",
+            "score": 0.6593435,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2032",
+            "score": 0.65288514,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1964",
+            "score": 0.6491233,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1830",
+            "score": 0.6483263,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2009",
+            "score": 0.64769113,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 313.0000000091968,
+      "failures": []
+    },
+    {
+      "id": "dev-budget",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh giá trên 2 triệu",
+        "filters": {
+          "min_price": 2000000.0000000002
+        },
+        "inferred_filters": {
+          "min_price": 2000000.0000000002
+        },
+        "relaxed_filters": [],
+        "constraint_failure_reason": "no_candidates_satisfy_required_constraints",
+        "product_ids": [],
+        "results": [],
+        "detections": []
+      },
+      "latency_ms": 733.9999999967404,
+      "failures": []
+    },
+    {
+      "id": "dev-exclude",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Tìm mẫu giống ảnh nhưng không màu đen",
+        "relaxed_filters": [],
+        "product_ids": [
+          "1853",
+          "1909",
+          "1849",
+          "1948",
+          "1933",
+          "1850",
+          "2003",
+          "1793",
+          "1974",
+          "1996",
+          "2012",
+          "1941",
+          "1922",
+          "1764",
+          "2032",
+          "853",
+          "1964",
+          "1830",
+          "2009",
+          "1965"
+        ],
+        "results": [
+          {
+            "product_id": "1853",
+            "score": 0.7851938,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1909",
+            "score": 0.7823012,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1849",
+            "score": 0.76741135,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1948",
+            "score": 0.7578054,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1933",
+            "score": 0.7448697,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1850",
+            "score": 0.7377516,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1793",
+            "score": 0.7043599,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1974",
+            "score": 0.6944908,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1996",
+            "score": 0.6935375,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1922",
+            "score": 0.67403567,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1764",
+            "score": 0.6593435,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2032",
+            "score": 0.65288514,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1964",
+            "score": 0.6491233,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1830",
+            "score": 0.6483263,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2009",
+            "score": 0.64769113,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 483.99999999674037,
+      "failures": []
+    },
+    {
+      "id": "dev-activity",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh, phải phù hợp đi làm",
+        "filters": {
+          "use_cases": [
+            "office"
+          ]
+        },
+        "inferred_filters": {
+          "use_cases": [
+            "office"
+          ]
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "1853",
+          "1933",
+          "2003",
+          "1793",
+          "1996",
+          "2032",
+          "853",
+          "1964",
+          "1830",
+          "2009",
+          "1965",
+          "2037",
+          "108",
+          "1912",
+          "1750",
+          "1886",
+          "1819",
+          "1818",
+          "1457",
+          "1766"
+        ],
+        "results": [
+          {
+            "product_id": "1853",
+            "score": 0.7851938,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1933",
+            "score": 0.7448697,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1793",
+            "score": 0.7043599,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1996",
+            "score": 0.6935375,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2032",
+            "score": 0.65288514,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1964",
+            "score": 0.6491233,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1830",
+            "score": 0.6483263,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2009",
+            "score": 0.64769113,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2037",
+            "score": 0.6423584,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "108",
+            "score": 0.6421044,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1912",
+            "score": 0.6387787,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1750",
+            "score": 0.6386199,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1886",
+            "score": 0.632156,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1819",
+            "score": 0.63030666,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1818",
+            "score": 0.62967145,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1457",
+            "score": 0.6281077,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1766",
+            "score": 0.6273355,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 312.0000000053551,
+      "failures": []
+    },
+    {
+      "id": "dev-activities",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh phù hợp đi chơi và du lịch",
+        "filters": {
+          "use_cases": [
+            "travel",
+            "casual"
+          ]
+        },
+        "inferred_filters": {
+          "use_cases": [
+            "travel",
+            "casual"
+          ]
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "2015",
+          "2010",
+          "1954",
+          "1065",
+          "1721",
+          "1597",
+          "1184",
+          "488",
+          "1480"
+        ],
+        "results": [
+          {
+            "product_id": "2015",
+            "score": 0.62006164,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2010",
+            "score": 0.6082981,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1954",
+            "score": 0.58724284,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1065",
+            "score": 0.5667334,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1721",
+            "score": 0.4881057,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1597",
+            "score": 0.43668917,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1184",
+            "score": 0.34518906,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "488",
+            "score": 0.28526098,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1480",
+            "score": 0.27102625,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 921.9999999913853,
+      "failures": []
+    },
+    {
+      "id": "dev-activities-any",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh phù hợp đi chơi, dạo phố, du lịch",
+        "filters": {
+          "use_cases": [
+            "streetwear",
+            "travel",
+            "casual"
+          ]
+        },
+        "inferred_filters": {
+          "use_cases": [
+            "streetwear",
+            "travel",
+            "casual"
+          ]
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "1853",
+          "1909",
+          "1849",
+          "1948",
+          "1933",
+          "1850",
+          "1793",
+          "1974",
+          "1996",
+          "2012",
+          "1941",
+          "1922",
+          "1764",
+          "2032",
+          "853",
+          "1830",
+          "2009",
+          "1965",
+          "1973",
+          "2037"
+        ],
+        "results": [
+          {
+            "product_id": "1853",
+            "score": 0.7851938,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1909",
+            "score": 0.7823012,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1849",
+            "score": 0.76741135,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1948",
+            "score": 0.7578054,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1933",
+            "score": 0.7448697,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1850",
+            "score": 0.7377516,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1793",
+            "score": 0.7043599,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1974",
+            "score": 0.6944908,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1996",
+            "score": 0.6935375,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1922",
+            "score": 0.67403567,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1764",
+            "score": 0.6593435,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2032",
+            "score": 0.65288514,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1830",
+            "score": 0.6483263,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2009",
+            "score": 0.64769113,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1973",
+            "score": 0.6445401,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2037",
+            "score": 0.6423584,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 313.0000000091968,
+      "failures": []
+    },
+    {
+      "id": "dev-activities-all",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh phù hợp cả ba: đi chơi, dạo phố, du lịch",
+        "filters": {
+          "use_cases": [
+            "streetwear",
+            "travel",
+            "casual"
+          ]
+        },
+        "inferred_filters": {
+          "use_cases": [
+            "streetwear",
+            "travel",
+            "casual"
+          ]
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "2015",
+          "2010",
+          "1954",
+          "1065",
+          "1721",
+          "1184",
+          "1480"
+        ],
+        "results": [
+          {
+            "product_id": "2015",
+            "score": 0.62006164,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2010",
+            "score": 0.6082981,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1954",
+            "score": 0.58724284,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1065",
+            "score": 0.5667334,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1721",
+            "score": 0.4881057,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1184",
+            "score": 0.34518906,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1480",
+            "score": 0.27102625,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 812.9999999946449,
+      "failures": []
+    },
+    {
+      "id": "dev-soft",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh, ưu tiên linen, giá dưới 1 triệu",
+        "filters": {
+          "max_price": 999999.9999999999
+        },
+        "inferred_filters": {
+          "max_price": 999999.9999999999
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "1853",
+          "1909",
+          "1948",
+          "1849",
+          "1933",
+          "1850",
+          "1974",
+          "2003",
+          "1793",
+          "1996",
+          "2012",
+          "1941",
+          "1922",
+          "1764",
+          "2032",
+          "853",
+          "1964",
+          "1830",
+          "2009",
+          "1965"
+        ],
+        "results": [
+          {
+            "product_id": "1853",
+            "score": 0.7851938,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1909",
+            "score": 0.7823012,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1948",
+            "score": 0.7778054,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1849",
+            "score": 0.76741135,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1933",
+            "score": 0.7448697,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1850",
+            "score": 0.7377516,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1974",
+            "score": 0.7144908,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2003",
+            "score": 0.7053827,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1793",
+            "score": 0.7043599,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1996",
+            "score": 0.6935375,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2012",
+            "score": 0.689801,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1922",
+            "score": 0.67403567,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1764",
+            "score": 0.6593435,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2032",
+            "score": 0.65288514,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "853",
+            "score": 0.65215373,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1964",
+            "score": 0.6491233,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1830",
+            "score": 0.6483263,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "2009",
+            "score": 0.64769113,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1965",
+            "score": 0.64475745,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 281.00000000267755,
+      "failures": []
+    },
+    {
+      "id": "dev-unknown",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh, chất liệu unobtainium",
+        "relaxed_filters": [],
+        "constraint_failure_reason": "unresolved_material",
+        "product_ids": [],
+        "results": [],
+        "detections": []
+      },
+      "latency_ms": 139.99999999941792,
+      "failures": []
+    },
+    {
+      "id": "dev-unknown-color",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh, màu octarine",
+        "filters": {
+          "colors": [
+            "octarine"
+          ],
+          "color_match_mode": "any"
+        },
+        "inferred_filters": {
+          "colors": [
+            "octarine"
+          ],
+          "color_match_mode": "any"
+        },
+        "relaxed_filters": [],
+        "constraint_failure_reason": "no_candidates_satisfy_required_constraints",
+        "product_ids": [],
+        "results": [],
+        "detections": []
+      },
+      "latency_ms": 921.0000000020955,
+      "failures": []
+    },
+    {
+      "id": "dev-pure-cotton",
+      "status": 200,
+      "response": {
+        "rewritten_query": "Giống ảnh chất liệu 100% cotton",
+        "filters": {
+          "material": "cotton"
+        },
+        "inferred_filters": {
+          "material": "cotton"
+        },
+        "relaxed_filters": [],
+        "product_ids": [
+          "1941",
+          "1925",
+          "1942",
+          "972",
+          "1467",
+          "707",
+          "769",
+          "1752",
+          "1065",
+          "782",
+          "192",
+          "933",
+          "1816",
+          "898",
+          "801",
+          "887",
+          "735",
+          "974",
+          "34",
+          "56"
+        ],
+        "results": [
+          {
+            "product_id": "1941",
+            "score": 0.6804693,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1925",
+            "score": 0.61376727,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1942",
+            "score": 0.58794117,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "972",
+            "score": 0.5795265,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1467",
+            "score": 0.57657766,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "707",
+            "score": 0.57577837,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "769",
+            "score": 0.5681379,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1752",
+            "score": 0.5676882,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1065",
+            "score": 0.5667334,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "782",
+            "score": 0.565176,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "192",
+            "score": 0.5611254,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "933",
+            "score": 0.5484699,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "1816",
+            "score": 0.52893037,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "898",
+            "score": 0.50897974,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "801",
+            "score": 0.48105612,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "887",
+            "score": 0.46138692,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "735",
+            "score": 0.4556674,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "974",
+            "score": 0.4362433,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "34",
+            "score": 0.43381822,
+            "source": "hybrid"
+          },
+          {
+            "product_id": "56",
+            "score": 0.43112326,
+            "source": "hybrid"
+          }
+        ],
+        "detections": []
+      },
+      "latency_ms": 1000.0,
+      "failures": []
+    }
+  ],
+  "passed": true
+}

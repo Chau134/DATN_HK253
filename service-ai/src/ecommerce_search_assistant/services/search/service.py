@@ -11,6 +11,7 @@ from hashlib import sha256
 from io import BytesIO
 import logging
 import math
+import re
 from threading import Lock
 from time import monotonic
 import unicodedata
@@ -64,6 +65,7 @@ from ecommerce_search_assistant.services.search.canonicalization import (
     METADATA_SCHEMA_VERSION,
     canonicalize_brand_key,
     canonicalize_color_keys,
+    catalog_color_keys,
     color_filter_keys,
     canonicalize_gender_key,
     canonicalize_material_keys,
@@ -81,6 +83,7 @@ from ecommerce_search_assistant.services.search.constraints import (
 )
 from ecommerce_search_assistant.services.search.normalization import contains_token, normalize_query_text
 from ecommerce_search_assistant.services.search.routing import SearchRoute, decide_search_route
+from ecommerce_search_assistant.services.search.hybrid_intent import parse_hybrid_intent
 
 logger = logging.getLogger(__name__)
 
@@ -771,6 +774,11 @@ class SearchService:
         )
 
     def search_hybrid(self, request: HybridSearchRequest) -> SearchResponse:
+        if self.settings.hybrid_search_policy == "image_conditioned" and request.image is not None:
+            return self._search_image_conditioned(
+                query=request.query, image=request.image, crop_box=request.crop_box,
+                explicit_filters=request.filters, top_k=request.top_k,
+            )
         started_at = monotonic()
         analysis = (
             self._analyze_query_cached(request.query)
@@ -882,6 +890,12 @@ class SearchService:
         top_k: int | None = None,
         constraints: ResolvedSearchConstraints | None = None,
     ) -> SearchResponse:
+        if self.settings.hybrid_search_policy == "image_conditioned" and image is not None:
+            return self._search_image_conditioned(
+                query=original_query or rewritten_query, image=image, crop_box=crop_box,
+                explicit_filters=constraints.explicit_hard_filters if constraints else filters,
+                top_k=top_k,
+            )
         started_at = monotonic()
         output_top_k = _resolve_top_k(top_k, self.settings.hybrid_top_k, self.settings)
         candidate_limit = _hybrid_candidate_limit(output_top_k, self.settings)
@@ -1081,6 +1095,158 @@ class SearchService:
                 else None
             ),
         )
+
+    def _search_image_conditioned(
+        self, *, query: str | None, image: ImagePayload,
+        crop_box: ImageBoundingBox | None, explicit_filters: SearchFilter | None,
+        top_k: int | None,
+    ) -> SearchResponse:
+        started = monotonic()
+        deadline = started + self.settings.hybrid_conditioned_budget_ms / 1000
+        intent = parse_hybrid_intent(query, explicit_filters)
+        limit = _resolve_top_k(top_k, self.settings.hybrid_top_k, self.settings)
+        if self.settings.hybrid_conditioned_diagnostics_enabled:
+            logger.info("hybrid_conditioned_intent required=%s preferred=%s excluded=%s uncertain=%s",
+                        intent.required.model_dump(exclude_none=True), intent.preferred.model_dump(exclude_none=True),
+                        [v.model_dump(exclude_none=True) for v in intent.excluded], intent.uncertain)
+        if intent.uncertain:
+            return _response(query, intent.required, [], explicit_filters=explicit_filters,
+                             constraint_failure_reason=",".join(intent.uncertain))
+        crops = self._crops_for_search(image=_image_payload_to_pil(image, self.settings), crop_box=crop_box)
+        vectors = self._embed_images_cached([crop.image for crop in crops])
+        # Push down a safe superset. Complex AND/material/usage predicates are
+        # checked again on payloads, never approximated by a ranking bonus.
+        # Material keys in an existing index may omit a fiber present in raw
+        # composition. Verify both on payload; do not lose it at pushdown time.
+        prefilter = intent.required.model_copy(update={"use_cases": None, "material": None, "color_match_mode": "any"})
+        if any(not keys for keys, _ in intent.color_options):
+            prefilter = prefilter.model_copy(update={"colors": None})
+        pool = _hybrid_candidate_limit(limit, self.settings)
+        cap = self.settings.image_query_per_crop_limit_cap
+        per_crop = min(_image_per_crop_limit(pool, len(crops), self.settings), cap)
+        grouped = self.settings.hybrid_conditioned_grouped_retrieval_enabled
+        if grouped:
+            # Limit product groups, not image vectors. One product with many
+            # photographs must not consume the entire candidate budget.
+            cap = max(limit, self.settings.hybrid_candidate_pool_cap)
+            per_crop = min(pool, cap)
+        candidates: dict[str, _ScoredPoint] = {}
+        rejected = 0
+        rounds = 0
+
+        def admit(points: list[_ScoredPoint]) -> None:
+            nonlocal rejected
+            for point in points:
+                checks = intent.checks(point.payload, _filter_satisfaction)
+                if not all(checks.values()):
+                    rejected += 1
+                    continue
+                old = candidates.get(point.product_id)
+                if old is None or point.score > old.score:
+                    candidates[point.product_id] = point
+
+        while True:
+            counts = []
+            for vector in vectors:
+                if monotonic() >= deadline:
+                    break
+                if grouped:
+                    response = self.qdrant_client.query_points_groups(
+                        collection_name=self.settings.qdrant_image_collection,
+                        group_by="product_id", group_size=1, query=vector,
+                        query_filter=_build_qdrant_filter(prefilter), limit=per_crop,
+                        with_payload=True, with_vectors=False,
+                        timeout=max(1, math.ceil(deadline - monotonic())),
+                    )
+                    points = [point for group in response.groups for point in _extract_scored_points(group.hits)]
+                else:
+                    points = self._query_collection(collection_name=self.settings.qdrant_image_collection,
+                                                    vector=vector, filters=prefilter, limit=per_crop)
+                counts.append(len(points))
+                admit(points)
+            if (len(candidates) >= limit or all(n < per_crop for n in counts)
+                    or per_crop >= cap or monotonic() >= deadline):
+                break
+            per_crop = min(per_crop * 2, cap)
+            rounds += 1
+
+        image_count = len(candidates)
+        text_points: list[_ScoredPoint] = []
+        recovery_reason = ""
+        weak = not candidates or max(p.score for p in candidates.values()) < self.settings.hybrid_conditioned_min_visual_score
+        needs_recovery = self.settings.hybrid_conditioned_recovery_enabled and (len(candidates) < limit or weak)
+        needs_text_ranking = self.settings.hybrid_conditioned_ranking == "rrf"
+        if query and (needs_recovery or needs_text_ranking) and monotonic() < deadline:
+            recovery_reason = ("weak_visual" if weak else "underfilled") if needs_recovery else "ranking_only"
+            try:
+                text_vector = self.text_embedding_service.embed_query(intent.query)
+                if monotonic() < deadline:
+                    text_points = self._query_collection(collection_name=self.settings.qdrant_text_collection,
+                                                        vector=text_vector, filters=prefilter, limit=pool)
+                    allowed = {p.product_id for p in text_points if all(intent.checks(p.payload, _filter_satisfaction).values())}
+                    missing = (allowed - candidates.keys()) if needs_recovery else set()
+                    if missing and monotonic() < deadline:
+                        # Score actual image vectors for text candidates. A missing
+                        # branch score is never treated as zero visual similarity.
+                        search_filter = _build_qdrant_filter(prefilter)
+                        search_filter.must = list(search_filter.must or []) + [models.FieldCondition(
+                            key="product_id", match=models.MatchAny(any=sorted(missing)))]
+                        for vector in vectors:
+                            if monotonic() >= deadline:
+                                break
+                            if grouped:
+                                response = self.qdrant_client.query_points_groups(
+                                    collection_name=self.settings.qdrant_image_collection,
+                                    group_by="product_id", group_size=1,
+                                    query=vector, query_filter=search_filter, limit=min(len(missing), cap),
+                                    with_payload=True, with_vectors=False,
+                                    timeout=max(1, math.ceil(deadline - monotonic())),
+                                )
+                                points = [p for group in response.groups for p in _extract_scored_points(group.hits)]
+                            else:
+                                response = self.qdrant_client.query_points(
+                                    collection_name=self.settings.qdrant_image_collection,
+                                    query=vector, query_filter=search_filter, limit=cap,
+                                    with_payload=True, with_vectors=False,
+                                )
+                                points = _extract_scored_points(response)
+                            admit([p for p in points if p.product_id in missing])
+            except Exception as exc:
+                # Do not log provider exception text: it can contain request data.
+                logger.warning("hybrid_conditioned_recovery_failed error_type=%s", type(exc).__name__)
+
+        visual_order = sorted(candidates.values(), key=lambda p: (-p.score, p.product_id))
+        text_ranks = {p.product_id: rank for rank, p in enumerate(_dedupe_by_product(text_points), 1)}
+        results = []
+        for rank, point in enumerate(visual_order, 1):
+            preference = _inferred_filter_match_ratio(point.payload, intent.preferred)
+            score = point.score + self.settings.hybrid_conditioned_preference_weight * preference
+            if self.settings.hybrid_conditioned_ranking == "rrf":
+                score = 0.8 / (60 + rank) + (0.2 / (60 + text_ranks[point.product_id]) if point.product_id in text_ranks else 0)
+                score += self.settings.hybrid_conditioned_preference_weight * preference / 60
+            if self.settings.hybrid_conditioned_diagnostics_enabled:
+                logger.info("hybrid_conditioned_candidate product_id=%s visual_score=%.6f text_rank=%s preference=%.3f final_score=%.6f",
+                            point.product_id, point.score, text_ranks.get(point.product_id), preference, score)
+            results.append(SearchResultItem(product_id=point.product_id, score=score, source="hybrid",
+                                           explicit_constraint_satisfied=True if explicit_filters else None,
+                                           explicit_constraint_satisfaction=_filter_satisfaction(point.payload, explicit_filters) or None))
+        results.sort(key=lambda p: (-p.score, p.product_id))
+        if monotonic() < deadline:
+            results = self._rerank(intent.query, results, {p.product_id: _embedding_text_from_payload(p.payload) for p in visual_order})
+        if self.settings.hybrid_conditioned_dominant_color_ranking_enabled:
+            results = _rank_requested_dominant_color(
+                results,
+                {point.product_id: point.payload for point in visual_order},
+                intent.required,
+            )
+        results = [r for r in results if all(intent.checks(candidates[r.product_id].payload, _filter_satisfaction).values())][:limit]
+        logger.info("hybrid_conditioned_summary policy=image_conditioned image_eligible=%d recovered=%d rejected=%d refill_rounds=%d recovery=%s returned=%d elapsed_ms=%.1f",
+                    image_count, len(candidates) - image_count, rejected, rounds,
+                    recovery_reason or "none", len(results), (monotonic() - started) * 1000)
+        inferred = SearchFilter(**{k: v for k, v in intent.required.model_dump(exclude_none=True).items() if k not in intent.explicit_fields})
+        return _response(query, intent.required, results, explicit_filters=explicit_filters,
+                         inferred_filters=inferred,
+                         constraint_failure_reason="no_candidates_satisfy_required_constraints" if not results else None)
 
     def _analyze_query_cached(self, query: str) -> QueryAnalysis:
         catalog = self._catalog_metadata()
@@ -1303,6 +1469,8 @@ class SearchService:
                 "brand_key",
                 "color_keys",
                 "material_keys",
+                "material",
+                "material_vi",
                 "use_case_keys",
                 "size_keys",
                 "gender_key",
@@ -1535,6 +1703,136 @@ def _payload_str_values(payload: dict[str, object], *keys: str) -> set[str]:
                 if isinstance(item, str) and item:
                     values.add(_normalize_text(item))
     return values
+
+
+_PRODUCT_COLOR_SEPARATOR = re.compile(
+    r"\s*(?:/|&|\+|,|;|\b(?:and|va|và)\b)\s*",
+    re.IGNORECASE,
+)
+
+
+def _ordered_product_color_groups(payload: dict[str, object]) -> list[set[str]]:
+    """Return catalog colors in dominant-to-secondary order.
+
+    The catalog stores multi-color products as values such as ``Nâu / Be``.
+    Each side is a color slot; a compound shade inside one side (for example
+    ``nâu cam``) remains one slot and may map to more than one family key.
+    """
+
+    known_colors = _payload_str_values(payload, "color_keys") - {"multicolor"}
+
+    # Product titles express the merchandising order visible to the user. Only
+    # inspect the phrase after "màu" and intersect it with indexed color keys,
+    # preventing unrelated title words from being interpreted as colors.
+    for field_name in ("normalized_title_vi", "normalized_title", "title_vi", "title"):
+        raw = payload.get(field_name)
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        normalized = normalize_query_text(raw)
+        marker = re.search(r"(?:^|\s)mau\s+", normalized)
+        if marker is None:
+            continue
+        groups: list[set[str]] = []
+        for part in _PRODUCT_COLOR_SEPARATOR.split(normalized[marker.end():]):
+            keys = {
+                key
+                for key in catalog_color_keys([part])
+                if key != "multicolor"
+            }
+            if known_colors:
+                keys &= known_colors
+            if keys:
+                groups.append(keys)
+        if groups:
+            return groups
+
+    for field_name in ("base_colour_vi", "base_colour"):
+        raw = payload.get(field_name)
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        groups = []
+        # Split before normalization because query normalization intentionally
+        # removes punctuation such as '/', which carries the color order here.
+        for part in _PRODUCT_COLOR_SEPARATOR.split(raw):
+            keys = {
+                key
+                for key in catalog_color_keys([part])
+                if key != "multicolor"
+            }
+            if keys:
+                groups.append(keys)
+        if groups:
+            return groups
+    return []
+
+
+def _requested_color_prominence(
+    payload: dict[str, object],
+    filters: SearchFilter | None,
+) -> int | None:
+    """Return 2 for a dominant match, 1 for a secondary match, else unknown."""
+
+    if filters is None or not filters.colors or filters.color_match_mode == "all":
+        return None
+    wanted = set(color_filter_keys(filters.colors))
+    groups = _ordered_product_color_groups(payload)
+    if not wanted or not groups:
+        return None
+    if groups[0] & wanted:
+        return 2
+    if any(group & wanted for group in groups[1:]):
+        return 1
+    return None
+
+
+def _rank_requested_dominant_color(
+    results: list[SearchResultItem],
+    payload_by_product: dict[str, dict[str, object]],
+    filters: SearchFilter | None,
+) -> list[SearchResultItem]:
+    """Place secondary-color matches after candidates whose dominant color matches.
+
+    This is a ranking rule, not an admission rule: a product such as ``Nâu / Be``
+    remains eligible for a beige request, but follows products whose first color
+    is beige. The smallest necessary score penalty preserves visual ordering
+    inside both groups and keeps returned scores consistent with the final order.
+    """
+
+    if len(results) < 2:
+        return results
+    prominence = {
+        item.product_id: _requested_color_prominence(
+            payload_by_product.get(item.product_id, {}), filters
+        )
+        for item in results
+    }
+    if 2 not in prominence.values() or 1 not in prominence.values():
+        return results
+
+    secondary = [item for item in results if prominence[item.product_id] == 1]
+    non_secondary = [item for item in results if prominence[item.product_id] != 1]
+    score_penalty = max(
+        0.0,
+        max(item.score for item in secondary)
+        - min(item.score for item in non_secondary)
+        + 1e-6,
+    )
+    adjusted = [
+        item.model_copy(update={"score": item.score - score_penalty})
+        if prominence[item.product_id] == 1
+        else item
+        for item in results
+    ]
+    original_position = {item.product_id: index for index, item in enumerate(results)}
+    if any(item.rerank_score is not None for item in adjusted):
+        return sorted(
+            adjusted,
+            key=lambda item: (
+                prominence[item.product_id] == 1,
+                original_position[item.product_id],
+            ),
+        )
+    return sorted(adjusted, key=lambda item: (-item.score, item.product_id))
 
 
 def _gender_payload_values(value: str) -> list[str]:
@@ -2387,7 +2685,37 @@ def _best_score_by_product(points: Iterable[_ScoredPoint]) -> dict[str, float]:
 
 def _embedding_text_from_payload(payload: dict[str, object]) -> str | None:
     value = payload.get("embedding_text")
-    return str(value) if value else None
+    if value:
+        return str(value)
+
+    # Image-vector payloads intentionally carry searchable product metadata but
+    # do not necessarily duplicate the text collection's ``embedding_text``.
+    # Reranking image-conditioned candidates must therefore have a deterministic
+    # metadata fallback; otherwise RERANK_ENABLED can be reported as active while
+    # every image candidate is silently considered non-rerankable.
+    fields = (
+        "normalized_title_vi",
+        "normalized_title",
+        "product_name",
+        "category_names_vi",
+        "category_names",
+        "brand_name",
+        "base_colour_vi",
+        "base_colour",
+        "material_vi",
+        "material",
+        "product_usage_vi",
+        "use_case_keys",
+        "gender_vi",
+        "gender",
+        "selling_price",
+    )
+    parts: list[str] = []
+    for field_name in fields:
+        values = [item.strip() for item in _payload_values(payload.get(field_name)) if item.strip()]
+        if values:
+            parts.append(f"{field_name}: {', '.join(values)}")
+    return " | ".join(parts) or None
 
 
 def _content_by_product(points: Iterable[_ScoredPoint]) -> dict[str, str]:

@@ -48,7 +48,10 @@ def ndcg(ranked: list[str], grades: dict[str, int], k: int) -> float:
 
 
 def expected_fields(kind: str) -> set[str]:
-    fields = {"category"}
+    # Attribute-evaluation scope follows what the user asks to change/require.
+    # Product type and visual identity are relevance concerns, not a hidden
+    # attribute constraint added to every Hybrid query.
+    fields = set()
     if "color" in kind:
         fields.add("colors")
     if "material" in kind:

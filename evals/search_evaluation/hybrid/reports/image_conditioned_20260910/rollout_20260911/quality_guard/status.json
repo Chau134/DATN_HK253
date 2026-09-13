@@ -1,0 +1,9 @@
+{
+  "started_at": "2026-09-10T19:11:46.570611+00:00",
+  "state": "completed",
+  "supervisor_pid": 21784,
+  "timeout_seconds": 900,
+  "child_pid": 19304,
+  "exit_code": 0,
+  "finished_at": "2026-09-10T19:14:43.730778+00:00"
+}

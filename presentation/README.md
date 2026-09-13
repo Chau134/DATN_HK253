@@ -6,7 +6,7 @@ Thư mục này chứa bộ slide được sinh tự động cho đề tài:
 
 ## Nội dung hiện tại
 
-- `DoAnTotNghiep.pptx`: bản hoàn chỉnh gồm 32 slide chính và 6 slide phụ lục A1–A6.
+- `DoAnTotNghiep.pptx` và `DoAnTotNghiep.pdf`: bản hoàn chỉnh gồm 32 slide chính và 6 slide phụ lục A1–A6.
 - `scripts/build-presentation.ps1`: mã nguồn tái tạo toàn bộ file PowerPoint hoàn chỉnh.
 - `notes/`: lời dẫn cho slide 1–32, kịch bản demo và cách dùng phụ lục.
 - `assets/video/`: vị trí đặt video để script tự động nhúng vào slide 21.
@@ -39,7 +39,7 @@ Yêu cầu Microsoft PowerPoint trên Windows. Từ thư mục gốc project, ch
 powershell -ExecutionPolicy Bypass -File presentation/scripts/build-presentation.ps1
 ```
 
-Script sử dụng ảnh, sơ đồ và số liệu kiểm thử thật trong project, sau đó ghi đè file PPTX hoàn chỉnh cùng 38 ảnh preview. Nếu có `assets/video/demo-san-pham.mp4`, video sẽ được nhúng vào slide 21 và nút mở file dự phòng sẽ được tạo bằng đường dẫn tương đối.
+Script sử dụng ảnh, sơ đồ và số liệu kiểm thử thật trong project, sau đó ghi đè file PPTX, PDF cùng 38 ảnh preview. Nếu có `assets/video/demo-san-pham.mp4`, video sẽ được nhúng vào slide 21 và nút mở file dự phòng sẽ được tạo bằng đường dẫn tương đối.
 
 ## Quy ước thiết kế
 

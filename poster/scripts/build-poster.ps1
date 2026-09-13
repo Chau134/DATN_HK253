@@ -135,6 +135,7 @@ $powerPoint.Visible = $msoTrue
 $deck = $powerPoint.Presentations.Add()
 $deck.PageSetup.SlideWidth = Pt 23.39
 $deck.PageSetup.SlideHeight = Pt 33.11
+$buildError = $null
 
 try {
     $s = $deck.Slides.Add(1, $ppLayoutBlank)
@@ -155,7 +156,7 @@ try {
     Add-Text $s 'ĐA PHƯƠNG TIỆN SỬ DỤNG RAG VÀ COMPUTER VISION' 0.90 3.93 21.59 0.92 34 $C.Teal $true 2 'Aptos Display' 1 0 | Out-Null
     Add-Text $s 'HK253-DATN-071  ·  Tìm kiếm bằng văn bản, hình ảnh và hội thoại trong một hành trình mua sắm xuyên suốt' 1.45 5.05 20.49 0.54 18 $C.Muted $false 2 'Aptos' 1 0 | Out-Null
     Add-Text $s 'GVHD: ThS. Võ Thanh Hùng' 1.10 5.82 6.20 0.42 17 $C.White $true 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'SVTH: Lê Trần Anh Dũng · 2210576   |   Huỳnh Thái Minh Châu · 2210352   |   Nguyễn Đức Duy · 2210510' 7.05 5.82 15.20 0.42 15 $C.White $false 3 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'SVTH: Huỳnh Thái Minh Châu · 2210352' 7.05 5.82 15.20 0.42 17 $C.White $false 3 'Aptos' 1 0 | Out-Null
 
     # Problem column.
     Add-SectionTitle $s '01' 'VẤN ĐỀ GIẢI QUYẾT' 0.88 6.75 6.80 $C.Orange
@@ -202,9 +203,9 @@ try {
 
     # Results.
     Add-SectionTitle $s '04' 'KẾT QUẢ NỔI BẬT' 15.88 17.17 6.59 $C.Teal
-    Add-MetricCard $s '1,000' 'Text Search' 'Hit@5 · tập đánh giá 1.000 sản phẩm' 15.88 18.07 $C.Blue
-    Add-MetricCard $s '0,970' 'Image Search' 'Exact Hit@5 · tập ảnh challenging' 19.29 18.07 $C.Orange
-    Add-MetricCard $s '0,920' 'Hybrid Search' 'Strict Hit@5 · fusion không rerank' 15.88 20.48 $C.Teal
+    Add-MetricCard $s '1,000' 'Text Search' 'Hit@5 · 100 truy vấn / snapshot 1.000 SP' 15.88 18.07 $C.Blue
+    Add-MetricCard $s '0,970' 'Image Search' 'Exact Hit@5 · 100 ảnh bên ngoài' 19.29 18.07 $C.Orange
+    Add-MetricCard $s '0,980' 'Hybrid Search' 'Strict Hit@5 · Image-conditioned, không rerank' 15.88 20.48 $C.Teal
     Add-MetricCard $s '1,000' 'RAG grounding' 'Context Precision 0,946 · Recall 0,944' 19.29 20.48 $C.Blue
     Add-MetricCard $s '102/102' 'Backend đạt' 'Ca kiểm thử chức năng' 15.88 22.89 $C.Orange
     Add-MetricCard $s '430/430' 'AI hồi quy đạt' 'Bộ kiểm thử regression' 19.29 22.89 $C.Teal
@@ -223,21 +224,30 @@ try {
     Add-Shape $s $msoShapeRoundedRectangle 20.08 31.10 2.39 1.15 $C.Card $C.Muted | Out-Null
     Add-Text $s 'QR DEMO' 20.08 31.28 2.39 0.30 14 $C.White $true 2 'Aptos' 1 0 | Out-Null
     Add-Text $s 'Thay bằng mã QR' 20.08 31.67 2.39 0.24 10 $C.Muted $false 2 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'Phạm vi thử nghiệm: snapshot 1.000 sản phẩm. Hybrid Search còn hạn chế khi phải thỏa đồng thời nhiều ràng buộc.' 1.02 32.48 17.80 0.28 11 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
-    Add-Text $s 'React · Spring Boot · FastAPI · LangGraph · MySQL · Qdrant · Docker' 15.10 32.48 7.25 0.28 11 $C.Muted $false 3 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'Phạm vi đánh giá: snapshot 1.000 sản phẩm; benchmark chưa hoàn toàn held-out; tải AI và kiểm thử thiết bị thật còn giới hạn.' 1.02 32.48 17.80 0.28 11 $C.Muted $false 1 'Aptos' 1 0 | Out-Null
+    Add-Text $s 'React · Spring Boot · FastAPI · LangGraph · YOLOv26 · MySQL · Qdrant · Docker' 14.45 32.48 7.90 0.28 10.5 $C.Muted $false 3 'Aptos' 1 0 | Out-Null
 
     $deck.SaveAs($outputPptx, $ppSaveAsOpenXMLPresentation)
     $s.Export($previewPath, 'PNG', 1403, 1986)
     $deck.SaveAs($outputPdf, $ppSaveAsPDF)
 }
+catch {
+    $buildError = $_
+}
 finally {
-    if ($deck) { $deck.Close() }
-    if ($powerPoint) { $powerPoint.Quit() }
-    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($deck) | Out-Null
-    [System.Runtime.InteropServices.Marshal]::ReleaseComObject($powerPoint) | Out-Null
+    if ($deck) {
+        try { $deck.Close() } catch { }
+        try { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($deck) | Out-Null } catch { }
+    }
+    if ($powerPoint) {
+        try { $powerPoint.Quit() } catch { }
+        try { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($powerPoint) | Out-Null } catch { }
+    }
     [GC]::Collect()
     [GC]::WaitForPendingFinalizers()
 }
+
+if ($buildError) { throw $buildError }
 
 Write-Host "Created: $outputPptx"
 Write-Host "Created: $outputPdf"

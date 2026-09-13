@@ -11,8 +11,8 @@
 | Mở đầu và bài toán | 1–8 | 3 phút 30 giây |
 | Phân tích và thiết kế | 9–16 | 4 phút 30 giây |
 | Sản phẩm và demo | 17–21 | 4 phút 40 giây |
-| Kiểm thử và đánh giá | 22–29 | 5 phút 30 giây |
-| Kết luận | 30 | 30 giây |
+| Kiểm thử và đánh giá | 22–28 | 4 phút 50 giây |
+| Kết luận và hướng phát triển | 29–30 | 1 phút 10 giây |
 | Chuyển slide và khoảng dừng nhấn ý | Toàn bài | khoảng 50 giây |
 
 ---
@@ -43,11 +43,11 @@
 
 ## Slide 7 — Giải pháp liên quan (30 giây)
 
-> Google Lens mạnh ở đầu vào hình ảnh và quy mô tìm kiếm trực quan, nhưng không quản lý source of truth hay giao dịch của từng cửa hàng. Google AI Commerce Search khai thác catalog và sự kiện người dùng để tìm kiếm, gợi ý, nhưng vẫn là dịch vụ managed cần tích hợp với nghiệp vụ. Alexa for Shopping, trước đây là Rufus, mạnh ở hội thoại mua sắm dựa trên catalog, review và thông tin web, nhưng vận hành trong hệ sinh thái đóng. Giải pháp đề xuất kết nối Text, Image, Hybrid Search, RAG và memory với Backend xác nhận giá, tồn kho và giao dịch; đổi lại, bằng chứng hiện mới ở quy mô nguyên mẫu 1.000 sản phẩm.
+> Báo cáo khảo sát ba giải pháp quen thuộc. Shopee hỗ trợ từ khóa, bộ lọc và tìm bằng ảnh nhưng truy vấn ảnh được thực hiện riêng. Tiki có từ khóa, lọc nhanh, sản phẩm tương tự và trợ lý hỗ trợ mua sắm, nhưng nguồn công khai chưa đặc tả việc duy trì ràng buộc qua nhiều lượt. Google Lens kết hợp ảnh với văn bản để tinh chỉnh thuộc tính, nhưng không phải quy trình tư vấn và giao dịch của một sàn cụ thể. Đề tài kết nối các năng lực này với hội thoại nhiều lượt và Backend xác nhận dữ liệu hiện hành.
 
 ## Slide 8 — Điểm khác biệt (30 giây)
 
-> Điểm khác biệt không chỉ là gọi một mô hình AI. Giải pháp tạo một vòng lặp end-to-end: hiểu yêu cầu, truy hồi có ràng buộc, tư vấn dựa trên dữ liệu, rồi đưa người dùng trở lại hành động mua hàng.
+> Vòng lặp bắt đầu từ hiểu văn bản và hình ảnh, truy hồi vector có ràng buộc, tư vấn bằng RAG và bộ nhớ, rồi dẫn tới hành động mua hàng. Phản hồi, lựa chọn và yêu cầu mới được lưu vào bộ nhớ để quay lại bước hiểu ở lượt tiếp theo.
 
 **Chuyển phần:**
 
@@ -132,7 +132,7 @@
 
 ## Slide 22 — Chiến lược và môi trường kiểm thử (45 giây)
 
-> Em chia đánh giá thành hai lớp độc lập. Lớp thứ nhất đo chất lượng AI trên 100 truy vấn Text Search, 100 cặp ảnh, 100 truy vấn Hybrid, 80 câu hỏi RAG và 230 request phiên dài. Lớp thứ hai kiểm tra hệ thống hoàn chỉnh, gồm Backend, hợp đồng dịch vụ, đồng bộ dữ liệu, end-to-end và các thuộc tính phi chức năng. Mọi lần chạy sử dụng snapshot 1.000 sản phẩm, schema MySQL test, Qdrant collection riêng, cùng manifest, seed và ground truth đóng băng. Về nhãn đánh giá, Text Search có 2.703 nhãn được đối chiếu trên toàn snapshot; Image Search có 2.935 nhãn từ pooling Top-20, duyệt thị giác và luật metadata; Hybrid có 654 nhãn với toàn bộ candidate được duyệt thủ công; còn RAG dùng 80 bộ question, reference và evidence được duyệt theo ba lớp.
+> Em chia đánh giá thành ba lớp. Lớp thứ nhất đánh giá chất lượng AI trên dữ liệu và ground truth đóng băng, trả lời RQ1 và RQ2. Lớp thứ hai kiểm thử chức năng và tích hợp bằng fixture tái lập, gồm Backend, hợp đồng dịch vụ, đồng bộ MySQL–Qdrant, end-to-end và fallback, trả lời RQ3. Lớp thứ ba kiểm thử phi chức năng về hiệu năng, bảo mật, khả dụng, quan sát và tương thích, trả lời RQ4. Dữ liệu AI gồm 100 truy vấn Text với 2.703 cặp; 100 sản phẩm với 200 ảnh và 2.935 nhãn; 100 truy vấn Hybrid với 1.627 cặp; 80 câu RAG, 120 evidence và 10 phiên dài với 230 request. Mọi lượt chạy dùng snapshot 1.000 sản phẩm, MySQL test, Qdrant collection riêng, Redis và lưu manifest, seed, endpoint cùng artifact.
 
 ## Slide 23 — Tiêu chí đánh giá AI Service (45 giây)
 
@@ -144,7 +144,7 @@
 
 ## Slide 25 — Kết quả so sánh baseline (55 giây)
 
-> Trên cùng tập thử thách ngữ nghĩa, Vector không rerank tăng Hit@5 từ 0,756 của BM25 lên 1,000, tức tăng 0,244; NDCG@5 tăng từ 0,689 lên 0,941, tức tăng 0,252. Với Hybrid, fusion không rerank tăng Strict Hit@5 từ 0,580 của text-only lên 0,920, tăng 0,340. Tuy nhiên, khi bật rerank, chỉ số này giảm từ 0,920 xuống 0,670; vì vậy em tắt rerank theo bằng chứng thay vì mặc định cấu hình phức tạp hơn sẽ tốt hơn. Ở hai nhóm còn lại, Image Search trên ảnh ngoài đạt Exact Hit@5 0,970; RAG nâng grounding từ 0,824 lên 1,000 và critical gate từ 4 trên 12 lên 12 trên 12.
+> Trên cùng tập thử thách ngữ nghĩa, Vector không rerank tăng Hit@5 từ 0,756 của BM25 lên 1,000, tức tăng 0,244; NDCG@5 tăng từ 0,689 lên 0,941, tức tăng 0,252. Với Hybrid, Image-conditioned không rerank tăng Strict Hit@5 từ 0,920 của Fusion lên 0,980, Request-conditioned NDCG từ 0,905 lên 0,958 và tỷ lệ thỏa ràng buộc từ 0,779 lên 0,990. Khi bật rerank, Strict Hit@5 giảm còn 0,730; vì vậy em tắt rerank theo bằng chứng. Ở hai nhóm còn lại, Image Search trên ảnh ngoài đạt Exact Hit@5 0,970; RAG nâng grounding từ 0,824 lên 1,000 và critical gate từ 4 trên 12 lên 12 trên 12.
 
 ## Slide 26 — API và tích hợp (30 giây)
 
@@ -152,27 +152,27 @@
 **giải thích: “Ở phần tích hợp, em kiểm tra dữ liệu trao đổi giữa các dịch vụ có đúng định dạng hay không; các API nội bộ có được bảo vệ hay không; dữ liệu từ MySQL sang Qdrant có được đồng bộ đầy đủ và chính xác hay không. Em cũng kiểm tra khả năng thử lại khi xảy ra lỗi, lưu trạng thái cũ để phục hồi, quay lại phiên bản ổn định khi cập nhật thất bại và duy trì các chức năng cốt lõi khi AI Service không hoạt động.”
 ## Slide 27 — Phi chức năng (50 giây)
 
-> Tải Backend hoàn tất 21.231 trên 21.231 request. P95 tải hỗn hợp Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Tải AI đại diện đạt 216 trên 216 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,412; 3,412 và 2,776 giây. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận Safari trên thiết bị thật.
+> Tải hỗn hợp Backend hoàn tất 6.050 trên 6.050 request. P95 Catalog–Cart sau tối ưu là 182,79 mili giây. Bài soak checkout và payment chạy tám worker trong hai giờ, đạt 57.600 trên 57.600 request, P95 48,863 mili giây và không lỗi. Các lượt tải AI đạt 360 trên 360 request; P95 của Text Search, Hybrid Search và Assistant lần lượt là 1,412; 0,516 và 2,776 giây. Các kiểm thử JWT, RBAC, IDOR, injection, rate limit và upload đều đạt; Playwright đạt 8 trên 8 ca Firefox và WebKit. Giới hạn còn lại là chưa có pentest độc lập và chưa xác nhận trình duyệt trên thiết bị thật.
 
 ## Slide 28 — Tổng hợp kết quả (35 giây)
 
-> Text Search, RAG, nghiệp vụ và tích hợp đạt các gate đặt ra. Image Search đạt có giới hạn vì suy giảm trên ảnh bên ngoài và ground truth similarity còn dùng một phần nhãn theo luật. Hybrid Search đạt một phần vì tỷ lệ Top-5 thỏa đồng thời mọi ràng buộc chỉ đạt 0,450. Nhìn chung, hệ thống đạt tiêu chí nghiệm thu nội bộ trong phạm vi đồ án, nhưng kết quả này chưa phải chứng nhận production-ready.
+> Text Search, Hybrid Search, RAG, nghiệp vụ và tích hợp đều đạt các gate đặt ra. Image Search đạt có giới hạn vì suy giảm trên ảnh bên ngoài dù vẫn vượt ngưỡng nghiệm thu. Nhìn chung, hệ thống đạt tiêu chí nghiệm thu nội bộ trong phạm vi đồ án, nhưng kết quả này chưa phải chứng nhận production-ready.
 
-## Slide 29 — Hạn chế và hướng phát triển (35 giây)
+## Slide 29 — Kết quả đã đạt được (35 giây)
 
-> Các hạn chế chính là benchmark 1.000 sản phẩm chưa hoàn toàn held-out; Hybrid Search chưa giữ tốt đồng thời mọi ràng buộc; BM25 chưa đo latency và hai lượt P95 rerank chưa phải phép đo paired; tải AI mới chạy sáu worker trong ba phút, trong khi P99 Assistant còn 9,704 giây. Thứ tự ưu tiên là hoàn thiện constraint của Hybrid Search, xây dựng benchmark held-out, chạy tải AI dài và paired đầy đủ, rồi thực hiện pentest và đánh giá trên thiết bị thật.
+> Đề tài đã xây dựng hệ thống thương mại điện tử thời trang cho khách hàng và quản trị viên; hỗ trợ Text, Image và Hybrid Search, YOLOv26, RAG và bộ nhớ hội thoại; tích hợp React, Spring Boot, FastAPI, MySQL và Qdrant; đóng gói Docker, chạy local và triển khai thử nghiệm trên Google Cloud. Các chức năng AI đạt gate, Backend đạt 102 trên 102 ca, hoàn thành năm luồng end-to-end và đồng bộ đủ 1.000 product ID.
 
-## Slide 30 — Kết luận (30 giây)
+## Slide 30 — Hướng phát triển (35 giây)
 
-> Đề tài đóng góp một hệ thống end-to-end tích hợp tìm kiếm đa phương thức, RAG và hành trình mua sắm; một kiến trúc có đường biên trách nhiệm rõ ràng; cùng quy trình đánh giá dựa trên baseline, ablation và kiểm thử hệ thống. Thông điệp em muốn nhấn mạnh là: AI hỗ trợ quyết định, còn dữ liệu nghiệp vụ luôn giữ quyền kiểm soát. Kết luận này áp dụng cho snapshot 1.000 sản phẩm và các tải đã đo, chưa đồng nghĩa production-ready.
+> Hướng phát triển gồm mở rộng sản phẩm, ngành hàng, truy vấn và ảnh thực tế; cải thiện hiểu thuộc tính và xử lý ảnh; cá nhân hóa có quyền kiểm soát dữ liệu; bổ sung thanh toán, vận chuyển, đổi trả và ứng dụng di động; tăng khả năng phục vụ bằng autoscale, hàng đợi và bản sao dữ liệu; đồng thời pentest, diễn tập khôi phục, hoàn thiện dashboard và đánh giá với người dùng thực. Trước mắt ưu tiên mở rộng dữ liệu đánh giá và cải thiện tìm kiếm kết hợp.
 
 ## Slide 31 — Q&A
 
-> Em xin cảm ơn Hội đồng đã lắng nghe và sẵn sàng trả lời câu hỏi. Khi trao đổi, ưu tiên mở đúng phụ lục theo nhóm câu hỏi: ma trận kiểm thử, hiệu năng, ERD, API, lỗi đã khắc phục hoặc bản đồ bằng chứng.
+> Em xin cảm ơn Hội đồng đã lắng nghe và sẵn sàng trả lời câu hỏi. Khi trao đổi, ưu tiên mở đúng phụ lục theo nhóm câu hỏi: ma trận kiểm thử, hiệu năng, API, lỗi đã khắc phục, YOLO hoặc bản đồ bằng chứng.
 
 ## Slide 32 — Tài liệu tham khảo
 
-Không trình bày thành lời nếu không được hỏi. Các mục [1]–[5] là nguồn ngoài cho slide 3 và slide 7; nguồn nội bộ trỏ tới báo cáo cùng các artifact đánh giá.
+Không trình bày thành lời nếu không được hỏi. Các mục [1]–[6] là nguồn ngoài cho slide 3 và slide 7; nguồn nội bộ trỏ tới báo cáo cùng các artifact đánh giá.
 
 ---
 
@@ -186,17 +186,17 @@ Dùng khi hội đồng hỏi quy mô bộ đánh giá, số lượng ca hoặc 
 
 Dùng khi hỏi về P50, P95, P99, throughput hoặc tác động tối ưu. Nêu rõ ba phạm vi khác nhau: tải Backend, soak checkout/payment hai giờ và tải AI đồng thời. Không so sánh trực tiếp độ trễ giữa các workload khác nhau.
 
-### A3 — ERD tổng thể
-
-Dùng khi hỏi quan hệ dữ liệu, khóa ngoại hoặc quyền sở hữu dữ liệu. Câu trả lời cốt lõi: MySQL là nguồn chuẩn cho nghiệp vụ; vector và cache là dữ liệu dẫn xuất.
-
-### A4 — Danh sách API
+### A3 — Danh sách API
 
 Dùng khi hỏi cách phân chia Spring Boot và FastAPI. Spring Boot công khai API nghiệp vụ; FastAPI chỉ phục vụ AI và vận hành nội bộ.
 
-### A5 — Lỗi đã phát hiện và khắc phục
+### A4 — Lỗi đã phát hiện và khắc phục
 
 Dùng khi hỏi bài học kỹ thuật. Có thể chọn một ví dụ tiêu biểu: tắt rerank sau ablation vì làm giảm NDCG và Hit@5; hoặc tối ưu cache và chỉ mục để giảm P95 tải hỗn hợp từ 693,46 xuống 182,79 mili giây.
+
+### A5 — Kết quả fine-tune YOLOv26s
+
+> Mô hình YOLOv26s được fine-tune trên dữ liệu Fashionpedia đã gom thành bốn lớp. Trên 2.339 ảnh với 8.226 đối tượng, mô hình đạt Precision 0,875, Recall 0,760, mAP50 0,849 và mAP50–95 0,685. Clothing và Shoes đạt mAP50 cao nhất; Accessories thấp hơn do vật thể nhỏ và dễ lẫn nền. YOLO chỉ là bước crop tùy chọn: nếu không phát hiện hoặc độ tin cậy thấp, pipeline dùng ảnh gốc để tiếp tục tạo embedding.
 
 ### A6 — Bản đồ bằng chứng
 

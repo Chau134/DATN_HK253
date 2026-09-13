@@ -49,6 +49,13 @@ services:
       # Default to the validated retrieval baseline; set RERANK_ENABLED=true
       # explicitly for the P4 A/B run.
       RERANK_ENABLED: ${RERANK_ENABLED:-false}
+      # Validated Hybrid default: image reference defines visual identity while
+      # only user-requested text attributes become mandatory predicates.
+      HYBRID_SEARCH_POLICY: ${HYBRID_SEARCH_POLICY:-image_conditioned}
+      HYBRID_CONDITIONED_RECOVERY_ENABLED: ${HYBRID_CONDITIONED_RECOVERY_ENABLED:-true}
+      HYBRID_CONDITIONED_RANKING: ${HYBRID_CONDITIONED_RANKING:-image}
+      HYBRID_CONDITIONED_GROUPED_RETRIEVAL_ENABLED: ${HYBRID_CONDITIONED_GROUPED_RETRIEVAL_ENABLED:-true}
+      HYBRID_CONDITIONED_DOMINANT_COLOR_RANKING_ENABLED: ${HYBRID_CONDITIONED_DOMINANT_COLOR_RANKING_ENABLED:-true}
       ASSISTANT_EVALUATION_VARIANT: ${ASSISTANT_EVALUATION_VARIANT:-rag}
       YOLO_ENABLED: "false"
     ports:

@@ -2,31 +2,44 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import itertools
 import json
 import math
 import random
 import statistics
+import sys
 import unicodedata
 import re
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+SERVICE_SRC = Path(__file__).resolve().parents[4] / "service-ai" / "src"
+if str(SERVICE_SRC) not in sys.path:
+    sys.path.insert(0, str(SERVICE_SRC))
+
+from ecommerce_search_assistant.services.search.canonicalization import (
+    canonicalize_material_keys, canonicalize_use_case_keys, catalog_color_keys,
+)
+from ecommerce_search_assistant.services.search.hybrid_intent import parse_hybrid_intent
+from ecommerce_search_assistant.services.search.service import _filter_satisfaction
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 CONFIGS = (
-    "image_only", "text_only", "image_post_filter",
-    "fusion_no_rerank", "fusion_rerank",
+    "text_only", "image_only", "fusion_no_rerank",
+    "image_conditioned_no_rerank", "image_conditioned_rerank",
 )
 EXPECTED_RUN = {
-    "image_only": ("image-only", False),
-    "text_only": ("text-only", False),
-    "image_post_filter": ("image-post-filter", False),
-    "fusion_no_rerank": ("fusion", False),
-    "fusion_rerank": ("fusion", True),
+    "text_only": ("text-only", False, False),
+    "image_only": ("image-only", False, False),
+    "fusion_no_rerank": ("fusion", False, False),
+    "image_conditioned_no_rerank": ("fusion", False, True),
+    "image_conditioned_rerank": ("fusion", True, True),
 }
 BOOTSTRAP_METRICS = (
-    "strict_hit@5", "graded_ndcg@5", "graded_recall@5",
+    "strict_hit@5", "graded_ndcg@5", "request_conditioned_ndcg@5", "graded_recall@5",
     "constraint_satisfaction@5", "constraint_success@5",
 )
 
@@ -42,7 +55,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def validate_run(name, query_ids, results, responses):
-    expected_variant, expected_rerank = EXPECTED_RUN[name]
+    expected_variant, expected_rerank, expected_conditioned = EXPECTED_RUN[name]
     response_ids = [row.get("query_id") for row in responses]
     if len(responses) != len(query_ids) or len(set(response_ids)) != len(response_ids):
         raise ValueError(f"{name}: expected one response row per query")
@@ -54,6 +67,12 @@ def validate_run(name, query_ids, results, responses):
         raise ValueError(f"{name}: unexpected endpoint variant")
     if any(bool(row.get("reranker_enabled")) != expected_rerank for row in responses):
         raise ValueError(f"{name}: reranker state does not match the configuration")
+    conditioned_states = [
+        bool((row.get("effective_features") or {}).get("hybrid_image_conditioned_enabled"))
+        for row in responses
+    ]
+    if any(state != expected_conditioned for state in conditioned_states):
+        raise ValueError(f"{name}: image-conditioned state does not match the configuration")
     result_ids = {row.get("query_id") for row in results}
     if not result_ids.issubset(set(query_ids)):
         raise ValueError(f"{name}: results contain unknown query IDs")
@@ -96,12 +115,13 @@ def price_bucket(value: str | None) -> str:
     return "over_2m"
 
 
-def required_constraints(query: dict[str, str]) -> dict[str, str]:
+def legacy_exact_required_constraints(query: dict[str, str]) -> dict[str, str]:
+    """Original report contract, retained only as a versioned diagnostic."""
     fields = ("category", "color", "material", "price_bucket", "usage")
     return {field: query[field] for field in fields if normalize(query.get(field))}
 
 
-def product_satisfies(product: dict[str, str] | None, constraints: dict[str, str]) -> bool:
+def legacy_exact_product_satisfies(product: dict[str, str] | None, constraints: dict[str, str]) -> bool:
     if not product:
         return False
     for field, expected in constraints.items():
@@ -109,6 +129,108 @@ def product_satisfies(product: dict[str, str] | None, constraints: dict[str, str
         if normalize(actual) != normalize(expected):
             return False
     return True
+
+
+@lru_cache(maxsize=512)
+def _parse_requested_intent(text: str):
+    intent = parse_hybrid_intent(text)
+    return intent
+
+
+def _requested_intent(query: dict[str, str]):
+    text = query.get("query_text") or ""
+    intent = _parse_requested_intent(text)
+    if intent.uncertain:
+        raise ValueError(f"{query.get('query_id')}: unresolved requested constraints: {intent.uncertain}")
+    return intent
+
+
+def required_constraints(query: dict[str, str]) -> dict[str, Any]:
+    """Only constraints explicitly expressed by the user's query text.
+
+    Product category/visual identity is evaluated by relevance labels and NDCG;
+    it is not silently added to the attribute-constraint score.
+    """
+    intent = _requested_intent(query)
+    required = intent.required
+    constraints: dict[str, Any] = {}
+    if required.colors:
+        constraints["color"] = {"values": list(required.colors), "mode": required.color_match_mode or "any"}
+    if required.material:
+        constraints["material"] = {
+            "values": list(dict.fromkeys(canonicalize_material_keys([required.material]))),
+            "mode": intent.material_mode,
+            "composition": dict(intent.required_composition),
+        }
+    if required.use_cases:
+        constraints["usage"] = {
+            "values": list(required.use_cases), "phrases": list(intent.usage_phrases),
+            "mode": intent.usage_mode,
+        }
+    if required.min_price is not None or required.max_price is not None:
+        constraints["price"] = {"min": required.min_price, "max": required.max_price}
+    declared = {part for part in (query.get("transformation_type") or "").split("_") if part}
+    if declared and set(constraints) != declared:
+        raise ValueError(
+            f"{query.get('query_id')}: query-text scope {sorted(constraints)} "
+            f"differs from declared transformation {sorted(declared)}"
+        )
+    if not constraints:
+        raise ValueError(f"{query.get('query_id')}: no requested attribute constraint in query text")
+    return constraints
+
+
+def _snapshot_payload(product: dict[str, str]) -> dict[str, Any]:
+    def stored_keys(name: str, fallback) -> list[str]:
+        raw = product.get(name) or ""
+        if raw:
+            try:
+                value = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"Invalid canonical snapshot field {name} for product {product.get('product_id')}") from exc
+            if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+                raise ValueError(f"Expected string list in {name} for product {product.get('product_id')}")
+            return value
+        return list(fallback)
+    try:
+        price = float(product.get("selling_price") or product.get("price") or "")
+    except ValueError:
+        price = None
+    return {
+        "product_id": product.get("product_id", ""),
+        "base_colour": product.get("base_colour", ""),
+        "base_colour_vi": product.get("base_colour_vi") or product.get("color", ""),
+        "color_keys": stored_keys("color_keys_json", catalog_color_keys([product.get("color")])),
+        "material": product.get("material_raw") or product.get("material", ""),
+        "material_vi": product.get("material_vi") or product.get("material", ""),
+        "material_keys": stored_keys("material_keys_json", canonicalize_material_keys([product.get("material")])),
+        "product_usage_vi": product.get("product_usage_vi") or product.get("usage", ""),
+        "use_case_keys": stored_keys("use_case_keys_json", canonicalize_use_case_keys([product.get("usage")])),
+        "selling_price": price,
+    }
+
+
+def requested_constraint_results(query: dict[str, str], product: dict[str, str] | None) -> dict[str, bool]:
+    constraints = required_constraints(query)
+    if not product:
+        return {field: False for field in constraints}
+    intent = _requested_intent(query)
+    checks = intent.checks(_snapshot_payload(product), _filter_satisfaction)
+    results: dict[str, bool] = {}
+    if "color" in constraints:
+        results["color"] = bool(checks.get("colors"))
+    if "material" in constraints:
+        results["material"] = bool(checks.get("material")) and bool(checks.get("material_composition", True))
+    if "usage" in constraints:
+        results["usage"] = bool(checks.get("use_cases"))
+    if "price" in constraints:
+        price_checks = [checks.get(key) for key in ("min_price", "max_price") if key in checks]
+        results["price"] = bool(price_checks) and all(price_checks)
+    return results
+
+
+def product_satisfies(product: dict[str, str] | None, query: dict[str, str]) -> bool:
+    return all(requested_constraint_results(query, product).values())
 
 
 def ndcg(ranked: list[str], grades: dict[str, int], k: int) -> float:
@@ -148,10 +270,16 @@ def build_per_query(queries, products, ground_truth, results, responses):
         ranked = [product_id for _, product_id in sorted(ranked_by_query[query_id])]
         ranked = list(dict.fromkeys(ranked))
         grades = grades_by_query[query_id]
+        request_conditioned_grades = {
+            product_id: grade if product_satisfies(product_by_id.get(product_id), query) else 0
+            for product_id, grade in grades.items()
+        }
         relevant = {product_id for product_id, grade in grades.items() if grade >= 2}
-        constraints = required_constraints(query)
         top5 = ranked[:5]
-        satisfied = [product_satisfies(product_by_id.get(product_id), constraints) for product_id in top5]
+        constraint_fields = sorted(required_constraints(query))
+        satisfied = [product_satisfies(product_by_id.get(product_id), query) for product_id in top5]
+        legacy_constraints = legacy_exact_required_constraints(query)
+        legacy_satisfied = [legacy_exact_product_satisfies(product_by_id.get(product_id), legacy_constraints) for product_id in top5]
         target = query["target_product_id"]
         target_rank = ranked.index(target) + 1 if target in ranked else None
         response = response_by_query.get(query_id, {})
@@ -163,9 +291,13 @@ def build_per_query(queries, products, ground_truth, results, responses):
             "strict_hit@5": float(bool(target_rank and target_rank <= 5)),
             "strict_hit@20": float(bool(target_rank and target_rank <= 20)),
             "graded_ndcg@5": ndcg(ranked, grades, 5),
+            "request_conditioned_ndcg@5": ndcg(ranked, request_conditioned_grades, 5),
             "graded_recall@5": sum(product_id in relevant for product_id in top5) / len(relevant) if relevant else 0.0,
             "constraint_satisfaction@5": sum(satisfied) / len(top5) if top5 else 0.0,
             "constraint_success@5": float(any(satisfied)),
+            "legacy_exact_constraint_satisfaction@5": sum(legacy_satisfied) / len(top5) if top5 else 0.0,
+            "legacy_exact_constraint_success@5": float(any(legacy_satisfied)),
+            "requested_constraint_fields": constraint_fields,
             "returned@5": len(top5),
             "search_latency_ms": float(response.get("search_latency_ms") or 0),
             "http_ok": float(response.get("status_code") == 200),
@@ -176,8 +308,9 @@ def build_per_query(queries, products, ground_truth, results, responses):
 
 def aggregate(rows):
     metric_names = (
-        "strict_hit@1", "strict_hit@5", "strict_hit@20", "graded_ndcg@5",
+        "strict_hit@1", "strict_hit@5", "strict_hit@20", "graded_ndcg@5", "request_conditioned_ndcg@5",
         "graded_recall@5", "constraint_satisfaction@5", "constraint_success@5", "http_ok",
+        "legacy_exact_constraint_satisfaction@5", "legacy_exact_constraint_success@5",
     )
     output = {metric: statistics.fmean(float(row[metric]) for row in rows) for metric in metric_names}
     latencies = [float(row["search_latency_ms"]) for row in rows if row["http_ok"]]
@@ -254,8 +387,12 @@ def main() -> int:
     report = {
         "query_count": len(queries),
         "ground_truth_rows": len(ground_truth),
+        "product_snapshot": str(args.products_csv),
+        "product_snapshot_sha256": hashlib.sha256(args.products_csv.read_bytes()).hexdigest(),
         "relevance_threshold": 2,
-        "constraint_contract": "independent exact normalized comparison against product_snapshot for every returned Top-5 product",
+        "constraint_contract": "v2: per returned Top-5 product, require only attributes parsed from user query text; all requested fields must pass; ordinary usage lists use ANY",
+        "legacy_exact_constraint_contract": "v1 diagnostic: exact normalized comparison of every non-empty fixture category/color/material/price_bucket/usage field",
+        "request_conditioned_ndcg_contract": "original human relevance grades are preserved; a judged product contributes zero gain for a query when it violates that query's request-scoped constraints",
         "bootstrap_samples": args.bootstrap_samples,
         "seed": args.seed,
         "run_validation": run_validation,
@@ -272,22 +409,24 @@ def main() -> int:
         for name in CONFIGS:
             writer.writerow({"configuration": name, **aggregates[name]})
     labels = {
-        "image_only": "Image-only", "text_only": "Text-only",
-        "image_post_filter": "Image + text post-filter",
-        "fusion_no_rerank": "Fusion, rerank off", "fusion_rerank": "Fusion, rerank on",
+        "text_only": "Text-only", "image_only": "Image-only",
+        "fusion_no_rerank": "Fusion, rerank off",
+        "image_conditioned_no_rerank": "Image-conditioned, usage ANY, rerank off",
+        "image_conditioned_rerank": "Image-conditioned, usage ANY, rerank on",
     }
     lines = [
         "# Hybrid Search Ablation", "",
         f"100 paired queries; {args.bootstrap_samples:,} bootstrap samples; seed {args.seed}.", "",
-        "Constraint satisfaction is recomputed independently from `product_snapshot.csv`; it is not copied from the API response.", "",
-        "| Configuration | Strict Hit@5 | Graded NDCG@5 | Graded Recall@5 | Constraint satisfaction@5 | Query success@5 | P95 ms |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "Request-scoped constraint satisfaction is recomputed independently from user `query_text` and `product_snapshot.csv`; it is not copied from the API response. Legacy exact-fixture satisfaction is retained only as a diagnostic.", "",
+        "| Configuration | Strict Hit@5 | Graded NDCG@5 | Request-conditioned NDCG@5 | Graded Recall@5 | Request-scoped satisfaction@5 | Legacy exact diagnostic | Query success@5 | P95 ms |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name in CONFIGS:
         a = aggregates[name]
         lines.append(
-            f"| {labels[name]} | {a['strict_hit@5']:.3f} | {a['graded_ndcg@5']:.3f} | "
+            f"| {labels[name]} | {a['strict_hit@5']:.3f} | {a['graded_ndcg@5']:.3f} | {a['request_conditioned_ndcg@5']:.3f} | "
             f"{a['graded_recall@5']:.3f} | {a['constraint_satisfaction@5']:.3f} | "
+            f"{a['legacy_exact_constraint_satisfaction@5']:.3f} | "
             f"{a['constraint_success@5']:.3f} | {a['p95_latency_ms']:.0f} |"
         )
     lines.extend(["", "## Paired bootstrap 95% CI", "", "Delta is right minus left.", "",

@@ -379,14 +379,18 @@ node[pos=.5]{Results / Fallback};
 \begin{minipage}{\textwidth}
 \subsubsection{Tìm kiếm kết hợp ảnh--văn bản}
 
-Hybrid Search là quy trình xử lý hai nhánh text và image song song nhằm cải thiện retrieval quality. Hai embedding được truy vấn ở các collection tương ứng, sau đó mới fusion, lọc metadata và rerank; hệ thống không bắt buộc hợp nhất hai vector trước khi truy vấn.
+Hybrid Search sử dụng chính sách image-conditioned: ảnh tham chiếu xác định độ tương tự
+trực quan, còn văn bản được tách thành các ràng buộc tìm kiếm. Hệ thống truy hồi ứng
+viên theo ảnh và chỉ dùng truy hồi văn bản để phục hồi khi số ứng viên hợp lệ chưa đủ
+hoặc độ tương tự ảnh còn thấp.
 
 Ví dụ:
 \begin{quote}
 “Tìm áo giống hình này nhưng màu đen”
 \end{quote}
 
-Trong trường hợp này, hệ thống cần xử lý đồng thời semantic meaning từ text và image embedding.
+Trong trường hợp này, hình ảnh giữ đặc trưng của sản phẩm tham chiếu, còn yêu cầu
+``màu đen'' trở thành ràng buộc bắt buộc khi lọc ứng viên.
 
 % \textbf{Luồng xử lý chính:}
 
@@ -407,70 +411,71 @@ Trong trường hợp này, hệ thống cần xử lý đồng thời semantic 
 
 \centering
 
-\begin{tikzpicture}
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    process/.style={
+        draw,
+        rounded corners,
+        minimum height=0.82cm,
+        text width=4.7cm,
+        align=center,
+        fill=green!10
+    },
+    embedding/.style={process, fill=purple!10},
+    storage/.style={process, fill=orange!15},
+    decision/.style={
+        diamond,
+        draw,
+        aspect=2.5,
+        text width=3.1cm,
+        align=center,
+        inner sep=1pt,
+        fill=yellow!12
+    },
+    flow/.style={->, thick}
+]
 
-\draw[rounded corners, fill=blue!10]
-(0,0) rectangle (4,1)
-node[pos=.5]{Người dùng};
+\node[process, fill=blue!10] (input) {Văn bản + ảnh};
+\node[process, below=0.42cm of input] (intent) {Tách ràng buộc văn bản};
+\node[embedding, below=0.42cm of intent] (image-embedding) {Tạo Image Embedding};
+\node[storage, below=0.42cm of image-embedding] (image-retrieval)
+    {Truy hồi ứng viên ảnh};
+\node[process, below=0.42cm of image-retrieval] (constraint-check)
+    {Kiểm tra ràng buộc};
+\node[decision, below=0.58cm of constraint-check] (enough)
+    {Ứng viên ảnh đạt yêu cầu?};
 
-\draw[rounded corners, fill=green!10]
-(0,-2) rectangle (4,-1)
-node[pos=.5]{Text + Image Query};
+\node[embedding, right=1.65cm of enough] (text-embedding)
+    {Tạo Text Embedding};
+\node[storage, below=0.42cm of text-embedding] (text-retrieval)
+    {Truy hồi ứng viên văn bản};
+\node[process, below=0.42cm of text-retrieval] (recovery)
+    {Bổ sung ứng viên hợp lệ};
 
-\draw[rounded corners, fill=purple!10]
-(-3,-4) rectangle (1,-3)
-node[pos=.5]{Text Embedding};
+\node[process, below=1.05cm of enough] (ranking)
+    {Xếp hạng theo ảnh};
+\node[process, below=0.42cm of ranking] (top-k)
+    {Kiểm tra và lấy Top-K};
+\node[process, fill=blue!10, below=0.42cm of top-k] (response)
+    {Trả danh sách sản phẩm};
 
-\draw[rounded corners, fill=purple!10]
-(3,-4) rectangle (7,-3)
-node[pos=.5]{Image Embedding};
-
-\draw[rounded corners, fill=green!10]
-(0,-6) rectangle (4,-5)
-node[pos=.5]{Parallel Retrieval};
-
-\draw[rounded corners, fill=orange!15]
-(6,-6) rectangle (9,-5)
-node[pos=.5]{Qdrant Text/Image};
-
-\draw[rounded corners, fill=green!10]
-(0,-8) rectangle (4,-7)
-node[pos=.5]{Hybrid Retrieval};
-
-\draw[rounded corners, fill=green!10]
-(0,-10) rectangle (4,-9)
-node[pos=.5]{Metadata + Rerank};
-
-\draw[rounded corners, fill=green!10]
-(0,-12) rectangle (4,-11)
-node[pos=.5]{MySQL + Results};
-
-%================ FLOW =================
-\draw[->, thick] (2,0) -- (2,-1);
-
-\draw[->, thick] (2,-2) -- (-1,-3);
-
-\draw[->, thick] (2,-2) -- (5,-3);
-
-\draw[->, thick] (-1,-4) -- (2,-5);
-
-\draw[->, thick] (5,-4) -- (2,-5);
-
-\draw[->, thick] (2,-6) -- (2,-7);
-
-\draw[->, thick] (2,-8) -- (2,-9);
-
-\draw[->, thick] (2,-10) -- (2,-11);
-
-%================ DB =================
-\draw[->, thick] (4,-5.5) -- (6,-5.5);
-
-\draw[->, thick]
-(7.5,-6) -- (7.5,-7.5) -- (4,-7.5);
+\draw[flow] (input) -- (intent);
+\draw[flow] (intent) -- (image-embedding);
+\draw[flow] (image-embedding) -- (image-retrieval);
+\draw[flow] (image-retrieval) -- (constraint-check);
+\draw[flow] (constraint-check) -- (enough);
+\draw[flow] (enough) -- node[left]{Có} (ranking);
+\draw[flow] (enough.east) -- node[above]{Không} (text-embedding.west);
+\draw[flow] (text-embedding) -- (text-retrieval);
+\draw[flow] (text-retrieval) -- (recovery);
+\draw[flow] (recovery.west) -| (ranking.east);
+\draw[flow] (ranking) -- (top-k);
+\draw[flow] (top-k) -- (response);
 
 \end{tikzpicture}
 
-\captionof{figure}{Quy trình Hybrid Search}
+\captionof{figure}{Quy trình Hybrid Search theo chính sách image-conditioned}
 \label{fig:hybrid-search-process}
 \end{minipage}
 \par\medskip

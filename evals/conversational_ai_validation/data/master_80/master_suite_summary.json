@@ -1,0 +1,43 @@
+{
+  "version": "master-80-v2",
+  "seed": 252,
+  "question_count": 80,
+  "legacy_selected": 68,
+  "legacy_dropped": 12,
+  "critical_selected": 12,
+  "category_counts": {
+    "critical_policy": 2,
+    "critical_price": 4,
+    "critical_product": 2,
+    "critical_stock": 4,
+    "filter_refinement": 10,
+    "followup_ordinal": 10,
+    "product_comparison": 8,
+    "product_factual": 16,
+    "product_recommendation": 14,
+    "shop_knowledge": 8,
+    "unanswerable": 2
+  },
+  "difficulty_counts": {
+    "easy": 18,
+    "hard": 24,
+    "medium": 38
+  },
+  "pending_question_count": 10,
+  "pending_reference_count": 39,
+  "pending_evidence_row_count": 39,
+  "dropped_question_ids": [
+    "conv-cmp-0009-t0",
+    "conv-cmp-0010-t0",
+    "conv-fact-0002-t0",
+    "conv-fact-0011-t0",
+    "conv-fact-0017-t0",
+    "conv-fact-0020-t0",
+    "conv-rec-0004-t0",
+    "conv-rec-0009-t0",
+    "conv-rec-0011-t0",
+    "conv-rec-0012-t0",
+    "conv-rec-0014-t0",
+    "conv-rec-0017-t0"
+  ]
+}

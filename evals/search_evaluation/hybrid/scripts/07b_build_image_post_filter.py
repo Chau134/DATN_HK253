@@ -6,6 +6,7 @@ import json
 import math
 import re
 import unicodedata
+import importlib.util
 from collections import defaultdict
 from copy import deepcopy
 from datetime import UTC, datetime
@@ -73,19 +74,11 @@ def price_bucket(value: str | None) -> str:
     return "over_2m"
 
 
-def required_constraints(query: dict[str, str]) -> dict[str, str]:
-    fields = ("category", "color", "material", "price_bucket", "usage")
-    return {field: query[field] for field in fields if normalize(query.get(field))}
-
-
-def product_satisfies(product: dict[str, str] | None, constraints: dict[str, str]) -> bool:
-    if not product:
-        return False
-    for field, expected in constraints.items():
-        actual = price_bucket(product.get("price")) if field == "price_bucket" else product.get(field, "")
-        if normalize(actual) != normalize(expected):
-            return False
-    return True
+_contract_spec = importlib.util.spec_from_file_location("hybrid_constraint_contract", SCRIPT_DIR / "13_compare_ablation.py")
+_contract = importlib.util.module_from_spec(_contract_spec)
+_contract_spec.loader.exec_module(_contract)
+required_constraints = _contract.required_constraints
+product_satisfies = _contract.product_satisfies
 
 
 def filter_image_results(
@@ -95,13 +88,13 @@ def filter_image_results(
     *,
     candidate_pool_size: int,
 ) -> list[dict[str, str]]:
-    constraints = required_constraints(query)
+    required_constraints(query)  # validate the frozen query contract
     ordered = sorted(source_rows, key=lambda row: int(row.get("rank") or 0))
     candidates = [row for row in ordered if 0 < int(row.get("rank") or 0) <= candidate_pool_size]
     missing_products = sorted({row["product_id"] for row in candidates if row["product_id"] not in products})
     if missing_products:
         raise ValueError(f"products missing from snapshot: {missing_products[:10]}")
-    return [row for row in candidates if product_satisfies(products[row["product_id"]], constraints)]
+    return [row for row in candidates if product_satisfies(products[row["product_id"]], query)]
 
 
 def extend_ground_truth(
@@ -250,7 +243,8 @@ def main() -> int:
     write_csv(args.output_ground_truth_csv, extended_gt, GROUND_TRUTH_FIELDS)
     metadata = {
         "run_id": run_id,
-        "method": "offline replay of frozen image-only Top-20 followed by exact normalized metadata post-filter",
+        "method": "offline replay of frozen image-only Top-20 followed by request-scoped semantic metadata post-filter",
+        "constraint_contract": "only attributes parsed from user query text; all requested fields required; plain usage lists use ANY",
         "source_results": str(args.source_results_csv),
         "source_responses": str(args.source_responses_jsonl),
         "query_count": len(query_rows),
@@ -273,7 +267,7 @@ def main() -> int:
 def parse_args() -> argparse.Namespace:
     root = SCRIPT_DIR.parent
     parser = argparse.ArgumentParser(
-        description="Build an image-retrieval plus exact text post-filter baseline from the frozen image-only run."
+        description="Build an image-retrieval plus request-scoped metadata post-filter baseline from the frozen image-only run."
     )
     parser.add_argument("--queries-csv", type=Path, default=root / "data/multimodal_queries.csv")
     parser.add_argument("--products-csv", type=Path, default=root / "data/product_snapshot.csv")

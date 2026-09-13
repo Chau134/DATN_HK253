@@ -60,6 +60,7 @@ service-ai/backups/
 # LaTeX build artifacts
 *.aux
 *.bbl
+*.bbl-SAVE-ERROR
 *.bcf
 *.bcf-SAVE-ERROR
 *.blg
@@ -81,6 +82,12 @@ service-ai/backups/
 ~$*.docx
 ~$*.xlsx
 
-# Hybrid ground-truth visual review cache
-evals/search_evaluation/hybrid/reports/review/asset_cache/
-evals/search_evaluation/hybrid/reports/review/contact_sheets/
+# Keep the complete evaluation suite and all of its artifacts tracked.
+!/evals/
+!/evals/**
+
+# Keep generated Python bytecode out of the evaluation suite.
+/evals/**/__pycache__/
+/evals/**/*.py[cod]
+/evals/**/__pycache__/
+/evals/**/*.py[cod]

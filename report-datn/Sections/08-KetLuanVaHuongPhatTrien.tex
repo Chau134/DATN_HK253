@@ -5,56 +5,40 @@
 
 \section{Kết luận và hướng phát triển}
 
-% Chương này tổng kết mức độ hoàn thành mục tiêu, trả lời các câu hỏi nghiên cứu từ kết quả ở Chương 7, đồng thời xác định giới hạn và thứ tự ưu tiên cho các bước phát triển tiếp theo.
+Chương này tổng kết kết quả của đề tài và nêu các hướng phát triển trong tương lai.
 
-% \subsection{Kết luận}
+\subsection{Kết luận}
 
-% Đề tài đã xây dựng và tích hợp một nguyên mẫu thương mại điện tử có trợ lý mua sắm đa phương thức. Hệ thống hỗ trợ tìm kiếm bằng văn bản, hình ảnh, kết hợp ảnh--văn bản và hội thoại nhiều lượt; các kết quả AI được nối với Catalog, giỏ hàng, đặt hàng COD, theo dõi đơn và quản trị sản phẩm. Kiến trúc tách Frontend, Spring Boot Backend, AI Service, MySQL và Qdrant, trong đó MySQL giữ vai trò nguồn dữ liệu nghiệp vụ chuẩn còn Qdrant là chỉ mục truy hồi. Backend xác nhận lại giá, tồn kho và trạng thái hiển thị, nhờ đó lỗi AI hoặc vector không làm thay đổi tính đúng đắn của giao dịch.
+Đề tài đã xây dựng hệ thống thương mại điện tử thời trang có trợ lý mua sắm đa phương thức. Khách hàng có thể quản lý tài khoản, tìm sản phẩm, sử dụng giỏ hàng, lưu sản phẩm yêu thích, áp dụng mã giảm giá, đặt hàng COD, theo dõi đơn và đánh giá sản phẩm. Quản trị viên có thể quản lý người dùng, sản phẩm, tồn kho, đơn hàng, khuyến mãi và bài viết. Giao diện web sử dụng được trên máy tính và thiết bị di động.
 
-% Kết quả thực nghiệm trả lời các câu hỏi nghiên cứu như sau:
+Hệ thống hỗ trợ tìm kiếm bằng văn bản, hình ảnh và kết hợp ảnh--văn bản. Mô hình YOLOv26 đã được huấn luyện thêm trên dữ liệu thời trang để nhận diện và cắt vùng sản phẩm trong ảnh. Trợ lý sử dụng RAG và bộ nhớ hội thoại để tư vấn dựa trên dữ liệu sản phẩm, đồng thời ghi nhớ nội dung của các lượt trao đổi trước.
 
-% \begin{itemize}
-%     \item \textbf{RQ1 -- Chất lượng truy hồi:} Text Search đạt ngưỡng với Vector Search tắt rerank, đạt Hit@5 1,000 và NDCG@5 0,941, đồng thời vượt BM25 trên nhóm truy vấn ngữ nghĩa. Image Search đạt có giới hạn: Exact Hit@5 đạt 1,000 trên ảnh catalog và 0,970 trên ảnh bên ngoài, còn NDCG@5 giảm từ 0,853 xuống 0,810 khi điều kiện ảnh khó hơn. Hybrid Search đạt một phần: fusion tắt rerank đạt Strict Hit@5 0,920, NDCG@5 0,863 và P95 0,737 giây, nhưng tỷ lệ Top-5 thỏa đồng thời mọi ràng buộc chỉ đạt 0,450.
+Hệ thống gồm React Frontend, Spring Boot Backend, FastAPI AI Service, MySQL và Qdrant. MySQL lưu dữ liệu nghiệp vụ chính, còn Qdrant lưu dữ liệu vector cho tìm kiếm. Backend luôn kiểm tra lại giá, tồn kho và trạng thái sản phẩm trước khi tạo giao dịch. Vì vậy, các chức năng mua sắm chính vẫn hoạt động khi AI Service bị gián đoạn. Hệ thống đã được đóng gói bằng Docker, chạy trên máy local và triển khai thử nghiệm trên Google Cloud Platform.
 
-%     \item \textbf{RQ2 -- RAG và bộ nhớ hội thoại:} cấu hình RAG kết hợp memory và tắt rerank đạt Grounding 1,000, Context Precision 0,946, Context Recall 0,944 và vượt 12/12 hard gate về giá, tồn kho, sản phẩm không tồn tại và chính sách. Kiểm thử phiên dài đạt 100\% recall và isolation, không ghi nhận lẫn ngữ cảnh giữa các phiên.
+Các chức năng AI đều đạt tiêu chí đã đặt ra. Text Search đạt Hit@5 là 1,000 và NDCG@5 là 0,941, cao hơn BM25. Image Search đạt Exact Hit@5 là 1,000 với ảnh catalog và 0,970 với ảnh bên ngoài. Hybrid Search đạt Strict Hit@5 là 0,980 và tỷ lệ thỏa ràng buộc@5 là 0,990. Trợ lý hội thoại đạt Grounding là 1,000, Context Precision là 0,946, Context Recall là 0,944 và vượt qua 12/12 ca kiểm thử quan trọng. Qua so sánh các cấu hình, hệ thống chọn cấu hình không rerank vì cho kết quả phù hợp nhất.
 
-%     \item \textbf{RQ3 -- Nghiệp vụ và tính nhất quán dữ liệu:} 102/102 ca hồi quy Backend và nghiệp vụ đạt; năm hành trình end-to-end trong phạm vi đồ án đều hoàn tất. Đối soát MySQL--Qdrant đủ 1.000 \texttt{product\_id}; retry, snapshot và rollback hoạt động đúng. Catalog, giỏ hàng và đơn hàng vẫn dùng được khi AI Service gián đoạn.
+Phần nghiệp vụ đạt 102/102 ca kiểm thử Backend và hoàn thành năm luồng end-to-end. MySQL và Qdrant đồng bộ đủ 1.000 \texttt{product\_id}; các chức năng thử lại, sao lưu và khôi phục đều hoạt động đúng. Backend xử lý thành công 6.050/6.050 request hỗn hợp và 57.600/57.600 request trong bài kiểm thử kéo dài hai giờ. Các chức năng AI đạt thời gian phản hồi P95 không quá 5 giây trong mức tải đã thử. Các kiểm tra về đăng nhập, phân quyền, dữ liệu đầu vào, giao dịch, xử lý lỗi và theo dõi request cũng đạt yêu cầu.
 
-%     \item \textbf{RQ4 -- Yêu cầu phi chức năng:} các yêu cầu NFR-01--NFR-09 đạt tiêu chí nghiệm thu nội bộ trong môi trường và tải đã đo. Backend hoàn tất 21.231/21.231 request; soak checkout/payment hai giờ hoàn tất 57.600/57.600 request. Tải AI hoàn tất 216/216 request với P95 Text Search, Hybrid Search và Assistant lần lượt là 1,412, 3,412 và 2,776 giây; Image Search tuần tự có P95 1,002/0,989 giây. Các kiểm tra phân quyền, dữ liệu đầu vào, fallback, health, correlation ID và trình duyệt mục tiêu cũng đạt.
-% \end{itemize}
+Nhìn chung, đề tài đã hoàn thành các mục tiêu đề ra. Sản phẩm kết hợp được các chức năng mua sắm chính với tìm kiếm đa phương thức và trợ lý hội thoại. Người dùng có thêm nhiều cách mô tả nhu cầu và tìm sản phẩm phù hợp thay vì chỉ nhập từ khóa.
 
-% Rerank không được chọn cho cấu hình hiện tại vì làm giảm chất lượng của Text Search, Hybrid Search và tầng truy hồi hội thoại, đồng thời làm tăng độ trễ Hybrid Search. Như vậy, đề tài đã hoàn thành mục tiêu xây dựng và kiểm chứng nguyên mẫu trong phạm vi công bố. Kết luận \enquote{đạt} ở đây là đạt ngưỡng nội bộ trên snapshot, cấu hình và tải thử nghiệm; không phải chứng nhận hệ thống đã sẵn sàng vận hành thương mại quy mô lớn.
+\subsection{Hướng phát triển}
 
-% \subsection{Hạn chế}
+Trong tương lai, hệ thống có thể được tiếp tục phát triển theo các hướng sau:
 
-% \begin{itemize}
-%     \item \textbf{Độ khái quát của dữ liệu:} benchmark sử dụng snapshot 1.000 sản phẩm thời trang và chưa hoàn toàn held-out. Ground truth Hybrid đã được duyệt thủ công cho 100 ảnh tham chiếu và 654 cặp candidate, nhưng ground truth similarity của Image Search vẫn dùng một phần luật metadata. Kết quả vì vậy chưa đại diện cho danh mục lớn, ngành hàng khác hoặc dữ liệu mới ngoài pool đã duyệt.
+\begin{itemize}
+    \item \textbf{Mở rộng dữ liệu:} tăng số lượng sản phẩm, bổ sung nhiều ngành hàng, truy vấn và hình ảnh thực tế. Dữ liệu dùng để điều chỉnh hệ thống cần tách riêng với dữ liệu dùng để đánh giá.
 
-%     \item \textbf{Chất lượng truy hồi đa phương thức:} ảnh bên ngoài làm giảm thứ hạng exact retrieval và similarity. Quan trọng hơn, Hybrid fusion chỉ đạt 0,450 về tỷ lệ thỏa đồng thời mọi ràng buộc@5; baseline post-filter đạt 0,960 nhưng gần oracle vì nhận constraint có cấu trúc và không bao gồm lỗi hiểu ngôn ngữ tự nhiên.
+    \item \textbf{Cải thiện tìm kiếm:} giúp hệ thống hiểu tốt hơn các yêu cầu về màu sắc, giá, loại sản phẩm và mục đích sử dụng. Phần xử lý ảnh có thể được bổ sung chức năng tách nền, nhận diện vật thể tốt hơn và mô hình chuyên cho sản phẩm thương mại điện tử.
 
-%     \item \textbf{Giới hạn của phép so sánh:} độ trễ BM25 chưa được đo; P95 Text Search khi bật và tắt rerank được thu ở hai lượt chạy khác nhau nên không tạo thành phép so sánh paired. Kết luận về rerank chỉ áp dụng cho embedding, mô hình, prompt, ground truth và cấu hình đã kiểm định.
+    \item \textbf{Cá nhân hóa gợi ý:} sử dụng lịch sử tìm kiếm, sản phẩm đã xem, danh sách yêu thích và đơn hàng để đưa ra gợi ý phù hợp hơn. Người dùng cần có quyền xem và xóa dữ liệu cá nhân hóa của mình.
 
-%     \item \textbf{Quy mô kiểm thử vận hành:} tải AI mới chạy sáu worker trong ba phút; Assistant vẫn có P99 9,704 giây và cực đại 9,751 giây. Tải Backend và soak được sinh từ một máy, chưa đại diện cho tải phân tán, thời gian vận hành dài hoặc sự cố diện rộng.
+    \item \textbf{Bổ sung chức năng mua sắm:} tích hợp thanh toán trực tuyến, đơn vị vận chuyển, theo dõi giao hàng, đổi trả và hoàn tiền. Hệ thống cũng có thể phát triển ứng dụng di động và thông báo theo thời gian thực.
 
-%     \item \textbf{Độ sâu kiểm thử:} một số hành trình end-to-end được xác nhận chủ yếu tại biên API và dữ liệu. Bộ kiểm thử bảo mật chưa thay thế pentest độc lập; WebKit chỉ đại diện cho Safari và chưa được xác nhận trên thiết bị Apple thật. Thanh toán trực tuyến, vận chuyển, đổi trả, hoàn tiền và triển khai hạ tầng phân tán nằm ngoài phạm vi đồ án.
-% \end{itemize}
+    \item \textbf{Tăng khả năng phục vụ:} kiểm thử với nhiều người dùng và trong thời gian dài hơn. Hệ thống có thể tự tăng tài nguyên khi tải cao, dùng hàng đợi cho tác vụ đồng bộ và bổ sung bản sao dữ liệu để giảm gián đoạn.
 
-% \subsection{Hướng phát triển}
+    \item \textbf{Tăng bảo mật và theo dõi hệ thống:} thực hiện kiểm thử bảo mật chuyên sâu và diễn tập khôi phục định kỳ. Bảng theo dõi cần hiển thị thời gian phản hồi, tỷ lệ lỗi, tài nguyên sử dụng, chi phí AI và chất lượng tìm kiếm.
 
-% Các hướng phát triển được ưu tiên theo những giới hạn ảnh hưởng trực tiếp đến kết luận đánh giá:
+    \item \textbf{Đánh giá với người dùng thực:} đo thời gian tìm sản phẩm, tỷ lệ hoàn thành thao tác và mức độ hài lòng. Kết quả sẽ giúp cải thiện giao diện và cách trợ lý đặt câu hỏi khi yêu cầu chưa rõ.
+\end{itemize}
 
-% \begin{enumerate}
-%     \item \textbf{Hoàn thiện Hybrid Search:} phân biệt ràng buộc bắt buộc và ưu tiên, chuẩn hóa metadata, kiểm tra constraint trước khi xếp hạng và bổ sung cơ chế dự phòng post-filter khi fusion không giữ đủ điều kiện. Mục tiêu là tăng tỷ lệ thỏa đồng thời ràng buộc mà không làm giảm độ phủ của truy vấn ngôn ngữ tự nhiên.
-
-%     \item \textbf{Xây dựng benchmark held-out:} thu thập thêm ảnh người dùng, truy vấn khó và dữ liệu nhiều ngành hàng; tách tập hiệu chỉnh khỏi tập nghiệm thu; mở rộng pool rồi duyệt thủ công candidate mới. Mỗi phiên bản benchmark cần được đóng băng để so sánh công bằng giữa các cấu hình.
-
-%     \item \textbf{Tăng độ bền của Image Search:} nghiên cứu crop, loại nền, phân đoạn đối tượng, augmentation và embedding chuyên biệt cho thương mại điện tử; đánh giá riêng theo nguồn ảnh, góc chụp và mức che khuất.
-
-%     \item \textbf{Hoàn thiện đánh giá và vận hành AI:} đo bổ sung latency BM25, chạy rerank theo thiết kế paired, kéo dài soak AI, tăng concurrency và sinh tải từ nhiều máy. Hệ thống cần theo dõi P99, cực đại, cache hit, chi phí mô hình và chất lượng truy hồi sau mỗi lần thay đổi cấu hình.
-
-%     \item \textbf{Tăng bảo mật, khả dụng và khả năng quan sát:} bổ sung SAST, DAST, pentest độc lập, fault injection diện rộng, distributed tracing và diễn tập khôi phục định kỳ; đồng thời xác nhận giao diện trên thiết bị và trình duyệt thực tế.
-
-%     \item \textbf{Mở rộng trải nghiệm và nghiệp vụ:} đánh giá với người dùng bằng tỷ lệ hoàn thành tác vụ, thời gian tìm sản phẩm và SUS; sau khi nền tảng ổn định mới mở rộng thanh toán trực tuyến, vận chuyển, đổi trả, hoàn tiền và cá nhân hóa.
-% \end{enumerate}
-
-% Ưu tiên trước mắt là xử lý khả năng giữ ràng buộc của Hybrid Search và xác nhận lại trên benchmark held-out. Tiếp theo là kiểm thử tải AI dài hơn, so sánh paired đầy đủ và pentest độc lập trước khi xem xét triển khai ở quy mô thương mại.
+Trước mắt, hệ thống nên ưu tiên mở rộng dữ liệu đánh giá và cải thiện tìm kiếm kết hợp. Sau đó cần kiểm thử tải dài hơn, tăng bảo mật và hoàn thiện phần theo dõi trước khi đưa vào sử dụng ở quy mô lớn.

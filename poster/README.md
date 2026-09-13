@@ -18,8 +18,8 @@ powershell -ExecutionPolicy Bypass -File poster/scripts/build-poster.ps1
 
 ## Việc cần làm trước khi nộp
 
-1. Đối chiếu danh sách sinh viên chính thức của mã đề tài và sửa dòng `SVTH` nếu cần.
+1. Thông tin hiện tại được đồng bộ với báo cáo: SVTH Huỳnh Thái Minh Châu, MSSV 2210352; GVHD ThS. Võ Thanh Hùng.
 2. Thay ô `QR DEMO` bằng mã QR thật nếu được phép chia sẻ video.
 3. Kiểm tra kích thước poster mà ban tổ chức yêu cầu; mẫu hiện tại là A1 dọc, 594 × 841 mm.
-4. Đổi tên bản nộp đúng quy cách, ví dụ `HK253-DATN-071_2210576-2210352-2210510.pdf` nếu cả ba sinh viên cùng thuộc đề tài.
+4. Đổi tên bản nộp đúng quy cách, ví dụ `HK253-DATN-071_2210352.pdf`.
 5. Mở PDF ở tỷ lệ 100% để kiểm tra font, ảnh và dấu tiếng Việt trước khi gửi.

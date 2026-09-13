@@ -120,6 +120,10 @@ def _effective_features(settings: Settings) -> dict[str, bool]:
         "yolo_enabled": settings.yolo_enabled,
         "hybrid_parallel_branches_enabled": settings.hybrid_parallel_branches_enabled,
         "hybrid_filter_recovery_enabled": settings.hybrid_filter_recovery_enabled,
+        "hybrid_image_conditioned_enabled": settings.hybrid_search_policy == "image_conditioned",
+        "hybrid_conditioned_rrf_enabled": settings.hybrid_conditioned_ranking == "rrf",
+        "hybrid_conditioned_recovery_enabled": settings.hybrid_conditioned_recovery_enabled,
+        "hybrid_conditioned_grouped_retrieval_enabled": settings.hybrid_conditioned_grouped_retrieval_enabled,
     }
 
 

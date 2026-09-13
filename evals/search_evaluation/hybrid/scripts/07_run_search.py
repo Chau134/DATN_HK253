@@ -91,6 +91,9 @@ def main() -> int:
     queries = read_csv(args.queries_csv)
     if len(queries) != 100:
         raise RuntimeError(f"Expected 100 queries, got {len(queries)}")
+    if args.results_csv.exists() or args.responses_jsonl.exists():
+        raise FileExistsError("Use fresh result/response paths; existing evaluation evidence is never overwritten")
+    args.responses_jsonl.parent.mkdir(parents=True, exist_ok=True)
     run_id = args.run_id or f"hybrid-{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}"
     endpoints = {
         "image-only": "/search/image",
@@ -113,10 +116,12 @@ def main() -> int:
     for index, row in enumerate(queries, 1):
         query_id = row["query_id"]
         started = monotonic()
+        print(f"[{index:03d}/{len(queries)}] {query_id} stage=download", flush=True)
         try:
             image, download_ms = (None, 0.0)
             if args.variant != "text-only":
                 image, download_ms = image_payload(row["image_url"], args.download_timeout)
+            print(f"[{index:03d}/{len(queries)}] {query_id} stage=search", flush=True)
             status, response, search_ms = call_search(
                 endpoint,
                 query=row["query_text"] if args.variant != "image-only" else None,
@@ -146,6 +151,8 @@ def main() -> int:
             "run_id": run_id, "query_id": query_id,
             "variant": args.variant, "endpoint": endpoint,
             "reranker_enabled": effective_rerank,
+            "effective_features": readiness.get("effective_features", {}),
+            "instance_id": readiness.get("instance_id"),
             "transformation_type": row["transformation_type"],
             "difficulty": row["difficulty"], "query_text": row["query_text"],
             "image_url": row["image_url"], "target_product_id": row["target_product_id"],
@@ -154,6 +161,11 @@ def main() -> int:
             "total_latency_ms": round((monotonic() - started) * 1000, 3),
             "error": error, "response": response,
         })
+        # Checkpoint each completed query. A disconnected client or interrupted
+        # container must not erase all evidence from a long evaluation.
+        with args.responses_jsonl.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(response_rows[-1], ensure_ascii=False, separators=(",", ":")) + "\n")
+        write_csv(args.results_csv, result_rows, RESULT_FIELDS)
         print(
             f"[{index:03d}/{len(queries)}] {query_id} status={status} "
             f"results={len(response.get('results') or [])} search_ms={search_ms:.0f}",
@@ -161,10 +173,6 @@ def main() -> int:
         )
 
     write_csv(args.results_csv, result_rows, RESULT_FIELDS)
-    args.responses_jsonl.parent.mkdir(parents=True, exist_ok=True)
-    with args.responses_jsonl.open("w", encoding="utf-8") as handle:
-        for row in response_rows:
-            handle.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
     print(
         f"run_id={run_id} queries={len(queries)} result_rows={len(result_rows)} "
         f"errors={errors} results={args.results_csv} responses={args.responses_jsonl}"

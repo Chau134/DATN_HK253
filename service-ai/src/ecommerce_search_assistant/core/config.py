@@ -379,6 +379,18 @@ class Settings(BaseSettings):
         alias="HYBRID_PARALLEL_BRANCHES_ENABLED",
     )
     rerank_top_k: int = Field(default=20, gt=0, le=100, alias="RERANK_TOP_K")
+    hybrid_search_policy: Literal["legacy", "image_conditioned"] = Field(default="legacy", alias="HYBRID_SEARCH_POLICY")
+    hybrid_conditioned_recovery_enabled: bool = Field(default=True, alias="HYBRID_CONDITIONED_RECOVERY_ENABLED")
+    hybrid_conditioned_ranking: Literal["image", "rrf"] = Field(default="image", alias="HYBRID_CONDITIONED_RANKING")
+    hybrid_conditioned_grouped_retrieval_enabled: bool = Field(default=False, alias="HYBRID_CONDITIONED_GROUPED_RETRIEVAL_ENABLED")
+    hybrid_conditioned_budget_ms: int = Field(default=4500, gt=0, alias="HYBRID_CONDITIONED_BUDGET_MS")
+    hybrid_conditioned_min_visual_score: float = Field(default=0.0, ge=-1, le=1, alias="HYBRID_CONDITIONED_MIN_VISUAL_SCORE")
+    hybrid_conditioned_preference_weight: float = Field(default=0.02, ge=0, le=0.1, alias="HYBRID_CONDITIONED_PREFERENCE_WEIGHT")
+    hybrid_conditioned_dominant_color_ranking_enabled: bool = Field(
+        default=True,
+        alias="HYBRID_CONDITIONED_DOMINANT_COLOR_RANKING_ENABLED",
+    )
+    hybrid_conditioned_diagnostics_enabled: bool = Field(default=False, alias="HYBRID_CONDITIONED_DIAGNOSTICS_ENABLED")
     hybrid_image_weight: float = Field(default=0.45, ge=0, le=1, alias="HYBRID_IMAGE_WEIGHT")
     hybrid_text_weight: float = Field(default=0.35, ge=0, le=1, alias="HYBRID_TEXT_WEIGHT")
     hybrid_filter_weight: float = Field(default=0.15, ge=0, le=1, alias="HYBRID_FILTER_WEIGHT")

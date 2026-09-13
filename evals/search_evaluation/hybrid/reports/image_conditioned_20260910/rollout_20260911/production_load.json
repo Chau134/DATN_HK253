@@ -1,0 +1,1576 @@
+{
+  "readiness": {
+    "ready": true,
+    "models": {
+      "text_embedding": true,
+      "image_embedding": true,
+      "llm": true,
+      "yolo": false
+    },
+    "capabilities": {
+      "text_search": true,
+      "image_search": true,
+      "assistant_llm": true
+    },
+    "effective_features": {
+      "reranker_enabled": false,
+      "yolo_enabled": false,
+      "hybrid_parallel_branches_enabled": true,
+      "hybrid_filter_recovery_enabled": true,
+      "hybrid_image_conditioned_enabled": true,
+      "hybrid_conditioned_rrf_enabled": false,
+      "hybrid_conditioned_recovery_enabled": true,
+      "hybrid_conditioned_grouped_retrieval_enabled": true
+    },
+    "evaluation_variant": "rag",
+    "capability": null,
+    "instance_id": "2c3c1d7c3fd243f7a08b0365711d1c8b",
+    "started_at": "2026-09-10T18:58:55.453866+00:00"
+  },
+  "workers": 2,
+  "cache_policy": "images downloaded before measurement; service cache retained between repeats",
+  "rounds": [
+    {
+      "round": 1,
+      "requests": 72,
+      "errors": 0,
+      "p50_ms": 265.4999999940628,
+      "p95_ms": 513.950000001205,
+      "p99_ms": 853.5000000026791,
+      "rows": [
+        {
+          "query_id": "multimodal-q0001",
+          "status": 200,
+          "latency_ms": 264.9999999994179,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0002",
+          "status": 200,
+          "latency_ms": 406.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0003",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0004",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0005",
+          "status": 200,
+          "latency_ms": 233.99999999674037,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0006",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0007",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0008",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 13,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0009",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0010",
+          "status": 200,
+          "latency_ms": 141.00000000325963,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0011",
+          "status": 200,
+          "latency_ms": 1031.0000000026776,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0012",
+          "status": 200,
+          "latency_ms": 625.0,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0013",
+          "status": 200,
+          "latency_ms": 468.99999999732245,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0014",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0015",
+          "status": 200,
+          "latency_ms": 156.99999999196734,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0016",
+          "status": 200,
+          "latency_ms": 110.00000000058208,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0017",
+          "status": 200,
+          "latency_ms": 281.00000000267755,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0018",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0019",
+          "status": 200,
+          "latency_ms": 781.0000000026776,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0020",
+          "status": 200,
+          "latency_ms": 311.9999999908032,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0021",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0022",
+          "status": 200,
+          "latency_ms": 203.00000000861473,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0023",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0024",
+          "status": 200,
+          "latency_ms": 218.00000000803266,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0025",
+          "status": 200,
+          "latency_ms": 500.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0026",
+          "status": 200,
+          "latency_ms": 453.9999999979045,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0027",
+          "status": 200,
+          "latency_ms": 360.0000000005821,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0028",
+          "status": 200,
+          "latency_ms": 500.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0029",
+          "status": 200,
+          "latency_ms": 171.99999999138527,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0030",
+          "status": 200,
+          "latency_ms": 203.00000000861473,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0031",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0032",
+          "status": 200,
+          "latency_ms": 186.9999999908032,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0033",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0034",
+          "status": 200,
+          "latency_ms": 188.0000000091968,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0035",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0036",
+          "status": 200,
+          "latency_ms": 186.9999999908032,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0037",
+          "status": 200,
+          "latency_ms": 297.0000000059372,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0038",
+          "status": 200,
+          "latency_ms": 141.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0039",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0040",
+          "status": 200,
+          "latency_ms": 233.99999999674037,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0041",
+          "status": 200,
+          "latency_ms": 203.99999999790452,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0042",
+          "status": 200,
+          "latency_ms": 311.9999999908032,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0043",
+          "status": 200,
+          "latency_ms": 297.0000000059372,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0044",
+          "status": 200,
+          "latency_ms": 531.0000000026776,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0045",
+          "status": 200,
+          "latency_ms": 282.00000000651926,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0046",
+          "status": 200,
+          "latency_ms": 312.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0047",
+          "status": 200,
+          "latency_ms": 202.99999999406282,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0048",
+          "status": 200,
+          "latency_ms": 188.0000000091968,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0049",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0050",
+          "status": 200,
+          "latency_ms": 375.0,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0051",
+          "status": 200,
+          "latency_ms": 109.00000001129229,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0052",
+          "status": 200,
+          "latency_ms": 281.00000000267755,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0053",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0054",
+          "status": 200,
+          "latency_ms": 359.0000000112923,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0055",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0056",
+          "status": 200,
+          "latency_ms": 296.99999999138527,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0057",
+          "status": 200,
+          "latency_ms": 375.0,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0058",
+          "status": 200,
+          "latency_ms": 110.00000000058208,
+          "returned": 18,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0059",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0060",
+          "status": 200,
+          "latency_ms": 328.00000000861473,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0061",
+          "status": 200,
+          "latency_ms": 203.00000000861473,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0062",
+          "status": 200,
+          "latency_ms": 219.00000001187436,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0063",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0064",
+          "status": 200,
+          "latency_ms": 265.9999999887077,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0065",
+          "status": 200,
+          "latency_ms": 358.99999999674037,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0066",
+          "status": 200,
+          "latency_ms": 469.00000001187436,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0067",
+          "status": 200,
+          "latency_ms": 171.99999999138527,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0068",
+          "status": 200,
+          "latency_ms": 157.00000000651926,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0069",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0070",
+          "status": 200,
+          "latency_ms": 421.99999999138527,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0071",
+          "status": 200,
+          "latency_ms": 328.9999999979045,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0072",
+          "status": 200,
+          "latency_ms": 93.00000000803266,
+          "returned": 1,
+          "duplicates": 0
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "requests": 72,
+      "errors": 0,
+      "p50_ms": 264.9999999994179,
+      "p95_ms": 506.7499999997381,
+      "p99_ms": 676.3500000057685,
+      "rows": [
+        {
+          "query_id": "multimodal-q0072",
+          "status": 200,
+          "latency_ms": 171.00000000209548,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0071",
+          "status": 200,
+          "latency_ms": 375.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0070",
+          "status": 200,
+          "latency_ms": 406.00000000267755,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0069",
+          "status": 200,
+          "latency_ms": 312.9999999946449,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0068",
+          "status": 200,
+          "latency_ms": 218.99999999732245,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0067",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0066",
+          "status": 200,
+          "latency_ms": 687.0000000053551,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0065",
+          "status": 200,
+          "latency_ms": 514.9999999994179,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0064",
+          "status": 200,
+          "latency_ms": 469.00000001187436,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0063",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0062",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0061",
+          "status": 200,
+          "latency_ms": 140.9999999887077,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0060",
+          "status": 200,
+          "latency_ms": 297.0000000059372,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0059",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0058",
+          "status": 200,
+          "latency_ms": 77.99999999406282,
+          "returned": 18,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0057",
+          "status": 200,
+          "latency_ms": 389.9999999994179,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0056",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0055",
+          "status": 200,
+          "latency_ms": 171.99999999138527,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0054",
+          "status": 200,
+          "latency_ms": 297.0000000059372,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0053",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0052",
+          "status": 200,
+          "latency_ms": 389.9999999994179,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0051",
+          "status": 200,
+          "latency_ms": 139.99999999941792,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0050",
+          "status": 200,
+          "latency_ms": 328.9999999979045,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0049",
+          "status": 200,
+          "latency_ms": 218.00000000803266,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0048",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0047",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0046",
+          "status": 200,
+          "latency_ms": 312.0000000053551,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0045",
+          "status": 200,
+          "latency_ms": 312.0000000053551,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0044",
+          "status": 200,
+          "latency_ms": 500.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0043",
+          "status": 200,
+          "latency_ms": 406.00000000267755,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0042",
+          "status": 200,
+          "latency_ms": 296.99999999138527,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0041",
+          "status": 200,
+          "latency_ms": 264.9999999994179,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0040",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0039",
+          "status": 200,
+          "latency_ms": 264.9999999994179,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0038",
+          "status": 200,
+          "latency_ms": 108.99999999674037,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0037",
+          "status": 200,
+          "latency_ms": 311.9999999908032,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0036",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0035",
+          "status": 200,
+          "latency_ms": 108.99999999674037,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0034",
+          "status": 200,
+          "latency_ms": 219.00000001187436,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0033",
+          "status": 200,
+          "latency_ms": 264.9999999994179,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0032",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0031",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0030",
+          "status": 200,
+          "latency_ms": 140.9999999887077,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0029",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0028",
+          "status": 200,
+          "latency_ms": 343.00000000803266,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0027",
+          "status": 200,
+          "latency_ms": 452.9999999940628,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0026",
+          "status": 200,
+          "latency_ms": 421.99999999138527,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0025",
+          "status": 200,
+          "latency_ms": 672.0000000059372,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0024",
+          "status": 200,
+          "latency_ms": 141.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0023",
+          "status": 200,
+          "latency_ms": 108.99999999674037,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0022",
+          "status": 200,
+          "latency_ms": 157.00000000651926,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0021",
+          "status": 200,
+          "latency_ms": 342.99999999348074,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0020",
+          "status": 200,
+          "latency_ms": 437.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0019",
+          "status": 200,
+          "latency_ms": 453.00000000861473,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0018",
+          "status": 200,
+          "latency_ms": 62.000000005355105,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0017",
+          "status": 200,
+          "latency_ms": 265.9999999887077,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0016",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0015",
+          "status": 200,
+          "latency_ms": 218.00000000803266,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0014",
+          "status": 200,
+          "latency_ms": 171.00000000209548,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0013",
+          "status": 200,
+          "latency_ms": 421.99999999138527,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0012",
+          "status": 200,
+          "latency_ms": 421.99999999138527,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0011",
+          "status": 200,
+          "latency_ms": 578.0000000086147,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0010",
+          "status": 200,
+          "latency_ms": 62.000000005355105,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0009",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0008",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 13,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0007",
+          "status": 200,
+          "latency_ms": 390.9999999887077,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0006",
+          "status": 200,
+          "latency_ms": 312.0000000053551,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0005",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0004",
+          "status": 200,
+          "latency_ms": 157.00000000651926,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0003",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0002",
+          "status": 200,
+          "latency_ms": 421.99999999138527,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0001",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 11,
+          "duplicates": 0
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "requests": 72,
+      "errors": 0,
+      "p50_ms": 265.99999999598367,
+      "p95_ms": 515.4500000011467,
+      "p99_ms": 578.9000000018866,
+      "rows": [
+        {
+          "query_id": "multimodal-q0001",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0002",
+          "status": 200,
+          "latency_ms": 500.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0003",
+          "status": 200,
+          "latency_ms": 202.99999999406282,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0004",
+          "status": 200,
+          "latency_ms": 188.0000000091968,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0005",
+          "status": 200,
+          "latency_ms": 281.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0006",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0007",
+          "status": 200,
+          "latency_ms": 656.9999999919673,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0008",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 13,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0009",
+          "status": 200,
+          "latency_ms": 531.0000000026776,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0010",
+          "status": 200,
+          "latency_ms": 139.99999999941792,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0011",
+          "status": 200,
+          "latency_ms": 500.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0012",
+          "status": 200,
+          "latency_ms": 312.0000000053551,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0013",
+          "status": 200,
+          "latency_ms": 328.00000000861473,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0014",
+          "status": 200,
+          "latency_ms": 186.9999999908032,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0015",
+          "status": 200,
+          "latency_ms": 203.00000000861473,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0016",
+          "status": 200,
+          "latency_ms": 171.99999999138527,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0017",
+          "status": 200,
+          "latency_ms": 282.00000000651926,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0018",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0019",
+          "status": 200,
+          "latency_ms": 391.00000000325963,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0020",
+          "status": 200,
+          "latency_ms": 437.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0021",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0022",
+          "status": 200,
+          "latency_ms": 233.99999999674037,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0023",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0024",
+          "status": 200,
+          "latency_ms": 235.00000000058208,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0025",
+          "status": 200,
+          "latency_ms": 516.0000000032596,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0026",
+          "status": 200,
+          "latency_ms": 389.9999999994179,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0027",
+          "status": 200,
+          "latency_ms": 344.00000001187436,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0028",
+          "status": 200,
+          "latency_ms": 438.0000000091968,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0029",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0030",
+          "status": 200,
+          "latency_ms": 139.99999999941792,
+          "returned": 11,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0031",
+          "status": 200,
+          "latency_ms": 139.99999999941792,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0032",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0033",
+          "status": 200,
+          "latency_ms": 296.99999999138527,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0034",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0035",
+          "status": 200,
+          "latency_ms": 156.99999999196734,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0036",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0037",
+          "status": 200,
+          "latency_ms": 297.0000000059372,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0038",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0039",
+          "status": 200,
+          "latency_ms": 265.9999999887077,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0040",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0041",
+          "status": 200,
+          "latency_ms": 266.00000000325963,
+          "returned": 4,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0042",
+          "status": 200,
+          "latency_ms": 296.0000000020955,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0043",
+          "status": 200,
+          "latency_ms": 360.0000000005821,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0044",
+          "status": 200,
+          "latency_ms": 422.0000000059372,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0045",
+          "status": 200,
+          "latency_ms": 437.9999999946449,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0046",
+          "status": 200,
+          "latency_ms": 202.99999999406282,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0047",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0048",
+          "status": 200,
+          "latency_ms": 264.9999999994179,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0049",
+          "status": 200,
+          "latency_ms": 281.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0050",
+          "status": 200,
+          "latency_ms": 296.0000000020955,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0051",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0052",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 3,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0053",
+          "status": 200,
+          "latency_ms": 187.9999999946449,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0054",
+          "status": 200,
+          "latency_ms": 327.9999999940628,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0055",
+          "status": 200,
+          "latency_ms": 172.00000000593718,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0056",
+          "status": 200,
+          "latency_ms": 407.00000000651926,
+          "returned": 15,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0057",
+          "status": 200,
+          "latency_ms": 547.0000000059372,
+          "returned": 7,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0058",
+          "status": 200,
+          "latency_ms": 187.0000000053551,
+          "returned": 18,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0059",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0060",
+          "status": 200,
+          "latency_ms": 485.0000000005821,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0061",
+          "status": 200,
+          "latency_ms": 171.00000000209548,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0062",
+          "status": 200,
+          "latency_ms": 265.9999999887077,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0063",
+          "status": 200,
+          "latency_ms": 156.00000000267755,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0064",
+          "status": 200,
+          "latency_ms": 250.0,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0065",
+          "status": 200,
+          "latency_ms": 343.99999999732245,
+          "returned": 1,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0066",
+          "status": 200,
+          "latency_ms": 514.9999999994179,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0067",
+          "status": 200,
+          "latency_ms": 203.00000000861473,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0068",
+          "status": 200,
+          "latency_ms": 186.9999999908032,
+          "returned": 14,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0069",
+          "status": 200,
+          "latency_ms": 375.0,
+          "returned": 6,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0070",
+          "status": 200,
+          "latency_ms": 467.99999999348074,
+          "returned": 2,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0071",
+          "status": 200,
+          "latency_ms": 406.00000000267755,
+          "returned": 20,
+          "duplicates": 0
+        },
+        {
+          "query_id": "multimodal-q0072",
+          "status": 200,
+          "latency_ms": 125.0,
+          "returned": 1,
+          "duplicates": 0
+        }
+      ]
+    }
+  ]
+}

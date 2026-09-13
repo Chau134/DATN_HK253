@@ -52,21 +52,21 @@ Tổng thời lượng gợi ý cho 8 slide: **5–6 phút**. Phần này cần 
 
 ## Slide 7 — Khảo sát các giải pháp liên quan
 
-**Thông điệp:** Các nhóm giải pháp phổ biến thường tối ưu một năng lực; khoảng trống là tích hợp xuyên suốt.
+**Thông điệp:** Shopee, Tiki và Google Lens hỗ trợ tốt từng hình thức tìm kiếm; khoảng trống là tích hợp xuyên suốt.
 
 **Lời dẫn gợi ý (55–65 giây):**
 
-> Khi khảo sát theo nhóm năng lực, tìm kiếm truyền thống mạnh ở bộ lọc nghiệp vụ nhưng hạn chế về ngữ nghĩa. Tìm kiếm ảnh giải quyết tín hiệu thị giác. Chatbot LLM hỗ trợ giao tiếp nhưng nếu tách khỏi dữ liệu sản phẩm thì khó bảo đảm căn cứ. Giải pháp đề xuất kết nối các năng lực này với nghiệp vụ thương mại điện tử.
+> Báo cáo khảo sát ba giải pháp quen thuộc. Shopee hỗ trợ từ khóa, bộ lọc và tìm bằng ảnh nhưng truy vấn ảnh được thực hiện riêng. Tiki có từ khóa, lọc nhanh, sản phẩm tương tự và trợ lý hỗ trợ mua sắm, nhưng tài liệu công khai chưa đặc tả việc duy trì ràng buộc qua nhiều lượt. Google Lens cho phép kết hợp ảnh với văn bản nhưng không phải quy trình tư vấn và giao dịch của một sàn cụ thể. Từ đó, đề tài kết nối tìm kiếm đa phương thức, hội thoại nhiều lượt và dữ liệu nghiệp vụ hiện hành.
 
 **Lưu ý khi bảo vệ:** Các ký hiệu trong bảng thể hiện mức độ đáp ứng tương đối theo trọng tâm của từng nhóm giải pháp, không phải kết quả benchmark giữa các sản phẩm thương mại.
 
 ## Slide 8 — Điểm khác biệt của giải pháp
 
-**Thông điệp:** Giá trị nằm ở vòng lặp end-to-end và bằng chứng kiểm chứng, không chỉ ở việc gọi một mô hình AI.
+**Thông điệp:** Vòng lặp nối nhu cầu, truy hồi, tư vấn, hành động và phản hồi của người dùng.
 
 **Lời dẫn gợi ý (55–65 giây):**
 
-> Điểm khác biệt của đề tài là đặt AI trong một vòng lặp mua sắm hoàn chỉnh: hiểu tín hiệu, truy hồi với ràng buộc, tư vấn có căn cứ, rồi đưa người dùng về hành động mua hàng. AI Service được tách khỏi nghiệp vụ lõi để hỗ trợ dự phòng, và toàn bộ giải pháp được đánh giá bằng baseline, ablation, chỉ số truy hồi, độ trễ và kiểm thử hệ thống.
+> Vòng lặp bắt đầu từ việc hiểu văn bản và hình ảnh, truy hồi vector có ràng buộc, tư vấn bằng RAG và bộ nhớ, rồi dẫn đến hành động mua hàng. Phản hồi, lựa chọn và yêu cầu mới được lưu vào bộ nhớ để quay lại bước hiểu ở lượt tiếp theo.
 
 ## Chuyển sang phần tiếp theo
 

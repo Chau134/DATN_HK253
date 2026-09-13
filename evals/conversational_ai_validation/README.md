@@ -3,18 +3,17 @@
 ## Quy trình chính: master-80-v2 và đối chứng A–D
 
 Bộ nghiệm thu hiện hành gồm đúng 80 câu: 68 câu từ bộ hội thoại ban đầu và toàn bộ 12 ca critical.
-Pilot 40 câu và manifest ba baseline cũ chỉ được giữ để truy vết, không phải đầu vào nghiệm thu mới.
+Pilot 40 câu, manifest cũ và cấu hình rerank trước post-fix đã được loại khỏi bộ chính thức.
 
 Trạng thái hiện tại:
 
 1. Ground truth 80 câu đã được duyệt đầy đủ; approval nằm tại
    `review/master_80/ground_truth_approval_summary.json`.
-2. Cấu hình D hậu sửa (RAG + memory + rerank bật) đã chạy 80/80. Dữ liệu review đã thực hiện trước đây
-   vẫn được lưu để truy vết, nhưng không còn là điều kiện của quy trình nghiệm thu hiện hành.
-   Bộ kết quả chuẩn duy nhất nằm trong `baselines/rag_memory_rerank_on_post_fix` và dùng hậu tố
+2. Cấu hình D hậu sửa (RAG + memory + rerank bật) đã chạy 80/80.
+   Bộ kết quả chuẩn nằm trong `baselines/rag_memory_rerank_on_post_fix` và dùng hậu tố
    `final_validated` cho output tự động.
 3. A = LLM thuần, B = RAG không memory và C = RAG + memory, rerank tắt đã chạy đủ 80/80 ngày
-   27/08/2026. Các packet V3, V1 và V4 được giữ nguyên như artifact tùy chọn, không cần hoàn tất để nghiệm thu.
+   27/08/2026; artifact tương ứng được giữ trong thư mục của từng cấu hình.
 4. So sánh tự động A--D nằm tại `reports/baseline_comparison.*` và dùng
    `baselines/manifest_master_80_results.json` để ghép đúng D hậu sửa. Đây là đầu vào chính của báo cáo.
 
@@ -60,11 +59,12 @@ Chỉ một tiêu chí cứng `fail` cũng khiến ca không đạt, bất kể 
 
 ## Baseline
 
-`baselines/manifest.json` định nghĩa ba cấu hình bắt buộc:
+`baselines/manifest_master_80_results.json` liên kết bốn cấu hình chính thức:
 
 1. LLM không RAG.
 2. RAG không memory.
-3. RAG + search + memory đầy đủ.
+3. RAG + search + memory, rerank tắt.
+4. RAG + search + memory, rerank bật hậu sửa.
 
 Template từ dữ liệu sản phẩm là cấu hình tùy chọn. Mỗi cấu hình phải chạy cùng question set, snapshot,
 prompt/model (trừ thành phần bị loại bỏ), seed và môi trường. Đặt `rag_metrics_summary.json` và
@@ -93,12 +93,11 @@ vọng vào báo cáo. Chỉ một hard gate tự động `fail` cũng làm cấ
 
 ## Output dùng cho báo cáo
 
-- `reports/automatic_breakdown.csv`: metric theo category và difficulty.
-- `reports/human_validation_summary.json`: artifact lịch sử/tùy chọn, không phải đầu vào bắt buộc.
-- `reports/token_f1_calibration.csv`: artifact chẩn đoán, không dùng để quyết định pass/fail.
-- `reports/baseline_comparison.csv`: bảng đối chứng.
+- `reports/baseline_comparison.{json,csv}`: kết quả đối chứng A--D.
 - `reports/report_ready_summary.md`: diễn giải tổng hợp.
-- `reports/report_fragment.tex`: bảng/đoạn LaTeX để review trước khi đưa vào chương 09.
+- `reports/report_fragment.tex`: bảng và đoạn LaTeX đã xuất.
+- `baselines/*/reports/`: response, metric và hard gate của từng cấu hình.
+- `review/master_80/ground_truth_approval_summary.json`: trạng thái duyệt ground truth.
 
 ## Kiểm thử mã nguồn
 

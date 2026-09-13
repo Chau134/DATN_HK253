@@ -1,0 +1,19 @@
+{
+  "purpose": "Independent wording/constraint probes; no target IDs or benchmark labels. Not a human-judged visual relevance holdout.",
+  "cases": [
+    {"id": "dev-cotton", "query": "Tìm mẫu giống ảnh, chất liệu cotton", "contains": {"material": ["cotton"]}},
+    {"id": "dev-blend", "query": "Giống ảnh nhưng chất liệu cotton và elastane", "contains": {"material": ["cotton", "elastane"]}},
+    {"id": "dev-price", "query": "Tìm mẫu giống ảnh, giá dưới 500k", "max_exclusive": 500000},
+    {"id": "dev-price-inclusive", "query": "Giống ảnh, giá không quá 1 triệu", "max_inclusive": 1000000},
+    {"id": "dev-budget", "query": "Giống ảnh giá trên 2 triệu", "min_exclusive": 2000000, "allow_empty": true},
+    {"id": "dev-exclude", "query": "Tìm mẫu giống ảnh nhưng không màu đen", "excludes": {"color": ["den"]}},
+    {"id": "dev-activity", "query": "Giống ảnh, phải phù hợp đi làm", "contains": {"usage": ["di lam"]}},
+    {"id": "dev-activities", "query": "Giống ảnh phù hợp đi chơi và du lịch", "contains": {"usage": ["di choi", "du lich"]}},
+    {"id": "dev-activities-any", "query": "Giống ảnh phù hợp đi chơi, dạo phố, du lịch", "contains_any": {"usage": ["di choi", "dao pho", "du lich"]}},
+    {"id": "dev-activities-all", "query": "Giống ảnh phù hợp cả ba: đi chơi, dạo phố, du lịch", "contains": {"usage": ["di choi", "dao pho", "du lich"]}},
+    {"id": "dev-soft", "query": "Giống ảnh, ưu tiên linen, giá dưới 1 triệu", "max_exclusive": 1000000, "optional_field": "material"},
+    {"id": "dev-unknown", "query": "Giống ảnh, chất liệu unobtainium", "expect_empty": true},
+    {"id": "dev-unknown-color", "query": "Giống ảnh, màu octarine", "expect_empty": true},
+    {"id": "dev-pure-cotton", "query": "Giống ảnh chất liệu 100% cotton", "composition": {"cotton": 100}}
+  ]
+}

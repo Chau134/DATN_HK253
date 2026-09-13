@@ -1,0 +1,18 @@
+{
+  "contract": "read-only canonical constraint snapshot; no vectors or credentials",
+  "collection": "product_text_vectors_cohere_embed_v4_1536_metadata_v4_1000_products",
+  "products": 1000,
+  "fields": [
+    "base_colour",
+    "base_colour_vi",
+    "color_keys_json",
+    "material_raw",
+    "material_vi",
+    "material_keys_json",
+    "product_usage_vi",
+    "use_case_keys_json",
+    "selling_price"
+  ],
+  "base_snapshot_sha256": "a49109318a6e97b1ae0af5c5092fe3f07dfad1e449def3a4583239f04bcd5142",
+  "output_sha256": "2134be393a2b8a48c14640968257de7118b51a1a8e107724c5badb8c354eacfd"
+}
