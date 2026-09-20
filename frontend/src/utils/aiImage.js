@@ -4,14 +4,25 @@ const MAX_IMAGE_SIDE = 1280;
 const IMAGE_JPEG_QUALITY = 0.86;
 
 export function cropBoxOf(image) {
-    return image?.cropBox || undefined;
+    return cropBoxesOf(image)?.[0];
+}
+
+export function cropBoxesOf(image) {
+    if (!image) return undefined;
+    if (image.cropSource === 'manual') return image.cropBox ? [image.cropBox] : [];
+    if (image.cropSource === 'yolo') return image.selectedCropBoxes || [];
+    if (image.width && image.height) {
+        return [{ left: 0, top: 0, right: image.width, bottom: image.height }];
+    }
+    return undefined;
 }
 
 export async function imageWithDetections(image) {
     const data = await aiApi.detectImage({ image: image.payload });
     const detections = data.detections || [];
     const yoloCropBox = detections[0]?.bbox || null;
-    const cropBox = yoloCropBox || image.cropBox || null;
+    const keepManualCrop = image.cropSource === 'manual' && image.cropBox;
+    const cropBox = keepManualCrop ? image.cropBox : yoloCropBox || image.cropBox || null;
     const warnings = Array.from(new Set([...(image.warnings || []), ...(data.warnings || [])]));
 
     return {
@@ -21,7 +32,8 @@ export async function imageWithDetections(image) {
         detections,
         warnings,
         cropBox,
-        cropSource: yoloCropBox ? 'yolo' : image.cropSource,
+        selectedCropBoxes: keepManualCrop ? image.selectedCropBoxes || [] : detections.map((detection) => detection.bbox),
+        cropSource: keepManualCrop ? 'manual' : yoloCropBox ? 'yolo' : image.cropSource,
     };
 }
 
@@ -41,6 +53,7 @@ export async function imagePayloadFromFile(file) {
         detections: [],
         warnings: compressed.wasCompressed ? ['Ảnh đã được nén để gửi lên AI nhanh hơn.'] : [],
         cropBox: null,
+        selectedCropBoxes: [],
         cropSource: 'full',
         payload: {
             content_type: 'image/jpeg',

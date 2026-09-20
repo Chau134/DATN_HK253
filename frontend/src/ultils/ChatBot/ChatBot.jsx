@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faCompress, faExpand, faImage, faPaperPlane, faSpinner, faThumbsDown, faThumbsUp, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons';
+import { faComments, faCompress, faExpand, faImage, faPaperPlane, faSpinner, faThumbsUp as faThumbsUpSolid, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { aiApi, formatAiWarnings, getApiError } from '../../api/aiApi';
 import { getAssistantSessionId, getAssistantUserId } from '../../utils/assistantSession';
 import { cropBoxOf, imagePayloadFromFile, imageWithDetections } from '../../utils/aiImage';
@@ -179,11 +180,26 @@ function ChatBot() {
                             const warningText = formatAiWarnings(item.warnings);
                             return (
                                 <div className={cx('message-row')} key={`${item.role}-${index}`}>
-                                    <div className={cx(item.role === 'user' ? 'user-message' : 'bot-message', { error: item.error })}>
+                                    <div className={cx(item.role === 'user' ? 'user-message' : 'bot-message', {
+                                        error: item.error,
+                                        'has-feedback': item.role === 'assistant' && item.chatMessageId && !item.error,
+                                    })}>
                                         {item.imagePreview && (
                                             <img className={cx('message-image')} src={item.imagePreview} alt="Ảnh đã gửi" />
                                         )}
                                         {item.content}
+                                        {item.role === 'assistant' && item.chatMessageId && !item.error && (
+                                            <button
+                                                type="button"
+                                                className={cx('message-like-button', { active: item.feedback === true })}
+                                                onClick={() => sendFeedback(item.chatMessageId, true)}
+                                                disabled={item.feedback === true}
+                                                aria-label="Thích phản hồi này"
+                                                title="Thích"
+                                            >
+                                                <FontAwesomeIcon icon={item.feedback === true ? faThumbsUpSolid : faThumbsUpRegular} />
+                                            </button>
+                                        )}
                                     </div>
 
                                     {item.role === 'assistant' && item.rewrittenQuery && (
@@ -212,27 +228,6 @@ function ChatBot() {
                                         </div>
                                     )}
 
-                                    {item.role === 'assistant' && item.chatMessageId && !item.error && (
-                                        <div className={cx('feedback-actions')}>
-                                            <span>Phản hồi này hữu ích?</span>
-                                            <button
-                                                type="button"
-                                                className={cx({ active: item.feedback === true })}
-                                                onClick={() => sendFeedback(item.chatMessageId, true)}
-                                                aria-label="Phản hồi hữu ích"
-                                            >
-                                                <FontAwesomeIcon icon={faThumbsUp} />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={cx({ active: item.feedback === false })}
-                                                onClick={() => sendFeedback(item.chatMessageId, false)}
-                                                aria-label="Phản hồi chưa hữu ích"
-                                            >
-                                                <FontAwesomeIcon icon={faThumbsDown} />
-                                            </button>
-                                        </div>
-                                    )}
                                 </div>
                             );
                         })}

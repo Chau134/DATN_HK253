@@ -122,6 +122,7 @@ function ProductDetail() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     const [product, setProduct] = useState(null);
     const [reviews, setReviews] = useState([]);
@@ -199,6 +200,11 @@ function ProductDetail() {
     }, [id]);
 
     useEffect(() => {
+        if (!isAuthenticated) {
+            setFavoriteProductIds(new Set());
+            return undefined;
+        }
+
         let mounted = true;
 
         async function loadWishlist() {
@@ -215,7 +221,7 @@ function ProductDetail() {
         return () => {
             mounted = false;
         };
-    }, []);
+    }, [isAuthenticated]);
 
     const variants = product?.variants || [];
     const selectedVariant = variants.find((variant) => String(variant.id) === String(selectedVariantId));
@@ -249,6 +255,11 @@ function ProductDetail() {
     }, [galleryImages, product?.id]);
 
     const handleToggleFavorite = async () => {
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+
         const productId = Number(product?.id);
         if (!productId) return;
 
@@ -266,6 +277,11 @@ function ProductDetail() {
     };
 
     const handleAddProduct = () => {
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+
         if (!product) return;
         if (!isAvailable) {
             showNotice('Sản phẩm này đã hết hàng.', 'error');
@@ -401,12 +417,16 @@ function ProductDetail() {
                                 <div className={cx('action-row')}>
                                     <button
                                         className={cx('primary-button')}
-                                        disabled={!canAddToCart}
+                                        disabled={!isAvailable || (isAuthenticated && !canAddToCart)}
                                         onClick={handleAddProduct}
                                         title={isAvailable ? 'Thêm vào giỏ hàng' : 'Hết hàng'}
                                     >
                                         <ShoppingCart size={18} />
-                                        {!isAvailable ? 'Hết hàng' : !canAddToCart ? 'Đã đạt số lượng tối đa' : 'Thêm vào giỏ hàng'}
+                                        {!isAvailable
+                                            ? 'Hết hàng'
+                                            : isAuthenticated && !canAddToCart
+                                                ? 'Đã đạt số lượng tối đa'
+                                                : 'Thêm vào giỏ hàng'}
                                     </button>
                                     <button type="button" className={cx('wishlist-button', isFavorite && 'wishlist-active')} onClick={handleToggleFavorite}>
                                         {isFavorite ? 'Đã yêu thích' : 'Yêu thích'}

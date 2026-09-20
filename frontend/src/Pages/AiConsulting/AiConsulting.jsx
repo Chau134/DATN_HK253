@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { Image as ImageIcon, Layers, Search, X } from 'lucide-react';
+import { Check, Image as ImageIcon, Layers, Search, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Layouts/Header/Header';
 import Footer from '../../Layouts/Footer/Footer';
 import Banner from '../Layouts/Banner/Banner';
 import { aiApi, formatAiWarnings, getApiError } from '../../api/aiApi';
-import { cropBoxOf, imagePayloadFromFile, imageWithDetections } from '../../utils/aiImage';
+import { cropBoxesOf, imagePayloadFromFile, imageWithDetections } from '../../utils/aiImage';
 import ProductCard from '../../components/ProductCard';
 import styles from './AiConsulting.module.scss';
 
@@ -71,7 +71,7 @@ function AiConsulting() {
                 setImageOnly(detectedImage);
                 const data = await aiApi.imageSearch({
                     image: detectedImage.payload,
-                    crop_box: cropBoxOf(detectedImage),
+                    crop_boxes: cropBoxesOf(detectedImage),
                     top_k: 8,
                 });
                 setSearchResult(data);
@@ -87,7 +87,7 @@ function AiConsulting() {
             const data = await aiApi.hybridSearch({
                 query: headerQuery,
                 image: detectedImage.payload,
-                crop_box: cropBoxOf(detectedImage),
+                crop_boxes: cropBoxesOf(detectedImage),
                 top_k: 8,
                 strategy: 'weighted',
             });
@@ -106,11 +106,11 @@ function AiConsulting() {
 
     const handleImageSearch = (event) => {
         event.preventDefault();
-        if (!imageOnly) return;
+        if (!imageOnly || !hasCropSelection(imageOnly)) return;
         runRequest('image-search', async () => {
             const data = await aiApi.imageSearch({
                 image: imageOnly.payload,
-                crop_box: cropBoxOf(imageOnly),
+                crop_boxes: cropBoxesOf(imageOnly),
                 top_k: 8,
             });
             setSearchResult(data);
@@ -119,12 +119,12 @@ function AiConsulting() {
 
     const handleHybridSearch = (event) => {
         event.preventDefault();
-        if (!hybridQuery.trim() || !hybridImage) return;
+        if (!hybridQuery.trim() || !hybridImage || !hasCropSelection(hybridImage)) return;
         runRequest('hybrid-search', async () => {
             const data = await aiApi.hybridSearch({
                 query: hybridQuery.trim(),
                 image: hybridImage.payload,
-                crop_box: cropBoxOf(hybridImage),
+                crop_boxes: cropBoxesOf(hybridImage),
                 top_k: 8,
                 strategy: 'weighted',
             });
@@ -188,7 +188,7 @@ function AiConsulting() {
                     <form className={cx('form-grid')} onSubmit={handleImageSearch}>
                         <h3>Tìm bằng ảnh</h3>
                         <LensImagePicker image={imageOnly} onChange={setImageOnly} label="Ảnh sản phẩm" />
-                        <button className={cx('primary-button')} disabled={!imageOnly || loading === 'image-search'}>
+                        <button className={cx('primary-button')} disabled={!imageOnly || !hasCropSelection(imageOnly) || loading === 'image-search'}>
                             <ImageIcon size={18} />
                             Tìm
                         </button>
@@ -201,7 +201,7 @@ function AiConsulting() {
                             <input value={hybridQuery} onChange={(event) => setHybridQuery(event.target.value)} placeholder="áo khoác dáng rộng..." />
                         </label>
                         <LensImagePicker image={hybridImage} onChange={setHybridImage} label="Ảnh tham khảo" />
-                        <button className={cx('primary-button')} disabled={!hybridQuery.trim() || !hybridImage || loading === 'hybrid-search'}>
+                        <button className={cx('primary-button')} disabled={!hybridQuery.trim() || !hybridImage || !hasCropSelection(hybridImage) || loading === 'hybrid-search'}>
                             <Layers size={18} />
                             Tìm
                         </button>
@@ -218,6 +218,7 @@ function AiConsulting() {
 
 function LensImagePicker({ image, onChange, label }) {
     const imageRef = useRef(null);
+    const fileInputRef = useRef(null);
     const [dragStart, setDragStart] = useState(null);
     const [detecting, setDetecting] = useState(false);
     const [error, setError] = useState('');
@@ -230,6 +231,14 @@ function LensImagePicker({ image, onChange, label }) {
             const detectedImage = await imageWithDetections(nextImage);
             onChange((current) => {
                 if (!current || current.filename !== nextImage.filename) return current;
+                if (current.cropSource === 'manual') {
+                    return {
+                        ...current,
+                        ...detectedImage,
+                        cropBox: current.cropBox,
+                        cropSource: 'manual',
+                    };
+                }
                 return {
                     ...current,
                     ...detectedImage,
@@ -244,6 +253,39 @@ function LensImagePicker({ image, onChange, label }) {
 
     const setCropBox = (cropBox, cropSource) => {
         onChange((current) => (current ? { ...current, cropBox, cropSource } : current));
+    };
+
+    const toggleDetection = (bbox) => {
+        onChange((current) => {
+            if (!current) return current;
+            const selected = current.selectedCropBoxes || [];
+            const isSelected = selected.some((box) => sameBox(box, bbox));
+            const selectedCropBoxes = isSelected
+                ? selected.filter((box) => !sameBox(box, bbox))
+                : [...selected, bbox];
+            return {
+                ...current,
+                selectedCropBoxes,
+                cropBox: selectedCropBoxes[0] || null,
+                cropSource: 'yolo',
+            };
+        });
+    };
+
+    const useYoloCrops = () => {
+        onChange((current) => current ? {
+            ...current,
+            cropBox: current.selectedCropBoxes?.[0] || null,
+            cropSource: 'yolo',
+        } : current);
+    };
+
+    const useManualCrop = () => {
+        onChange((current) => current ? { ...current, cropBox: null, cropSource: 'manual' } : current);
+    };
+
+    const useFullImage = () => {
+        onChange((current) => current ? { ...current, cropBox: null, cropSource: 'full' } : current);
     };
 
     const handleFile = async (file) => {
@@ -261,8 +303,24 @@ function LensImagePicker({ image, onChange, label }) {
         }
     };
 
+    const handlePaste = (event) => {
+        const clipboardItems = Array.from(event.clipboardData?.items || []);
+        const imageItem = clipboardItems.find((item) => item.kind === 'file' && item.type.startsWith('image/'));
+        const clipboardFile = imageItem?.getAsFile();
+
+        if (!clipboardFile) {
+            setError('Nội dung vừa dán không phải là ảnh.');
+            return;
+        }
+
+        event.preventDefault();
+        const extension = clipboardFile.type.split('/')[1] || 'png';
+        const file = new File([clipboardFile], `clipboard-${Date.now()}.${extension}`, { type: clipboardFile.type });
+        handleFile(file);
+    };
+
     const handlePointerDown = (event) => {
-        if (!image || event.target.closest('button')) return;
+        if (!image || image.cropSource !== 'manual' || event.target.closest('button')) return;
         const point = pointFromPointer(event, imageRef.current, image);
         if (!point) return;
         event.currentTarget.setPointerCapture(event.pointerId);
@@ -282,16 +340,29 @@ function LensImagePicker({ image, onChange, label }) {
     };
 
     const detections = image?.detections || [];
+    const selectedCropBoxes = image?.selectedCropBoxes || [];
     const manualCrop = image?.cropSource === 'manual' ? image.cropBox : null;
 
     return (
-        <label>
-            {label}
-            <div className={cx('image-upload')}>
+        <div className={cx('image-field')}>
+            <span>{label}</span>
+            <div
+                className={cx('image-upload')}
+                tabIndex={0}
+                onPaste={handlePaste}
+                onClick={(event) => event.currentTarget.focus()}
+                onKeyDown={(event) => {
+                    if (!image && (event.key === 'Enter' || event.key === ' ')) {
+                        event.preventDefault();
+                        fileInputRef.current?.click();
+                    }
+                }}
+                aria-label={`${label}: chọn hoặc dán ảnh`}
+            >
                 {image ? (
                     <>
                         <div
-                            className={cx('image-preview')}
+                            className={cx('image-preview', image.cropSource === 'manual' && 'manual-mode')}
                             style={{ aspectRatio: `${image.width || 1} / ${image.height || 1}` }}
                             onPointerDown={handlePointerDown}
                             onPointerMove={handlePointerMove}
@@ -299,20 +370,34 @@ function LensImagePicker({ image, onChange, label }) {
                             onPointerCancel={handlePointerUp}
                         >
                             <img ref={imageRef} src={image.preview} alt={image.filename} draggable="false" />
-                            {detections.map((detection, index) => (
-                                <button
-                                    type="button"
-                                    key={`${detection.bbox.left}-${detection.bbox.top}-${index}`}
-                                    className={cx('crop-box', sameBox(image.cropBox, detection.bbox) && image.cropSource !== 'manual' && 'selected')}
-                                    style={boxStyle(detection.bbox, image)}
-                                    title={`Gợi ý vùng chọn ${Math.round((detection.confidence || 0) * 100)}%`}
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        setCropBox(detection.bbox, 'yolo');
-                                    }}
-                                />
-                            ))}
+                            {detections.map((detection, index) => {
+                                const isSelected = selectedCropBoxes.some((box) => sameBox(box, detection.bbox));
+                                return (
+                                    <button
+                                        type="button"
+                                        key={`${detection.bbox.left}-${detection.bbox.top}-${index}`}
+                                        className={cx(
+                                            'crop-box',
+                                            'detection-box',
+                                            image.cropSource === 'yolo' && isSelected && 'selected',
+                                            image.cropSource === 'manual' && 'detection-box-inactive',
+                                        )}
+                                        style={boxStyle(detection.bbox, image)}
+                                        title={isSelected ? 'Bỏ chọn vùng này' : 'Chọn vùng này'}
+                                        aria-label={`${isSelected ? 'Bỏ chọn' : 'Chọn'} vùng phát hiện ${index + 1}`}
+                                        aria-pressed={isSelected}
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            toggleDetection(detection.bbox);
+                                        }}
+                                    >
+                                        <span className={cx('detection-check', isSelected && 'detection-check-selected')}>
+                                            {isSelected ? <Check size={12} strokeWidth={3} /> : null}
+                                        </span>
+                                    </button>
+                                );
+                            })}
                             {manualCrop ? <span className={cx('crop-box', 'manual', 'selected')} style={boxStyle(manualCrop, image)} /> : null}
                             <button
                                 type="button"
@@ -328,24 +413,56 @@ function LensImagePicker({ image, onChange, label }) {
                             </button>
                         </div>
                         <div className={cx('crop-actions')}>
-                            <button type="button" className={cx('ghost-button')} onClick={() => detectImage(image)} disabled={detecting}>
-                                Gợi ý vùng chọn
+                            <button
+                                type="button"
+                                className={cx('ghost-button', image.cropSource === 'yolo' && 'active-crop-mode')}
+                                onClick={useYoloCrops}
+                                disabled={!detections.length}
+                            >
+                                YOLO ({selectedCropBoxes.length}/{detections.length})
                             </button>
-                            <button type="button" className={cx('ghost-button')} onClick={() => setCropBox(null, 'full')}>
+                            <button
+                                type="button"
+                                className={cx('ghost-button', image.cropSource === 'manual' && 'active-crop-mode')}
+                                onClick={useManualCrop}
+                            >
+                                Tự vẽ vùng
+                            </button>
+                            <button
+                                type="button"
+                                className={cx('ghost-button', image.cropSource === 'full' && 'active-crop-mode')}
+                                onClick={useFullImage}
+                            >
                                 Toàn ảnh
                             </button>
                         </div>
+                        <p className={cx('crop-hint')}>
+                            {image.cropSource === 'manual'
+                                ? 'Kéo trên ảnh để vẽ vùng.'
+                                : image.cropSource === 'yolo'
+                                    ? 'Nhấn vào khung để chọn hoặc bỏ chọn.'
+                                    : 'Đang sử dụng toàn bộ ảnh.'}
+                        </p>
                         {detecting ? <p className={cx('muted')}>Đang xử lý ảnh...</p> : null}
-                        <StatusMessage error={error} />
                         {image.warnings?.length ? <StatusMessage message={formatAiWarnings(image.warnings, ', ')} /> : null}
                     </>
                 ) : (
                     <>
                         <span className={cx('image-upload-empty')}>
-                            <ImageIcon size={18} />
-                            Chọn ảnh
+                            <button
+                                type="button"
+                                className={cx('image-select-button')}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    fileInputRef.current?.click();
+                                }}
+                            >
+                                Chọn ảnh
+                            </button>
                         </span>
                         <input
+                            ref={fileInputRef}
+                            className={cx('image-upload-input')}
                             type="file"
                             accept="image/*"
                             onChange={(event) => {
@@ -356,8 +473,9 @@ function LensImagePicker({ image, onChange, label }) {
                         />
                     </>
                 )}
+                <StatusMessage error={error} />
             </div>
-        </label>
+        </div>
     );
 }
 
@@ -390,6 +508,10 @@ function boxStyle(box, image) {
 
 function sameBox(first, second) {
     return first && second && first.left === second.left && first.top === second.top && first.right === second.right && first.bottom === second.bottom;
+}
+
+function hasCropSelection(image) {
+    return Boolean(cropBoxesOf(image)?.length);
 }
 
 function clamp(value, min, max) {

@@ -157,14 +157,24 @@ button:disabled {
     border-radius: 8px;
     background: #f5f5f4;
     cursor: pointer;
+
+    &:focus-within,
+    &:focus-visible {
+        border-color: #171717;
+        outline: 2px solid rgba(23, 23, 23, 0.12);
+        outline-offset: 2px;
+    }
 }
 
-.image-upload input {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 2;
+.image-field {
+    display: grid;
+    gap: 7px;
+    color: #172124;
+    font-weight: 800;
+}
+
+.image-upload-input {
+    display: none;
 }
 
 .image-upload-empty {
@@ -174,6 +184,17 @@ button:disabled {
     gap: 8px;
     color: #6b7280;
     font-weight: 800;
+}
+
+.image-select-button {
+    border: 0;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .image-preview {
@@ -188,6 +209,10 @@ button:disabled {
         height: 100%;
         object-fit: cover;
     }
+}
+
+.manual-mode {
+    cursor: crosshair;
 }
 
 .remove-image-button {
@@ -212,15 +237,52 @@ button:disabled {
     background: rgba(15, 118, 110, 0.18);
 }
 
+.detection-box-inactive {
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+.detection-check {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #171717;
+    border-radius: 4px;
+    background: #fff;
+    color: #fff;
+}
+
+.detection-check-selected {
+    background: #171717;
+}
+
 .manual {
     pointer-events: none;
 }
 
 .crop-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 10px;
+}
+
+.active-crop-mode {
+    border-color: #171717;
+    background: #171717;
+    color: #fff;
+}
+
+.crop-hint {
+    margin: 0;
+    padding: 0 10px 10px;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .muted {

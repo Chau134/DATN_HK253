@@ -92,14 +92,22 @@ class TextSearchRequest(SchemaModel):
 class ImageSearchRequest(SchemaModel):
     image: ImagePayload
     crop_box: ImageBoundingBox | None = None
+    crop_boxes: list[ImageBoundingBox] | None = Field(default=None, min_length=1, max_length=20)
     filters: SearchFilter | None = None
     top_k: int | None = Field(default=None, gt=0, le=SCHEMA_MAX_SEARCH_TOP_K)
+
+    @model_validator(mode="after")
+    def validate_crop_selection(self) -> "ImageSearchRequest":
+        if self.crop_box is not None and self.crop_boxes is not None:
+            raise ValueError("crop_box and crop_boxes cannot be used together")
+        return self
 
 
 class HybridSearchRequest(SchemaModel):
     query: str | None = None
     image: ImagePayload | None = None
     crop_box: ImageBoundingBox | None = None
+    crop_boxes: list[ImageBoundingBox] | None = Field(default=None, min_length=1, max_length=20)
     filters: SearchFilter | None = None
     top_k: int | None = Field(default=None, gt=0, le=SCHEMA_MAX_SEARCH_TOP_K)
     strategy: Literal["weighted"] = "weighted"
@@ -108,6 +116,8 @@ class HybridSearchRequest(SchemaModel):
     def validate_query_or_image(self) -> "HybridSearchRequest":
         if not self.query and self.image is None:
             raise ValueError("query or image is required for hybrid search")
+        if self.crop_box is not None and self.crop_boxes is not None:
+            raise ValueError("crop_box and crop_boxes cannot be used together")
         return self
 
 

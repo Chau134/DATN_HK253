@@ -6,9 +6,9 @@ Thư mục này chứa bộ slide được sinh tự động cho đề tài:
 
 ## Nội dung hiện tại
 
-- `DoAnTotNghiep.pptx` và `DoAnTotNghiep.pdf`: bản hoàn chỉnh gồm 32 slide chính và 6 slide phụ lục A1–A6.
+- `DoAnTotNghiep.pptx` và `DoAnTotNghiep.pdf`: bản hoàn chỉnh gồm 29 slide chính và 9 slide phụ lục A1–A9.
 - `scripts/build-presentation.ps1`: mã nguồn tái tạo toàn bộ file PowerPoint hoàn chỉnh.
-- `notes/`: lời dẫn cho slide 1–32, kịch bản demo và cách dùng phụ lục.
+- `notes/`: lời dẫn cho slide 1–29, kịch bản demo và cách dùng phụ lục.
 - `assets/video/`: vị trí đặt video để script tự động nhúng vào slide 21.
 - `previews/final/`: 38 ảnh slide và contact sheet toàn bộ.
 - `previews/sections/`: contact sheet theo từng phần trình bày.
@@ -47,4 +47,4 @@ Script sử dụng ảnh, sơ đồ và số liệu kiểm thử thật trong pr
 - Font Aptos/Aptos Display để tương thích PowerPoint hiện đại.
 - Màu chủ đạo xanh navy, xanh ngọc; cam dùng cho điểm nhấn/cảnh báo.
 - Mỗi slide giữ một thông điệp chính, ưu tiên sơ đồ và cụm từ ngắn.
-- Phần trình bày chính gồm 32 slide; slide 31 là Q&A, slide 32 là tài liệu tham khảo; 6 trang sau được đánh số A1–A6 và chỉ dùng khi hỏi đáp sâu.
+- Phần trình bày chính gồm 29 slide; slide 28 là Q&A, slide 29 là tài liệu tham khảo; 9 trang sau được đánh số A1–A9 và chỉ dùng khi hỏi đáp sâu.

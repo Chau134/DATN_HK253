@@ -144,9 +144,7 @@ function Header() {
         navigate('/category');
     };
 
-    const handleSearchImageChange = async (event) => {
-        const file = event.target.files?.[0];
-        event.target.value = '';
+    const prepareSearchImage = async (file) => {
         if (!file) return;
 
         setPreparingImage(true);
@@ -160,6 +158,26 @@ function Header() {
         } finally {
             setPreparingImage(false);
         }
+    };
+
+    const handleSearchImageChange = (event) => {
+        const file = event.target.files?.[0];
+        event.target.value = '';
+        prepareSearchImage(file);
+    };
+
+    const handleSearchImagePaste = (event) => {
+        const clipboardItems = Array.from(event.clipboardData?.items || []);
+        const imageItem = clipboardItems.find((item) => item.kind === 'file' && item.type.startsWith('image/'));
+        const clipboardFile = imageItem?.getAsFile();
+
+        // Không chặn paste văn bản vào ô từ khóa.
+        if (!clipboardFile) return;
+
+        event.preventDefault();
+        const extension = clipboardFile.type.split('/')[1] || 'png';
+        const file = new File([clipboardFile], `clipboard-${Date.now()}.${extension}`, { type: clipboardFile.type });
+        prepareSearchImage(file);
     };
 
     const clearSearchImage = () => {
@@ -502,7 +520,20 @@ function Header() {
                     </ul>
                 </div>
 
-                <form className={cx('search-form')} onSubmit={handleSearch}>
+                <form className={cx('search-form')} onSubmit={handleSearch} onPaste={handleSearchImagePaste}>
+                    {searchImage ? (
+                        <div className={cx('search-image-preview')} title={searchImage.filename}>
+                            <img src={searchImage.preview} alt="Ảnh tìm kiếm đã chọn" />
+                            <button
+                                type="button"
+                                className={cx('search-image-remove')}
+                                aria-label="Bỏ ảnh đã chọn"
+                                onClick={clearSearchImage}
+                            >
+                                <FontAwesomeIcon icon={faXmark} />
+                            </button>
+                        </div>
+                    ) : null}
                     <input
                         value={keyword}
                         onChange={(event) => setKeyword(event.target.value)}
@@ -530,19 +561,12 @@ function Header() {
                         onChange={handleSearchImageChange}
                     />
                 </form>
-                {(searchImage || searchImageError || preparingImage) && (
+                {(searchImageError || preparingImage) && (
                     <div className={cx('search-image-status', { error: Boolean(searchImageError) })}>
                         {preparingImage ? (
                             <span>Dang xu ly anh...</span>
-                        ) : searchImageError ? (
-                            <span>{searchImageError}</span>
                         ) : (
-                            <>
-                                <span>Da chon anh: {searchImage.filename}</span>
-                                <button type="button" aria-label="Bo anh da chon" onClick={clearSearchImage}>
-                                    <FontAwesomeIcon icon={faXmark} />
-                                </button>
-                            </>
+                            <span>{searchImageError}</span>
                         )}
                     </div>
                 )}

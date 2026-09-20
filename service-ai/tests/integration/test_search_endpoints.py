@@ -139,6 +139,32 @@ def test_image_search_endpoint_accepts_user_crop_box(
     assert payload["detections"][0]["bbox"] == {"left": 1, "top": 2, "right": 7, "bottom": 6}
 
 
+def test_image_search_endpoint_accepts_multiple_selected_crop_boxes(
+    app: FastAPI,
+    client: TestClient,
+    search_service: SearchService,
+    image_payload: dict[str, str],
+) -> None:
+    app.dependency_overrides[get_search_service] = lambda: search_service
+
+    response = client.post(
+        "/search/image",
+        json={
+            "image": image_payload,
+            "crop_boxes": [
+                {"left": 0, "top": 0, "right": 4, "bottom": 4},
+                {"left": 4, "top": 4, "right": 8, "bottom": 8},
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    assert [detection["bbox"] for detection in response.json()["detections"]] == [
+        {"left": 0, "top": 0, "right": 4, "bottom": 4},
+        {"left": 4, "top": 4, "right": 8, "bottom": 8},
+    ]
+
+
 def test_hybrid_search_endpoint_merges_text_and_image_candidates(
     app: FastAPI,
     client: TestClient,

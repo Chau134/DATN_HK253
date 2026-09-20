@@ -351,6 +351,26 @@ def test_image_search_uses_user_crop_box(search_service: SearchService, image_pa
     assert response.detections[0].bbox.bottom == 6
 
 
+def test_image_search_uses_multiple_selected_crop_boxes(
+    search_service: SearchService,
+    image_payload: dict[str, str],
+) -> None:
+    request = ImageSearchRequest(
+        image=ImagePayload(**image_payload),
+        crop_boxes=[
+            {"left": 0, "top": 0, "right": 4, "bottom": 4},
+            {"left": 4, "top": 4, "right": 8, "bottom": 8},
+        ],
+    )
+
+    response = search_service.search_image(request)
+
+    assert [detection.bbox.model_dump() for detection in response.detections] == [
+        {"left": 0, "top": 0, "right": 4, "bottom": 4},
+        {"left": 4, "top": 4, "right": 8, "bottom": 8},
+    ]
+
+
 def test_image_decode_rejects_images_below_min_dimensions(
     settings: Settings,
     image_payload: dict[str, str],

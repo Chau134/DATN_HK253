@@ -714,7 +714,11 @@ class SearchService:
         filters = normalize_filter_values(request.filters)
         image = _image_payload_to_pil(request.image, self.settings)
         decoded_at = monotonic()
-        crops = self._crops_for_search(image=image, crop_box=request.crop_box)
+        crops = self._crops_for_search(
+            image=image,
+            crop_box=request.crop_box,
+            crop_boxes=request.crop_boxes,
+        )
         cropped_at = monotonic()
         image_points = self._search_image_points(
             crops=crops,
@@ -778,6 +782,7 @@ class SearchService:
             return self._search_image_conditioned(
                 query=request.query, image=request.image, crop_box=request.crop_box,
                 explicit_filters=request.filters, top_k=request.top_k,
+                crop_boxes=request.crop_boxes,
             )
         started_at = monotonic()
         analysis = (
@@ -857,6 +862,7 @@ class SearchService:
             original_query=request.query,
             image=request.image,
             crop_box=request.crop_box,
+            crop_boxes=request.crop_boxes,
             filters=filters,
             top_k=request.top_k,
             constraints=constraints,
@@ -887,6 +893,7 @@ class SearchService:
         image: ImagePayload | None,
         crop_box: ImageBoundingBox | None,
         filters: SearchFilter | None,
+        crop_boxes: list[ImageBoundingBox] | None = None,
         top_k: int | None = None,
         constraints: ResolvedSearchConstraints | None = None,
     ) -> SearchResponse:
@@ -894,7 +901,7 @@ class SearchService:
             return self._search_image_conditioned(
                 query=original_query or rewritten_query, image=image, crop_box=crop_box,
                 explicit_filters=constraints.explicit_hard_filters if constraints else filters,
-                top_k=top_k,
+                top_k=top_k, crop_boxes=crop_boxes,
             )
         started_at = monotonic()
         output_top_k = _resolve_top_k(top_k, self.settings.hybrid_top_k, self.settings)
@@ -931,7 +938,11 @@ class SearchService:
             if image is None:
                 return []
             pil_image = _image_payload_to_pil(image, self.settings)
-            crops = self._crops_for_search(image=pil_image, crop_box=crop_box)
+            crops = self._crops_for_search(
+                image=pil_image,
+                crop_box=crop_box,
+                crop_boxes=crop_boxes,
+            )
             return _dedupe_by_product(
                 self._search_image_points(
                     crops=crops,
@@ -1099,7 +1110,7 @@ class SearchService:
     def _search_image_conditioned(
         self, *, query: str | None, image: ImagePayload,
         crop_box: ImageBoundingBox | None, explicit_filters: SearchFilter | None,
-        top_k: int | None,
+        top_k: int | None, crop_boxes: list[ImageBoundingBox] | None = None,
     ) -> SearchResponse:
         started = monotonic()
         deadline = started + self.settings.hybrid_conditioned_budget_ms / 1000
@@ -1112,7 +1123,11 @@ class SearchService:
         if intent.uncertain:
             return _response(query, intent.required, [], explicit_filters=explicit_filters,
                              constraint_failure_reason=",".join(intent.uncertain))
-        crops = self._crops_for_search(image=_image_payload_to_pil(image, self.settings), crop_box=crop_box)
+        crops = self._crops_for_search(
+            image=_image_payload_to_pil(image, self.settings),
+            crop_box=crop_box,
+            crop_boxes=crop_boxes,
+        )
         vectors = self._embed_images_cached([crop.image for crop in crops])
         # Push down a safe superset. Complex AND/material/usage predicates are
         # checked again on payloads, never approximated by a ranking bonus.
@@ -1420,12 +1435,18 @@ class SearchService:
                     self._image_embedding_cache.popitem(last=False)
         return [list(resolved[digest]) for digest in digests]
 
-    def _crops_for_search(self, *, image: Image.Image, crop_box: ImageBoundingBox | None) -> list[CropResult]:
-        if crop_box is None:
+    def _crops_for_search(
+        self,
+        *,
+        image: Image.Image,
+        crop_box: ImageBoundingBox | None,
+        crop_boxes: list[ImageBoundingBox] | None = None,
+    ) -> list[CropResult]:
+        selected_boxes = crop_boxes or ([crop_box] if crop_box is not None else None)
+        if selected_boxes is None:
             return self.yolo_crop_service.detect_and_crop(image)
         source_image = image.convert("RGB")
         width, height = source_image.size
-        bbox = _clamp_user_bbox(crop_box, width, height)
         return [
             CropResult(
                 image=source_image.crop(bbox),
@@ -1434,6 +1455,8 @@ class SearchService:
                 class_id=None,
                 is_fallback=False,
             )
+            for selected_box in selected_boxes
+            for bbox in [_clamp_user_bbox(selected_box, width, height)]
         ]
 
     def _query_collection(
