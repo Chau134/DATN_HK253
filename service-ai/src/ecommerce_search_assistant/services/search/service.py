@@ -681,6 +681,12 @@ class SearchService:
             payload_by_product,
             query=semantic_query,
         )
+        response_filters = constraints.response_filters if constraints is not None else filters
+        results = _rank_requested_dominant_color(
+            results,
+            payload_by_product,
+            response_filters,
+        )
         top_ids = {item.product_id for item in results[:output_top_k]}
         recovered_only_ids = {
             point.product_id for point in recovery_points
@@ -694,7 +700,6 @@ class SearchService:
             if results
             else 0.0
         )
-        response_filters = constraints.response_filters if constraints is not None else filters
         return _response(rewritten_query, response_filters, results[:output_top_k]), {
             "embed_ms": (embedded_at - started_at) * 1000,
             "qdrant_ms": (queried_at - embedded_at) * 1000,
@@ -1067,6 +1072,15 @@ class SearchService:
             if candidate.embedding_text
         }
         scored_results = self._rerank(rewritten_query, scored_results, content_by_product)
+        response_filters = constraints.response_filters if constraints is not None else filters
+        scored_results = _rank_requested_dominant_color(
+            scored_results,
+            {
+                candidate.product_id: candidate.payload
+                for candidate in candidates.values()
+            },
+            response_filters,
+        )
         reranked_at = monotonic()
         logger.info(
             "hybrid_search_stage_latency branches=%.1fms score=%.1fms rerank=%.1fms total=%.1fms "
@@ -1080,7 +1094,6 @@ class SearchService:
             len(candidates),
             recovery_triggered,
         )
-        response_filters = constraints.response_filters if constraints is not None else filters
         final_results = scored_results[:output_top_k]
         logger.info(
             "hybrid_search_result_summary candidate_limit=%d returned_count=%d underfilled=%s",

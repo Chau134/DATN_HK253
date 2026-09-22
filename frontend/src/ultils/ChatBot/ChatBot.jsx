@@ -102,7 +102,6 @@ function ChatBot() {
                     chatMessageId: data?.chat_message_id,
                     products: data?.products || [],
                     filters: data?.filters || null,
-                    rewrittenQuery: data?.rewritten_query || '',
                     warnings: data?.warnings || [],
                 },
             ]);
@@ -201,10 +200,6 @@ function ChatBot() {
                                             </button>
                                         )}
                                     </div>
-
-                                    {item.role === 'assistant' && item.rewrittenQuery && (
-                                        <div className={cx('rewritten-query')}>Đang tìm cho: «{item.rewrittenQuery}»</div>
-                                    )}
 
                                     {chips.length > 0 && (
                                         <div className={cx('filter-chips')}>

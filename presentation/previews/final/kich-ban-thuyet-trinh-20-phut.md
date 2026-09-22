@@ -10,7 +10,7 @@
 |---|---:|---:|
 | Mở đầu và bài toán | 1–8 | 3 phút 30 giây |
 | Phân tích và thiết kế | 9–16 | 4 phút 30 giây |
-| Sản phẩm và demo | 17–21 | 5 phút 10 giây |
+| Sản phẩm và demo | 17–21 | 6 phút |
 | Kiểm thử và đánh giá | 22–25 | 2 phút 50 giây |
 | Kết luận và hướng phát triển | 26–27 | 1 phút |
 | Chuyển slide và khoảng dừng nhấn ý | Toàn bài | khoảng 50 giây |
@@ -109,20 +109,22 @@
 
 > Kết quả AI được nối trực tiếp với trang chi tiết, giỏ hàng và đặt COD. Trước khi tạo đơn, Backend kiểm tra biến thể, tồn kho, địa chỉ và coupon trong transaction. Nhờ vậy, trải nghiệm tìm kiếm và tư vấn không bị tách khỏi nghiệp vụ thương mại điện tử.
 
-## Slide 21 — Video demo (3 phút)
+## Slide 21 — Video demo (khoảng 3 phút 50 giây)
+
+Kịch bản quay chi tiết, câu thoại, dữ liệu mẫu và checklist được lưu tại
+`presentation/previews/final/kich-ban-quay-video-demo-du-an.md`.
 
 **Lời mở video:**
 
 > Video demo sau minh họa một hành trình xuyên suốt: tìm kiếm bằng văn bản, tìm bằng ảnh, kết hợp ảnh với ràng buộc văn bản, hội thoại nhiều lượt, rồi thêm sản phẩm vào giỏ và đặt hàng COD.
 
-**Nhịp demo đề xuất:**
+**Nhịp demo tóm tắt:**
 
-- 00:00–00:30: giới thiệu trang chủ và Text Search.
-- 00:30–01:00: Image Search bằng ảnh tham chiếu.
-- 01:00–01:30: Hybrid Search với màu hoặc ngân sách.
-- 01:30–02:05: hỏi tiếp trong hội thoại để chứng minh bộ nhớ.
-- 02:05–02:40: xem chi tiết, thêm giỏ và đặt COD.
-- 02:40–03:00: cho thấy backoffice hoặc quá trình đồng bộ chỉ mục.
+- 00:00–00:30: giới thiệu trang chủ, danh mục, chi tiết, wishlist, blog và trang thông tin.
+- 00:30–01:40: Text Search, Image Search và Hybrid Search.
+- 01:40–02:40: hội thoại nhiều lượt để chứng minh bộ nhớ và RAG.
+- 02:40–03:31: xem chi tiết, thêm giỏ và đặt COD.
+- 03:31–03:52: đối chiếu đơn vừa tạo trong backoffice và kết video.
 
 **Chuyển phần:**
 

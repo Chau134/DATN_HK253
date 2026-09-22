@@ -290,6 +290,56 @@ def test_hybrid_explicit_material_stays_hard_for_both_modalities(
             ]
 
 
+def test_legacy_hybrid_ranks_dominant_requested_color_before_secondary_color(
+    search_service: SearchService,
+    fake_qdrant_client,
+    image_payload: dict[str, str],
+) -> None:
+    def query_points(collection_name: str, **kwargs):
+        fake_qdrant_client.queries.append({"collection_name": collection_name, **kwargs})
+        return SimpleNamespace(points=[
+            SimpleNamespace(
+                payload={
+                    "product_id": "secondary-black",
+                    "embedding_text": "ao so mi mau trang nga va den",
+                    "normalized_title_vi": "ao so mi mau trang nga va den",
+                    "base_colour": "Ecru / Black",
+                    "base_colour_vi": "Trang nga / Den",
+                    "color_keys": ["cream", "black", "multicolor"],
+                },
+                score=0.99,
+            ),
+            SimpleNamespace(
+                payload={
+                    "product_id": "dominant-black",
+                    "embedding_text": "ao so mi mau den",
+                    "normalized_title_vi": "ao so mi mau den",
+                    "base_colour": "Black",
+                    "base_colour_vi": "Den",
+                    "color_keys": ["black"],
+                },
+                score=0.80,
+            ),
+        ])
+
+    fake_qdrant_client.query_points = query_points
+    search_service.settings = search_service.settings.model_copy(
+        update={"hybrid_search_policy": "legacy"}
+    )
+
+    response = search_service.search_hybrid_prepared(
+        rewritten_query="ao so mi mau den",
+        original_query="ao so mi mau den",
+        image=ImagePayload(**image_payload),
+        crop_box=None,
+        filters=SearchFilter(colors=["black"]),
+        top_k=2,
+    )
+
+    assert response.product_ids == ["dominant-black", "secondary-black"]
+    assert response.results[1].score < response.results[0].score
+
+
 def test_hybrid_exact_original_title_is_unioned_before_ranking(
     search_service: SearchService,
     fake_qdrant_client,
@@ -1104,6 +1154,49 @@ def test_text_search_retrieval_order_without_rerank(search_service: SearchServic
     # rerank_enabled defaults to False, so results keep pure retrieval order.
     response = search_service.search_text(TextSearchRequest(query="áo thun"))
     assert [item.product_id for item in response.results] == ["P-TEXT", "P-SHARED"]
+
+
+def test_text_search_ranks_dominant_requested_color_before_secondary_color(
+    search_service: SearchService,
+    fake_qdrant_client,
+) -> None:
+    def query_points(collection_name: str, **kwargs):
+        fake_qdrant_client.queries.append({"collection_name": collection_name, **kwargs})
+        return SimpleNamespace(points=[
+            SimpleNamespace(
+                payload={
+                    "product_id": "secondary-black",
+                    "embedding_text": "ao so mi mau trang nga va den",
+                    "normalized_title_vi": "ao so mi mau trang nga va den",
+                    "base_colour": "Ecru / Black",
+                    "base_colour_vi": "Trang nga / Den",
+                    "color_keys": ["cream", "black", "multicolor"],
+                },
+                score=0.99,
+            ),
+            SimpleNamespace(
+                payload={
+                    "product_id": "dominant-black",
+                    "embedding_text": "ao so mi mau den",
+                    "normalized_title_vi": "ao so mi mau den",
+                    "base_colour": "Black",
+                    "base_colour_vi": "Den",
+                    "color_keys": ["black"],
+                },
+                score=0.80,
+            ),
+        ])
+
+    fake_qdrant_client.query_points = query_points
+
+    response, _ = search_service.search_text_prepared(
+        rewritten_query="ao so mi mau den",
+        filters=SearchFilter(colors=["black"]),
+        top_k=2,
+    )
+
+    assert response.product_ids == ["dominant-black", "secondary-black"]
+    assert response.results[1].score < response.results[0].score
 
 
 def test_lexical_fusion_prioritizes_exact_normalized_title(settings: Settings) -> None:

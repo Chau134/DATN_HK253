@@ -1,5 +1,5 @@
 
-import React, { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Cart.module.scss';
@@ -57,13 +57,14 @@ function CartUser() {
     // State lưu thông tin user
     const [user, setUser] = useState(null);
     const [loadingUser, setLoadingUser] = useState(true); // trạng thái load use
+    const [isSyncingCart, setIsSyncingCart] = useState(false);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const res = await request.get('/api/me');
                 setUser(res.data);
-            } catch (err) {
+            } catch {
                 setUser(null);
             } finally {
                 setLoadingUser(false);
@@ -96,6 +97,8 @@ function CartUser() {
     };
 
     const handlePostCart = async () => {
+        if (isSyncingCart) return;
+
         if (!user || !user.email) {
             toast.error('Ban can dang nhap !!!');
             return;
@@ -106,31 +109,73 @@ function CartUser() {
         }
 
         try {
-            // 1. Fetch current database cart items
+            setIsSyncingCart(true);
+
+            // Resolve and validate every variant before changing the server cart.
+            const resolvedItems = await Promise.all(cartItems.map(async (item) => {
+                const productVariantId = await resolveProductVariantId(item);
+                if (!productVariantId) {
+                    throw new Error(`${titleOf(item)} chưa có biến thể để thanh toán.`);
+                }
+
+                const normalizedVariantId = Number(productVariantId);
+                if (!Number.isSafeInteger(normalizedVariantId) || normalizedVariantId <= 0) {
+                    throw new Error(`Biến thể của ${titleOf(item)} không hợp lệ.`);
+                }
+
+                const quantity = Number(item.quantity || 1);
+                if (!Number.isInteger(quantity) || quantity <= 0) {
+                    throw new Error(`Số lượng của ${titleOf(item)} không hợp lệ.`);
+                }
+
+                return {
+                    product_variant_id: normalizedVariantId,
+                    quantity,
+                };
+            }));
+
+            // Merge duplicate variants left by older local cart data.
+            const itemsByVariantId = new Map();
+            resolvedItems.forEach((item) => {
+                const current = itemsByVariantId.get(item.product_variant_id);
+                itemsByVariantId.set(item.product_variant_id, {
+                    ...item,
+                    quantity: (current?.quantity || 0) + item.quantity,
+                });
+            });
+
+            // Fetch current database cart items.
             const currentCartRes = await request.get('/api/cart');
             const currentItems = currentCartRes.data?.items || [];
-            
-            // 2. Delete all existing items in database cart to avoid quantity accumulation
-            await Promise.all(currentItems.map((item) => {
-                return request.delete(`/api/cart/items/${item.id}`);
-            }));
 
-            // 3. Post new items with correct quantities
-            await Promise.all(cartItems.map((item) => {
-                return resolveProductVariantId(item).then((productVariantId) => {
-                    if (!productVariantId) {
-                        throw new Error(`${titleOf(item)} chưa có biến thể để thanh toán.`);
-                    }
+            // Mutate the server cart sequentially so checkout never reads a partially
+            // synchronized cart produced by concurrent delete/add requests.
+            for (const item of currentItems) {
+                await request.delete(`/api/cart/items/${item.id}`);
+            }
 
-                    return request.post('/api/cart/items', {
-                        product_variant_id: productVariantId,
-                        quantity: item.quantity || 1,
-                    });
-                });
-            }));
+            let syncedCart = null;
+            for (const item of itemsByVariantId.values()) {
+                const response = await request.post('/api/cart/items', item);
+                syncedCart = response.data;
+            }
+
+            if (!syncedCart?.id || !syncedCart?.items?.length) {
+                throw new Error('Không thể đồng bộ giỏ hàng để thanh toán.');
+            }
+
+            // Verify the exact server cart before opening the checkout page. This
+            // catches stale variants or pricing issues while the user is still here.
+            await request.post('/api/checkout/preview', {
+                cart_id: syncedCart.id,
+                coupon_code: null,
+            });
+
             navigate('/checkout');
         } catch (error) {
             toast.error(getApiError(error, 'Không thể chuyển sang thanh toán'));
+        } finally {
+            setIsSyncingCart(false);
         }
     };
 
@@ -239,10 +284,10 @@ function CartUser() {
                             </div>
                             <button
                                 onClick={handlePostCart}
-                                disabled={loadingUser}
+                                disabled={loadingUser || isSyncingCart}
                                 className={cx('checkout-btn')}
                             >
-                                {loadingUser ? 'Đang tải...' : 'Tiến hành thanh toán'}
+                                {loadingUser || isSyncingCart ? 'Đang chuẩn bị...' : 'Tiến hành thanh toán'}
                             </button>
                             <Link to="/category" className={cx('continue-shopping')}>
                                 Tiếp tục mua sắm

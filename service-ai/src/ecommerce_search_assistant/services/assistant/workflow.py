@@ -1605,19 +1605,16 @@ def _generate_reply(llm_service: LlmService, context_max_chars: int):
         results = [_result_from_dict(item) for item in state.get("final_product_ids", [])]
         product_context = state.get("product_context", [])
         comparison_titles = state.get("catalog_title_queries", [])
+        comparison_requested = _is_comparison_turn(state)
         if (
-            len(comparison_titles) >= 2
+            comparison_requested
             and (
                 "comparison_leg_unresolved" in state.get("warnings", [])
                 or len(state.get("product_context", [])) < 2
             )
         ):
             return {
-                "assistant_reply": (
-                    "Em chưa lấy đủ dữ liệu để so sánh cả "
-                    f'"{comparison_titles[0]}" và "{comparison_titles[1]}". '
-                    "Bạn kiểm tra lại tên hai sản phẩm giúp em nhé."
-                ),
+                "assistant_reply": _missing_comparison_context_reply(comparison_titles),
                 "llm_call_count": state.get("llm_call_count", 0),
                 "warnings": state.get("warnings", []),
             }
@@ -1729,11 +1726,12 @@ def _structured_catalog_reply(state: AssistantState) -> str | None:
             return f"{title} phù hợp cho {_context_value(product, 'gender_vi', 'gender')}."
         if "thuoc danh muc nao" in normalized:
             return f"{title} thuộc danh mục {_context_category(product)}."
-    if len(state.get("catalog_title_queries", [])) >= 2 and len(context) >= 2:
+    if _is_comparison_turn(state) and len(context) >= 2:
         left, right = context[:2]
         left_title = _context_value(left, "title_vi", "title")
         right_title = _context_value(right, "title_vi", "title")
         comparison_summary = _structured_comparison_summary(left, right)
+        recommendation = _structured_comparison_recommendation(state, left, right)
         return (
             f"So sánh {left_title} và {right_title}: "
             f"{left_title} thuộc danh mục {_context_category(left)}, "
@@ -1742,7 +1740,7 @@ def _structured_catalog_reply(state: AssistantState) -> str | None:
             f"{right_title} thuộc danh mục {_context_category(right)}, "
             f"có màu {_context_value(right, 'base_colour_vi', 'base_colour')}, "
             f"chất liệu {_context_value(right, 'material_vi', 'material')}. "
-            f"{comparison_summary}"
+            f"{comparison_summary}{recommendation}"
         )
     if state.get("referenced_product_ids"):
         product = context[0]
@@ -1775,7 +1773,7 @@ def _structured_comparison_summary(
     left: dict[str, Any],
     right: dict[str, Any],
 ) -> str:
-    dimensions = (
+    dimensions: list[tuple[str, str, str]] = [
         ("danh mục", _context_category(left), _context_category(right)),
         (
             "màu",
@@ -1787,7 +1785,11 @@ def _structured_comparison_summary(
             _context_value(left, "material_vi", "material"),
             _context_value(right, "material_vi", "material"),
         ),
-    )
+    ]
+    left_price = _comparison_price(left)
+    right_price = _comparison_price(right)
+    if left_price is not None and right_price is not None:
+        dimensions.append(("giá", _format_vnd(left_price), _format_vnd(right_price)))
     similarities: list[str] = []
     differences: list[str] = []
     for label, left_value, right_value in dimensions:
@@ -1803,9 +1805,122 @@ def _structured_comparison_summary(
     difference_text = (
         "; ".join(differences)
         if differences
-        else "không có khác biệt trong ba tiêu chí này"
+        else "không có khác biệt trong các tiêu chí này"
     )
     return f"Điểm giống: {similarity_text}. Điểm khác: {difference_text}."
+
+
+def _is_comparison_turn(state: AssistantState) -> bool:
+    if (
+        state.get("intent") == "compare_products"
+        or state.get("rule_intent") == "compare_products"
+    ):
+        return True
+    normalized = normalize_query_text(state.get("message", ""))
+    return any(phrase in normalized for phrase in ("so sanh", "compare"))
+
+
+def _missing_comparison_context_reply(comparison_titles: list[str]) -> str:
+    if len(comparison_titles) >= 2:
+        return (
+            "Em chưa lấy đủ dữ liệu để so sánh cả "
+            f'"{comparison_titles[0]}" và "{comparison_titles[1]}". '
+            "Bạn kiểm tra lại tên hai sản phẩm giúp em nhé."
+        )
+    return (
+        "Em chưa lấy đủ dữ liệu của hai sản phẩm được nhắc tới để so sánh. "
+        "Bạn gửi lại tên hoặc danh sách sản phẩm giúp em nhé."
+    )
+
+
+def _structured_comparison_recommendation(
+    state: AssistantState,
+    left: dict[str, Any],
+    right: dict[str, Any],
+) -> str:
+    normalized_message = normalize_query_text(state.get("message", ""))
+    if not any(
+        phrase in normalized_message
+        for phrase in ("goi y", "phu hop hon", "nen chon", "recommend", "which one")
+    ):
+        return ""
+
+    memory = load_conversation_memory(state.get("conversation_memory"))
+    requested_colors = memory.active_constraints.get("colors") or []
+    if not isinstance(requested_colors, list):
+        requested_colors = [requested_colors]
+    left_color_score = _preferred_color_match_score(left, requested_colors)
+    right_color_score = _preferred_color_match_score(right, requested_colors)
+    left_price = _comparison_price(left)
+    right_price = _comparison_price(right)
+
+    chosen = left
+    chosen_price, other_price = left_price, right_price
+    reasons: list[str] = []
+    if right_color_score > left_color_score:
+        chosen = right
+        chosen_price, other_price = right_price, left_price
+        reasons.append("khớp sát hơn với ưu tiên màu hiện tại")
+    elif left_color_score > right_color_score:
+        reasons.append("khớp sát hơn với ưu tiên màu hiện tại")
+    elif (
+        left_price is not None
+        and right_price is not None
+        and right_price < left_price
+    ):
+        chosen = right
+        chosen_price, other_price = right_price, left_price
+
+    if (
+        chosen_price is not None
+        and other_price is not None
+        and chosen_price < other_price
+    ):
+        reasons.append(
+            f"giá {_format_vnd(chosen_price)}, thấp hơn {_format_vnd(other_price)}"
+        )
+    if not reasons:
+        reasons.append("các thuộc tính công bố phù hợp tương đương và mẫu này được xếp trước")
+
+    chosen_title = _context_value(chosen, "title_vi", "title")
+    purpose = " để đi làm" if "di lam" in normalized_message else ""
+    return (
+        f" Gợi ý: chọn {chosen_title}{purpose} vì "
+        f"{' và '.join(dict.fromkeys(reasons))}."
+    )
+
+
+def _preferred_color_match_score(
+    product: dict[str, Any],
+    requested_colors: list[Any],
+) -> int:
+    if not requested_colors:
+        return 0
+    fields = [
+        normalize_query_text(str(product.get(field_name, "")))
+        for field_name in ("base_colour", "base_colour_vi", "colors", "colors_vi")
+    ]
+    score = 0
+    for value in requested_colors:
+        aliases = {
+            normalize_query_text(str(value)),
+            normalize_query_text(_localize_memory_value(value)),
+        }
+        aliases.discard("")
+        if any(field in aliases for field in fields):
+            score = max(score, 2)
+        elif any(alias in field for alias in aliases for field in fields):
+            score = max(score, 1)
+    return score
+
+
+def _comparison_price(product: dict[str, Any]) -> float | None:
+    price = product.get("price") if isinstance(product.get("price"), dict) else {}
+    value = price.get("price") or price.get("effective_price") or price.get("discounted_price")
+    try:
+        return float(value) if value is not None else None
+    except (TypeError, ValueError):
+        return None
 
 
 def _structured_price_reply(context: list[dict[str, Any]]) -> str:
@@ -2329,7 +2444,35 @@ def _references_attached_image(message: str) -> bool:
 
 def _is_filter_refinement(message: str, current: SearchFilter | None) -> bool:
     normalized = normalize_query_text(message)
-    if _is_cheaper_refinement(message) or "thi sao" in normalized:
+    explicitly_reuses_context = any(
+        phrase in normalized
+        for phrase in (
+            "giu cac yeu cau tren",
+            "giu cac yeu cau truoc",
+            "giu nguyen yeu cau",
+            "giu nguyen cac yeu cau",
+            "giu cac tieu chi tren",
+            "giu cac tieu chi truoc",
+            "giu nguyen tieu chi",
+            "giu nguyen cac tieu chi",
+            "giu nhu tren",
+            "giu nhu cu",
+            "van giu cac yeu cau",
+            "van giu cac tieu chi",
+            "keep the previous requirements",
+            "keep previous requirements",
+            "keeping the previous requirements",
+            "same requirements as above",
+            "keep the previous criteria",
+            "keep previous criteria",
+            "same criteria as above",
+        )
+    )
+    if (
+        explicitly_reuses_context
+        or _is_cheaper_refinement(message)
+        or "thi sao" in normalized
+    ):
         return True
     if current is None:
         return bool(re.search(r"\bcon\b", normalized))

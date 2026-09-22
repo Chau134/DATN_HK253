@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './ProductDetail.module.scss';
 
@@ -8,7 +8,7 @@ import Header from '../../Layouts/Header/Header';
 
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Heart, ShoppingCart } from 'lucide-react';
+import { CircleAlert, CircleCheck, Heart, ShoppingCart } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../redux/actions';
 
@@ -137,12 +137,15 @@ function ProductDetail() {
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [zoomOrigin, setZoomOrigin] = useState('center center');
     const [isZooming, setIsZooming] = useState(false);
+    const noticeTimeoutRef = useRef(null);
 
     const showNotice = (message, type = 'success') => {
         setNotice({ message, type });
-        window.clearTimeout(showNotice.timeoutId);
-        showNotice.timeoutId = window.setTimeout(() => setNotice(null), 2600);
+        window.clearTimeout(noticeTimeoutRef.current);
+        noticeTimeoutRef.current = window.setTimeout(() => setNotice(null), 3000);
     };
+
+    useEffect(() => () => window.clearTimeout(noticeTimeoutRef.current), []);
 
     useEffect(() => {
         let mounted = true;
@@ -305,7 +308,20 @@ function ProductDetail() {
 
     return (
         <div className={cx('wrapper')}>
-            {notice && <div className={cx('notice', notice.type === 'error' && 'notice-error')}>{notice.message}</div>}
+            {notice && (
+                <div
+                    className={cx('notice', notice.type === 'error' && 'notice-error')}
+                    role={notice.type === 'error' ? 'alert' : 'status'}
+                    aria-live={notice.type === 'error' ? 'assertive' : 'polite'}
+                >
+                    {notice.type === 'error' ? (
+                        <CircleAlert size={20} aria-hidden="true" />
+                    ) : (
+                        <CircleCheck size={20} aria-hidden="true" />
+                    )}
+                    <span>{notice.message}</span>
+                </div>
+            )}
             <header>
                 <Header />
             </header>

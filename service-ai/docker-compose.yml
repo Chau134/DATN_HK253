@@ -28,6 +28,10 @@ services:
     environment:
       # Override so the container reaches Qdrant by service name, not localhost.
       QDRANT_URL: http://qdrant:6333
+      # The checked-in example/local environment targets a host-run Spring app.
+      # Keep the Docker-specific hostname here so direct Python and Compose runs
+      # do not need to share an incompatible base URL.
+      SPRINGBOOT_BASE_URL: http://host.docker.internal:8080
       # Initialize managed clients and warm explicitly enabled local components
       # before /health/ready turns green.
       PRELOAD_MODELS: "true"

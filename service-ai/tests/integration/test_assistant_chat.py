@@ -73,6 +73,53 @@ def test_structured_catalog_reply_uses_grounded_fields_for_factual_and_compariso
     assert "Điểm khác:" in comparison
 
 
+def test_structured_catalog_reply_compares_referenced_products_and_recommends() -> None:
+    left = {
+        "product_id": "263",
+        "title_vi": "Áo sơ mi trắng ngà và đen",
+        "base_colour": "Ecru / Black",
+        "base_colour_vi": "Trắng ngà / Đen",
+        "material_vi": "82% Viscose, 18% Polyamide",
+        "gender_vi": "Nữ",
+        "categories": [{"name_vi": "Áo sơ mi"}],
+        "price": {"price": 999000},
+    }
+    right = {
+        "product_id": "262",
+        "title_vi": "Áo sơ mi đen",
+        "base_colour": "Black",
+        "base_colour_vi": "Đen",
+        "material_vi": "82% Viscose, 18% Polyamide",
+        "gender_vi": "Nữ",
+        "categories": [{"name_vi": "Áo sơ mi"}],
+        "price": {"price": 699000},
+    }
+
+    reply = _structured_catalog_reply(
+        {
+            "message": (
+                "Trong các mẫu vừa rồi, hãy so sánh hai mẫu đầu tiên và "
+                "gợi ý mẫu phù hợp hơn để đi làm."
+            ),
+            "intent": "compare_products",
+            "referenced_product_ids": ["263", "262"],
+            "conversation_memory": {
+                "active_constraints": {"colors": ["black"]}
+            },
+            "product_context": [left, right],
+        }
+    )
+
+    assert reply is not None
+    assert "So sánh" in reply
+    assert "Áo sơ mi trắng ngà và đen" in reply
+    assert "Áo sơ mi đen" in reply
+    assert "999.000 VND" in reply and "699.000 VND" in reply
+    assert "Gợi ý: chọn Áo sơ mi đen để đi làm" in reply
+    assert "khớp sát hơn với ưu tiên màu hiện tại" in reply
+    assert "thấp hơn" in reply
+
+
 def test_structured_catalog_reply_answers_price_and_variant_stock() -> None:
     product = {
         "id": 1035,
@@ -221,6 +268,10 @@ def test_complete_first_turn_availability_query_is_not_filter_refinement() -> No
     assert _is_filter_refinement(
         "Còn màu đỏ thì sao?",
         SearchFilter(colors=["red"]),
+    )
+    assert _is_filter_refinement(
+        "Giữ các yêu cầu trên nhưng ưu tiên màu đen.",
+        SearchFilter(colors=["black"]),
     )
 
 
@@ -1238,6 +1289,58 @@ def test_assistant_chat_carries_previous_filters_for_short_refinement(
         max_price=700000,
     )
     assert search_service.text_requests == []
+    assert follow_up_response.json()["filters"] == {
+        "category": "hoodie",
+        "colors": ["black"],
+        "max_price": 700000.0,
+    }
+
+
+def test_assistant_chat_carries_previous_filters_for_explicit_long_refinement(
+    app: FastAPI,
+    client: TestClient,
+    fake_springboot_client,
+) -> None:
+    search_service = RecordingAssistantSearchService()
+    graph = build_assistant_graph(
+        checkpointer=InMemorySaver(),
+        llm_service=FilterAwareLlmService(),  # type: ignore[arg-type]
+        search_service=search_service,  # type: ignore[arg-type]
+        springboot_client=fake_springboot_client,
+    )
+    app.dependency_overrides[get_assistant_workflow] = lambda: AssistantWorkflow(
+        graph=graph
+    )
+
+    first_response = client.post(
+        "/assistant/chat",
+        json={
+            "session_id": "chat-thread-explicit-long-refinement",
+            "user_id": "user-1",
+            "message": "tìm hoodie màu kem dưới 700k",
+            "locale": "vi-VN",
+        },
+    )
+    follow_up_response = client.post(
+        "/assistant/chat",
+        json={
+            "session_id": "chat-thread-explicit-long-refinement",
+            "user_id": "user-1",
+            "message": "Giữ các yêu cầu trên nhưng ưu tiên màu đen.",
+            "locale": "vi-VN",
+        },
+    )
+
+    assert first_response.status_code == 200
+    assert follow_up_response.status_code == 200
+    prepared = search_service.prepared_text_requests[-1]
+    expected_filters = SearchFilter(
+        category="hoodie",
+        colors=["black"],
+        max_price=700000,
+    )
+    assert prepared["filters"] == expected_filters
+    assert prepared["constraints"].hard_filters == expected_filters
     assert follow_up_response.json()["filters"] == {
         "category": "hoodie",
         "colors": ["black"],
