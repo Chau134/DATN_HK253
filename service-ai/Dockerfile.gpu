@@ -22,14 +22,30 @@ COPY src ./src
 RUN python3 -m pip install --break-system-packages torch torchvision --index-url https://download.pytorch.org/whl/cu130 \
     && python3 -m pip install --break-system-packages '.[local-models]'
 
+# Keep the production embedding models in the image so scale-from-zero does not
+# depend on downloading weights from Hugging Face during application startup.
+ARG TEXT_EMBEDDING_MODEL_NAME=Qwen/Qwen3-Embedding-8B
+ARG IMAGE_EMBEDDING_MODEL_NAME=Qwen/Qwen3-VL-Embedding-2B
+RUN mkdir -p /models/hf \
+    && python3 -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='${TEXT_EMBEDDING_MODEL_NAME}')" \
+    && python3 -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='${IMAGE_EMBEDDING_MODEL_NAME}')"
+
+# Model snapshots are immutable in production. Keep dynamic remote-code modules
+# and transient assets in small writable directories instead of recursively
+# changing ownership of the multi-gigabyte model cache into a duplicate layer.
+ENV HF_HUB_OFFLINE=1 \
+    TRANSFORMERS_OFFLINE=1 \
+    HF_MODULES_CACHE=/models/hf/modules \
+    HF_ASSETS_CACHE=/models/hf/assets
+
 RUN gcc --version \
     && python3 -c "import torch; print(torch.__version__, torch.version.cuda); assert torch.version.cuda.startswith('13.0')"
 
 COPY Resource ./Resource
 
 RUN useradd --create-home --uid 10001 appuser \
-    && mkdir -p /models/hf \
-    && chown -R appuser:appuser /app /models
+    && mkdir -p /models/hf/modules /models/hf/assets \
+    && chown -R appuser:appuser /app /models/hf/modules /models/hf/assets
 USER appuser
 
 EXPOSE 8000
@@ -37,4 +53,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 \
     CMD python3 -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health/ready').status==200 else 1)"
 
-CMD ["sh", "-c", "python3 -m uvicorn ecommerce_search_assistant.main:app --host 0.0.0.0 --port ${PORT:-$APP_PORT}"]
+CMD ["sh", "-c", "python3 -m ecommerce_search_assistant.infrastructure.qdrant && python3 -m uvicorn ecommerce_search_assistant.main:app --host 0.0.0.0 --port ${PORT:-$APP_PORT}"]

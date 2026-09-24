@@ -138,11 +138,11 @@ Thời gian suy luận trung bình khoảng 1.8ms mỗi ảnh. Weight tốt nh�
 
 \iffalse
 \begin{lstlisting}[style=terminal,caption={Đường dẫn lưu weight YOLOv26 sau khi fine-tune},label={lst:yolo-weight-path}]
-ai-service/models/yolov26/best.pt
+service-ai/Resource/best.pt
 \end{lstlisting}
 \fi
 
-Khi khởi động, AI Service load weight này. Trong tìm kiếm bằng hình ảnh, service nhận ảnh từ Spring Boot Backend, phát hiện và crop vùng sản phẩm, tạo image embedding rồi truy vấn Qdrant. Nếu không phát hiện được vùng phù hợp hoặc độ tin cậy thấp, ảnh gốc được dùng làm fallback để không gián đoạn quá trình tạo embedding.
+Khi khởi động, AI Service load weight này tại đường dẫn container \path{/app/Resource/best.pt}. Trong tìm kiếm bằng hình ảnh, service nhận ảnh từ Spring Boot Backend, phát hiện và crop vùng sản phẩm, tạo image embedding rồi truy vấn Qdrant. Nếu không phát hiện được vùng phù hợp hoặc độ tin cậy thấp, ảnh gốc được dùng làm fallback để không gián đoạn quá trình tạo embedding.
 \subsection{Cấu hình môi trường và chạy hệ thống local}
 
 Hệ thống hỗ trợ hai chế độ vận hành: chạy toàn bộ trên máy local để phát triển, kiểm thử và triển khai phân tán trên Google Cloud Platform (GCP) để phục vụ bản demo. Cả hai chế độ đều sử dụng Docker để bảo đảm môi trường thực thi nhất quán, tuy nhiên vị trí của AI Service và cách kết nối giữa các dịch vụ có sự khác biệt.
@@ -159,6 +159,7 @@ lục E; phần này tập trung giải thích vai trò của từng dịch vụ
 \textbf{Nội dung} & \textbf{Chạy local} & \textbf{Triển khai trên GCP} \\ \hline
 Thành phần thực thi & MySQL, Qdrant, AI Service, Spring Boot Backend và Frontend cùng chạy bằng Docker Compose trên một máy & Frontend, Spring Boot Backend, MySQL và Qdrant chạy trên GCE VM; AI Service chạy riêng trên Cloud Run \\ \hline
 Kết nối dịch vụ & Các container giao tiếp qua mạng mặc định của Docker Compose bằng tên dịch vụ & Cloud Run kết nối đến Backend và Qdrant trên địa chỉ private của VM thông qua VPC Connector \\ \hline
+Mô hình AI & Bedrock cung cấp LLM và Cohere Embed v4 với vector văn bản, hình ảnh 1.536 chiều & GPU Cloud Run tự phục vụ Qwen3-Embedding-8B 4.096 chiều, Qwen3-VL-Embedding-2B 2.048 chiều và YOLO; Bedrock chỉ cung cấp LLM \\ \hline
 Mục đích & Phát triển, kiểm thử chức năng và đánh giá mô hình & Vận hành bản demo và kiểm thử hệ thống trong môi trường đám mây \\ \hline
 Dữ liệu lâu dài & Docker named volume cho MySQL và Qdrant & Docker named volume trên VM; cấu hình và khóa bí mật được tách khỏi mã nguồn \\ \hline
 \end{tabularx}
@@ -214,10 +215,7 @@ Invoke-WebRequest http://localhost
 
 \subsection{Triển khai hệ thống trên Google Cloud Platform}
 
-Bản triển khai GCP được tổ chức theo mô hình phân tán. GCE VM \texttt{datn-stack-vm} đặt tại zone \texttt{asia-southeast1-b} chạy Frontend, Spring Boot Backend, MySQL và Qdrant. AI Service được đóng gói thành image riêng và triển khai trên Cloud Run tại region \texttt{asia-southeast1}. Cách tách AI Service cho phép cập nhật, giám sát và điều chỉnh tài nguyên độc lập với các dịch vụ nghiệp vụ.
-
-Các lệnh build image, cấu hình Cloud Run và cập nhật dịch vụ trên VM được trình bày ở Phụ lục E.
-Trong nội dung chính chỉ giữ lại cấu hình hạ tầng, cách phân vùng mạng và nguyên tắc quản lý secret.
+Bản GCP được triển khai theo mô hình phân tán: GCE VM \texttt{datn-stack-vm} tại zone \texttt{asia-southeast1-b} chạy Frontend, Spring Boot Backend, MySQL và Qdrant; AI Service chạy độc lập trên Cloud Run tại region \texttt{asia-southeast1}. Cách tổ chức này cho phép cập nhật và điều chỉnh tài nguyên GPU mà không ảnh hưởng cụm nghiệp vụ. Các câu lệnh build, deploy và kiểm tra được chuyển sang Phụ lục E; phần này chỉ trình bày cấu hình đã nghiệm thu.
 
 \begin{table}[H]
 \centering
@@ -227,105 +225,66 @@ Trong nội dung chính chỉ giữ lại cấu hình hạ tầng, cách phân v
 \hline
 \textbf{Tài nguyên} & \textbf{Cấu hình} & \textbf{Vai trò} \\ \hline
 GCE VM & \texttt{e2-standard-4}, Ubuntu 22.04, đĩa 150 GB & Chạy Frontend, Backend, MySQL và Qdrant bằng Docker Compose \\ \hline
-Cloud Run & Image AI Service managed-only, 2 vCPU, 4 GiB RAM, tối đa một instance trong giai đoạn pilot & Xử lý tìm kiếm thông minh, embedding, reranking và trợ lý hội thoại \\ \hline
+Cloud Run GPU & NVIDIA RTX PRO 6000 Blackwell, 20 vCPU, 80 GiB RAM, concurrency 1, tối đa một instance & Chạy FastAPI, hai mô hình Qwen embedding và YOLO trên CUDA; gọi Bedrock cho tác vụ LLM \\ \hline
 Artifact Registry & Docker repository tại \texttt{asia-southeast1} & Lưu trữ các image đã được gắn tag bất biến \\ \hline
 VPC Connector & Dải mạng \texttt{10.8.0.0/28} & Cho phép Cloud Run truy cập Backend và Qdrant qua mạng private \\ \hline
-Secret Manager & Các secret tách biệt theo chức năng & Quản lý Bedrock token, internal API key, Redis URL và mật khẩu cơ sở dữ liệu \\ \hline
+Memorystore & Redis tại địa chỉ private trong VPC & Lưu sở thích người dùng lâu dài cho trợ lý hội thoại \\ \hline
+Secret Manager & Secret được tách theo chức năng và cấp cho runtime service account & Quản lý Bedrock bearer token và internal API key, không ghi secret vào image hoặc repository \\ \hline
 \end{tabularx}
 \end{table}
 
-Trên VM, Frontend được công khai qua cổng 80 và Backend qua cổng 8080. MySQL không publish cổng 3306. Qdrant chỉ bind vào địa chỉ private của VM tại cổng 6333 và firewall chỉ cho phép lưu lượng từ dải mạng của VPC Connector. AI Service sử dụng ingress nội bộ, do đó các trao đổi giữa Cloud Run, Backend và Qdrant không yêu cầu công khai các dịch vụ dữ liệu ra Internet.
+Frontend và Backend lần lượt được công khai qua cổng 80 và 8080. MySQL không publish cổng 3306; Qdrant chỉ bind cổng 6333 trên private IP và firewall chỉ nhận lưu lượng từ VPC Connector. Cloud Run dùng ingress nội bộ để trao đổi với Backend và Qdrant mà không công khai tầng dữ liệu ra Internet. Bedrock bearer token và internal API key được ánh xạ từ Secret Manager vào runtime service account, không ghi trong image, câu lệnh deploy hoặc repository.
 
-Trong cấu hình Cloud Run, AI Service sử dụng các dịch vụ mô hình được quản lý thay vì tải mô hình lớn vào container. Cohere Embed v4 trên Amazon Bedrock được dùng để tạo vector văn bản và hình ảnh, Google Cloud Ranking API được dùng để rerank, còn mô hình GPT OSS trên Bedrock hỗ trợ phân tích truy vấn và sinh phản hồi. Image production không cài CUDA, PyTorch, Transformers hoặc Ultralytics; YOLO được tắt và hệ thống dùng ảnh đầy đủ làm phương án dự phòng.
-
-\paragraph{Chuẩn bị hạ tầng và cấu hình triển khai GCP.}
-
-Trước lần triển khai đầu tiên, người vận hành cấu hình project GCP, kích hoạt các API cần thiết và tạo Artifact Registry, GCE VM, VPC Connector, firewall cùng service account cho Cloud Run. Mã nguồn đã được kiểm tra được đưa lên thư mục \texttt{/opt/dATN} trên VM. Các biến production của cụm Docker được lưu trong \texttt{/opt/dATN/.env.production} với quyền truy cập hạn chế.
-
-Tệp \texttt{docker-compose.vm.yml} được dùng làm lớp override cho \texttt{docker-compose.yml}. Lớp này vô hiệu hóa container AI Service trên VM, publish Qdrant trên private IP và cấu hình Backend gọi URL của AI Service trên Cloud Run. Biến \texttt{VITE\_API\_BASE\_URL} được đóng vào bundle Frontend tại thời điểm build; vì vậy khi địa chỉ Backend thay đổi, Frontend phải được build lại thay vì chỉ khởi động lại container.
-
-Các giá trị nhạy cảm không được ghi trực tiếp trong image, lệnh deploy hoặc repository. Secret Manager cung cấp secret cho Cloud Run theo từng biến môi trường. Bedrock API key dạng ngắn hạn được ánh xạ vào \texttt{AWS\_BEARER\_TOKEN\_BEDROCK}, không được đặt nhầm vào các biến IAM \texttt{AWS\_ACCESS\_KEY\_ID} hoặc \texttt{AWS\_SECRET\_ACCESS\_KEY}. Internal API key ở Cloud Run và Backend phải sử dụng cùng một secret để xác thực các API nội bộ.
+AI Service tự phục vụ embedding trên GPU: \texttt{Qwen/Qwen3-Embedding-8B} tạo vector văn bản 4.096 chiều và \texttt{Qwen/Qwen3-VL-Embedding-2B} tạo vector ảnh 2.048 chiều. Hai mô hình chạy CUDA với \texttt{bfloat16}; vector được chuẩn hóa và truy vấn bằng độ đo Cosine. Weight YOLO đã fine-tune tại \path{Resource/best.pt} phát hiện và crop vật thể trước khi tạo image embedding, đồng thời dùng ảnh gốc làm fallback. Amazon Bedrock không tạo embedding mà chỉ chạy \texttt{openai.gpt-oss-120b-1:0} tại \texttt{ap-northeast-1} để phân tích ý định, trích xuất điều kiện và sinh phản hồi. Reranker được tắt; thứ hạng kết hợp độ tương đồng vector, metadata, điểm lexical và hệ số nghiệp vụ.
 
 \paragraph{Triển khai các dịch vụ trên GCE VM.}
 
-Trước mỗi lần cập nhật, dữ liệu MySQL và collection Qdrant đang hoạt động được sao lưu. Sau đó cấu hình Compose được kiểm tra trước khi build để phát hiện sớm biến môi trường thiếu hoặc cấu hình override không hợp lệ. Các dịch vụ dữ liệu được khởi động trước, Backend được recreate sau khi MySQL healthy và Frontend được cập nhật cuối cùng.
-
-\iffalse
-\begin{lstlisting}[style=terminal,caption={Build và khởi động các dịch vụ trên GCE VM},label={lst:gce-compose-deploy}]
-cd /opt/dATN
-sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml config --quiet
-sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml up -d mysql qdrant
-sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml build spring-api frontend
-sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml up -d --no-deps --force-recreate spring-api frontend
-\end{lstlisting}
-\fi
-
-Named volume \texttt{datn\_mysql\_data} và \texttt{datn\_qdrant\_storage} lưu dữ liệu độc lập với vòng đời của container. Vì vậy quá trình cập nhật ứng dụng chỉ recreate Backend hoặc Frontend khi cần, không xóa hoặc tạo lại các volume dữ liệu.
+Mã nguồn được đặt tại \path{/opt/dATN}; biến production nằm trong \path{.env.production} với quyền truy cập hạn chế. Tệp \path{docker-compose.vm.yml} ghi đè cấu hình local để tắt AI container trên VM, bind Qdrant vào private IP và trỏ Backend tới Cloud Run. Khi cập nhật, cấu hình Compose được kiểm tra trước; MySQL và Qdrant khởi động trước, tiếp theo là Backend rồi Frontend. Hai named volume \texttt{datn\_mysql\_data} và \texttt{datn\_qdrant\_storage} được giữ độc lập với vòng đời container. Do \texttt{VITE\_API\_BASE\_URL} được đóng vào bundle, Frontend phải build lại nếu địa chỉ Backend thay đổi.
 
 \paragraph{Triển khai AI Service trên Cloud Run.}
 
-AI Service được build từ thư mục \texttt{service-ai} bằng Cloud Build và tệp \path{cloudbuild.kaniko.yaml}. Mỗi bản build sử dụng một tag bất biến để có thể xác định chính xác phiên bản và rollback khi cần.
+Cloud Build tạo image từ \path{Dockerfile.gpu} và \path{cloudbuild.gpu.kaniko.yaml} bằng Kaniko trên worker \texttt{E2\_HIGHCPU\_8}. Snapshot của hai mô hình Qwen được tải sẵn; image được gắn tag bất biến và lưu digest để truy vết, rollback. Revision nghiệm thu \path{service-ai-gptoss-pilot-qwen-bw-v2} dùng execution environment thế hệ hai, VPC Connector, một GPU NVIDIA RTX PRO 6000 Blackwell, 20 vCPU, 80 GiB RAM, concurrency 1, timeout 3.600 giây và tối đa một instance. Sau khi \path{/health/ready} xác nhận text embedding, image embedding, YOLO và LLM đều sẵn sàng, toàn bộ traffic được chuyển sang revision này.
 
-\iffalse
-\begin{lstlisting}[style=terminal,caption={Build image AI Service bằng Cloud Build},label={lst:cloud-build-ai}]
-cd service-ai
-gcloud builds submit . --region=asia-southeast1 --config=cloudbuild.kaniko.yaml --substitutions=_IMAGE_TAG=<IMMUTABLE_TAG>
-\end{lstlisting}
-\fi
-
-Image sau khi build được triển khai thành một revision Cloud Run mới với execution environment thế hệ hai, ingress nội bộ, VPC Connector và runtime service account riêng. Trong giai đoạn pilot, revision mới được gắn traffic tag để kiểm tra trước khi chuyển lưu lượng chính thức. Các biến cấu hình thông thường được cung cấp qua environment variables, còn Bedrock token, internal API key và Redis URL được mount từ Secret Manager.
-
-\iffalse
-\begin{lstlisting}[style=terminal,caption={Các tham số chính khi triển khai AI Service lên Cloud Run},label={lst:cloud-run-ai-deploy}]
-gcloud run deploy service-ai-gptoss-pilot --region=asia-southeast1 --image=<IMMUTABLE_IMAGE> --execution-environment=gen2 --cpu=2 --memory=4Gi --max-instances=1 --ingress=internal --vpc-connector=datn-cloudrun-connector --vpc-egress=private-ranges-only --service-account=<RUNTIME_SERVICE_ACCOUNT> --no-traffic --tag=candidate --set-secrets=<SECRET_MAPPINGS>
-\end{lstlisting}
-\fi
-
-Cloud Run cung cấp biến \texttt{PORT=8080}; lệnh khởi động trong image ưu tiên biến này khi chạy Uvicorn. Endpoint \path{/health} được dùng cho startup probe, còn \path{/health/ready} được dùng để xác nhận các client embedding, reranking và LLM đã sẵn sàng. Chỉ sau khi candidate revision vượt qua các kiểm tra sức khỏe và tìm kiếm thì lưu lượng mới được chuyển sang revision này.
+Trong khi đồng bộ và demo, \path{min-instances=1} giữ model trong GPU; sau nghiệm thu giá trị được trả về 0 để scale-to-zero, còn \path{max-instances=1}. Memorystore lưu hồ sơ sở thích lâu dài, nhưng không có RedisJSON nên checkpoint LangGraph của bản demo được lưu bằng SQLite trên filesystem tạm. Vì checkpoint có thể mất khi instance dừng, cấu hình dài hạn cần chuyển sang PostgreSQL hoặc kho bền vững tương thích.
 
 \subsection{Đồng bộ dữ liệu, kiểm tra và khôi phục}
 
-MySQL là nguồn dữ liệu sản phẩm chính, còn Qdrant lưu vector và metadata phục vụ tìm kiếm. AI Service tạo hai collection riêng cho văn bản và hình ảnh; với Cohere Embed v4, cả hai collection sử dụng vector 1.536 chiều và độ đo Cosine. Không được ghi vector của các mô hình hoặc số chiều khác nhau vào cùng một collection.
+MySQL là nguồn dữ liệu chuẩn; Qdrant chỉ giữ vector và metadata dẫn xuất. Bản GCP dùng collection văn bản \path{product_text_vectors_qwen3_embedding_8b_4096_metadata_v4_1000_products} và collection ảnh \path{product_image_vectors_qwen3_vl_embedding_2b_2048_1000_products}. Hai collection dùng Cosine và được tách khỏi collection Bedrock 1.536 chiều của môi trường local để không trộn vector khác mô hình hoặc số chiều.
 
-Các lệnh kiểm tra container, health check và kiểm tra endpoint sau triển khai được đưa vào Phụ lục E.
-Phần này tập trung vào tiêu chí xác nhận đồng bộ, sao lưu, rollback và khôi phục dữ liệu.
+Sau khi Backend và AI Service sẵn sàng, tác vụ full sync đọc 1.000 sản phẩm theo batch. Mỗi sản phẩm tạo một text vector; ảnh hợp lệ được YOLO phát hiện, crop rồi tạo vector theo vùng. Tác vụ hoàn thành sau khoảng 51 phút. Lần đầu có 999 sản phẩm thành công và một lỗi kết nối Qdrant tạm thời; hệ thống chỉ retry sản phẩm cùng các URL timeout, sau đó đạt kết quả ở Bảng~\ref{tab:gcp-sync-result}.
 
-Sau khi Backend và AI Service sẵn sàng, quản trị viên tạo một tác vụ đồng bộ qua API của Backend. Backend đọc sản phẩm từ MySQL theo batch, gửi dữ liệu sang AI Service và theo dõi kết quả của tác vụ. Ở môi trường local có thể đồng bộ toàn bộ 1.000 sản phẩm; bản GCP trong giai đoạn pilot giới hạn 500 sản phẩm để kiểm soát thời gian và chi phí. Một tác vụ mới không được tạo khi tác vụ trước vẫn ở trạng thái \texttt{QUEUED} hoặc \texttt{RUNNING}.
+\begin{table}[H]
+\centering
+\caption{Kết quả đồng bộ và đối soát dữ liệu trên GCP}
+\label{tab:gcp-sync-result}
+\begin{tabularx}{\linewidth}{|p{0.34\linewidth}|X|}
+\hline
+\textbf{Chỉ tiêu} & \textbf{Kết quả nghiệm thu} \\ \hline
+Sản phẩm trong MySQL & 1.000 sản phẩm; cả 1.000 sản phẩm có dữ liệu ảnh \\ \hline
+Text collection & Trạng thái \texttt{green}; 1.000 point; 1.000 product ID duy nhất; vector 4.096 chiều \\ \hline
+Image collection & Trạng thái \texttt{green}; 13.879 point; 1.000 product ID duy nhất; vector 2.048 chiều \\ \hline
+URL ảnh đã lập chỉ mục & 8.871 URL ảnh hợp lệ \\ \hline
+Độ phủ sản phẩm & 1.000/1.000 sản phẩm có text vector và 1.000/1.000 sản phẩm có image vector \\ \hline
+\end{tabularx}
+\end{table}
 
-Quá trình đồng bộ chỉ được xem là hoàn tất khi tổng số sản phẩm, số thành công, số thất bại và số point trong Qdrant khớp với giới hạn yêu cầu. Các lỗi tải ảnh từ nguồn ngoài được ghi nhận riêng; lỗi ảnh không được che khuất lỗi tạo text vector hoặc làm sai số lượng sản phẩm đã đồng bộ.
+Trong 8.872 URL media của MySQL có một playlist HLS \texttt{master.m3u8}, không phải ảnh nên bị loại; sản phẩm tương ứng vẫn có tám image vector. Vì vậy 8.871 URL hợp lệ vẫn bao phủ đủ 1.000 sản phẩm. Nghiệm thu đối soát độc lập số product ID, số point, kích thước vector và cặp \texttt{product\_id--image\_url}, thay vì chỉ dựa vào trạng thái tác vụ.
 
 \paragraph{Kiểm tra sau cài đặt và triển khai.}
 
-Sau khi khởi động local hoặc triển khai GCP, hệ thống được kiểm tra theo thứ tự từ tầng dữ liệu đến tầng giao diện. Các tiêu chí chính gồm:
+Hệ thống được kiểm tra từ tầng dữ liệu đến giao diện theo các tiêu chí sau:
 
 \begin{itemize}
-    \item MySQL và Qdrant ở trạng thái healthy, các named volume vẫn được giữ nguyên.
-    \item AI Service trả kết quả hợp lệ tại \path{/health} và đạt trạng thái sẵn sàng tại \path{/health/ready}.
-    \item Backend truy cập được MySQL, gọi được AI Service và các API công khai trả phản hồi thành công.
-    \item Số point của collection Qdrant khớp với số sản phẩm đã đồng bộ.
-    \item Tìm kiếm văn bản, hình ảnh và kết hợp trả tối đa năm sản phẩm theo cấu hình của bản demo.
-    \item Trợ lý hội thoại gọi được Bedrock và không phát sinh lỗi xác thực.
-    \item Frontend tải thành công và gửi request đến đúng địa chỉ Backend đã được cấu hình khi build.
+    \item MySQL, Qdrant và hai named volume hoạt động; Backend truy cập được MySQL và AI Service.
+    \item \path{/health} và \path{/health/ready} hợp lệ; hai collection đúng kích thước vector và bao phủ đủ 1.000 product ID.
+    \item Tìm kiếm text dùng Qwen3-Embedding-8B; tìm kiếm ảnh dùng YOLO và Qwen3-VL-Embedding-2B; hybrid trả tối đa năm sản phẩm.
+    \item Trợ lý nhận phản hồi tiếng Việt từ Bedrock; Frontend gọi đúng Backend và không có lỗi xác thực secret.
 \end{itemize}
-
-\iffalse
-\begin{lstlisting}[style=terminal,caption={Kiểm tra nhanh các container trên GCE VM},label={lst:gce-deployment-check}]
-sudo docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.vm.yml ps
-curl -fsS http://127.0.0.1:8080/api/blogs
-curl -fsS http://127.0.0.1:80
-curl -fsS http://10.148.0.4:6333/collections
-\end{lstlisting}
-\fi
-
-Log của các container trên VM được theo dõi bằng \texttt{docker logs}, trong khi log của AI Service được truy vấn từ Cloud Logging theo tên Cloud Run revision. Khi kiểm tra log, không in toàn bộ environment của container để tránh làm lộ secret.
+Log VM được theo dõi bằng \texttt{docker logs}, log AI bằng Cloud Logging và không in toàn bộ environment để tránh lộ secret. Smoke test xác nhận text, image và hybrid dùng đúng collection Qwen; YOLO phát hiện hai vùng trên ảnh thử mà không cần fallback; trợ lý nhận phản hồi Bedrock. Chi phí build, giữ GPU để đồng bộ và kiểm thử ước tính 5,5--7 USD, chưa gồm phí Bedrock nhỏ; sau nghiệm thu GPU được scale-to-zero.
 
 \paragraph{Sao lưu, rollback và khôi phục khi triển khai.}
 
-Trước khi deploy hoặc thay đổi schema, hệ thống tạo bản sao lưu MySQL và snapshot collection Qdrant. Việc cập nhật Backend hoặc Frontend không yêu cầu khởi động lại MySQL và Qdrant nếu cấu trúc dữ liệu không thay đổi. Không sử dụng \texttt{docker compose down -v} hoặc xóa hai named volume vì các thao tác này làm mất dữ liệu lâu dài.
-
-Khi revision AI Service mới gặp lỗi, Cloud Run được rollback bằng cách chuyển toàn bộ traffic về revision tốt gần nhất. Backend và Frontend được rollback theo image tag hoặc commit đã xác nhận. Với MySQL, bản dump cần được phục hồi và kiểm tra trên database tạm trước khi thay thế dữ liệu đang phục vụ; với Qdrant, collection cũ hoặc snapshot được giữ lại cho đến khi collection mới đã đồng bộ đầy đủ và vượt qua kiểm thử.
-
-Sau khi hoàn thành các bước kiểm tra, hệ thống sẵn sàng phục vụ các chức năng xem và quản lý sản phẩm, tìm kiếm truyền thống, tìm kiếm thông minh bằng văn bản hoặc hình ảnh, đặt hàng, thanh toán và trợ lý hội thoại.
+Trước khi deploy hoặc đổi schema, MySQL được dump và Qdrant được snapshot; không dùng \texttt{docker compose down -v} hoặc xóa named volume. Nếu AI revision lỗi, Cloud Run chuyển traffic về revision tốt gần nhất; Backend và Frontend trở về image tag đã xác nhận. MySQL chỉ được thay sau khi bản phục hồi vượt kiểm tra trên database tạm, còn collection Qdrant cũ được giữ đến khi collection mới đồng bộ và vượt smoke test.
 
 \subsection*{Kết chương}
 

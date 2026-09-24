@@ -64,6 +64,10 @@ src/ecommerce_search_assistant/
 
 ## Local run
 
+Use `.env.example` for local Bedrock LLM and Bedrock Cohere Embed v4 at 1536
+dimensions. Use `.env.gcp.example` only as the non-secret Cloud Run GPU/Qwen
+deployment template; inject credentials with Secret Manager.
+
 ```bash
 cp .env.example .env
 python -m pip install -e '.[dev,local-models]'
