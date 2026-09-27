@@ -44,21 +44,25 @@ các đặc trưng thị giác như hình dạng, màu sắc, họa tiết và c
 
 Các mô hình thị giác--ngôn ngữ như CLIP dùng hai encoder và mục tiêu học tương phản để
 đưa văn bản và hình ảnh phù hợp vào gần nhau trong một không gian biểu diễn chung
-\parencite{clip_paper}. Hệ thống có thể truy hồi từ một modality sang modality còn lại,
-sau đó hợp nhất theo mã sản phẩm để tránh trả lặp.
+\parencite{clip_paper}. Cách biểu diễn này cho phép truy hồi trực tiếp từ một modality
+sang modality còn lại, nhưng không phải mọi hệ thống đa phương thức đều sử dụng chung
+một không gian vector.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.94\textwidth]{Images/Cosolythuyet/Ánh xạ văn bản và hình ảnh vào không gian embedding chung để truy hồi đa phương thức.png}
+    \includegraphics[width=0.84\textwidth]{Images/Cosolythuyet/Ánh xạ văn bản và hình ảnh vào không gian embedding chung để truy hồi đa phương thức.png}
     \caption{Ánh xạ văn bản và hình ảnh vào không gian embedding chung để truy hồi đa phương thức (ảnh thực hiện bằng Figma)}
     \label{fig:shared_embedding_space}
 \end{figure}
 
 Hình~\ref{fig:shared_embedding_space} minh họa hai encoder tạo ra vector cho truy vấn
 văn bản và ảnh sản phẩm. Trong không gian chung, các cặp phù hợp nằm gần nhau; các cặp
-không phù hợp nằm xa nhau. Đây là nguyên lý giúp hệ thống thực hiện text-to-image,
-image-to-image và truy hồi kết hợp. Embedding không thay thế metadata filtering: các
-điều kiện chính xác như giá tối đa hoặc trạng thái đang bán vẫn phải được kiểm tra riêng.
+không phù hợp nằm xa nhau. Đây là nguyên lý chung của truy hồi đa phương thức dùng
+không gian biểu diễn chung. Trong đề tài, Text Search thực hiện text-to-text retrieval,
+Image Search thực hiện image-to-image retrieval, hai loại embedding được lưu trong các
+collection riêng và không được cộng hoặc so sánh trực tiếp. Mã sản phẩm và metadata
+liên kết kết quả giữa các collection; các điều kiện chính xác như giá tối đa hoặc trạng
+thái đang bán vẫn phải được kiểm tra riêng.
 
 % Embedding không thay thế bộ lọc thuộc tính. Vector có thể nhận ra ``đầm dự tiệc'' gần
 % với ``váy mặc sự kiện'', nhưng không bảo đảm điều kiện giá tối đa hoặc trạng thái còn
@@ -152,26 +156,25 @@ dùng để loại ứng viên không hợp lệ. Ràng buộc mềm, như phong
 diễn, được dùng để cộng điểm thay vì loại bỏ tuyệt đối. Cách phân biệt này giữ được
 precision cho yêu cầu bắt buộc mà vẫn duy trì recall khi metadata chưa đầy đủ.
 
-\subsection{Hybrid search và xếp hạng}
+\subsection{Hybrid Search theo chính sách image-conditioned}
 
-Hybrid search chạy các nhánh lexical (ví dụ BM25), semantic và image retrieval rồi hợp
-nhất ứng viên theo mã sản phẩm. BM25 mạnh ở tên và cụm từ chính xác; vector search mạnh
-ở tương đồng ngữ nghĩa; nhánh ảnh bổ sung tín hiệu kiểu dáng. Cách kết hợp này kế thừa
-nguyên tắc đánh điểm và xếp hạng của hệ thống truy hồi thông tin
-\parencite{manning2008irbook}.
+Trong đề tài, Hybrid Search là truy vấn đồng thời chứa ảnh tham chiếu và văn bản mô tả
+yêu cầu mới; thuật ngữ ``hybrid'' chỉ loại đầu vào, không đồng nghĩa với fusion điểm.
+Ảnh được dùng để xác định nhận dạng và độ tương tự trực quan; văn bản được chuẩn hóa
+thành các ràng buộc bắt buộc, thuộc tính ưu tiên hoặc điều kiện loại trừ. Các ràng buộc
+bắt buộc được áp dụng như bộ lọc để loại ứng viên không hợp lệ, thay vì chỉ trừ điểm.
 
-Sau khi chuẩn hóa thang điểm, điểm tổng quát có thể viết:
-\begin{equation}
- S(p)=w_tS_t(p)+w_iS_i(p)+w_bS_b(p)+w_fS_f(p),
- \label{eq:multimodal_fusion}
-\end{equation}
-trong đó $S_t$ và $S_i$ là điểm văn bản và hình ảnh, $S_b$ là tín hiệu nghiệp vụ, còn
-$S_f$ là mức khớp thuộc tính mềm. Các trọng số được xác định bằng thực nghiệm; ràng
-buộc cứng vẫn phải được kiểm tra độc lập sau fusion.
+Nếu số ứng viên hợp lệ chưa đủ Top-$k$ hoặc tín hiệu ảnh yếu, hệ thống mới truy hồi text
+collection để tìm thêm mã sản phẩm. Các ứng viên phục hồi vẫn phải vượt toàn bộ ràng
+buộc và được chấm lại trên image collection. Vì vậy, nhánh văn bản chỉ mở rộng candidate
+pool, không cung cấp điểm để fusion với điểm ảnh.
 
-Reranking dùng một mô hình đắt hơn để đánh giá lại tập ứng viên nhỏ nhằm cải thiện thứ
-tự kết quả. Vì làm tăng chi phí và độ trễ, reranking chỉ nên áp dụng trên top-$k$ khi
-benchmark chứng minh lợi ích rõ ràng \parencite{reranking_sbert}.
+Với ứng viên hợp lệ, hệ thống sắp xếp giảm dần theo điểm cosine do image collection trả
+về. Khi người dùng truyền rõ màu hoặc danh mục, một mức boost luật cố định $0{,}01$ được
+cộng cho từng thuộc tính khớp; đây là hiệu chỉnh xác định trong triển khai, không phải
+fusion giữa điểm văn bản và điểm ảnh. Business boost và reranker ngoài đều mặc định tắt.
+Reranker chỉ nên được bật khi benchmark chứng minh lợi ích đủ bù chi phí độ trễ
+\parencite{reranking_sbert}.
 
 \subsection{LLM, RAG và bộ nhớ hội thoại}
 
@@ -198,7 +201,7 @@ prompt đến LLM để sinh câu trả lời. Trong hệ thống của đề t�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.90\textwidth]{Images/Cosolythuyet/flow-of-using-rag-with-llms.jpg}
+    \includegraphics[width=0.80\textwidth]{Images/Cosolythuyet/flow-of-using-rag-with-llms.jpg}
     \caption{Luồng sử dụng RAG với mô hình ngôn ngữ lớn (nguồn: AWS, 2024)\parencite{aws2024genai}.}
     \label{fig:rag_llm_flow}
 \end{figure}
@@ -217,6 +220,7 @@ giá, tồn kho và trạng thái đơn trong context trước khi hiển thị,
 thực hiện thao tác giao dịch.
 
 \subsection{Cơ sở đánh giá hệ thống}
+\label{sec:evaluation-foundations}
 
 Với kết quả top-$k$, Hit@$k$ cho biết có ít nhất một sản phẩm liên quan; Precision@$k$
 đo tỷ lệ kết quả liên quan; Recall@$k$ đo mức bao phủ; MRR phản ánh vị trí kết quả đúng
@@ -255,9 +259,9 @@ Với $n$ lần đo độ trễ $t_1,\ldots,t_n$, percentile mức $\alpha$ có 
 Do đó p95 và p99 lần lượt lấy $\alpha=0{,}95$ và $\alpha=0{,}99$. Cần ghi rõ trạng thái
 cache và kích thước candidate pool để kết quả giữa các cấu hình có thể tái lập.
 
-\subsection*{Kết chương}
-
-Chương đã trình bày cơ sở của tìm kiếm đa phương thức, embedding, truy hồi
-vector, phân tích truy vấn, hybrid fusion, LLM–RAG và các chỉ số đánh giá. Đây là nền
-tảng để chương Công nghệ giải thích lựa chọn công cụ, chương Thiết kế mô tả kiến trúc và
-chương Kiểm thử xác minh chất lượng, độ trễ và mức đáp ứng ràng buộc của hệ thống.
+\medskip\noindent\textbf{Kết chương.}
+Chương đã trình bày nền tảng về embedding, truy hồi vector, lọc ràng buộc, Hybrid Search
+image-conditioned, LLM--RAG và phương pháp đánh giá. Trên cơ sở đó, đề tài tách truy
+hồi văn bản khỏi truy hồi hình ảnh, dùng metadata kiểm soát ràng buộc, ưu tiên độ tương
+tự ảnh cho truy vấn image-conditioned và giới hạn LLM ở việc hiểu truy vấn, tạo phản
+hồi có căn cứ, làm nền tảng cho các chương công nghệ, thiết kế và kiểm thử.

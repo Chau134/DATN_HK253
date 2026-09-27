@@ -1,32 +1,42 @@
 %=========================
 % Sections/08-KetLuanVaHuongPhatTrien.tex
-% Chương 8 -- Kết luận và hướng phát triển
+% Chương 8 -- Kết luận, hạn chế và hướng phát triển
 %=========================
 
-\section{Kết luận và hướng phát triển}
+\section{Kết luận, hạn chế và hướng phát triển}
 
-Chương này tổng kết kết quả của đề tài và nêu các hướng phát triển trong tương lai.
+Chương này tổng kết kết quả của đề tài, hạn chế và nêu các hướng phát triển trong tương lai.
 
 \subsection{Kết luận}
 
-Đề tài đã xây dựng hệ thống thương mại điện tử thời trang có trợ lý mua sắm đa phương thức. Khách hàng có thể quản lý tài khoản, tìm sản phẩm, sử dụng giỏ hàng, lưu sản phẩm yêu thích, áp dụng mã giảm giá, đặt hàng COD, theo dõi đơn và đánh giá sản phẩm. Quản trị viên có thể quản lý người dùng, sản phẩm, tồn kho, đơn hàng, khuyến mãi và bài viết. Giao diện web sử dụng được trên máy tính và thiết bị di động.
+Đề tài đã xây dựng được hệ thống thương mại điện tử thời trang có trợ lý mua sắm đa phương thức. Hệ thống đáp ứng các nghiệp vụ chính của khách hàng và quản trị viên, từ quản lý sản phẩm, giỏ hàng và đơn COD đến tồn kho, khuyến mãi và nội dung. Giao diện có thể sử dụng trên cả máy tính và thiết bị di động.
 
-Hệ thống hỗ trợ tìm kiếm bằng văn bản, hình ảnh và kết hợp ảnh--văn bản. Mô hình YOLOv26 đã được huấn luyện thêm trên dữ liệu thời trang để nhận diện và cắt vùng sản phẩm trong ảnh. Trợ lý sử dụng RAG và bộ nhớ hội thoại để tư vấn dựa trên dữ liệu sản phẩm, đồng thời ghi nhớ nội dung của các lượt trao đổi trước.
+Giải pháp được tổ chức thành React Frontend, Spring Boot Backend, FastAPI AI Service, MySQL và Qdrant. Backend giữ vai trò kiểm soát dữ liệu nghiệp vụ, còn AI Service đảm nhiệm tìm kiếm văn bản, tìm kiếm hình ảnh, tìm kiếm kết hợp và hội thoại RAG. Cách tách này giúp các chức năng mua sắm cốt lõi vẫn hoạt động khi dịch vụ AI tạm thời gián đoạn.
 
-Hệ thống gồm React Frontend, Spring Boot Backend, FastAPI AI Service, MySQL và Qdrant. MySQL lưu dữ liệu nghiệp vụ chính, còn Qdrant lưu dữ liệu vector cho tìm kiếm. Backend luôn kiểm tra lại giá, tồn kho và trạng thái sản phẩm trước khi tạo giao dịch. Vì vậy, các chức năng mua sắm chính vẫn hoạt động khi AI Service bị gián đoạn. Hệ thống đã được đóng gói bằng Docker, chạy trên máy local và triển khai thử nghiệm trên Google Cloud Platform.
+Kết quả đánh giá cho thấy các chức năng AI đạt ngưỡng nghiệm thu đã đặt ra. Text Search đạt Hit@5 bằng 1,000 và NDCG@5 bằng 0,941; Image Search đạt Exact Hit@5 bằng 1,000 với ảnh catalog và 0,970 với ảnh bên ngoài. Hybrid Search đạt Strict Hit@5 bằng 0,980, còn trợ lý hội thoại đạt Grounding bằng 1,000 và vượt qua 12/12 ca kiểm thử quan trọng.
 
-Các chức năng AI đều đạt tiêu chí đã đặt ra. Text Search đạt Hit@5 là 1,000 và NDCG@5 là 0,941, cao hơn BM25. Image Search đạt Exact Hit@5 là 1,000 với ảnh catalog và 0,970 với ảnh bên ngoài. Hybrid Search đạt Strict Hit@5 là 0,980 và tỷ lệ thỏa ràng buộc@5 là 0,990. Trợ lý hội thoại đạt Grounding là 1,000, Context Precision là 0,946, Context Recall là 0,944 và vượt qua 12/12 ca kiểm thử quan trọng. Qua so sánh các cấu hình, hệ thống chọn cấu hình không rerank vì cho kết quả phù hợp nhất.
+Phần nghiệp vụ đạt 102/102 ca kiểm thử Backend và hoàn thành năm luồng end-to-end. Việc đồng bộ MySQL--Qdrant, thử lại, sao lưu, khôi phục, phân quyền và theo dõi request đều đạt yêu cầu trong phạm vi thử nghiệm. Hệ thống cũng xử lý thành công 57.600/57.600 request trong bài tải hai giờ và đã được triển khai thử nghiệm trên Google Cloud Platform.
 
-Phần nghiệp vụ đạt 102/102 ca kiểm thử Backend và hoàn thành năm luồng end-to-end. MySQL và Qdrant đồng bộ đủ 1.000 \texttt{product\_id}; các chức năng thử lại, sao lưu và khôi phục đều hoạt động đúng. Backend xử lý thành công 6.050/6.050 request hỗn hợp và 57.600/57.600 request trong bài kiểm thử kéo dài hai giờ. Các chức năng AI đạt thời gian phản hồi P95 không quá 5 giây trong mức tải đã thử. Các kiểm tra về đăng nhập, phân quyền, dữ liệu đầu vào, giao dịch, xử lý lỗi và theo dõi request cũng đạt yêu cầu.
+Nhìn chung, sản phẩm đã hoàn thành các mục tiêu chính của đề tài, kết hợp quy trình mua sắm với tìm kiếm đa phương thức và trợ lý hội thoại. Kết quả này tạo nền tảng để tiếp tục mở rộng dữ liệu, tăng độ bền vận hành và bổ sung các nghiệp vụ thương mại điện tử trong giai đoạn tiếp theo.
 
-Nhìn chung, đề tài đã hoàn thành các mục tiêu đề ra. Sản phẩm kết hợp được các chức năng mua sắm chính với tìm kiếm đa phương thức và trợ lý hội thoại. Người dùng có thêm nhiều cách mô tả nhu cầu và tìm sản phẩm phù hợp thay vì chỉ nhập từ khóa.
+\subsection{Hạn chế}
+
+Kết quả của đề tài được ghi nhận trong phạm vi dữ liệu, cấu hình và hạ tầng thử nghiệm đã xây dựng. Một số hạn chế chính gồm:
+
+\begin{itemize}[nosep]
+    \item Tập dữ liệu và ground truth còn giới hạn trong lĩnh vực thời trang, quy mô sản phẩm và số lượng truy vấn chưa đại diện cho hệ thống thương mại điện tử lớn; dữ liệu đánh giá chưa hoàn toàn tách biệt với quá trình điều chỉnh cấu hình.
+    \item Các bài kiểm thử tải AI được sinh từ một máy và thực hiện trong thời gian ngắn, nên chưa phản ánh đầy đủ tải phân tán, vận hành dài hạn hoặc tình huống tăng tải đột biến.
+    \item Kiểm thử bảo mật mới dừng ở các ca tự động về xác thực, phân quyền và dữ liệu đầu vào; chưa có pentest độc lập hoặc diễn tập khôi phục và kiểm thử hỗn loạn dài hạn.
+    \item Bằng chứng tương thích trình duyệt và thiết bị còn hạn chế; hệ thống chưa được xác minh đầy đủ trên Chrome, Edge và Safari chạy trên thiết bị thật.
+    \item Nghiệp vụ hiện sử dụng thanh toán COD, chưa tích hợp thanh toán trực tuyến, đơn vị vận chuyển, đổi trả, hoàn tiền hoặc ứng dụng di động.
+\end{itemize}
 
 \subsection{Hướng phát triển}
 
 Trong tương lai, hệ thống có thể được tiếp tục phát triển theo các hướng sau:
 
-\begin{itemize}
-    \item \textbf{Mở rộng dữ liệu:} tăng số lượng sản phẩm, bổ sung nhiều ngành hàng, truy vấn và hình ảnh thực tế. Dữ liệu dùng để điều chỉnh hệ thống cần tách riêng với dữ liệu dùng để đánh giá.
+\begin{itemize}[nosep]
+    \item \textbf{Mở rộng dữ liệu và đánh giá:} tăng số lượng sản phẩm, bổ sung nhiều ngành hàng, truy vấn và hình ảnh thực tế; tách tập điều chỉnh, kiểm định và kiểm thử để đánh giá khách quan hơn.
 
     \item \textbf{Cải thiện tìm kiếm:} giúp hệ thống hiểu tốt hơn các yêu cầu về màu sắc, giá, loại sản phẩm và mục đích sử dụng. Phần xử lý ảnh có thể được bổ sung chức năng tách nền, nhận diện vật thể tốt hơn và mô hình chuyên cho sản phẩm thương mại điện tử.
 
@@ -34,9 +44,9 @@ Trong tương lai, hệ thống có thể được tiếp tục phát triển th
 
     \item \textbf{Bổ sung chức năng mua sắm:} tích hợp thanh toán trực tuyến, đơn vị vận chuyển, theo dõi giao hàng, đổi trả và hoàn tiền. Hệ thống cũng có thể phát triển ứng dụng di động và thông báo theo thời gian thực.
 
-    \item \textbf{Tăng khả năng phục vụ:} kiểm thử với nhiều người dùng và trong thời gian dài hơn. Hệ thống có thể tự tăng tài nguyên khi tải cao, dùng hàng đợi cho tác vụ đồng bộ và bổ sung bản sao dữ liệu để giảm gián đoạn.
+    \item \textbf{Tăng khả năng phục vụ:} thực hiện kiểm thử tải phân tán và soak test dài hạn; bổ sung cơ chế tự mở rộng tài nguyên, hàng đợi cho tác vụ đồng bộ và bản sao dữ liệu để giảm gián đoạn.
 
-    \item \textbf{Tăng bảo mật và theo dõi hệ thống:} thực hiện kiểm thử bảo mật chuyên sâu và diễn tập khôi phục định kỳ. Bảng theo dõi cần hiển thị thời gian phản hồi, tỷ lệ lỗi, tài nguyên sử dụng, chi phí AI và chất lượng tìm kiếm.
+    \item \textbf{Tăng bảo mật và theo dõi hệ thống:} thực hiện pentest độc lập, kiểm thử hỗn loạn và diễn tập khôi phục định kỳ. Bảng theo dõi cần hiển thị thời gian phản hồi, tỷ lệ lỗi, tài nguyên sử dụng, chi phí AI và chất lượng tìm kiếm.
 
     \item \textbf{Đánh giá với người dùng thực:} đo thời gian tìm sản phẩm, tỷ lệ hoàn thành thao tác và mức độ hài lòng. Kết quả sẽ giúp cải thiện giao diện và cách trợ lý đặt câu hỏi khi yêu cầu chưa rõ.
 \end{itemize}

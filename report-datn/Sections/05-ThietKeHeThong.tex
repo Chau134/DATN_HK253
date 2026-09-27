@@ -3,6 +3,7 @@
 %=========================
 
 \section{Thiết kế hệ thống}
+\label{sec:system-design}
 
 Chương này chuyển các yêu cầu và quy trình đã phân tích ở chương trước thành thiết kế kỹ thuật cho hệ thống thương mại điện tử tích hợp AI Shopping Assistant. Nội dung tập trung vào cấu trúc thành phần, dữ liệu, giao tiếp, bảo mật và triển khai. Spring Boot Backend là cổng giao tiếp duy nhất của Frontend, còn MySQL là nguồn dữ liệu nghiệp vụ chính. AI Service hỗ trợ truy hồi và tư vấn nhưng không thay thế Backend trong việc xác nhận sản phẩm, giá, tồn kho và đơn hàng.
 
@@ -70,12 +71,12 @@ Hình~\ref{fig:system-architecture} phân chia hệ thống thành vùng truy c�
 \textbf{Kiến trúc phía máy khách.}
 
 Frontend sử dụng React theo mô hình ứng dụng trang đơn. React Router quản lý định tuyến, Redux quản lý trạng thái dùng chung và lớp API tập trung giao tiếp với Backend. Cách tổ chức này giúp tái sử dụng thành phần giao diện và duy trì trạng thái nhất quán giữa các màn hình. Frontend chỉ hiển thị dữ liệu, tiếp nhận thao tác và hỗ trợ kiểm tra giao diện; quyền truy cập, giá bán, tồn kho và trạng thái đơn hàng vẫn phải được Backend xác minh. Frontend không lưu khóa AI và không kết nối trực tiếp đến MySQL hoặc Qdrant.
-
-\begin{table}[H]
+\clearpage
+\begin{breakabletable}
     \centering
     \small
     \setlength{\tabcolsep}{3pt}
-    \renewcommand{\arraystretch}{1.05}
+    \renewcommand{\arraystretch}{0.96}
     \caption{Các nhóm thành phần chính của Frontend}
     \label{tab:frontend-components}
     \begin{tabularx}{0.96\textwidth}{|p{0.24\textwidth}|X|}
@@ -93,7 +94,7 @@ Frontend sử dụng React theo mô hình ứng dụng trang đơn. React Router
         API và tiện ích & Chuẩn hóa request đến Backend, gắn access token, chuyển đổi dữ liệu và xử lý các mã lỗi trả về. \\
         \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \textbf{Kiến trúc Spring Boot Backend.}
 
@@ -101,7 +102,7 @@ Backend được tổ chức theo kiến trúc phân lớp gồm bảo mật, Co
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{Images/Thietkehethong/Kiến trúc phân lớp của Spring Boot Backend.drawio.png}
+    \includegraphics[width=0.91\textwidth]{Images/Thietkehethong/Kiến trúc phân lớp của Spring Boot Backend.drawio.png}
     \caption{Kiến trúc phân lớp của Spring Boot Backend}
     \label{fig:backend-layers}
 \end{figure}
@@ -110,9 +111,9 @@ Như thể hiện ở Hình~\ref{fig:backend-layers}, JWT Authentication Filter 
 
 \textbf{Kiến trúc AI Service.}
 
-AI Service được xây dựng bằng FastAPI với ba tầng: API và schema, dịch vụ xử lý truy vấn/hội thoại/đồng bộ, cùng hạ tầng kết nối Qdrant, Backend, checkpoint và nhà cung cấp mô hình. Dịch vụ chuẩn hóa request, tạo vector, truy hồi và trả về Backend các mã sản phẩm, điểm phù hợp, nguồn kết quả và cảnh báo. AI Service không truy cập trực tiếp MySQL; Qdrant chỉ là chỉ mục dẫn xuất và khi một thành phần lỗi, dịch vụ trả kết quả suy giảm thay vì tạo dữ liệu giao dịch.
+AI Service được xây dựng bằng FastAPI với ba tầng: API và schema, dịch vụ xử lý truy vấn/hội thoại/đồng bộ, cùng hạ tầng kết nối Qdrant, Backend, checkpoint và nhà cung cấp mô hình. Dịch vụ chuẩn hóa request, tạo vector, truy hồi và trả về Backend các mã sản phẩm, điểm phù hợp, nguồn kết quả và cảnh báo. AI Service không truy cập trực tiếp MySQL; Qdrant chỉ là chỉ mục dẫn xuất và khi một thành phần lỗi, dịch vụ trả kết quả suy giảm thay vì tạo dữ liệu giao dịch. Trách nhiệm từng mô-đun được tóm tắt tại Bảng~\ref{tab:ai-service-components}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Trách nhiệm các mô-đun chính của AI Service}
     \label{tab:ai-service-components}
@@ -129,7 +130,7 @@ AI Service được xây dựng bằng FastAPI với ba tầng: API và schema, 
         Infrastructure adapters & Đóng gói kết nối đến Qdrant, Backend, kho checkpoint và nhà cung cấp mô hình. \\
         \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 % \subsubsection{Giao tiếp và phân chia trách nhiệm}
 
@@ -160,10 +161,10 @@ có thể cập nhật lại hoặc tái tạo khi cần.
 
 \textbf{Quyền sở hữu và vòng đời dữ liệu.}
 
-Mỗi kho dữ liệu được sử dụng cho một mục đích riêng. Việc xác định nguồn dữ liệu
-chuẩn giúp hệ thống xử lý đúng khi thông tin trong các kho tạm thời chưa đồng bộ.
+Bảng~\ref{tab:overview-data-ownership} phân định vai trò và quyền sở hữu của từng
+kho, giúp hệ thống xử lý đúng khi dữ liệu dẫn xuất hoặc tạm thời chưa đồng bộ.
 
-\begin{table}[H]
+\begin{breakabletable}
 \centering
 \caption{Vai trò và quyền sở hữu dữ liệu của các kho lưu trữ}
 \label{tab:overview-data-ownership}
@@ -176,12 +177,12 @@ Kho checkpoint & Lưu trạng thái workflow, tóm tắt, ràng buộc và lựa
 Dịch vụ lưu trữ ảnh & Lưu tệp ảnh và cung cấp URL cho catalog hoặc truy vấn ảnh. & Backend kiểm tra tệp và chỉ lưu URL cần thiết trong dữ liệu sản phẩm. \\ \hline
 Log và metrics & Lưu thông tin lỗi, latency và trạng thái vận hành. & Chỉ phục vụ quan sát, không chứa token, bí mật hoặc nội dung nhạy cảm không cần thiết. \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \textbf{Mô hình dữ liệu tổng quan.}
 
 Dữ liệu MySQL được phân chia thành các miền nghiệp vụ nhằm giới hạn trách nhiệm
-của từng nhóm bảng và thuận lợi cho việc bảo trì. Sơ đồ tổng quan thể hiện các
+của từng nhóm bảng và thuận lợi cho việc bảo trì. Hình~\ref{fig:database-overview} thể hiện các
 bảng, khóa chính, khóa ngoại quan trọng và quan hệ giữa các miền; thuộc tính chi
 tiết của từng bảng được trình bày trong các sơ đồ thành phần ở phần tiếp theo.
 
@@ -382,7 +383,8 @@ MySQL là nguồn dữ liệu chuẩn, còn Qdrant chỉ lưu dữ liệu dẫn 
 Giá, tồn kho và trạng thái trong payload là ảnh chụp nên Qdrant chỉ dùng để tìm ứng
 viên; Spring Boot luôn nạp lại dữ liệu hiện hành từ MySQL trước khi trả kết quả.
 Hệ thống hỗ trợ đồng bộ toàn bộ, tăng dần, theo sản phẩm và xóa; các thao tác dùng
-\texttt{product\_id} ổn định nên có thể thực hiện lại an toàn.
+\texttt{product\_id} ổn định nên có thể thực hiện lại an toàn theo luồng tại
+Hình~\ref{fig:ai-sync-flow}.
 
 \begin{figure}[H]
     \centering
@@ -399,7 +401,7 @@ không hoàn tác giao dịch MySQL vì chỉ mục có thể được tái tạ
 
 \subsection{Thiết kế các chức năng cốt lõi}
 
-Các sơ đồ hoạt động chính đã được trình bày tại Chương 2. Phần này tập trung vào
+Các sơ đồ hoạt động chính đã được trình bày tại Chương~\ref{sec:requirements-analysis}. Phần này tập trung vào
 các quyết định bên trong như kiểm tra dữ liệu, transaction, chuyển trạng thái và
 cách xử lý khi dịch vụ phụ thuộc không khả dụng. Dữ liệu giao dịch được kiểm tra
 và lưu tại Backend, còn kết quả AI chỉ được dùng như dữ liệu hỗ trợ có thể xác minh.
@@ -486,13 +488,14 @@ trả lời, mã phiên và các sản phẩm có căn cứ.
 Các trường bắt buộc, giới hạn kích thước và định dạng dữ liệu được kiểm tra ở cả
 hai phía của kết nối. Với thao tác đồng bộ, Backend có thể gửi lại cùng một sản
 phẩm mà không tạo bản ghi trùng nhờ cơ chế upsert theo \texttt{product\_id} và
-thời điểm cập nhật.
+thời điểm cập nhật. Các hợp đồng chính được tổng hợp trong
+Bảng~\ref{tab:spring-ai-contracts}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Các hợp đồng chính giữa Spring Boot và AI Service}
     \label{tab:spring-ai-contracts}
-    \begin{tabularx}{\textwidth}{|p{0.20\textwidth}|p{0.30\textwidth}|X|}
+    \begin{tabularx}{\textwidth}{|p{0.18\textwidth}|p{0.36\textwidth}|X|}
         \hline
         \textbf{Hợp đồng} & \textbf{Dữ liệu chính} & \textbf{Ràng buộc thiết kế} \\
         \hline
@@ -503,7 +506,7 @@ thời điểm cập nhật.
         Assistant & Session ID, message, context tối thiểu, answer, candidate IDs & Không truyền dữ liệu nhạy cảm không cần thiết; metadata nội bộ không trả ra giao diện. \\
         \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \textbf{Bảo mật tại các lớp giao tiếp.}
 

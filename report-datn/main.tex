@@ -23,6 +23,13 @@
 \input{FrontMatter/cover}
 \input{FrontMatter/lists}
 
+% Đánh số bảng và hình theo chương (section cấp cao nhất của lớp article).
+% Phần đầu tài liệu được giữ nguyên cách đánh số hiện có.
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
 %========== Nội dung chính theo mục lục =========
 \input{Sections/01-GioiThieuDeTai}
 \input{Sections/02-PhanTichYeuCau}

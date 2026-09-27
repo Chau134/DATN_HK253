@@ -21,12 +21,14 @@ năng tích hợp với các thành phần đã có và khả năng thay thế k
 
 Kiến trúc công nghệ được tổ chức thành các nhóm. React đảm nhiệm giao diện; Spring
 Boot và MySQL xử lý nghiệp vụ cùng dữ liệu chuẩn; FastAPI điều phối AI Service;
-LangGraph quản lý workflow hội thoại; Bedrock cung cấp LLM và embedding; Qdrant
-phục vụ truy hồi vector; Docker, Google Compute Engine và Cloud Run cung cấp môi
-trường triển khai. Các nhóm này giao tiếp qua API và không để trình duyệt truy cập
-trực tiếp vào cơ sở dữ liệu, vector database hoặc khóa dịch vụ AI.
+LangGraph quản lý workflow hội thoại; Bedrock cung cấp LLM và embedding ở môi
+trường local, còn bản GCP tự phục vụ hai mô hình Qwen embedding; Qdrant phục vụ
+truy hồi vector. Docker, Google Compute Engine và Cloud Run cung cấp môi trường
+triển khai. Các nhóm này giao tiếp qua API và không để trình duyệt truy cập trực
+tiếp vào cơ sở dữ liệu, vector database hoặc khóa dịch vụ AI; tổng quan được trình
+bày trong Bảng~\ref{tab:technology_stack_overview}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Tổng quan các nhóm công nghệ được lựa chọn}
     \label{tab:technology_stack_overview}
@@ -36,10 +38,10 @@ trực tiếp vào cơ sở dữ liệu, vector database hoặc khóa dịch v�
         \textbf{Nhóm} & \textbf{Công nghệ chính} \\ \hline
         Ứng dụng và dữ liệu & React, Redux Toolkit, Spring Boot, Spring Security, MySQL \\ \hline
         AI và đa phương thức & Python, FastAPI, LangGraph, Amazon Bedrock, YOLOv26, Pillow \\ \hline
-        Truy hồi và trạng thái & Cohere Embed v4, Qdrant, hybrid fusion, reranker, Redis \\ \hline
+        Truy hồi và trạng thái & Cohere Embed v4 (local), Qwen3 Embedding (GCP), Qdrant, Redis \\ \hline
         Triển khai & Docker, Docker Compose, Google Compute Engine, Cloud Run \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \subsection{Công nghệ ứng dụng và dữ liệu nghiệp vụ}
 
@@ -103,25 +105,29 @@ Cloud Run tắt YOLO để giảm kích thước container và yêu cầu tài n
 
 \subsection{Công nghệ truy hồi, xếp hạng và quản lý trạng thái}
 
-Cohere Embed v4 qua Amazon Bedrock tạo vector cho văn bản và hình ảnh trong cùng
-pipeline đa phương thức. Hệ thống duy trì collection riêng cho từng modality, mỗi
-point liên kết với mã sản phẩm và các thuộc tính dùng để lọc như danh mục, màu, giá
-hoặc trạng thái hoạt động. Embedding managed giúp thống nhất mô hình biểu diễn mà
-không phải phục vụ mô hình vision--language cục bộ; hạn chế là độ trễ mạng, quota và
-chi phí theo request \parencite{cohereembedv42026}.
+Ở môi trường local, Cohere Embed v4 qua Amazon Bedrock tạo vector văn bản và hình
+ảnh. Bản GCP tự phục vụ Qwen3-Embedding-8B cho văn bản và
+Qwen3-VL-Embedding-2B cho ảnh. Hai modality được lưu trong các collection
+riêng; mỗi point liên kết với mã sản phẩm và metadata dùng để lọc như danh mục,
+màu, giá hoặc trạng thái hoạt động. Cohere giảm yêu cầu vận hành mô hình cục bộ
+nhưng phụ thuộc độ trễ mạng, quota và chi phí theo request
+\parencite{cohereembedv42026}; Qwen cần tài nguyên GPU nhưng cho phép kiểm soát mô
+hình và quá trình lập chỉ mục trong bản triển khai GCP.
 
 Qdrant được chọn làm vector database vì hỗ trợ cosine similarity, HNSW, payload
 filtering, API Python và self-host bằng Docker \parencite{qdrant_docs}. Search Service
-truy hồi các ứng viên từ nhánh văn bản và hình ảnh, quy về mã sản phẩm rồi áp dụng
-metadata cùng ràng buộc nghiệp vụ. Cách triển khai này cho phép kiểm soát dữ liệu và
-chi phí ở quy mô catalog hiện tại. Đổi lại, nhóm phát triển phải quản lý volume,
-snapshot, backup và khả năng tái lập chỉ mục.
+chọn collection theo loại đầu vào và quy kết quả về mã sản phẩm. Với truy vấn kết
+hợp, nhánh ảnh tạo tập ứng viên chính; các điều kiện văn bản được kiểm tra trên
+payload, còn truy hồi văn bản chỉ phục hồi ứng viên khi kết quả ảnh chưa đủ. Cách
+triển khai này cho phép kiểm soát dữ liệu và chi phí ở quy mô catalog hiện tại. Đổi
+lại, nhóm phát triển phải quản lý volume, snapshot, backup và khả năng tái lập chỉ mục.
 
-Các nhánh truy hồi được hợp nhất bằng hybrid fusion sau khi chuẩn hóa điểm. Reranker
-managed chỉ được bật qua feature flag trên tập ứng viên nhỏ, vì nó có thể làm tăng độ
-trễ và chi phí. Cấu hình báo cáo ưu tiên fusion không rerank do kết quả đánh giá hiện
-tại chưa chứng minh rerank cải thiện các chỉ số chính; thành phần này vẫn được giữ để
-thử nghiệm trong các cấu hình sau.
+Chính sách được chọn là image-conditioned: ảnh quyết định độ tương tự trực quan,
+văn bản cung cấp ràng buộc bắt buộc hoặc thuộc tính ưu tiên, và kết quả được xếp
+hạng chủ yếu theo điểm ảnh. Hệ thống không cộng trọng số điểm text--image và không
+dùng hybrid fusion trong cấu hình vận hành. Reranker vẫn có feature flag để phục vụ
+thực nghiệm nhưng được tắt vì kết quả đánh giá không cho thấy lợi ích trên cấu hình
+được chọn.
 
 Redis đồng thời cung cấp nơi lưu checkpoint và trạng thái hội thoại khi AI Service
 chạy trên Cloud Run. Trạng thái cần được phân tách theo người dùng và phiên, có TTL,
@@ -144,9 +150,10 @@ dịch vụ cần thiết qua mạng riêng; Secret Manager cung cấp token Bed
 key và Redis URL. GCE phù hợp với thành phần cần volume và cấu hình mạng ổn định,
 trong khi Cloud Run phù hợp với AI Service dạng stateless khi checkpoint được đưa vào
 Redis. Đổi lại, mô hình này cần quản lý IAM, logging, quota, private networking và
-chi phí trên hai kiểu môi trường \parencite{gce2026,cloudrun2026}.
+chi phí trên hai kiểu môi trường \parencite{gce2026,cloudrun2026}. Vai trò của
+các công nghệ trong toàn hệ thống được tổng hợp tại Bảng~\ref{tab:technology_core_roles}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Công nghệ và vai trò cốt lõi}
     \label{tab:technology_core_roles}
@@ -159,11 +166,11 @@ chi phí trên hai kiểu môi trường \parencite{gce2026,cloudrun2026}.
         Dữ liệu chuẩn & MySQL & Lưu trữ tài khoản, sản phẩm, tồn kho, giỏ hàng, khuyến mãi và đơn hàng. \\ \hline
         AI Service & Python, FastAPI, Pydantic, Amazon Bedrock & Phân tích truy vấn, điều phối xử lý AI, kiểm tra dữ liệu vào/ra và sinh phản hồi. \\ \hline
         Hội thoại & LangGraph, Redis & Điều phối workflow nhiều lượt, lưu checkpoint và trạng thái phiên ngoài container. \\ \hline
-        Đa phương thức & YOLOv26, Pillow, Cohere Embed v4 & Phát hiện/crop vùng sản phẩm, tiền xử lý ảnh và tạo embedding văn bản--hình ảnh. \\ \hline
-        Truy hồi & Qdrant, hybrid fusion, reranker & Lưu vector, lọc metadata, truy hồi ứng viên và hợp nhất/xếp hạng kết quả. \\ \hline
+        Đa phương thức & YOLOv26, Pillow, Cohere Embed v4, Qwen3-Embedding-8B, Qwen3-VL-Embedding-2B & Phát hiện/crop vùng sản phẩm, tiền xử lý ảnh và tạo embedding theo môi trường triển khai. \\ \hline
+        Truy hồi & Qdrant, metadata filtering, chính sách image-conditioned & Lưu vector, lọc ràng buộc, truy hồi theo ảnh và phục hồi bằng văn bản khi thiếu ứng viên. \\ \hline
         Triển khai & Docker, Docker Compose, GCE, Cloud Run, Secret Manager & Đóng gói, kết nối, triển khai các dịch vụ và quản lý cấu hình bí mật. \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \subsection*{Kết chương}
 

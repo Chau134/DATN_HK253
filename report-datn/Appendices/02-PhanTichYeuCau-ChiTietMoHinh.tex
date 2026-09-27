@@ -3,6 +3,7 @@
 % Phụ lục B – Mô hình phân tích chi tiết
 %=========================
 \section{Mô hình phân tích chi tiết}
+\label{analysis-model-detail}
 
 Phụ lục này bổ sung các sơ đồ quy trình nghiệp vụ, một bảng tổng hợp đặc tả
 Usecase và các sơ đồ hoạt động không xuất hiện trong Chương 2.
@@ -11,7 +12,7 @@ Usecase và các sơ đồ hoạt động không xuất hiện trong Chương 2.
 \begin{minipage}{\textwidth}
 \subsubsection{Quy trình thương mại điện tử tổng quát}
 
-Quy trình thương mại điện tử tổng quát mô tả luồng mua sắm cơ bản của người dùng trên website, từ khi truy cập hệ thống, tìm kiếm sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán cho đến theo dõi và đánh giá đơn hàng. Bên cạnh đó, quản trị viên tham gia vào quy trình thông qua việc xử lý và cập nhật trạng thái đơn hàng.
+Hình~\ref{fig:ecommerce-process} mô tả luồng mua sắm cơ bản của người dùng trên website, từ khi truy cập hệ thống, tìm kiếm sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán cho đến theo dõi và đánh giá đơn hàng. Bên cạnh đó, quản trị viên tham gia vào quy trình thông qua việc xử lý và cập nhật trạng thái đơn hàng.
 
 
 \centering
@@ -124,79 +125,46 @@ Quy trình thương mại điện tử tổng quát mô tả luồng mua sắm c
 \begin{minipage}{\textwidth}
 \subsubsection{Quy trình AI Shopping Assistant tổng quát}
 
-Quy trình AI Shopping Assistant mô tả luồng xử lý có kiểm soát từ lúc nhận truy vấn đến khi trả kết quả. Sau khi đọc memory và phân tích ý định, hệ thống tạo embedding, truy hồi song song từ collection text/image của Qdrant, lọc metadata, fusion, rerank, lấy thông tin hiện hành từ MySQL và mới sử dụng LLM để sinh phản hồi có căn cứ. Khi không có kết quả hoặc dịch vụ AI lỗi, hệ thống ghi log, thông báo phù hợp và giữ các chức năng thương mại điện tử cơ bản hoạt động.
+Hình~\ref{fig:business-process} mô tả luồng xử lý có kiểm soát từ lúc nhận truy vấn đến khi trả kết quả. Sau khi đọc memory và phân tích ý định, hệ thống định tuyến theo loại đầu vào, tạo embedding, truy hồi collection tương ứng và kiểm tra metadata. Với ảnh--văn bản, ảnh tạo tập ứng viên chính, còn văn bản cung cấp ràng buộc và chỉ mở nhánh phục hồi khi chưa đủ ứng viên. Hệ thống lấy thông tin hiện hành từ MySQL trước khi dùng LLM để sinh phản hồi có căn cứ. Khi không có kết quả hoặc dịch vụ AI lỗi, hệ thống ghi log, thông báo phù hợp và giữ các chức năng thương mại điện tử cơ bản hoạt động.
 
 
 \centering
 
-\begin{tikzpicture}
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    process/.style={draw, rounded corners, minimum height=0.78cm,
+        text width=5.5cm, align=center, fill=green!10},
+    model/.style={process, fill=purple!10},
+    storage/.style={process, fill=orange!15},
+    flow/.style={->, thick}
+]
+\node[process, fill=blue!10] (input) {Người dùng gửi văn bản, ảnh hoặc cả hai};
+\node[process, below=0.30cm of input] (understanding)
+    {Đọc memory, phân tích ý định và trích xuất ràng buộc};
+\node[process, below=0.30cm of understanding] (routing)
+    {Định tuyến Text / Image / Image-conditioned};
+\node[model, below=0.30cm of routing] (embedding)
+    {Tạo embedding theo nhánh được chọn};
+\node[storage, below=0.30cm of embedding] (retrieval)
+    {Truy hồi collection Qdrant tương ứng};
+\node[process, below=0.30cm of retrieval] (policy)
+    {Kiểm tra ràng buộc và xếp hạng theo chính sách của từng nhánh};
+\node[storage, below=0.30cm of policy] (mysql)
+    {Backend lấy giá, tồn kho và trạng thái hiện hành từ MySQL};
+\node[model, below=0.30cm of mysql] (grounded)
+    {Sinh phản hồi có căn cứ và cập nhật memory};
+\node[process, fill=blue!10, below=0.30cm of grounded] (result)
+    {Trả kết quả hoặc fallback có kiểm soát};
 
-%================ BOXES =================
-\draw[rounded corners, fill=blue!10]
-(0,0) rectangle (4,1)
-node[pos=.5]{Người dùng};
-
-\draw[rounded corners, fill=green!10]
-(0,-2) rectangle (4,-1)
-node[pos=.5]{Gửi truy vấn};
-
-\draw[rounded corners, fill=green!10]
-(0,-4) rectangle (4,-3)
-node[pos=.5]{Query Understanding};
-
-\draw[rounded corners, fill=purple!10]
-(0,-6) rectangle (4,-5)
-node[pos=.5]{Multimodal Embedding};
-
-\draw[rounded corners, fill=orange!15]
-(6,-6) rectangle (9,-5)
-node[pos=.5]{Qdrant Search};
-
-\draw[rounded corners, fill=green!10]
-(0,-8) rectangle (4,-7)
-node[pos=.5]{Metadata + Fusion};
-
-\draw[rounded corners, fill=green!10]
-(0,-10) rectangle (4,-9)
-node[pos=.5]{Managed Reranking};
-
-\draw[rounded corners, fill=purple!10]
-(0,-12) rectangle (4,-11)
-node[pos=.5]{Grounded Response};
-
-\draw[rounded corners, fill=orange!15]
-(6,-12) rectangle (9,-11)
-node[pos=.5]{Memory};
-
-\draw[rounded corners, fill=green!10]
-(0,-14) rectangle (4,-13)
-node[pos=.5]{Result / Fallback};
-
-%================ ARROWS =================
-\draw[->, thick] (2,0) -- (2,-1);
-
-\draw[->, thick] (2,-2) -- (2,-3);
-
-\draw[->, thick] (2,-4) -- (2,-5);
-
-\draw[->, thick] (2,-6) -- (2,-7);
-
-\draw[->, thick] (2,-8) -- (2,-9);
-
-\draw[->, thick] (2,-10) -- (2,-11);
-
-\draw[->, thick] (2,-12) -- (2,-13);
-
-%================ DB FLOW =================
-\draw[->, thick] (4,-5.5) -- (6,-5.5);
-
-\draw[->, thick] (7.5,-6) -- (7.5,-7.5) -- (4,-7.5);
-
-%================ MEMORY =================
-\draw[->, thick] (4,-11.5) -- (6,-11.5);
-
-\draw[->, thick] (7.5,-11) -- (7.5,-10) -- (4,-10);
-
+\draw[flow] (input) -- (understanding);
+\draw[flow] (understanding) -- (routing);
+\draw[flow] (routing) -- (embedding);
+\draw[flow] (embedding) -- (retrieval);
+\draw[flow] (retrieval) -- (policy);
+\draw[flow] (policy) -- (mysql);
+\draw[flow] (mysql) -- (grounded);
+\draw[flow] (grounded) -- (result);
 \end{tikzpicture}
 
 \captionof{figure}{Quy trình nghiệp vụ hệ thống AI Shopping Assistant}
@@ -210,7 +178,7 @@ node[pos=.5]{Result / Fallback};
 \begin{minipage}{\textwidth}
 \subsubsection{Tìm kiếm bằng văn bản}
 
-Đây là quy trình cốt lõi trong hệ thống AI Shopping Assistant. Người dùng nhập truy vấn bằng ngôn ngữ tự nhiên thay vì keyword đơn giản. Hệ thống sẽ thực hiện semantic embedding và vector retrieval để tìm các sản phẩm phù hợp về mặt ngữ nghĩa.
+Hình~\ref{fig:text-search-process} trình bày quy trình cốt lõi của AI Shopping Assistant. Người dùng nhập truy vấn bằng ngôn ngữ tự nhiên thay vì keyword đơn giản. Hệ thống sẽ thực hiện semantic embedding và vector retrieval để tìm các sản phẩm phù hợp về mặt ngữ nghĩa.
 
 % \textbf{Luồng xử lý chính:}
 
@@ -231,55 +199,35 @@ node[pos=.5]{Result / Fallback};
 
 \centering
 
-\begin{tikzpicture}
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    process/.style={draw, rounded corners, minimum height=0.80cm,
+        text width=5.5cm, align=center, fill=green!10},
+    model/.style={process, fill=purple!10},
+    storage/.style={process, fill=orange!15},
+    flow/.style={->, thick}
+]
+\node[process, fill=blue!10] (input) {Người dùng nhập truy vấn văn bản};
+\node[process, below=0.36cm of input] (understanding)
+    {Chuẩn hóa truy vấn, phân tích ý định và xác định bộ lọc};
+\node[model, below=0.36cm of understanding] (embedding)
+    {Tạo text embedding};
+\node[storage, below=0.36cm of embedding] (retrieval)
+    {Truy hồi Qdrant Text Collection bằng cosine/ANN};
+\node[process, below=0.36cm of retrieval] (ranking)
+    {Lọc metadata, khử trùng theo product\_id và xếp hạng bằng tín hiệu vector--lexical};
+\node[storage, below=0.36cm of ranking] (mysql)
+    {Backend lấy dữ liệu sản phẩm hiện hành từ MySQL};
+\node[process, fill=blue!10, below=0.36cm of mysql] (result)
+    {Trả danh sách Top-K hoặc kết quả fallback};
 
-%================ BOXES =================
-\draw[rounded corners, fill=blue!10]
-(0,0) rectangle (4,1)
-node[pos=.5]{Người dùng};
-
-\draw[rounded corners, fill=green!10]
-(0,-2) rectangle (4,-1)
-node[pos=.5]{Nhập text query};
-
-\draw[rounded corners, fill=green!10]
-(0,-4) rectangle (4,-3)
-node[pos=.5]{Query Understanding};
-
-\draw[rounded corners, fill=purple!10]
-(0,-6) rectangle (4,-5)
-node[pos=.5]{Text Embedding};
-
-\draw[rounded corners, fill=orange!15]
-(6,-6) rectangle (9,-5)
-node[pos=.5]{Qdrant Text};
-
-\draw[rounded corners, fill=green!10]
-(0,-8) rectangle (4,-7)
-node[pos=.5]{ANN Search};
-
-\draw[rounded corners, fill=green!10]
-(0,-10) rectangle (4,-9)
-node[pos=.5]{Metadata + Rerank};
-
-\draw[rounded corners, fill=green!10]
-(0,-12) rectangle (4,-11)
-node[pos=.5]{MySQL + Results};
-
-%================ ARROWS =================
-\draw[->, thick] (2,0) -- (2,-1);
-\draw[->, thick] (2,-2) -- (2,-3);
-\draw[->, thick] (2,-4) -- (2,-5);
-\draw[->, thick] (2,-6) -- (2,-7);
-\draw[->, thick] (2,-8) -- (2,-9);
-\draw[->, thick] (2,-10) -- (2,-11);
-
-%================ VECTOR DB =================
-\draw[->, thick] (4,-5.5) -- (6,-5.5);
-
-\draw[->, thick]
-(7.5,-6) -- (7.5,-7.5) -- (4,-7.5);
-
+\draw[flow] (input) -- (understanding);
+\draw[flow] (understanding) -- (embedding);
+\draw[flow] (embedding) -- (retrieval);
+\draw[flow] (retrieval) -- (ranking);
+\draw[flow] (ranking) -- (mysql);
+\draw[flow] (mysql) -- (result);
 \end{tikzpicture}
 
 \captionof{figure}{Quy trình tìm kiếm sản phẩm bằng văn bản}
@@ -293,9 +241,9 @@ node[pos=.5]{MySQL + Results};
 \begin{minipage}{\textwidth}
 \subsubsection{Tìm kiếm bằng hình ảnh}
 
-Hệ thống hỗ trợ image retrieval nhằm cho phép người dùng tải lên hình ảnh sản phẩm và tìm các sản phẩm tương tự trong cơ sở dữ liệu.
+Hình~\ref{fig:image-search-process} mô tả chức năng image retrieval, cho phép người dùng tải lên hình ảnh và tìm sản phẩm tương tự trong cơ sở dữ liệu.
 
-Hệ thống kiểm tra định dạng và tiền xử lý ảnh trước khi tạo image embedding. YOLO chỉ là bước crop tùy chọn ở môi trường phát triển; khi production tắt YOLO, ảnh gốc được sử dụng trực tiếp. Sau đó hệ thống truy hồi image collection, lọc metadata nếu có điều kiện bổ sung và rerank kết quả.
+Hệ thống kiểm tra định dạng và tiền xử lý ảnh trước khi tạo image embedding. YOLO chỉ là bước crop tùy chọn ở môi trường phát triển; khi production tắt YOLO, ảnh gốc được sử dụng trực tiếp. Sau đó hệ thống truy hồi image collection, lọc metadata nếu có điều kiện bổ sung, loại trùng theo mã sản phẩm và xếp hạng theo độ tương tự ảnh.
 
 % \textbf{Luồng xử lý chính:}
 
@@ -317,54 +265,38 @@ Hệ thống kiểm tra định dạng và tiền xử lý ảnh trước khi t�
 
 \centering
 
-\begin{tikzpicture}
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    process/.style={draw, rounded corners, minimum height=0.80cm,
+        text width=5.5cm, align=center, fill=green!10},
+    model/.style={process, fill=purple!10},
+    storage/.style={process, fill=orange!15},
+    flow/.style={->, thick}
+]
+\node[process, fill=blue!10] (input) {Người dùng tải ảnh hoặc chọn vùng quan tâm};
+\node[process, below=0.34cm of input] (validate)
+    {Kiểm tra định dạng, kích thước và giải mã ảnh};
+\node[model, below=0.34cm of validate] (crop)
+    {Dùng vùng chọn hoặc YOLO để crop; fallback về ảnh gốc};
+\node[model, below=0.34cm of crop] (embedding)
+    {Tạo image embedding};
+\node[storage, below=0.34cm of embedding] (retrieval)
+    {Truy hồi Qdrant Image Collection bằng cosine/ANN};
+\node[process, below=0.34cm of retrieval] (ranking)
+    {Lọc metadata, khử trùng theo product\_id và xếp hạng theo độ tương tự ảnh};
+\node[storage, below=0.34cm of ranking] (mysql)
+    {Backend lấy dữ liệu sản phẩm hiện hành từ MySQL};
+\node[process, fill=blue!10, below=0.34cm of mysql] (result)
+    {Trả danh sách Top-K hoặc fallback khi không có kết quả};
 
-\draw[rounded corners, fill=blue!10]
-(0,0) rectangle (4,1)
-node[pos=.5]{Người dùng};
-
-\draw[rounded corners, fill=green!10]
-(0,-2) rectangle (4,-1)
-node[pos=.5]{Upload hình ảnh};
-
-\draw[rounded corners, fill=green!10]
-(0,-4) rectangle (4,-3)
-node[pos=.5]{Validate Image};
-
-\draw[rounded corners, fill=purple!10]
-(0,-6) rectangle (4,-5)
-node[pos=.5]{Optional YOLO};
-
-\draw[rounded corners, fill=purple!10]
-(0,-8) rectangle (4,-7)
-node[pos=.5]{Image Embedding};
-
-\draw[rounded corners, fill=orange!15]
-(6,-8) rectangle (9,-7)
-node[pos=.5]{Qdrant Image};
-
-\draw[rounded corners, fill=green!10]
-(0,-10) rectangle (4,-9)
-node[pos=.5]{Metadata + Rerank};
-
-\draw[rounded corners, fill=green!10]
-(0,-12) rectangle (4,-11)
-node[pos=.5]{Results / Fallback};
-
-%================ ARROWS =================
-\draw[->, thick] (2,0) -- (2,-1);
-\draw[->, thick] (2,-2) -- (2,-3);
-\draw[->, thick] (2,-4) -- (2,-5);
-\draw[->, thick] (2,-6) -- (2,-7);
-\draw[->, thick] (2,-8) -- (2,-9);
-\draw[->, thick] (2,-10) -- (2,-11);
-
-%================ DB =================
-\draw[->, thick] (4,-7.5) -- (6,-7.5);
-
-\draw[->, thick]
-(7.5,-8) -- (7.5,-9.5) -- (4,-9.5);
-
+\draw[flow] (input) -- (validate);
+\draw[flow] (validate) -- (crop);
+\draw[flow] (crop) -- (embedding);
+\draw[flow] (embedding) -- (retrieval);
+\draw[flow] (retrieval) -- (ranking);
+\draw[flow] (ranking) -- (mysql);
+\draw[flow] (mysql) -- (result);
 \end{tikzpicture}
 
 \captionof{figure}{Quy trình tìm kiếm bằng hình ảnh}
@@ -379,7 +311,7 @@ node[pos=.5]{Results / Fallback};
 \begin{minipage}{\textwidth}
 \subsubsection{Tìm kiếm kết hợp ảnh--văn bản}
 
-Hybrid Search sử dụng chính sách image-conditioned: ảnh tham chiếu xác định độ tương tự
+Hình~\ref{fig:hybrid-search-process} mô tả Hybrid Search theo chính sách image-conditioned: ảnh tham chiếu xác định độ tương tự
 trực quan, còn văn bản được tách thành các ràng buộc tìm kiếm. Hệ thống truy hồi ứng
 viên theo ảnh và chỉ dùng truy hồi văn bản để phục hồi khi số ứng viên hợp lệ chưa đủ
 hoặc độ tương tự ảnh còn thấp.
@@ -487,13 +419,13 @@ Trong trường hợp này, hình ảnh giữ đặc trưng của sản phẩm t
 
 \subsection{Tổng hợp đặc tả Usecase}
 
-Ba sơ đồ Usecase tổng quan đã được trình bày tại Chương 2. Bảng dưới đây tổng hợp
+Ba sơ đồ Usecase tổng quan đã được trình bày tại Chương 2. Bảng~\ref{appendix:tab:usecase-summary} tổng hợp
 tác nhân, mục tiêu và điều kiện hoặc kết quả chính của các Usecase; báo cáo không
 tách thành bảng đặc tả riêng cho từng Usecase.
 
 \small
 \begin{longtable}{|p{0.10\textwidth}|p{0.20\textwidth}|p{0.15\textwidth}|p{0.22\textwidth}|p{0.22\textwidth}|}
-    \caption{Tổng hợp đặc tả Usecase}\label{appendix:tab:usecase-summary}\\
+    \caption{Tổng hợp đặc tả Usecase}\label{tab:usecase-summary}\\
     \hline
     \textbf{Mã} & \textbf{Usecase} & \textbf{Tác nhân} & \textbf{Mục tiêu} & \textbf{Điều kiện/Kết quả chính} \\ \hline
     \endfirsthead
@@ -528,7 +460,7 @@ tách thành bảng đặc tả riêng cho từng Usecase.
     UC-AD-10 & Kiểm duyệt đánh giá & Quản trị viên & Duyệt hoặc ẩn phản hồi & Có quyền; trạng thái đánh giá được cập nhật. \\ \hline
     UC-AI-01 & Tìm kiếm văn bản & Người dùng & Tìm theo ngữ nghĩa & Truy vấn hợp lệ; trả danh sách đã xếp hạng. \\ \hline
     UC-AI-02 & Tìm kiếm hình ảnh & Người dùng & Tìm sản phẩm tương tự & Ảnh hợp lệ; trả kết quả tương tự. \\ \hline
-    UC-AI-03 & Tìm kiếm kết hợp & Người dùng & Kết hợp văn bản và ảnh & Có đầu vào hợp lệ; kết quả được hợp nhất và xếp hạng. \\ \hline
+    UC-AI-03 & Tìm kiếm kết hợp & Người dùng & Dùng ảnh tham chiếu và điều kiện văn bản & Có đầu vào hợp lệ; ứng viên thỏa ràng buộc và được xếp hạng chủ yếu theo ảnh. \\ \hline
     UC-AI-04 & Chat tư vấn đa lượt & Người dùng & Nhận tư vấn theo ngữ cảnh & Phiên hợp lệ; phản hồi và ngữ cảnh được lưu. \\ \hline
     UC-AI-05 & Chọn vùng ảnh & Người dùng & Giới hạn đối tượng cần tìm & Vùng chọn hợp lệ; chuyển sang tìm kiếm ảnh hoặc kết hợp. \\ \hline
     UC-AI-06 & Gửi phản hồi AI & Khách hàng & Đánh giá mức hữu ích & Có kết quả; phản hồi được lưu. \\ \hline
@@ -563,7 +495,7 @@ hệ thống rollback để bảo đảm trạng thái đơn và tồn kho nhấ
 \begin{minipage}{\textwidth}
 \subsubsection{Đồng bộ chỉ mục AI}
 
-Quản trị viên khởi tạo tác vụ đồng bộ; Backend lấy dữ liệu sản phẩm từ MySQL và
+Hình~\ref{appendix:fig:activity-ai-index-sync} mô tả việc quản trị viên khởi tạo tác vụ đồng bộ; Backend lấy dữ liệu sản phẩm từ MySQL và
 AI Service cập nhật vector trong Qdrant theo từng lô. Sản phẩm lỗi được ghi nhận
 để thử lại mà không làm dừng toàn bộ tác vụ.
 

@@ -129,12 +129,16 @@ component dùng lại và lớp API. Các lớp này phối hợp để hiển t
 request đến Backend; quyền truy cập và dữ liệu nghiệp vụ vẫn được xác minh ở phía máy chủ. Khu vực
 quản trị sử dụng tuyến riêng, còn các chức năng khám phá sản phẩm, tư vấn AI và đọc bài viết được
 đặt trong các tuyến công khai hoặc yêu cầu đăng nhập tùy theo nghiệp vụ.
+Ánh xạ giữa nhóm giao diện, tuyến và chức năng được tổng hợp trong
+Bảng~\ref{tab:frontend-interface-map}.
 
 \begin{table}[H]
     \centering
     \caption{Ánh xạ các nhóm giao diện Frontend với chức năng chính}
     \label{tab:frontend-interface-map}
-    \begin{tabularx}{\textwidth}{|>{\RaggedRight\arraybackslash}p{0.22\textwidth}|>{\RaggedRight\arraybackslash}p{0.25\textwidth}|X|}
+    \small
+    \renewcommand{\arraystretch}{0.95}
+    \begin{tabular}{|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.21\textwidth}|>{\RaggedRight\arraybackslash}p{\dimexpr0.59\textwidth-6\tabcolsep-4\arrayrulewidth\relax}|}
         \hline
         \textbf{Nhóm giao diện} & \textbf{Tuyến tiêu biểu} & \textbf{Chức năng hiện thực} \\
         \hline
@@ -150,7 +154,7 @@ quản trị sử dụng tuyến riêng, còn các chức năng khám phá sản
         \hline
         Quản trị & \texttt{/admin} & Quản lý sản phẩm, khách hàng, đơn hàng, khuyến mãi, coupon và bài viết. \\
         \hline
-    \end{tabularx}
+    \end{tabular}
 \end{table}
 
 \subsubsection{Giao diện dành cho khách hàng}

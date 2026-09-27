@@ -168,3 +168,14 @@
   \repeat
   \endgroup
 }
+% Bảng dài không được đặt trong float, nên tabularx/ltablex có thể ngắt trang.
+% Môi trường vẫn thiết lập đúng kiểu caption và giữ phạm vi của các lệnh cục bộ.
+\makeatletter
+\newcounter{breakabletableanchor}
+\newenvironment{breakabletable}
+  {\par\begingroup
+   \stepcounter{breakabletableanchor}%
+   \def\theHtable{breakable.\arabic{breakabletableanchor}.\arabic{table}}%
+   \def\@captype{table}}
+  {\addtocounter{table}{-1}\par\endgroup}
+\makeatother

@@ -5,8 +5,12 @@
 
 % Các phần trước Danh mục từ viết tắt: không hiện số trang
 \pagenumbering{gobble}
+% Phần đầu báo cáo không dùng header (logo/tên trường và tiêu đề trang).
+% Kiểu plain vẫn giữ số trang ở chân trang khi chuyển sang đánh số La Mã.
+\pagestyle{plain}
 
 
+\input{FrontMatter/advisor_signature}
 \input{FrontMatter/Camdoan}
 \input{FrontMatter/Thankyou}
 \input{FrontMatter/summary_vi}
@@ -50,5 +54,6 @@
 \clearpage
 
 % Nội dung chính bắt đầu lại từ trang 1
+\pagestyle{fancy}
 \pagenumbering{arabic}
 \setcounter{page}{1}

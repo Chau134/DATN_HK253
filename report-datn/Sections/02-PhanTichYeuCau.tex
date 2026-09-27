@@ -4,6 +4,7 @@
 %=========================
 
 \section{Phân tích yêu cầu}
+\label{sec:requirements-analysis}
 
 Chương này trình bày quá trình phân tích yêu cầu của hệ thống thương mại điện tử
 tích hợp trợ lý mua sắm đa phương thức. Nội dung bắt đầu từ khảo sát hiện trạng,
@@ -36,7 +37,7 @@ thương mại điện tử.
 Kết quả khảo sát các chức năng được công bố trên Shopee, Tiki và Google Lens được
 tổng hợp trong Bảng~\ref{tab:comparison-shopping-search-solutions}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \footnotesize
     \caption{So sánh khả năng tìm kiếm và tư vấn sản phẩm của các giải pháp khảo sát}
@@ -57,7 +58,7 @@ tổng hợp trong Bảng~\ref{tab:comparison-shopping-search-solutions}.
         & Cho phép tinh chỉnh truy vấn hình ảnh, nhưng không phải quy trình tư vấn mua hàng của một sàn cụ thể.
         & Thông tin được tổng hợp từ nhiều nguồn trên Internet. \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 Kết quả so sánh cho thấy các giải pháp hiện có đã hỗ trợ tốt từng hình thức tìm
 kiếm riêng: Shopee và Tiki tập trung vào tra cứu trong danh mục của nền tảng,
@@ -78,9 +79,10 @@ AI trong các mục tiếp theo.
 Các bên liên quan được xác định theo mục tiêu và cách tương tác với hệ thống.
 Khách vãng lai và khách hàng sử dụng các chức năng mua sắm; quản trị viên chịu
 trách nhiệm vận hành dữ liệu và nghiệp vụ. AI Service là tác nhân kỹ thuật phối
-hợp với Backend, không phải người dùng độc lập.
+hợp với Backend, không phải người dùng độc lập. Vai trò của các tác nhân được
+tổng hợp trong Bảng~\ref{tab:system-actors}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Các bên liên quan và tác nhân chính của hệ thống}
     \label{tab:system-actors}
@@ -93,7 +95,7 @@ hợp với Backend, không phải người dùng độc lập.
         AI Service & Cung cấp chức năng AI & Phân tích truy vấn, truy hồi vector, xếp hạng, hội thoại RAG và đồng bộ chỉ mục. \\ \hline
         Chủ hệ thống & Theo dõi chất lượng vận hành & Quan tâm đến hiệu năng, bảo mật, tính đúng đắn dữ liệu và khả năng bảo trì. \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \subsection{Phân tích quy trình nghiệp vụ}
 
@@ -105,10 +107,12 @@ thái; quản trị viên tiếp nhận và xử lý đơn theo các chuyển tr
 
 \textbf{Quy trình tìm kiếm và tư vấn sản phẩm.}
 Hệ thống nhận văn bản, hình ảnh hoặc cả hai, sau đó kiểm tra đầu vào, phân tích
-ý định và tạo embedding tương ứng. Các ứng viên được truy hồi từ Qdrant, lọc
-theo metadata, hợp nhất và tái xếp hạng khi cần. Dữ liệu hiện hành từ MySQL được
-dùng để hoàn thiện kết quả; với hội thoại, RAG và bộ nhớ phiên hỗ trợ tạo phản
-hồi có căn cứ và duy trì ngữ cảnh nhiều lượt.
+ý định và tạo embedding tương ứng. Với truy vấn kết hợp, ảnh xác định độ tương
+tự trực quan, còn văn bản được chuyển thành các ràng buộc; truy hồi văn bản chỉ
+bổ sung ứng viên khi nhánh ảnh chưa đủ kết quả hợp lệ. Ứng viên được lọc theo
+metadata và xếp hạng theo ảnh trước khi Backend lấy dữ liệu hiện hành từ MySQL.
+Với hội thoại, RAG và bộ nhớ phiên hỗ trợ tạo phản hồi có căn cứ và duy trì ngữ
+cảnh nhiều lượt.
 
 \textbf{Quy trình quản trị và đồng bộ dữ liệu.}
 Khi quản trị viên thay đổi sản phẩm, Backend ghi nhận dữ liệu nghiệp vụ trong
@@ -116,14 +120,16 @@ MySQL và tạo tác vụ đồng bộ. AI Service chuẩn hóa metadata, sinh h
 embedding rồi ghi vào Qdrant. Lỗi của một sản phẩm được ghi nhận để thử lại và
 không làm mất dữ liệu giao dịch hay dừng toàn bộ tác vụ.
 
-Các sơ đồ quy trình chi tiết được trình bày tại Phụ lục~B.
+Các sơ đồ quy trình chi tiết được trình bày tại
+Phụ lục~\ref{appendix:analysis-model-detail}.
 
 \subsection{Yêu cầu chức năng}
 
-Các yêu cầu chức năng được nhóm theo năng lực thay vì liệt kê riêng từng thao
-tác CRUD. Danh mục và đặc tả đầy đủ được chuyển sang Phụ lục~A.
+Các yêu cầu chức năng chính được nhóm theo năng lực trong
+Bảng~\ref{tab:functional-requirements-summary}. Danh mục và đặc tả đầy đủ được chuyển sang
+Phụ lục~\ref{appendix:functional-requirements-detail}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \small
     \caption{Tổng hợp yêu cầu chức năng chính}
@@ -137,10 +143,10 @@ tác CRUD. Danh mục và đặc tả đầy đủ được chuyển sang Phụ 
         FR-EC-04 & Quản trị & Quản lý sản phẩm, tồn kho, đơn hàng, người dùng, khuyến mãi và nội dung. & Cao \\ \hline
         FR-AI-01 & Tìm kiếm đa phương thức & Tìm kiếm bằng văn bản, hình ảnh hoặc truy vấn kết hợp có bộ lọc. & Cao \\ \hline
         FR-AI-02 & Tư vấn sản phẩm & Hội thoại nhiều lượt, truy hồi dữ liệu và tạo phản hồi có căn cứ. & Cao \\ \hline
-        FR-AI-03 & Xếp hạng kết quả & Hợp nhất các nhánh truy hồi, lọc metadata và tái xếp hạng ứng viên. & Cao \\ \hline
+        FR-AI-03 & Lọc và xếp hạng kết quả & Áp dụng ràng buộc metadata; truy vấn kết hợp ưu tiên độ tương tự ảnh và chỉ dùng truy hồi văn bản để bổ sung ứng viên khi cần. & Cao \\ \hline
         FR-AI-04 & Đồng bộ và dự phòng & Đồng bộ chỉ mục Qdrant; duy trì nghiệp vụ cơ bản khi AI tạm lỗi. & Cao \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \subsection{Yêu cầu dữ liệu và yêu cầu phi chức năng}
 
@@ -148,13 +154,14 @@ tác CRUD. Danh mục và đặc tả đầy đủ được chuyển sang Phụ 
 
 MySQL là nguồn dữ liệu nghiệp vụ chính; Qdrant lưu vector và metadata phục vụ
 truy hồi; Redis lưu cache và checkpoint hội thoại. Việc đồng bộ sang các kho hỗ
-trợ không được làm thay đổi tính đúng đắn của dữ liệu giao dịch trong MySQL.
+trợ không được làm thay đổi tính đúng đắn của dữ liệu giao dịch trong MySQL;
+các nhóm dữ liệu được tổng hợp trong Bảng~\ref{tab:data-requirements}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Các nhóm dữ liệu chính}
     \label{tab:data-requirements}
-    \begin{tabularx}{\textwidth}{|p{0.24\textwidth}|X|p{0.18\textwidth}|}
+    \begin{tabularx}{\textwidth}{|p{0.24\textwidth}|X|>{\RaggedRight\arraybackslash}p{0.23\textwidth}|}
         \hline
         \textbf{Nhóm dữ liệu} & \textbf{Nội dung chính} & \textbf{Lưu trữ} \\ \hline
         Người dùng và phân quyền & Tài khoản, hồ sơ, địa chỉ, vai trò và quyền. & MySQL \\ \hline
@@ -163,76 +170,116 @@ trợ không được làm thay đổi tính đúng đắn của dữ liệu gia
         Dữ liệu truy hồi & Text/image embedding, mã sản phẩm và metadata phục vụ lọc, xếp hạng. & Qdrant \\ \hline
         Hội thoại và vận hành & Tin nhắn, ràng buộc, checkpoint, trạng thái tác vụ và log cần thiết. & Redis/monitoring \\ \hline
     \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \subsubsection{Yêu cầu phi chức năng}
 
 Các yêu cầu phi chức năng được xác định bằng tiêu chí và ngưỡng nghiệm thu có thể
 kiểm chứng. Kết quả thực tế được đối chiếu tại chương kiểm thử và đánh giá.
-
-\begin{table}[H]
-    \centering
-    \footnotesize
+\begingroup
+\footnotesize
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\captionsetup{skip=4pt}
+\begin{longtable}{|p{0.09\textwidth}|p{0.16\textwidth}|p{0.20\textwidth}|p{\dimexpr0.55\textwidth-8\tabcolsep-5\arrayrulewidth\relax}|}
     \caption{Tổng hợp yêu cầu phi chức năng}
-    \label{tab:non-functional-requirements}
-    \begin{tabularx}{\textwidth}{|p{0.09\textwidth}|p{0.16\textwidth}|p{0.20\textwidth}|X|}
-        \hline
-        \textbf{Mã} & \textbf{Nhóm} & \textbf{Tiêu chí} & \textbf{Ngưỡng nghiệm thu} \\ \hline
-        NFR-01 & Hiệu năng & Độ trễ P95 và tỷ lệ lỗi. & API nghiệp vụ $\leq 3$ giây; chức năng AI $\leq 5$ giây; lỗi $\leq 1\%$. \\ \hline
-        NFR-02 & Bảo mật & Xác thực, phân quyền và bảo vệ dữ liệu. & Mật khẩu được băm; yêu cầu sai quyền bị từ chối; không lộ dữ liệu nhạy cảm. \\ \hline
-        NFR-03 & Khả dụng & Nghiệp vụ cốt lõi không phụ thuộc AI. & Catalog, giỏ hàng và đơn hàng vẫn hoạt động khi AI Service gián đoạn. \\ \hline
-        NFR-04 & Tin cậy và nhất quán & Bảo toàn giao dịch và dữ liệu nghiệp vụ. & Không mất giao dịch; đơn hàng và tồn kho cập nhật đúng trong các ca kiểm thử. \\ \hline
-        NFR-05 & Bảo trì và mở rộng & Mô-đun hóa các thành phần. & Có thể thay mô hình hoặc nhà cung cấp mà không đổi API nghiệp vụ chính. \\ \hline
-        NFR-06 & Tương thích & Trình duyệt và kích thước màn hình mục tiêu. & Đạt toàn bộ smoke test trên Chrome, Edge, Firefox và giao diện di động. \\ \hline
-        NFR-07 & Khả năng quan sát & Log và truy vết liên dịch vụ. & Mọi yêu cầu kiểm thử có correlation ID; log không chứa dữ liệu nhạy cảm. \\ \hline
-        NFR-08 & Nhất quán chỉ mục & Dữ liệu giữa MySQL và Qdrant. & Đủ 100\% sản phẩm đang hoạt động; retry không tạo point trùng và chỉ mục có thể tái tạo. \\ \hline
-        NFR-09 & Chất lượng AI & Chất lượng và độ trễ của cấu hình được chọn. & Đạt các metric, hard gate và ngưỡng P95 quy định trong kế hoạch đánh giá. \\ \hline
-    \end{tabularx}
-\end{table}
+    \label{tab:non-functional-requirements}\\
+    \hline
+    \textbf{Mã} & \textbf{Nhóm} & \textbf{Tiêu chí} & \textbf{Ngưỡng nghiệm thu} \\ \hline
+    \endfirsthead
+    \hline
+    \textbf{Mã} & \textbf{Nhóm} & \textbf{Tiêu chí} & \textbf{Ngưỡng nghiệm thu} \\ \hline
+    \endhead
+    NFR-01 & Hiệu năng & Độ trễ P95 và tỷ lệ lỗi. & API nghiệp vụ $\leq 3$ giây; chức năng AI $\leq 5$ giây; lỗi $\leq 1\%$. \\ \hline
+    NFR-02 & Bảo mật & Xác thực, phân quyền và bảo vệ dữ liệu. & Mật khẩu được băm; yêu cầu sai quyền bị từ chối; không lộ dữ liệu nhạy cảm. \\ \hline
+    NFR-03 & Khả dụng & Nghiệp vụ cốt lõi không phụ thuộc AI. & Catalog, giỏ hàng và đơn hàng vẫn hoạt động khi AI Service gián đoạn. \\ \hline
+    NFR-04 & Tin cậy và nhất quán & Bảo toàn giao dịch và dữ liệu nghiệp vụ. & Không mất giao dịch; đơn hàng và tồn kho cập nhật đúng trong các ca kiểm thử. \\ \hline
+    NFR-05 & Bảo trì và mở rộng & Mô-đun hóa các thành phần. & Có thể thay mô hình hoặc nhà cung cấp mà không đổi API nghiệp vụ chính. \\ \hline
+    NFR-06 & Tương thích & Trình duyệt và kích thước màn hình mục tiêu. & Đạt toàn bộ smoke test trên Chrome, Edge, Firefox và giao diện di động. \\ \hline
+    NFR-07 & Khả năng quan sát & Log và truy vết liên dịch vụ. & Mọi yêu cầu kiểm thử có correlation ID; log không chứa dữ liệu nhạy cảm. \\ \hline
+    NFR-08 & Nhất quán chỉ mục & Dữ liệu giữa MySQL và Qdrant. & Đủ 100\% sản phẩm đang hoạt động; retry không tạo point trùng và chỉ mục có thể tái tạo. \\ \hline
+    NFR-09 & Chất lượng AI & Chất lượng và độ trễ của cấu hình được chọn. & Đạt các metric, hard gate và ngưỡng P95 quy định trong kế hoạch đánh giá. \\ \hline
+\end{longtable}
+\endgroup
 
 \FloatBarrier
 \subsection{Sơ đồ Usecase}
 
 Sơ đồ Usecase thể hiện quan hệ giữa tác nhân và các nhóm chức năng. Chương này
 trình bày ba sơ đồ dành cho khách hàng, quản trị viên và AI Service. Bảng tổng
-hợp đặc tả các Usecase được chuyển sang Phụ lục~B.
+hợp đặc tả các Usecase được chuyển sang
+Phụ lục~\ref{appendix:analysis-model-detail}.
 
+\clearpage
 \par\medskip\noindent
 \begin{minipage}{\textwidth}
-Sơ đồ phía khách hàng bao quát việc tra cứu sản phẩm, quản lý tài khoản, giỏ
-hàng, đơn hàng và truy cập trợ lý AI. Những thao tác yêu cầu dữ liệu cá nhân hoặc
-phát sinh giao dịch chỉ khả dụng sau khi người dùng đăng nhập.
+\textbf{Sơ đồ Usecase phía khách hàng}
 
 \centering
-    \includegraphics[width=1\textwidth,height=1\textheight,keepaspectratio]{Images/Usecase/da-Use Case phía khách hàng.drawio.png}
+    \includegraphics[width=0.74\textwidth,height=0.54\textheight,keepaspectratio]{Images/Usecase/da-Use Case phía khách hàng.drawio.png}
     \captionof{figure}{Sơ đồ Usecase phía khách hàng}
     \label{fig:usecase-customer}
+
+\raggedright
+Hình~\ref{fig:usecase-customer} phân biệt hai tác nhân là khách vãng lai và khách hàng đã
+đăng nhập. Khách vãng lai có thể đăng ký, đăng nhập, khôi phục mật khẩu, tra cứu
+sản phẩm, xem chi tiết, so sánh, đọc bài viết và sử dụng trợ lý AI. Khách hàng đã
+đăng nhập kế thừa các khả năng này, đồng thời được quản lý hồ sơ, địa chỉ, danh
+sách yêu thích, giỏ hàng và vòng đời đơn hàng.
+
+Usecase đặt hàng COD bao gồm các bước bắt buộc là kiểm tra giỏ hàng, chọn địa chỉ
+giao hàng và xác nhận đơn hàng; việc áp dụng mã giảm giá là nhánh mở rộng không bắt
+buộc. Sau khi đặt hàng, người dùng có thể xem lịch sử, hủy đơn khi trạng thái cho
+phép, xác nhận đã nhận hàng và đánh giá sản phẩm. Cách phân tách này làm rõ ranh
+giới giữa chức năng công khai và nghiệp vụ cần xác thực.
 \end{minipage}
-\par\medskip
+\clearpage
 
 \par\medskip\noindent
 \begin{minipage}{\textwidth}
-Sơ đồ phía quản trị viên tập trung vào quản lý dữ liệu, xử lý đơn hàng và vận
-hành chức năng AI. Quyền truy cập được kiểm tra trước khi thực hiện các thao tác
-làm thay đổi dữ liệu hoặc trạng thái hệ thống.
+\textbf{Sơ đồ Usecase phía quản trị viên}
 
 \centering
-    \includegraphics[width=1\textwidth,height=1\textheight,keepaspectratio]{Images/Usecase/da-Use Case phía quản trị viên.drawio.png}
+    \includegraphics[width=0.74\textwidth,height=0.54\textheight,keepaspectratio]{Images/Usecase/da-Use Case phía quản trị viên.drawio.png}
     \captionof{figure}{Sơ đồ Usecase phía quản trị viên}
     \label{fig:usecase-admin}
+
+\raggedright
+Hình~\ref{fig:usecase-admin} tập trung các chức năng vận hành trong một vai trò đã
+được xác thực và phân quyền. Nhóm quản trị nghiệp vụ bao gồm xem tổng quan, quản lý
+khách hàng, danh mục, sản phẩm, biến thể, hình ảnh, thuộc tính, tồn kho, đơn hàng,
+bài viết, khuyến mã, coupon và đánh giá. Trong quy trình đơn COD, quản trị viên tiếp
+nhận, xác nhận và cập nhật đơn theo các chuyển trạng thái hợp lệ.
+
+Nhóm vận hành AI cho phép khởi tạo đồng bộ chỉ mục, theo dõi trạng thái tác vụ và
+kiểm tra hoặc tạo embedding sản phẩm. Xem lịch sử tác vụ là nhánh mở rộng của việc
+theo dõi đồng bộ, giúp truy vết kết quả và lỗi mà không làm phức tạp luồng chính.
+Mọi thao tác làm thay đổi dữ liệu hoặc trạng thái hệ thống đều phải qua kiểm tra quyền.
 \end{minipage}
-\par\medskip
+\clearpage
 
 \par\medskip\noindent
 \begin{minipage}{\textwidth}
-Sơ đồ AI Service mô tả các chức năng tìm kiếm văn bản, hình ảnh, kết hợp và tư
-vấn đa lượt, cùng các tác vụ đồng bộ chỉ mục. Người dùng khởi tạo chức năng tìm
-kiếm hoặc tư vấn; quản trị viên khởi tạo và theo dõi các tác vụ vận hành dữ liệu.
+\textbf{Sơ đồ Usecase của AI Service}
 
 \centering
-    \includegraphics[width=1\textwidth,height=1\textheight,keepaspectratio]{Images/Usecase/da-Use Case AI Assistant.drawio.png}
+    \includegraphics[width=0.84\textwidth,height=0.45\textheight,keepaspectratio]{Images/Usecase/da-Use Case AI Assistant.drawio.png}
     \captionof{figure}{Sơ đồ Usecase của AI Service}
     \label{fig:usecase-ai-assistant}
+
+\raggedright
+Hình~\ref{fig:usecase-ai-assistant} thể hiện hai nhóm tác nhân có mục tiêu khác nhau. Người mua sắm,
+bao gồm cả khách vãng lai và người đã đăng nhập, sử dụng tìm kiếm bằng văn bản,
+hình ảnh hoặc kết hợp hai phương thức; họ cũng có thể trao đổi nhiều lượt với trợ lý
+để bổ sung và điều chỉnh nhu cầu. Chọn vùng sản phẩm trong ảnh là nhánh mở rộng
+của tìm kiếm hình ảnh và tìm kiếm kết hợp, chỉ được thực hiện khi ảnh có nhiều đối
+tượng hoặc người dùng muốn thu hẹp phạm vi truy vấn. Gửi phản hồi về câu trả lời AI là
+nhánh tùy chọn sau khi hệ thống sinh phản hồi.
+
+Quản trị viên không can thiệp trực tiếp vào kết quả truy vấn của từng người dùng mà chịu
+trách nhiệm duy trì dữ liệu phục vụ AI. Các usecase quản trị gồm đồng bộ chỉ mục sản
+phẩm, theo dõi tác vụ và kiểm tra embedding. Việc tách hai nhóm chức năng làm rõ ranh
+giới giữa luồng phục vụ mua sắm và luồng quản trị chỉ mục nền.
 \end{minipage}
 \par\medskip
 
@@ -242,7 +289,7 @@ kiếm hoặc tư vấn; quản trị viên khởi tạo và theo dõi các tác
 
 Ba sơ đồ hoạt động dưới đây đại diện cho luồng giao dịch, truy hồi đa phương
 thức và hội thoại. Các sơ đồ xử lý đơn, đồng bộ chỉ mục và nhánh ngoại lệ chi
-tiết được chuyển sang Phụ lục~B.
+tiết được chuyển sang Phụ lục~\ref{appendix:analysis-model-detail}.
 
 \par\medskip\noindent
 \begin{minipage}{\textwidth}
@@ -259,9 +306,11 @@ giá trước khi tạo đơn. Nếu một bước ghi dữ liệu bắt buộc 
 
 \par\medskip\noindent
 \begin{minipage}{\textwidth}
-AI Service định tuyến theo loại đầu vào, truy hồi trên các collection tương ứng,
-sau đó lọc, hợp nhất và tái xếp hạng ứng viên. Kết quả được đối chiếu với dữ
-liệu hiện hành trong MySQL trước khi hiển thị cho người dùng.
+AI Service định tuyến theo loại đầu vào và truy hồi trên collection tương ứng.
+Với đầu vào ảnh--văn bản, hệ thống lọc ứng viên ảnh bằng ràng buộc trích từ văn
+bản, chỉ dùng nhánh văn bản để phục hồi khi chưa đủ ứng viên, rồi xếp hạng theo
+độ tương tự ảnh. Kết quả được đối chiếu với dữ liệu hiện hành trong MySQL trước
+khi hiển thị cho người dùng.
 
 \centering
     \includegraphics[width=1\textwidth,height=1\textheight,keepaspectratio]{Images/Activity/da-Tìm kiếm sản phẩm đa phương thức.drawio.png}

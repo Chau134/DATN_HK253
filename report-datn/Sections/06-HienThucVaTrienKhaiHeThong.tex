@@ -4,7 +4,7 @@
 
 \section{Hiện thực và triển khai hệ thống}
 
-Chương này trình bày kết quả hiện thực và cách triển khai hệ thống thương mại điện tử tích hợp trợ lý mua sắm đa phương thức. Nội dung kết nối phần hiện thực giao diện, dữ liệu và các thành phần AI với quá trình đóng gói, cấu hình, triển khai và vận hành. Các quyết định kiến trúc và nghiệp vụ đã được trình bày ở Chương 5; chương này tập trung vào cách các quyết định đó được hiện thực trong môi trường chạy thực tế.
+Chương này trình bày kết quả hiện thực và cách triển khai hệ thống thương mại điện tử tích hợp trợ lý mua sắm đa phương thức. Nội dung kết nối phần hiện thực giao diện, dữ liệu và các thành phần AI với quá trình đóng gói, cấu hình, triển khai và vận hành. Các quyết định kiến trúc và nghiệp vụ đã được trình bày ở Chương~\ref{sec:system-design}; chương này tập trung vào cách các quyết định đó được hiện thực trong môi trường chạy thực tế.
 
 % \subsection{Tổng quan và phạm vi hiện thực}
 
@@ -20,9 +20,9 @@ Phần hiện thực giao diện tập trung vào các luồng mà khách hàng 
 
 \subsection{Chuẩn bị dữ liệu và hiện thực các thành phần AI}
 
-Dữ liệu sản phẩm được thu thập tự động từ website Zara, gồm tên, mô tả, màu sắc, chất liệu, hình ảnh, danh mục và các thuộc tính liên quan. Do phần lớn dữ liệu ở dạng tiếng Anh, mô hình Qwen3.5-9B được dùng để Việt hóa các trường văn bản; những giá trị tiếng Anh cần thiết vẫn được giữ lại để bảo toàn thông tin nguồn. Sau khi rà soát và chuẩn hóa, 1.000 sản phẩm được chọn làm dữ liệu chính thức của đồ án và lưu trong tệp \texttt{1000\_final.sql}. Tệp này được dùng cho các chức năng sản phẩm, tìm kiếm, lọc và đồng bộ sang AI Service. Các lệnh chuẩn bị dữ liệu và huấn luyện được trình bày trong Phụ lục E.
+Dữ liệu sản phẩm được thu thập tự động từ website Zara, gồm tên, mô tả, màu sắc, chất liệu, hình ảnh, danh mục và các thuộc tính liên quan. Do phần lớn dữ liệu ở dạng tiếng Anh, mô hình Qwen3.5-9B được dùng để Việt hóa các trường văn bản; những giá trị tiếng Anh cần thiết vẫn được giữ lại để bảo toàn thông tin nguồn. Sau khi rà soát và chuẩn hóa, 1.000 sản phẩm được chọn làm dữ liệu chính thức của đồ án và lưu trong tệp \texttt{1000\_final.sql}. Tệp này được dùng cho các chức năng sản phẩm, tìm kiếm, lọc và đồng bộ sang AI Service. Các lệnh chuẩn bị dữ liệu và huấn luyện được trình bày trong Phụ lục~\ref{appendix:source-code}.
 
-\begin{table}[H]
+\begin{breakabletable}
 \centering
 \caption{Quy trình chuẩn bị dữ liệu đầu vào cho database}
 \label{tab:database-input-dataset}
@@ -35,7 +35,7 @@ Lựa chọn & Chọn 1.000 sản phẩm cho bộ dữ liệu của đồ án \\
 Hoàn thiện & Rà soát, chuẩn hóa thuộc tính và cập nhật database \\ \hline
 Kết quả & Tệp \texttt{1000\_final.sql} được dùng làm database chính thức \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 \paragraph{Fine-tune và đóng gói mô hình YOLOv26.}
 Để thích nghi với dữ liệu thương mại điện tử thời trang, YOLOv26 được fine-tune trên tập dữ liệu xây dựng từ Fashionpedia, một bộ dữ liệu ảnh thời trang có annotation cho bài toán phát hiện đối tượng \parencite{jia2020fashionpedia}. Dữ liệu tham khảo từ phiên bản trên Hugging Face Datasets, được lưu ở dạng Parquet và có giấy phép CC-BY-4.0 \parencite{huggingfaceFashionpedia}. Sau khi chuyển sang định dạng YOLO, các nhãn được gom thành bốn lớp: \textit{accessories}, \textit{bags}, \textit{clothing} và \textit{shoes}; đây là các nhóm phù hợp với sản phẩm trong hệ thống và đủ tổng quát cho tìm kiếm bằng hình ảnh.
@@ -117,20 +117,20 @@ results = model.train(
 
 Kết quả được đánh giá bằng Precision, Recall, mAP50 và mAP50-95 như trình bày trong \Cref{tab:yolov26-finetune-result}.
 
-\begin{table}[H]
+\begin{breakabletable}
 \centering
 \caption{Kết quả đánh giá mô hình YOLOv26 sau khi fine-tune trên tập dữ liệu thời trang}
 \label{tab:yolov26-finetune-result}
-\begin{tabularx}{\linewidth}{|p{0.18\linewidth}|p{0.11\linewidth}|p{0.14\linewidth}|p{0.13\linewidth}|p{0.12\linewidth}|p{0.13\linewidth}|X|}
+\begin{tabularx}{\linewidth}{|>{\RaggedRight\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.08\linewidth}|>{\centering\arraybackslash}p{0.14\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|>{\centering\arraybackslash}X|}
 \hline
-\textbf{Lớp} & \textbf{Ảnh} & \textbf{Đối tượng} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP50} & \textbf{mAP50-95} \\ \hline
+\textbf{Lớp} & \textbf{Ảnh} & \textbf{Đối tượng} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP50} & \textbf{mAP50--95} \\ \hline
 Tất cả & 2339 & 8226 & 0.875 & 0.760 & 0.849 & 0.685 \\ \hline
 Accessories & 932 & 1428 & 0.806 & 0.587 & 0.695 & 0.512 \\ \hline
 Bags & 367 & 384 & 0.842 & 0.694 & 0.807 & 0.604 \\ \hline
 Clothing & 2339 & 3966 & 0.926 & 0.882 & 0.947 & 0.861 \\ \hline
 Shoes & 1267 & 2448 & 0.924 & 0.880 & 0.945 & 0.763 \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 Mô hình đạt Precision 0.875, Recall 0.760, mAP50 0.849 và mAP50-95 0.685. Hai lớp \textit{clothing} và \textit{shoes} tốt nhất theo mAP50 (lần lượt 0.947 và 0.945), trong khi \textit{accessories} thấp hơn với mAP50-95 là 0.512 do vật thể nhỏ và dễ lẫn với nền. Tuy vậy, kết quả tổng thể đáp ứng mục tiêu phát hiện vùng sản phẩm để crop trước khi tạo image embedding.
 
@@ -148,9 +148,9 @@ Khi khởi động, AI Service load weight này tại đường dẫn container 
 Hệ thống hỗ trợ hai chế độ vận hành: chạy toàn bộ trên máy local để phát triển, kiểm thử và triển khai phân tán trên Google Cloud Platform (GCP) để phục vụ bản demo. Cả hai chế độ đều sử dụng Docker để bảo đảm môi trường thực thi nhất quán, tuy nhiên vị trí của AI Service và cách kết nối giữa các dịch vụ có sự khác biệt.
 
 Các lệnh chuẩn bị biến môi trường, khởi động Docker Compose và kiểm tra nhanh được đưa vào Phụ
-lục E; phần này tập trung giải thích vai trò của từng dịch vụ và thứ tự khởi động.
+lục~\ref{appendix:source-code}; phần này tập trung giải thích vai trò của từng dịch vụ và thứ tự khởi động.
 
-\begin{table}[H]
+\begin{breakabletable}
 \centering
 \caption{So sánh hai chế độ vận hành của hệ thống}
 \label{tab:deployment-modes}
@@ -163,7 +163,7 @@ Mô hình AI & Bedrock cung cấp LLM và Cohere Embed v4 với vector văn bả
 Mục đích & Phát triển, kiểm thử chức năng và đánh giá mô hình & Vận hành bản demo và kiểm thử hệ thống trong môi trường đám mây \\ \hline
 Dữ liệu lâu dài & Docker named volume cho MySQL và Qdrant & Docker named volume trên VM; cấu hình và khóa bí mật được tách khỏi mã nguồn \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 Các công nghệ và phiên bản nền tảng chính được sử dụng gồm Java 21 và Spring Boot 4 cho Backend, Python 3.11 cùng FastAPI cho AI Service, React 19 và Vite cho Frontend, MySQL 8.4, Qdrant và Docker Compose. Frontend được build bằng Node.js 20 rồi phục vụ dưới dạng tệp tĩnh qua nginx. Backend và Frontend sử dụng Dockerfile nhiều giai đoạn nhằm giảm kích thước image chạy thực tế.
 
@@ -215,9 +215,10 @@ Invoke-WebRequest http://localhost
 
 \subsection{Triển khai hệ thống trên Google Cloud Platform}
 
-Bản GCP được triển khai theo mô hình phân tán: GCE VM \texttt{datn-stack-vm} tại zone \texttt{asia-southeast1-b} chạy Frontend, Spring Boot Backend, MySQL và Qdrant; AI Service chạy độc lập trên Cloud Run tại region \texttt{asia-southeast1}. Cách tổ chức này cho phép cập nhật và điều chỉnh tài nguyên GPU mà không ảnh hưởng cụm nghiệp vụ. Các câu lệnh build, deploy và kiểm tra được chuyển sang Phụ lục E; phần này chỉ trình bày cấu hình đã nghiệm thu.
+Bản GCP được triển khai theo mô hình phân tán: GCE VM \texttt{datn-stack-vm} tại zone \texttt{asia-southeast1-b} chạy Frontend, Spring Boot Backend, MySQL và Qdrant; AI Service chạy độc lập trên Cloud Run tại region \texttt{asia-southeast1}. Cách tổ chức này cho phép cập nhật và điều chỉnh tài nguyên GPU mà không ảnh hưởng cụm nghiệp vụ. Các câu lệnh build, deploy và kiểm tra được chuyển sang Phụ lục~\ref{appendix:source-code}; phần này chỉ trình bày cấu hình đã nghiệm thu.
 
-\begin{table}[H]
+\clearpage
+\begin{breakabletable}
 \centering
 \caption{Cấu hình hạ tầng triển khai trên GCP}
 \label{tab:gcp-resource-config}
@@ -231,11 +232,11 @@ VPC Connector & Dải mạng \texttt{10.8.0.0/28} & Cho phép Cloud Run truy c�
 Memorystore & Redis tại địa chỉ private trong VPC & Lưu sở thích người dùng lâu dài cho trợ lý hội thoại \\ \hline
 Secret Manager & Secret được tách theo chức năng và cấp cho runtime service account & Quản lý Bedrock bearer token và internal API key, không ghi secret vào image hoặc repository \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 Frontend và Backend lần lượt được công khai qua cổng 80 và 8080. MySQL không publish cổng 3306; Qdrant chỉ bind cổng 6333 trên private IP và firewall chỉ nhận lưu lượng từ VPC Connector. Cloud Run dùng ingress nội bộ để trao đổi với Backend và Qdrant mà không công khai tầng dữ liệu ra Internet. Bedrock bearer token và internal API key được ánh xạ từ Secret Manager vào runtime service account, không ghi trong image, câu lệnh deploy hoặc repository.
 
-AI Service tự phục vụ embedding trên GPU: \texttt{Qwen/Qwen3-Embedding-8B} tạo vector văn bản 4.096 chiều và \texttt{Qwen/Qwen3-VL-Embedding-2B} tạo vector ảnh 2.048 chiều. Hai mô hình chạy CUDA với \texttt{bfloat16}; vector được chuẩn hóa và truy vấn bằng độ đo Cosine. Weight YOLO đã fine-tune tại \path{Resource/best.pt} phát hiện và crop vật thể trước khi tạo image embedding, đồng thời dùng ảnh gốc làm fallback. Amazon Bedrock không tạo embedding mà chỉ chạy \texttt{openai.gpt-oss-120b-1:0} tại \texttt{ap-northeast-1} để phân tích ý định, trích xuất điều kiện và sinh phản hồi. Reranker được tắt; thứ hạng kết hợp độ tương đồng vector, metadata, điểm lexical và hệ số nghiệp vụ.
+AI Service tự phục vụ embedding trên GPU: \texttt{Qwen/Qwen3-Embedding-8B} tạo vector văn bản 4.096 chiều và \texttt{Qwen/Qwen3-VL-Embedding-2B} tạo vector ảnh 2.048 chiều. Hai mô hình chạy CUDA với \texttt{bfloat16}; vector được chuẩn hóa và truy vấn bằng độ đo Cosine. Weight YOLO đã fine-tune tại \path{Resource/best.pt} phát hiện và crop vật thể trước khi tạo image embedding, đồng thời dùng ảnh gốc làm fallback. Amazon Bedrock không tạo embedding mà chỉ chạy \texttt{openai.gpt-oss-120b-1:0} tại \texttt{ap-northeast-1} để phân tích ý định, trích xuất điều kiện và sinh phản hồi. Reranker được tắt. Text Search kết hợp độ tương đồng vector với tín hiệu lexical và metadata; Image Search dùng độ tương đồng ảnh; truy vấn ảnh--văn bản dùng ảnh làm tín hiệu xếp hạng chính, áp dụng ràng buộc văn bản và chỉ truy hồi văn bản để phục hồi khi thiếu ứng viên, không fusion điểm text--image.
 
 \paragraph{Triển khai các dịch vụ trên GCE VM.}
 
@@ -253,7 +254,7 @@ MySQL là nguồn dữ liệu chuẩn; Qdrant chỉ giữ vector và metadata d�
 
 Sau khi Backend và AI Service sẵn sàng, tác vụ full sync đọc 1.000 sản phẩm theo batch. Mỗi sản phẩm tạo một text vector; ảnh hợp lệ được YOLO phát hiện, crop rồi tạo vector theo vùng. Tác vụ hoàn thành sau khoảng 51 phút. Lần đầu có 999 sản phẩm thành công và một lỗi kết nối Qdrant tạm thời; hệ thống chỉ retry sản phẩm cùng các URL timeout, sau đó đạt kết quả ở Bảng~\ref{tab:gcp-sync-result}.
 
-\begin{table}[H]
+\begin{breakabletable}
 \centering
 \caption{Kết quả đồng bộ và đối soát dữ liệu trên GCP}
 \label{tab:gcp-sync-result}
@@ -266,7 +267,7 @@ Image collection & Trạng thái \texttt{green}; 13.879 point; 1.000 product ID 
 URL ảnh đã lập chỉ mục & 8.871 URL ảnh hợp lệ \\ \hline
 Độ phủ sản phẩm & 1.000/1.000 sản phẩm có text vector và 1.000/1.000 sản phẩm có image vector \\ \hline
 \end{tabularx}
-\end{table}
+\end{breakabletable}
 
 Trong 8.872 URL media của MySQL có một playlist HLS \texttt{master.m3u8}, không phải ảnh nên bị loại; sản phẩm tương ứng vẫn có tám image vector. Vì vậy 8.871 URL hợp lệ vẫn bao phủ đủ 1.000 sản phẩm. Nghiệm thu đối soát độc lập số product ID, số point, kích thước vector và cặp \texttt{product\_id--image\_url}, thay vì chỉ dựa vào trạng thái tác vụ.
 
