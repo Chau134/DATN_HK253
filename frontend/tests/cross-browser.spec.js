@@ -80,3 +80,38 @@ test('password visibility control works consistently', async ({ page }) => {
     await passwordField.getByRole('button').click();
     await expect.poll(() => passwordHandle.getAttribute('type')).toBe('text');
 });
+
+test('AI consulting results remain available after viewing a product and going back', async ({ page }) => {
+    await page.route('**/spring-api/api/search/ai/text', async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json; charset=utf-8',
+            body: JSON.stringify({
+                products: [
+                    {
+                        product_id: 42,
+                        title: 'Sản phẩm tư vấn',
+                        price: 250000,
+                        currency: 'VND',
+                        available: true,
+                    },
+                ],
+                warnings: [],
+            }),
+        });
+    });
+
+    await page.goto('/tu-van');
+    const keywordInput = page.locator('form').filter({ hasText: 'Tìm theo từ khóa' }).getByRole('textbox');
+    await keywordInput.fill('áo hoodie đen');
+    await keywordInput.press('Enter');
+
+    await expect(page.getByText('Sản phẩm tư vấn')).toBeVisible();
+    await page.getByRole('link', { name: 'Xem', exact: true }).click();
+    await expect(page).toHaveURL(/\/prodetail\/42$/);
+
+    await page.goBack();
+    await expect(page).toHaveURL(/\/tu-van$/);
+    await expect(keywordInput).toHaveValue('áo hoodie đen');
+    await expect(page.getByText('Sản phẩm tư vấn')).toBeVisible();
+});

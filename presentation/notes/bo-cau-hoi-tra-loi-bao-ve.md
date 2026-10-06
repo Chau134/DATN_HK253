@@ -2,7 +2,7 @@
 
 Đề tài: Xây dựng Trợ lý Mua sắm Đa phương tiện sử dụng RAG và Computer Vision.
 
-Tài liệu luyện trả lời dựa trên báo cáo hiện có trong repository. Các câu trả lời dùng ngôi “em”; nếu bảo vệ theo nhóm, đổi thành “nhóm em”. Mỗi câu nên trả lời phần cốt lõi trong 20–40 giây rồi mở rộng khi hội đồng hỏi tiếp. Các kết quả thực nghiệm chỉ có giá trị trên tập dữ liệu, cấu hình và môi trường được ghi nhận.
+Tài liệu luyện trả lời dựa trên slide bảo vệ, nội dung báo cáo và mã nguồn hiện có trong repository. Các câu trả lời dùng ngôi “em”; nếu bảo vệ theo nhóm, đổi thành “nhóm em”. Mỗi câu nên trả lời phần cốt lõi trong 20–40 giây rồi mở rộng khi hội đồng hỏi tiếp. Các kết quả thực nghiệm chỉ có giá trị trên tập dữ liệu, cấu hình và môi trường được ghi nhận.
 
 ## A. Bài toán, sản phẩm và đóng góp
 
@@ -328,6 +328,136 @@ Dạ, các mô hình nền, framework và dịch vụ cloud là thành phần c�
 
 Dạ, em sẽ tách bộ dữ liệu điều chỉnh và kiểm thử độc lập ngay từ đầu, chuẩn hóa metadata sớm và đặt checkpoint bền vững cho môi trường cloud. Em cũng sẽ bổ sung ablation riêng cho crop ảnh và đánh giá với người dùng thực. Các thay đổi này giúp kết quả đáng tin hơn và giảm rủi ro khi triển khai.
 
+## G. Câu hỏi bổ sung từ slide bảo vệ, báo cáo và mã nguồn
+
+### 79. Vì sao slide ghi 17 yêu cầu chức năng và 9 yêu cầu phi chức năng? ★
+
+Dạ, bộ yêu cầu chi tiết được nhóm thành 12 yêu cầu AI, 5 yêu cầu thương mại điện tử và 9 NFR về hiệu năng, bảo mật, khả dụng, đúng đắn, bảo trì, tương thích, quan sát, đồng bộ chỉ mục và chất lượng AI. Việc chia nhóm giúp truy vết từ yêu cầu đến test và bằng chứng, không có nghĩa 17 màn hình hay 17 API. Khi dẫn mã yêu cầu, em dùng đúng mã trong bảng truy vết của bản báo cáo đang trình bày.
+
+### 80. Bốn câu hỏi nghiên cứu của đề tài là gì?
+
+Dạ, RQ1 hỏi chất lượng Text, Image và Hybrid Search; RQ2 hỏi RAG và memory có cải thiện tính có căn cứ và ngữ cảnh hội thoại không; RQ3 hỏi nghiệp vụ, giao tiếp dịch vụ và đồng bộ có bảo toàn trạng thái không; RQ4 hỏi các yêu cầu phi chức năng đạt đến đâu. Mỗi RQ được đối chiếu với một nhóm kiểm thử riêng, nên kết luận không chỉ dựa vào demo giao diện.
+
+### 81. Yêu cầu nào chưa đạt đầy đủ? ★
+
+Dạ, NFR-06 về tương thích trình duyệt chỉ đạt một phần. Bộ Playwright ghi nhận 8/8 ca trên Firefox và WebKit, nhưng chưa có đầy đủ artifact tự động cho Chrome, Edge hoặc Safari trên thiết bị Apple thật. Em không diễn giải WebKit là đã kiểm thử Safari thực tế.
+
+### 82. Slide ghi mục tiêu nghiệp vụ 1–3 giây, AI 2–5 giây. Gate chính thức là gì?
+
+Dạ, đó là khoảng thời gian mục tiêu trình bày ngắn trên slide. Bảng yêu cầu trong báo cáo dùng ngưỡng nghiệm thu P95 không quá 3 giây cho API nghiệp vụ, không quá 5 giây cho chức năng AI và tỷ lệ lỗi không quá 1%. Khi trả lời kết quả, em viện dẫn đúng gate, endpoint và workload tương ứng.
+
+### 83. “Ba tác nhân” trong use case gồm ai? AI Service có phải người dùng không?
+
+Dạ, đó là khách hàng, quản trị viên và AI Service. AI Service là tác nhân hệ thống hỗ trợ truy hồi, tư vấn và indexing; nó không có quyền quyết định giao dịch như người dùng hay quản trị viên. Khách hàng và quản trị viên đi qua Backend để được xác thực và phân quyền.
+
+### 84. Vì sao Frontend chỉ gọi Spring Boot? ★
+
+Dạ, Spring Boot là cổng API công khai và là nơi kiểm tra danh tính, quyền truy cập và dữ liệu nghiệp vụ. Nếu trình duyệt gọi thẳng AI Service, Qdrant hoặc MySQL, hệ thống sẽ khó bảo vệ khóa nội bộ và khó bảo đảm dữ liệu hiện hành. Ranh giới này còn giúp đổi nhà cung cấp AI mà không đổi luồng giao diện.
+
+### 85. Ba lớp lưu trữ trên slide có vai trò gì?
+
+Dạ, MySQL là nguồn chuẩn cho dữ liệu giao dịch; Qdrant lưu chỉ mục vector dẫn xuất; Redis được dùng cho cache hoặc trạng thái ở những cấu hình phù hợp. Riêng checkpoint LangGraph của bản demo GCP hiện dùng SQLite trên filesystem tạm, nên không thể nói mọi trạng thái hội thoại trên GCP đều nằm trong Redis.
+
+### 86. Sản phẩm nào được phép hiển thị sau khi Qdrant trả ứng viên?
+
+Dạ, AI Service trả mã sản phẩm, điểm và thông tin kỹ thuật cần thiết. Backend dùng mã đó để lấy lại Product Card từ MySQL, kiểm tra trạng thái hiện hành và trả dữ liệu hiển thị. Một vector còn tồn tại trong Qdrant không đủ để khẳng định sản phẩm đang bán hoặc có hàng.
+
+### 87. API `auto` khác gì ba API tìm kiếm riêng?
+
+Dạ, `auto` chọn nhánh tìm kiếm theo đầu vào: văn bản, ảnh hoặc cả hai. Các API riêng phục vụ khi giao diện hay kiểm thử đã biết modality. Dù đi nhánh nào, kết quả vẫn phải được Backend xác minh trước khi hiển thị dữ liệu nghiệp vụ.
+
+### 88. Nếu ảnh có nhiều vật thể, hệ thống tìm vật thể nào?
+
+Dạ, detector có thể trả nhiều vùng; giao diện cho người dùng chọn hoặc điều chỉnh vùng quan tâm. Khi có crop do người dùng chọn, pipeline ưu tiên vùng đó để tạo embedding, nhờ vậy tránh tìm nhầm áo khi người dùng muốn tìm túi. Nếu không có vùng hợp lệ thì dùng ảnh đầy đủ, nhưng kết quả có thể kém tập trung hơn.
+
+### 89. Vì sao search response chỉ trả mã sản phẩm thay vì toàn bộ entity?
+
+Dạ, mã sản phẩm là hợp đồng liên kết giữa AI và Backend. AI không cần nhận toàn bộ JPA Entity hoặc quyền đọc MySQL; Backend chịu trách nhiệm lấy giá, tồn kho và thuộc tính hiện hành. Cách tách này giảm dữ liệu truyền qua AI và giữ quyết định nghiệp vụ ở đúng thành phần.
+
+### 90. Checkout preview khác confirm như thế nào? ★
+
+Dạ, preview tính giá, giảm giá và coupon dự kiến để người dùng xem. Confirm phải kiểm tra lại giỏ hàng, địa chỉ, sản phẩm, tồn kho và coupon trong transaction rồi mới tạo đơn. Giá hoặc số lượng tồn có thể thay đổi giữa hai bước, nên không thể dùng kết quả preview làm cam kết giao dịch.
+
+### 91. Hệ thống quản lý vòng đời đơn COD ra sao?
+
+Dạ, trạng thái chính đi từ PENDING sang CONFIRMED, SHIPPING rồi DELIVERED. Mỗi chuyển trạng thái phải kiểm tra trạng thái hiện tại, vai trò thực hiện và tác động lên tồn kho hoặc thanh toán; hủy đơn chỉ được phép ở trạng thái hợp lệ. Lịch sử trạng thái được lưu để truy vết.
+
+### 92. Vì sao cần lưu snapshot đơn hàng?
+
+Dạ, tên, giá hoặc khuyến mãi của sản phẩm có thể thay đổi sau khi khách đặt. Đơn hàng cần lưu thông tin tại thời điểm giao dịch để biên nhận và đối soát không đổi theo catalog hiện hành. Dữ liệu catalog mới phục vụ các lượt mua sau, không viết lại lịch sử đơn cũ.
+
+### 93. Dự án có thanh toán online chưa? Vì sao báo cáo có bảng payment?
+
+Dạ, luồng người dùng hiện tại đặt hàng COD; các bảng và logic payment phục vụ ghi nhận trạng thái thanh toán, đối soát và thiết kế vòng đời đơn. Có bảng `payment` không đồng nghĩa đã tích hợp cổng thanh toán trực tuyến. Tích hợp thanh toán thật và hoàn tiền tự động vẫn là hướng phát triển.
+
+### 94. Vì sao catalog có màu White, Ecru, Ivory lại làm tìm kiếm sai?
+
+Dạ, tên màu tiếng Anh và bản Việt hóa có thể dùng các từ gần nhau nhưng không đồng nhất. Nếu chuẩn hóa sai, bộ lọc có thể gán sản phẩm màu trắng thành màu kem hoặc ngược lại. Em dùng khóa màu chuẩn hóa và ưu tiên màu gốc của catalog khi có xung đột; các ca hồi quy kiểm tra ví dụ White, Ecru và Ivory.
+
+### 95. Lỗi URL `master.m3u8` liên quan gì đến Image Search?
+
+Dạ, đó là URL media dạng playlist video, không phải ảnh hợp lệ cho image embedding. Nếu đưa nhầm vào payload indexing, tác vụ tải và giải mã ảnh có thể lỗi hoặc thiếu vector ảnh. Mapper lọc/chuẩn hóa URL media trước khi đồng bộ, và báo cáo có 8/8 ca hồi quy URL ảnh đạt.
+
+### 96. Vì sao health check SMTP không nên làm sập trạng thái toàn hệ thống?
+
+Dạ, SMTP là dịch vụ phụ trợ. Nếu một lỗi gửi mail khiến liveness/readiness tổng thể thất bại, hệ thống có thể bị đánh dấu không phục vụ dù catalog, giỏ hàng và đơn hàng vẫn hoạt động. Em tách trạng thái mail khỏi tín hiệu sống của nghiệp vụ lõi, đồng thời vẫn theo dõi lỗi mail riêng.
+
+### 97. Upload quá lớn và đăng nhập dồn dập được xử lý thế nào?
+
+Dạ, request upload quá giới hạn trả HTTP 413; chuỗi yêu cầu xác thực vượt giới hạn trả 429 và có thông tin thử lại. Đây là các lớp bảo vệ đầu vào và tốc độ. Chúng hỗ trợ giảm lạm dụng, nhưng không thay thế kiểm thử an ninh toàn diện.
+
+### 98. Correlation ID để làm gì? ★
+
+Dạ, nó gắn cùng một mã theo request qua Backend và AI Service để đối chiếu lỗi, độ trễ và log. Khi AI trả kết quả bất thường, em có thể lần theo một request thay vì tìm theo thời điểm gần đúng. Mã này không nên chứa token hay dữ liệu cá nhân, và phải được tách giữa các request đồng thời.
+
+### 99. Health, readiness và metrics khác nhau thế nào?
+
+Dạ, health hoặc liveness cho biết tiến trình còn hoạt động; readiness cho biết thành phần có thể nhận loại request cụ thể hay chưa; metrics ghi nhận số lượt, độ trễ và lỗi để theo dõi theo thời gian. Một model ảnh chưa sẵn sàng không nhất thiết làm nghiệp vụ catalog hoặc Text Search thất bại. Vì vậy cần xem trạng thái theo capability, không chỉ một đèn xanh tổng quát.
+
+### 100. Slide ghi 26 controller, 126 mapping và 14 endpoint. Chúng chứng minh điều gì?
+
+Dạ, đó là thống kê bề mặt API ở thời điểm làm slide: Spring Boot có 26 controller và 126 request mapping; FastAPI được nhóm thành 14 endpoint cho search, assistant, indexing và vận hành. Số lượng API cho thấy phạm vi tích hợp nhưng không phải bằng chứng chất lượng. Chất lượng được đánh giá bằng test nghiệp vụ, contract, E2E và các gate.
+
+### 101. P95 từ 693,46 xuống 182,79 ms nhờ đâu? ★
+
+Dạ, slide ghi ba thay đổi chính: cache catalog, loại bỏ lần đọc giỏ hàng dư và thêm chỉ mục cho truy vấn giá mới nhất. Trong bài tải hỗn hợp catalog–cart, P95 giảm khoảng 73,6%, còn 182,79 ms. Đây là so sánh trên cùng loại workload được báo cáo; không suy ra mọi endpoint đều nhanh hơn 73,6%.
+
+### 102. Vì sao P95 bài soak 48,863 ms thấp hơn P95 bài tải hỗn hợp 182,79 ms?
+
+Dạ, hai bài đo có thao tác, tỷ lệ trộn request, số worker và thời gian khác nhau. Bài soak gồm các thao tác checkout/payment/order theo kịch bản riêng; bài tải hỗn hợp tập trung catalog–cart. Không nên so trực tiếp hai P95 để kết luận checkout luôn nhanh hơn catalog; mỗi số chỉ có ý nghĩa cùng workload của nó.
+
+### 103. 19,999 request/giây trong slide khác 8 request/giây ở bài soak thế nào?
+
+Dạ, 19,999 request/giây thuộc bài tải hỗn hợp 6.050 request trong khoảng 301 giây. Trung bình tám request/giây thuộc bài soak 57.600 request trong hai giờ. Đây là hai workload khác nhau, không phải hai kết quả mâu thuẫn của cùng phép đo.
+
+### 104. Assistant P95 đạt 2,776 giây nhưng P99 gần 9,7 giây: có đáng lo không? ★
+
+Dạ, có. P95 đạt gate AI không quá 5 giây trong bài tải đã chạy, nhưng P99 và thời gian cực đại lần lượt khoảng 9,704 và 9,751 giây. Điều đó cho thấy một số request vẫn chậm rõ rệt. Trước khi vận hành thật cần thử dài hơn, tải phân tán và theo dõi đuôi trễ, đặc biệt ở các phiên hội thoại dài.
+
+### 105. Vì sao P95 Hybrid ở bảng ablation là 2,105 giây nhưng bài tải AI là 0,516 giây?
+
+Dạ, đó là hai phép đo khác nhau về tập truy vấn, workload và cách chạy. Số 2,105 giây thuộc đánh giá chất lượng/cấu hình Hybrid; 0,516 giây là P95 lớn nhất trong ba vòng tải AI đại diện ghi ở báo cáo. Chỉ so sánh độ trễ giữa các cấu hình khi điều kiện đo giống nhau.
+
+### 106. P95 thấp có chứng minh hỗ trợ dưới 50 người dùng đồng thời không?
+
+Dạ, chưa. Slide nêu mức người dùng mục tiêu, nhưng bài tải Backend có 10 worker và bài tải AI dùng hai worker; bản GCP demo còn giới hạn tối đa một AI instance với concurrency một. Vì vậy em chỉ kết luận đạt các gate trên workload đã chạy. Cần mô phỏng số phiên và hành vi người dùng tương ứng để xác minh mục tiêu đồng thời.
+
+### 107. Nếu hội đồng hỏi “vì sao chọn mô hình này thay vì mô hình khác”, trả lời thế nào?
+
+Dạ, em nêu tiêu chí trước: chất lượng trên bộ truy vấn, độ trễ, chi phí, khả năng triển khai và tích hợp. Em trình bày vai trò của từng mô hình: YOLO phát hiện vùng, embedding tạo vector, LLM hiểu ý định và diễn đạt; các lựa chọn local và GCP cũng khác nhau do hạ tầng. Em không khẳng định mô hình được chọn tốt nhất tuyệt đối khi chưa benchmark rộng trên cùng điều kiện.
+
+### 108. Khi hội đồng chỉ ra slide nói “fusion và rerank” nhưng cấu hình vận hành lại tắt rerank, có mâu thuẫn không? ★
+
+Dạ, slide use case và pipeline liệt kê các năng lực hoặc bước tùy chọn của AI Service, còn bảng ablation xác định cấu hình được dùng khi nghiệm thu. Cấu hình Hybrid cuối là image-conditioned và tắt rerank vì phù hợp ràng buộc hơn trong bộ thử; fusion và rerank vẫn là phương án đối chứng/adapter. Em sẽ mở phụ lục kết quả để phân biệt thiết kế tổng quát với cấu hình đang chạy.
+
+### 109. Nếu hội đồng yêu cầu chứng minh live, em nên mở bằng chứng nào?
+
+Dạ, em bắt đầu bằng luồng demo: tìm bằng text, tìm bằng ảnh, thêm ràng buộc trong Hybrid, hỏi tiếp qua trợ lý rồi đi đến sản phẩm và đặt COD. Sau đó mở phụ lục slide theo câu hỏi: A1/A7/A8 cho ground truth và metric, A2 cho hiệu năng, A3 cho API, A4 cho lỗi đã sửa, A5 cho YOLO, A9 cho tích hợp và NFR. Demo thể hiện hành vi; artifact kiểm thử mới chứng minh phạm vi nghiệm thu.
+
+### 110. Nếu kết quả demo khác số trong báo cáo thì trả lời sao?
+
+Dạ, em kiểm tra trước môi trường, snapshot, model, collection, cấu hình rerank và trạng thái dịch vụ. Metric trong báo cáo gắn với bộ dữ liệu và cấu hình cố định; một truy vấn demo mới hoặc bản GCP khác model không thể lấy làm phép lặp trực tiếp. Nếu có lỗi thật, em ghi nhận và chỉ rõ phần nào của kết luận vẫn được artifact hỗ trợ, không giải thích bằng cách đổi nghĩa chỉ số.
+
 ## Các con số cần nhớ
 
 | Nội dung | Kết quả trong báo cáo | Giới hạn cần nói kèm |
@@ -343,10 +473,13 @@ Dạ, em sẽ tách bộ dữ liệu điều chỉnh và kiểm thử độc l�
 | YOLO | Precision 0,875; Recall 0,760; mAP50 0,849; mAP50–95 0,685 | Chất lượng detector |
 | Backend / E2E | 102/102 ca; 5/5 hành trình | Các ca đã xây dựng |
 | Soak | 57.600/57.600 request trong hai giờ | Workload cụ thể; trung bình 8 request/giây |
+| Tải hỗn hợp Backend | 6.050/6.050 request; 19,999 request/giây; P95 182,79 ms | 10 worker, khoảng 301 giây, catalog–cart |
+| Tải Assistant | P95 2,776 giây; P99 9,704 giây | 72 request với hai worker; đuôi trễ vẫn còn |
+| Tương thích | Firefox/WebKit 8/8; NFR-06 đạt một phần | Chưa có đủ artifact Chrome/Edge hoặc Safari trên thiết bị thật |
 
 ## Cách luyện trả lời
 
-1. Học trước các câu có dấu ★, đặc biệt 1, 4, 5, 26, 29, 35, 43, 46, 51, 57, 60, 69, 73 và 77.
+1. Học trước các câu có dấu ★, đặc biệt 1, 4, 5, 26, 29, 35, 43, 46, 51, 57, 60, 69, 73, 77, 81, 90, 101, 104 và 108.
 2. Mỗi câu trả lời theo thứ tự: kết luận trực tiếp → cơ chế hoặc bằng chứng → giới hạn liên quan.
 3. Khi được hỏi số liệu, luôn nêu tập truy vấn và cấu hình. Phân biệt kết quả benchmark với smoke test triển khai.
 4. Nếu chưa đo: “Dạ, phần đó em chưa có thực nghiệm để kết luận. Hiện em đã kiểm tra …; để xác minh thêm cần …”.
@@ -376,5 +509,8 @@ Dạ, em sẽ tách bộ dữ liệu điều chỉnh và kiểm thử độc l�
 - `report-datn/Sections/08-KetLuanVaHuongPhatTrien.tex`: kết luận, hạn chế và hướng phát triển.
 - `evals/search_evaluation/text/semantic_challenge/reports/compare_keyword_vs_vector_v4_reduced_no_rerank.md`: so sánh BM25–vector.
 - `evals/search_evaluation/hybrid/reports/hybrid_ablation_five_way_gt_v4_20260911.md`: so sánh hybrid và bootstrap.
+- `presentation/Presentation.pptx`: các slide chính và phụ lục A1–A9, đặc biệt mục tiêu, API, lỗi đã sửa và kết quả hiệu năng.
+- `report-datn/HK253-DATN-071_2210352.pdf`: bản báo cáo PDF được chỉ định; nội dung được đối chiếu qua các tệp LaTeX của cùng báo cáo do công cụ trích xuất PDF tại môi trường này không hoạt động.
+- `service-ai/` và `service-api-ecommerce/`: mã nguồn, cấu hình và test để đối chiếu một số hành vi cụ thể như bộ lọc màu, URL ảnh, rate limit và xử lý lỗi.
 
 Một số tài liệu trung gian còn mô tả fusion, cấu hình memory dự kiến hoặc trạng thái baseline pending. Bộ câu hỏi ưu tiên bảng tổng hợp trong báo cáo và mô tả triển khai cụ thể, đồng thời nêu giới hạn. Trước ngày bảo vệ, kiểm tra slide/PDF được chốt có khớp các số liệu và cấu hình này. Không dùng các điểm AI pre-score hoặc đồng thuận reviewer chưa xác nhận để tuyên bố đã đánh giá độc lập.

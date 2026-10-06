@@ -142,11 +142,12 @@
 \newcommand{\sourceplaceholder}{\textcolor{red!70!black}{[Cần trích dẫn nguồn]}}
 
 
-% Tạo heading không đánh số, không đưa vào mục lục, không hiện số trang.
+% Tạo heading không đánh số, không đưa vào mục lục; kiểu trang hiện hành
+% quyết định việc hiển thị số trang.
 \newcommand{\frontmatterchapter}[1]{%
   \clearpage
   \section*{#1}
-  \thispagestyle{empty}
+  \thispagestyle{plain}
 }
 
 %========== Cấu hình siunitx ==========

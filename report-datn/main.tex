@@ -23,8 +23,8 @@
 \input{FrontMatter/cover}
 \input{FrontMatter/lists}
 
-% Đánh số bảng và hình theo chương (section cấp cao nhất của lớp article).
-% Phần đầu tài liệu được giữ nguyên cách đánh số hiện có.
+% Bảng và hình được đánh số theo chương (section cấp cao nhất của lớp article):
+% Bảng 2.1, Bảng 2.2, ...; sang chương mới bộ đếm bắt đầu lại từ 1.
 \counterwithin{table}{section}
 \counterwithin{figure}{section}
 \setcounter{table}{0}
@@ -43,7 +43,6 @@
 
 %========== Tài liệu tham khảo ==========
 \clearpage
-\pagenumbering{gobble}
 \phantomsection
 \printbibliography[heading=bibintoc,title={Tài liệu tham khảo}]
 

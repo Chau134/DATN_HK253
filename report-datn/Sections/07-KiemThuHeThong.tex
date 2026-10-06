@@ -275,36 +275,40 @@ Kiểm thử phi chức năng dùng cùng phiên bản và dữ liệu của ki�
 
 \subsubsection{Kiểm thử hiệu năng và độ ổn định}
 
-Backend được tải hỗn hợp trên catalog--giỏ hàng và soak checkout/payment; AI Service được tải đồng thời trên Text, Hybrid và Assistant. Runner tính P50/P95/P99, tỷ lệ lỗi và kiểm tra response, correlation ID, fallback; một lượt chỉ đạt khi P95 đúng ngưỡng, lỗi không quá 1\% và dữ liệu nghiệp vụ được bảo toàn.
+Backend được tải hỗn hợp trên catalog--giỏ hàng và soak checkout/payment; AI Service được tải đồng thời trên Text, Hybrid và Assistant. Runner tính P50/P95/P99, tỷ lệ lỗi và kiểm tra response, correlation ID, fallback; một lượt chỉ đạt khi P95 không vượt ngưỡng, lỗi không quá 1\% và dữ liệu nghiệp vụ được bảo toàn.
 
 \begin{breakabletable}
 \centering
 \caption{Kết quả kiểm thử hiệu năng và độ ổn định}
 \label{tab:nfr-performance-results}
 \small
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{0.96}
-\begin{tabularx}{\linewidth}{|>{\RaggedRight\arraybackslash}p{0.17\linewidth}|>{\RaggedRight\arraybackslash}p{0.22\linewidth}|>{\RaggedRight\arraybackslash}p{0.34\linewidth}|>{\RaggedRight\arraybackslash}X|}
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.02}
+\begin{tabularx}{\linewidth}{|>{\RaggedRight\arraybackslash}p{0.15\linewidth}|>{\RaggedRight\arraybackslash}p{0.20\linewidth}|>{\RaggedRight\arraybackslash}p{0.39\linewidth}|>{\RaggedRight\arraybackslash}X|}
 \hline
 \textbf{Bài kiểm thử} & \textbf{Cấu hình} & \textbf{Kết quả đo} & \textbf{Đánh giá} \\ \hline
-Tải hỗn hợp Backend & 10 worker; 301 giây; catalog và giỏ hàng & 6.050/6.050 request thành công; 19,999 request/giây; P95 182,79 ms; lỗi 0\% & Đạt ngưỡng API nghiệp vụ $\leq 3$ giây \\ \hline
-Soak checkout/payment & 8 worker; 2 giờ; năm thao tác checkout, COD, payment và order & 57.600/57.600 request thành công; P95 48,863 ms; lỗi 0\%; 120/120 mẫu health ở trạng thái \texttt{UP} & Đạt; không ghi nhận suy giảm theo thời gian \\ \hline
-Text Search & 2 worker trong bài tải AI & 72/72 request; P95 1,412 giây; lỗi 0\% & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
-Hybrid Search & 2 worker; Image-conditioned, usage ANY, rerank tắt & 3 vòng $\times$ 72 request; lỗi 0\%; P95 lớn nhất 0,516 giây & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
-Assistant & 2 worker trong bài tải AI & 72/72 request; P95 2,776 giây; lỗi 0\%; không fallback & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
+Tải hỗn hợp Backend & 10 worker; 301 giây; catalog và giỏ hàng & 6.050/6.050 request thành công; độ trễ $\mathrm{P95}=182{,}79\,\mathrm{ms}<3\,\mathrm{s}$; thông lượng 19,999 request/giây; lỗi 0\% & Đạt ngưỡng API nghiệp vụ $\leq 3$ giây \\ \hline
+Soak checkout/payment & 8 worker; 2 giờ; năm thao tác checkout, COD, payment và order & 57.600/57.600 request thành công; độ trễ $\mathrm{P95}=48{,}863\,\mathrm{ms}<3\,\mathrm{s}$; lỗi 0\%; 120/120 mẫu health ở trạng thái \texttt{UP} & Đạt; không ghi nhận suy giảm theo thời gian \\ \hline
+Text Search & 2 worker trong bài tải AI & 72/72 request thành công; độ trễ $\mathrm{P95}=1{,}412\,\mathrm{s}<5\,\mathrm{s}$; $\mathrm{Max}=1{,}903\,\mathrm{s}$; lỗi 0\% & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
+Hybrid Search & 2 worker; Image-conditioned, usage ANY, rerank tắt & 3 vòng $\times$ 72 request; $\mathrm{P95}_{\max}=0{,}516\,\mathrm{s}<5\,\mathrm{s}$; lỗi 0\% & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
+Assistant & 2 worker trong bài tải AI & 72/72 request thành công; độ trễ $\mathrm{P95}=2{,}776\,\mathrm{s}<5\,\mathrm{s}$; $\mathrm{P99}=9{,}704\,\mathrm{s}$; $\mathrm{Max}=9{,}751\,\mathrm{s}$; lỗi 0\%; không fallback & Đạt ngưỡng AI $\leq 5$ giây \\ \hline
 \end{tabularx}
 \end{breakabletable}
 
-Kết quả tại Bảng~\ref{tab:nfr-performance-results} đều đạt P95 và không ghi nhận
-lỗi. Hai bài tải Backend có P95 thấp hơn đáng kể so với ngưỡng 3 giây; riêng bài
-soak duy trì 57.600/57.600 request thành công trong hai giờ và không ghi nhận suy
-giảm theo thời gian, cho thấy các luồng giao dịch ổn định trong cấu hình thử
-nghiệm. Với nhóm AI, Hybrid Search có P95 thấp nhất, tiếp theo là Text Search và
-Assistant; cả ba vẫn nằm dưới ngưỡng 5 giây. Tuy nhiên, kết quả này chưa đủ để
-khẳng định khả năng chịu tải production vì bài tải AI chỉ dùng hai worker, thời
-gian chạy ngắn và được sinh từ một máy. Đặc biệt, Assistant có P99/cực đại
-9,704/9,751 giây, cho thấy vẫn tồn tại đuôi trễ cần được kiểm tra bằng bài tải dài,
-phân tán và có nhiều phiên hội thoại đồng thời hơn.
+Kết quả tại Bảng~\ref{tab:nfr-performance-results} đều đạt ngưỡng P95 và không ghi
+nhận lỗi. P95 là mức thời gian mà 95\% request không vượt quá, không phải tổng thời
+gian của toàn bộ request. Hai bài tải Backend thấp hơn rõ rệt so với ngưỡng 3 giây;
+riêng bài soak hoàn thành 57.600/57.600 request trong hai giờ mà không suy giảm theo
+thời gian. Với nhóm AI, Hybrid Search có P95 thấp nhất, tiếp theo là Text Search và
+Assistant; cả ba đều dưới ngưỡng 5 giây.
+
+Assistant vẫn có P99/cực đại 9,704/9,751 giây, cho thấy một số ít request bị chậm.
+Trong các công đoạn đã đo, Text Search và phân tích truy vấn có thời gian cực đại lần
+lượt là 3,737 và 2,752 giây. Toàn bộ workflow chỉ ghi nhận cực đại 5,815 giây, nên
+khoảng 3,936 giây còn lại có thể nằm ở thời gian chờ worker, đọc checkpoint hoặc xử
+lý HTTP. Do phép đo hiện tại chỉ dùng hai worker, chạy trong thời gian ngắn từ một
+máy và chưa có trace theo từng request, kết quả chưa đủ để khẳng định khả năng chịu
+tải production hay xác định chính xác nguyên nhân của các mẫu gần 10 giây.
 
 \subsubsection{Kiểm thử bảo mật, khả dụng và tính tin cậy}
 

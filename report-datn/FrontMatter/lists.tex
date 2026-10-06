@@ -3,11 +3,9 @@
 % Thứ tự phần đầu theo yêu cầu báo cáo
 %=========================
 
-% Các phần trước Danh mục từ viết tắt: không hiện số trang
+% Các trang chữ ký, cam đoan, cảm ơn, tóm tắt và mục lục không đánh số.
 \pagenumbering{gobble}
-% Phần đầu báo cáo không dùng header (logo/tên trường và tiêu đề trang).
-% Kiểu plain vẫn giữ số trang ở chân trang khi chuyển sang đánh số La Mã.
-\pagestyle{plain}
+\pagestyle{empty}
 
 
 \input{FrontMatter/advisor_signature}
@@ -20,37 +18,36 @@
 \tableofcontents
 \clearpage
 
-% Bắt đầu đánh số trang từ Danh mục từ viết tắt
+% Bắt đầu dãy số La Mã từ Danh mục từ viết tắt và hiển thị ở chân trang.
 \pagenumbering{roman}
 \setcounter{page}{1}
+\hypersetup{pageanchor=true}
+\pagestyle{plain}
 
-% Ghi các danh mục phần đầu vào mục lục nhưng không hiển thị số trang,
-% thống nhất với mục Tài liệu tham khảo.
-\makeatletter
+% Ghi các danh mục phần đầu vào mục lục kèm số trang La Mã.
 \newcommand{\addfrontmattertoc}[1]{%
-  \addtocontents{toc}{\protect\contentsline{section}{#1}{}{\@currentHref}}%
+  \addcontentsline{toc}{section}{#1}%
 }
-\makeatother
 
 \phantomsection
-\input{FrontMatter/abbreviations}
 \addfrontmattertoc{Danh mục từ viết tắt}
+\input{FrontMatter/abbreviations}
 \clearpage
 
 \phantomsection
-\listoffigures
 \addfrontmattertoc{Danh mục hình}
+\listoffigures
 \clearpage
 
 \phantomsection
-\listoftables
 \addfrontmattertoc{Danh mục bảng}
+\listoftables
 \clearpage
 
 % Bật nếu hội đồng yêu cầu danh mục mã nguồn.
 \phantomsection
-\lstlistoflistings
 \addfrontmattertoc{Danh mục mã nguồn}
+\lstlistoflistings
 \clearpage
 
 % Nội dung chính bắt đầu lại từ trang 1

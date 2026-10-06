@@ -16,27 +16,33 @@
     }%
 }
 
-\newcommand{\frontendpair}[6]{%
+\newcommand{\frontendpair}[8]{%
     \begin{figure}[H]
         \centering
+        \captionsetup{skip=3pt}
+        \captionsetup[subfigure]{font=footnotesize,skip=2pt}
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#1}{0.24\textheight}
+            \frontendimage{#1}{0.23\textheight}
             \caption{#2}
             \label{#3}
         \end{subfigure}\hfill
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#4}{0.24\textheight}
+            \frontendimage{#4}{0.23\textheight}
             \caption{#5}
             \label{#6}
         \end{subfigure}
+        \caption{#7}
+        \label{#8}
     \end{figure}%
 }
 
 \newcommand{\frontendtriple}[9]{%
     \begin{figure}[H]
         \centering
+        \captionsetup{skip=3pt}
+        \captionsetup[subfigure]{font=footnotesize,skip=2pt}
         \begin{subfigure}[t]{0.31\textwidth}
             \centering
             \frontendimage{#1}{0.18\textheight}
@@ -58,67 +64,98 @@
     \end{figure}%
 }
 
-\newcommand{\frontendtwoone}[9]{%
+\newcommand{\frontendtwoone}[2]{%
+    \def\frontendparentcaption{#1}%
+    \def\frontendparentlabel{#2}%
+    \frontendtwooneimages
+}
+
+% Mở rộng nội dung caption trước khi ghi vào tệp tham chiếu, tránh lưu tên
+% macro tạm vào \nameref và metadata của hình.
+\newcommand{\frontendparentcaptioncommand}{%
+    \begingroup
+    \edef\frontendcaptionexpanded{\endgroup
+        \noexpand\caption{\frontendparentcaption}}%
+    \frontendcaptionexpanded
+}
+
+\newcommand{\frontendtwooneimages}[9]{%
     \begin{figure}[H]
         \centering
+        \captionsetup{skip=3pt}
+        \captionsetup[subfigure]{font=footnotesize,skip=2pt}
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#1}{0.22\textheight}
+            \frontendimage{#1}{0.21\textheight}
             \caption{#2}
             \label{#3}
         \end{subfigure}\hfill
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#4}{0.22\textheight}
+            \frontendimage{#4}{0.21\textheight}
             \caption{#5}
             \label{#6}
         \end{subfigure}
 
-        \par\medskip
+        \par\vspace{2pt}
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#7}{0.22\textheight}
+            \frontendimage{#7}{0.21\textheight}
             \caption{#8}
             \label{#9}
         \end{subfigure}
+        \frontendparentcaptioncommand
+        \label{\frontendparentlabel}
     \end{figure}%
 }
 
-\newcommand{\frontendonetwo}[9]{%
+\newcommand{\frontendonetwo}[2]{%
+    \def\frontendparentcaption{#1}%
+    \def\frontendparentlabel{#2}%
+    \frontendonetwoimages
+}
+
+\newcommand{\frontendonetwoimages}[9]{%
     \begin{figure}[H]
         \centering
+        \captionsetup{skip=3pt}
+        \captionsetup[subfigure]{font=footnotesize,skip=2pt}
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#1}{0.22\textheight}
+            \frontendimage{#1}{0.21\textheight}
             \caption{#2}
             \label{#3}
         \end{subfigure}
 
-        \par\medskip
+        \par\vspace{2pt}
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#4}{0.22\textheight}
+            \frontendimage{#4}{0.21\textheight}
             \caption{#5}
             \label{#6}
         \end{subfigure}\hfill
         \begin{subfigure}[t]{0.48\textwidth}
             \centering
-            \frontendimage{#7}{0.22\textheight}
+            \frontendimage{#7}{0.21\textheight}
             \caption{#8}
             \label{#9}
         \end{subfigure}
+        \frontendparentcaptioncommand
+        \label{\frontendparentlabel}
     \end{figure}%
 }
 
-\newcommand{\frontendsingle}[3]{%
+\newcommand{\frontendsingle}[5]{%
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[t]{0.62\textwidth}
+        \captionsetup{skip=3pt}
+        \begin{minipage}[t]{0.62\textwidth}
             \centering
-            \frontendimage{#1}{0.25\textheight}
-            \caption{#2}
-            \label{#3}
-        \end{subfigure}
+            \frontendimage{#1}{0.23\textheight}
+        \end{minipage}
+        \caption{#4}
+        \label{#3}
+        \label{#5}
     \end{figure}%
 }
 
@@ -131,14 +168,16 @@ quản trị sử dụng tuyến riêng, còn các chức năng khám phá sản
 đặt trong các tuyến công khai hoặc yêu cầu đăng nhập tùy theo nghiệp vụ.
 Ánh xạ giữa nhóm giao diện, tuyến và chức năng được tổng hợp trong
 Bảng~\ref{tab:frontend-interface-map}.
+Các nhóm giao diện tiêu biểu được minh họa lần lượt từ
+Hình~\ref{fig:frontend-home-category} đến Hình~\ref{fig:frontend-admin-blogs-group}.
 
-\begin{table}[H]
+\begin{breakabletable}
     \centering
     \caption{Ánh xạ các nhóm giao diện Frontend với chức năng chính}
     \label{tab:frontend-interface-map}
     \small
     \renewcommand{\arraystretch}{0.95}
-    \begin{tabular}{|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.21\textwidth}|>{\RaggedRight\arraybackslash}p{\dimexpr0.59\textwidth-6\tabcolsep-4\arrayrulewidth\relax}|}
+    \begin{tabularx}{\linewidth}{|>{\RaggedRight\arraybackslash}p{0.20\textwidth}|>{\RaggedRight\arraybackslash}p{0.21\textwidth}|>{\RaggedRight\arraybackslash}X|}
         \hline
         \textbf{Nhóm giao diện} & \textbf{Tuyến tiêu biểu} & \textbf{Chức năng hiện thực} \\
         \hline
@@ -154,124 +193,125 @@ Bảng~\ref{tab:frontend-interface-map}.
         \hline
         Quản trị & \texttt{/admin} & Quản lý sản phẩm, khách hàng, đơn hàng, khuyến mãi, coupon và bài viết. \\
         \hline
-    \end{tabular}
-\end{table}
+    \end{tabularx}
+\end{breakabletable}
 
 \subsubsection{Giao diện dành cho khách hàng}
 
 \paragraph{Trang chủ và danh mục sản phẩm.}
 
-Trang chủ là điểm bắt đầu của hành trình mua sắm, kết hợp thanh điều hướng, ô tìm kiếm, banner,
+Hình~\ref{fig:frontend-home-category} minh họa điểm bắt đầu của hành trình mua sắm, kết hợp thanh điều hướng, ô tìm kiếm, banner,
 danh mục và các sản phẩm nổi bật. Từ trang chủ, người dùng có thể chuyển đến danh mục hoặc nhập
 truy vấn để tìm sản phẩm. Trang danh mục hiển thị danh sách theo nhóm, hỗ trợ lọc theo thuộc tính,
 sắp xếp và phân trang; các thao tác này được giữ trong cùng một luồng để người dùng không mất ngữ
 cảnh duyệt sản phẩm.
-
 \frontendpair
 {Images/Frontend/giao diện trang chủ của hệ thống.png}{Trang chủ của hệ thống}{fig:frontend-home}
 {Images/Frontend/giao diện danh mục, tìm kiếm và lọc sản phẩm.png}{Danh mục, tìm kiếm và lọc sản phẩm}{fig:frontend-category}
+{Giao diện trang chủ và danh mục sản phẩm}{fig:frontend-home-category}
 
 \paragraph{Chi tiết sản phẩm và hỗ trợ lựa chọn.}
 
-Trang chi tiết tập trung các thông tin cần thiết trước khi mua gồm hình ảnh, tên, giá, biến thể,
+Như thể hiện tại Hình~\ref{fig:frontend-product-selection}, trang chi tiết tập trung các thông tin cần thiết trước khi mua gồm hình ảnh, tên, giá, biến thể,
 tồn kho, mô tả và đánh giá. Người dùng có thể chọn biến thể, theo dõi trạng thái còn hàng, thêm sản
 phẩm vào giỏ hoặc chuyển sang danh sách yêu thích. Chức năng xem nhanh và so sánh giúp đối chiếu
 nhiều lựa chọn mà không phải rời khỏi ngữ cảnh danh mục.
-
 \frontendpair
 {Images/Frontend/giao diện chi tiết sản phẩm.png}{Chi tiết sản phẩm}{fig:frontend-product-detail}
 {Images/Frontend/giao diện trang sản phẩm yêu thích.png}{Danh sách sản phẩm yêu thích}{fig:frontend-wishlist}
+{Giao diện chi tiết sản phẩm và danh sách yêu thích}{fig:frontend-product-selection}
 
 \paragraph{Tìm kiếm và tư vấn sản phẩm bằng AI.}
 
-Chatbot nổi hỗ trợ đặt câu hỏi nhanh trong quá trình duyệt, còn trang trợ lý chuyên biệt cung cấp
+Hình~\ref{fig:frontend-ai-assistant} cho thấy chatbot nổi hỗ trợ đặt câu hỏi nhanh trong quá trình duyệt, còn trang trợ lý chuyên biệt cung cấp
 không gian cho hội thoại nhiều lượt. Người dùng có thể gửi câu hỏi bằng văn bản hoặc ảnh tham chiếu;
 Frontend hiển thị trạng thái gửi, đang xử lý, kết quả và cảnh báo khi dịch vụ AI không sẵn sàng.
 Các sản phẩm được đề xuất nằm trong ngữ cảnh câu trả lời, cho phép mở trang chi tiết và tiếp tục
 mua sắm. Giá và tồn kho hiển thị trên giao diện vẫn được lấy lại từ Backend.
-
 \frontendpair
 {Images/Frontend/giao diện chatbot.png}{Chatbot hỗ trợ mua sắm}{fig:frontend-chatbot}
 {Images/Frontend/giao diện trợ lý mua sắm đa phương tiện.png}{Trợ lý mua sắm đa phương thức}{fig:frontend-ai-consulting}
+{Giao diện chatbot và trợ lý mua sắm đa phương thức}{fig:frontend-ai-assistant}
 
 \paragraph{Giỏ hàng và thanh toán.}
 
-Giỏ hàng cho phép cập nhật số lượng, xóa mặt hàng và kiểm tra tổng tiền trước khi checkout. Tại
+Luồng tại Hình~\ref{fig:frontend-cart-checkout} cho phép cập nhật giỏ hàng và kiểm tra tổng tiền trước khi checkout. Tại
 màn hình thanh toán, người dùng nhập thông tin nhận hàng, áp dụng mã giảm giá hợp lệ và kiểm tra
 lại danh sách sản phẩm trước khi xác nhận. Sau khi Backend ghi nhận đơn COD thành công, giao diện
-hiển thị kết quả và cung cấp đường dẫn đến lịch sử đơn hàng.
-
+hiển thị kết quả và cung cấp đường dẫn đến lịch sử đơn hàng như Hình~\ref{fig:frontend-order-result-history}.
 \frontendpair
 {Images/Frontend/giao diện quản lý giỏ hàng.png}{Quản lý giỏ hàng}{fig:frontend-cart}
 {Images/Frontend/giao diện thanh toán.png}{Checkout và lựa chọn phương thức thanh toán}{fig:frontend-checkout}
+{Giao diện quản lý giỏ hàng và thanh toán}{fig:frontend-cart-checkout}
 
 \frontendpair
 {Images/Frontend/giao diện đặt hàng thành công.png}{Xác nhận đặt hàng thành công}{fig:frontend-order-success}
 {Images/Frontend/giao diện lịch sử đơn hàng.png}{Lịch sử và trạng thái đơn hàng}{fig:frontend-order-history}
+{Giao diện xác nhận và theo dõi đơn hàng}{fig:frontend-order-result-history}
 
 \paragraph{Đăng nhập, đăng ký và quản lý tài khoản.}
 
-Giao diện đăng nhập cho phép khách hàng truy cập các chức năng cá nhân hóa; giao diện đăng ký kiểm
+Các màn hình trong Hình~\ref{fig:frontend-auth-account} cho phép khách hàng đăng nhập để truy cập chức năng cá nhân hóa và đăng ký tài khoản mới. Biểu mẫu kiểm
 tra dữ liệu đầu vào trước khi tạo tài khoản. Sau khi đăng nhập, người dùng có thể cập nhật thông tin
 cá nhân, quản lý địa chỉ và tiếp tục các thao tác mua sắm theo quyền được cấp. Các trạng thái tải,
 lỗi xác thực và lỗi kết nối được hiển thị ngay tại biểu mẫu để người dùng biết cách xử lý.
-
-\frontendtwoone
+\frontendtwoone{Giao diện xác thực và quản lý tài khoản}{fig:frontend-auth-account}
 {Images/Frontend/giao diện đăng nhập.png}{Đăng nhập hệ thống}{fig:frontend-login}
 {Images/Frontend/giao diện đăng ký.png}{Đăng ký tài khoản}{fig:frontend-register}
 {Images/Frontend/giao diện tài khoản.png}{Quản lý thông tin tài khoản}{fig:frontend-account}
 
 \subsubsection{Giao diện dành cho quản trị viên}
 
-Khu vực quản trị sử dụng bố cục riêng và chỉ cho phép tài khoản có vai trò phù hợp truy cập. Thanh
+Các giao diện từ Hình~\ref{fig:frontend-admin-overview-data} đến Hình~\ref{fig:frontend-admin-blogs-group}
+sử dụng bố cục quản trị riêng và chỉ cho phép tài khoản có vai trò phù hợp truy cập. Thanh
 điều hướng bên giúp chuyển giữa các nhóm nghiệp vụ; các màn hình danh sách dùng bảng, bộ lọc và
 phân trang, trong khi thao tác tạo, sửa hoặc chuyển trạng thái được thực hiện qua biểu mẫu và hộp
 thoại xác nhận.
 
 \paragraph{Tổng quan quản trị và quản lý dữ liệu.}
 
-Trang tổng quan cung cấp các chỉ số vận hành để quản trị viên nắm nhanh tình trạng sản phẩm, người
+Hình~\ref{fig:frontend-admin-overview-data} trình bày trang tổng quan cùng các màn hình dữ liệu để quản trị viên nắm nhanh tình trạng sản phẩm, người
 dùng và đơn hàng. Màn hình quản lý sản phẩm hỗ trợ theo dõi catalog và cập nhật thông tin hàng hóa;
 màn hình quản lý người dùng phục vụ kiểm soát tài khoản, vai trò và trạng thái hoạt động.
-
-\frontendonetwo
+\frontendonetwo{Giao diện tổng quan và quản lý dữ liệu}{fig:frontend-admin-overview-data}
 {Images/Frontend/giao diện tổng quan dành cho quản trị viên.png}{Tổng quan dành cho quản trị viên}{fig:frontend-admin-dashboard}
 {Images/Frontend/giao diện quản lý sản phẩm.png}{Quản lý sản phẩm}{fig:frontend-admin-products}
 {Images/Frontend/giao diện quản lý người dùng.png}{Quản lý người dùng}{fig:frontend-admin-users}
 
 \paragraph{Quản lý đơn hàng.}
 
-Màn hình đơn hàng cho phép tìm kiếm, xem chi tiết và chuyển trạng thái theo vòng đời đã thiết kế.
+Hình~\ref{fig:frontend-admin-orders-group} minh họa màn hình tìm kiếm, xem chi tiết và chuyển trạng thái đơn hàng theo vòng đời đã thiết kế.
 Thông tin khách hàng, mặt hàng, tổng tiền và lịch sử xử lý được trình bày cùng ngữ cảnh để hạn chế
 thao tác nhầm. Việc thay đổi trạng thái được gửi đến Backend, nơi tiếp tục kiểm tra quyền và điều
 kiện nghiệp vụ trước khi lưu.
-
 \frontendsingle
 {Images/Frontend/giao diện quản lý đơn hàng.png}{Quản lý đơn hàng}{fig:frontend-admin-orders}
+{Giao diện quản lý đơn hàng}{fig:frontend-admin-orders-group}
 
 \paragraph{Quản lý khuyến mãi và mã giảm giá.}
 
-Màn hình khuyến mãi dùng để cấu hình chính sách giảm tự động theo thời gian hiệu lực và phạm vi áp
+Hai màn hình tại Hình~\ref{fig:frontend-admin-promotions-coupons} dùng để cấu hình khuyến mãi và mã giảm giá theo thời gian hiệu lực và phạm vi áp
 dụng. Mã giảm giá được quản lý riêng vì có vòng đời, điều kiện sử dụng và cách nhập khác với chương
 trình khuyến mãi. Việc tách hai màn hình giúp quản trị viên kiểm soát các chương trình đang hoạt động
 và giảm nhầm lẫn khi nhiều chính sách được áp dụng đồng thời.
-
 \frontendpair
 {Images/Frontend/giao diện quản lý khuyến mãi.png}{Quản lý chương trình khuyến mãi}{fig:frontend-admin-promotions}
 {Images/Frontend/giao diện quản lý mã giảm giá.png}{Quản lý mã giảm giá}{fig:frontend-admin-coupons}
+{Giao diện quản lý khuyến mãi và mã giảm giá}{fig:frontend-admin-promotions-coupons}
 
 \paragraph{Quản lý bài viết.}
 
-Giao diện bài viết hỗ trợ quản trị nội dung giới thiệu, hướng dẫn và tin tức của cửa hàng. Nội dung
+Giao diện tại Hình~\ref{fig:frontend-admin-blogs-group} hỗ trợ quản trị nội dung giới thiệu, hướng dẫn và tin tức của cửa hàng. Nội dung
 được tách khỏi catalog để vòng đời biên tập không phụ thuộc vào thao tác cập nhật sản phẩm; biểu mẫu
 cho phép tạo, sửa, xem trước và thay đổi trạng thái hiển thị theo quyền quản trị.
-
 \frontendsingle
 {Images/Frontend/giao diện quản lý bài viết.png}{Quản lý bài viết}{fig:frontend-admin-blogs}
+{Giao diện quản lý bài viết}{fig:frontend-admin-blogs-group}
 
 \paragraph{Nguyên tắc phản hồi và khả năng sử dụng.}
 
-Các giao diện thống nhất về phản hồi thao tác, trạng thái đang tải, trạng thái rỗng và thông báo lỗi.
+Các giao diện minh họa từ Hình~\ref{fig:frontend-home-category} đến Hình~\ref{fig:frontend-admin-blogs-group}
+thống nhất về phản hồi thao tác, trạng thái đang tải, trạng thái rỗng và thông báo lỗi.
 Nút gửi được khóa trong thời gian xử lý để hạn chế request trùng; danh sách dài sử dụng phân trang
 hoặc bộ lọc; thao tác ảnh hưởng đến đơn hàng và dữ liệu quản trị cần bước xác nhận. Việc tổ chức theo
 component và kiểm tra trên nhiều kích thước màn hình giúp các biểu mẫu, bảng và hộp thoại vẫn dễ sử dụng.

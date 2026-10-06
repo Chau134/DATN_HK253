@@ -7,6 +7,7 @@ import Footer from '../../Layouts/Footer/Footer';
 import Banner from '../Layouts/Banner/Banner';
 import { aiApi, formatAiWarnings, getApiError } from '../../api/aiApi';
 import { cropBoxesOf, imagePayloadFromFile, imageWithDetections } from '../../utils/aiImage';
+import { readAiConsultingSession, writeAiConsultingSession } from '../../utils/aiConsultingSession';
 import ProductCard from '../../components/ProductCard';
 import styles from './AiConsulting.module.scss';
 
@@ -20,16 +21,27 @@ function StatusMessage({ error, message }) {
 function AiConsulting() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [textQuery, setTextQuery] = useState('');
-    const [imageOnly, setImageOnly] = useState(null);
-    const [hybridQuery, setHybridQuery] = useState('');
-    const [hybridImage, setHybridImage] = useState(null);
-    const [searchResult, setSearchResult] = useState(null);
+    const [textQuery, setTextQuery] = useState(() => readAiConsultingSession().textQuery);
+    const [imageOnly, setImageOnly] = useState(() => readAiConsultingSession().imageOnly);
+    const [hybridQuery, setHybridQuery] = useState(() => readAiConsultingSession().hybridQuery);
+    const [hybridImage, setHybridImage] = useState(() => readAiConsultingSession().hybridImage);
+    const [searchResult, setSearchResult] = useState(() => readAiConsultingSession().searchResult);
     const [loading, setLoading] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(() => readAiConsultingSession().error);
 
     const products = searchResult?.products || [];
     const warnings = searchResult?.warnings || [];
+
+    useEffect(() => {
+        writeAiConsultingSession({
+            textQuery,
+            imageOnly,
+            hybridQuery,
+            hybridImage,
+            searchResult,
+            error,
+        });
+    }, [error, hybridImage, hybridQuery, imageOnly, searchResult, textQuery]);
 
     const runRequest = async (type, action) => {
         setLoading(type);
