@@ -59,6 +59,8 @@ service-ai/backups/
 !database/*.sql
 
 # LaTeX build artifacts
+report-datn/main.pdf
+report-datn/latexmkrc - Copy
 *.aux
 *.bbl
 *.bbl-SAVE-ERROR
